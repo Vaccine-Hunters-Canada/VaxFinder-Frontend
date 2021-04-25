@@ -29,13 +29,6 @@ function App() {
     />
   );
 
-  // const topBarTheme = (
-  //   <TopBar.theme
-
-  //     accessibilityLabel = "Dev Degree Store"
-  //   />
-  // );
-
   const topBarMarkup = (
     <TopBar
       //theme={topBarTheme}
