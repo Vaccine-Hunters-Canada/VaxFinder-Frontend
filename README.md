@@ -1,4 +1,5 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## The Project
+In the current sprint, the goal is to make a front end which allows pharmacists and approved individuals to make updates on the website on vaccine availability at pharmacies. A user will be able to see all pharmacies with availability, but not change availability status. 
 
 ## Available Scripts
 

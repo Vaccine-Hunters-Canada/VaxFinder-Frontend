@@ -3,13 +3,6 @@ import "@shopify/polaris/styles.css";
 import { Frame, TopBar, Navigation } from "@shopify/polaris";
 import {
   HomeMajorMonotone,
-  OrdersMajorMonotone,
-  ProductsMajorMonotone,
-  AnalyticsMajorMonotone,
-  MarketingMajorMonotone,
-  DiscountsMajorMonotone,
-  AppsMajorMonotone,
-  OnlineStoreMajorMonotone
 } from "@shopify/polaris-icons";
 import Home from "./components/Home";
 
@@ -28,6 +21,7 @@ function App() {
       showFocusBorder
     />
   );
+
 
   const topBarMarkup = (
     <TopBar

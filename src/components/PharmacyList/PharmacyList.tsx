@@ -12,7 +12,7 @@ interface Pharmacy{
     lastUpdated:string
 }
 
-export function OttawaList(){
+export function PharmacyList(){
     const pharmacyList:Pharmacy[] = [{
         id:'1',
         pharmacyName:'Stittsville IDA',

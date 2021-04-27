@@ -1,1 +1,0 @@
-export {OttawaList} from './OttawaList';

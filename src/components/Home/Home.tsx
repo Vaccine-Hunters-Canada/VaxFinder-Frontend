@@ -4,7 +4,7 @@ import {
   CircleTickMajorMonotone,
   MobileCancelMajorMonotone
 } from '@shopify/polaris-icons';
-import {OttawaList} from '../OttawaList';
+import {PharmacyList} from '../PharmacyList';
 
 function Home() {
   return (
@@ -16,7 +16,7 @@ function Home() {
         </TextStyle>
         <br />
         <br />
-        <OttawaList /> 
+        <PharmacyList /> 
         {/* <Card title = "Stittsville IDA" sectioned
         primaryFooterAction={{content:"Report Availability"}}
         secondaryFooterActions={[
