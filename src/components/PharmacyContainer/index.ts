@@ -1,1 +1,1 @@
-export {PharmacyContainer} from './PharmacyContainer';
+export { PharmacyContainer } from "./PharmacyContainer";

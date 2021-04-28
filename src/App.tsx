@@ -1,31 +1,36 @@
 import React, { useCallback, useState } from "react";
 import "@shopify/polaris/styles.css";
 import { Frame, TopBar, Navigation } from "@shopify/polaris";
-import {
-  HomeMajorMonotone,
-} from "@shopify/polaris-icons";
-import Home from "./components/Home";
+import { HomeMajor } from "@shopify/polaris-icons";
+import { Home } from "./components/Home";
 
-function App() {
+export function App() {
   const [menuState, setMenuState] = useState("home");
   const setPageMarkup = useCallback((value) => setMenuState(value), []);
 
   const userMenuMarkup = (
-    <TopBar.UserMenu initials="EH" />
+    <TopBar.UserMenu
+      initials="EH"
+      actions={[]}
+      name=""
+      onToggle={() => undefined}
+      open={false}
+    />
   );
 
   const searchFieldMarkup = (
     <TopBar.SearchField
       placeholder="Search"
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
       onChange={() => {}}
       showFocusBorder
+      value=""
     />
   );
 
-
   const topBarMarkup = (
     <TopBar
-      //theme={topBarTheme}
+      // theme={topBarTheme}
       showNavigationToggle
       userMenu={userMenuMarkup}
       searchField={searchFieldMarkup}
@@ -39,19 +44,19 @@ function App() {
         items={[
           {
             label: "Home",
-            icon: HomeMajorMonotone,
-            onClick: () => setPageMarkup("home")
+            icon: HomeMajor,
+            onClick: () => setPageMarkup("home"),
           },
           {
             label: "Ottawa",
-            
-            onClick: () => setPageMarkup("home")
+
+            onClick: () => setPageMarkup("home"),
           },
           {
             label: "Toronto",
-           
-            onClick: () => setPageMarkup("home")
-          }
+
+            onClick: () => setPageMarkup("home"),
+          },
         ]}
       />
     </Navigation>
@@ -70,5 +75,3 @@ function App() {
     </Frame>
   );
 }
-
-export default App;
