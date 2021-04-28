@@ -1,23 +1,19 @@
-import { Layout, Page, TextStyle, Card, Icon, Stack } from "@shopify/polaris";
+import { Layout, Page, TextStyle } from "@shopify/polaris";
 import React from "react";
-import {
-  CircleTickMajorMonotone,
-  MobileCancelMajorMonotone
-} from '@shopify/polaris-icons';
-import {PharmacyList} from '../PharmacyList';
+import { PharmacyList } from "../PharmacyList";
 
-function Home() {
+export function Home() {
   return (
-  <Layout>
-    <Layout.Section>
-      <Page>
-        <TextStyle variation="subdued">
-          Here's what's happening with vaccinations in Ottawa
-        </TextStyle>
-        <br />
-        <br />
-        <PharmacyList /> 
-        {/* <Card title = "Stittsville IDA" sectioned
+    <Layout>
+      <Layout.Section>
+        <Page>
+          <TextStyle variation="subdued">
+            Here`&apos;`s what`&apos;`s happening with vaccinations in Ottawa
+          </TextStyle>
+          <br />
+          <br />
+          <PharmacyList />
+          {/* <Card title = "Stittsville IDA" sectioned
         primaryFooterAction={{content:"Report Availability"}}
         secondaryFooterActions={[
           {content: "Report No Availability"}
@@ -77,10 +73,8 @@ function Home() {
           </Card.Section>
           
         </Card> */}
-      </Page>
-    </Layout.Section>
-  </Layout>
+        </Page>
+      </Layout.Section>
+    </Layout>
   );
 }
-
-export default Home;
