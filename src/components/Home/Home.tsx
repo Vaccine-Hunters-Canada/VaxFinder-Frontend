@@ -8,7 +8,7 @@ export function Home() {
       <Layout.Section>
         <Page>
           <TextStyle variation="subdued">
-            Here`&apos;`s what`&apos;`s happening with vaccinations in Ottawa
+            Here&apos;s what&apos;s happening with vaccinations in Ottawa
           </TextStyle>
           <br />
           <br />
