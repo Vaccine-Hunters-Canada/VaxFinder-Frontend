@@ -75,6 +75,7 @@ export function PharmacyContainer({ pharmacy }: PharmacyProps) {
           </Card.Subsection>
         </Card.Section>
       </Card>
+      <br />
     </section>
   );
 }
