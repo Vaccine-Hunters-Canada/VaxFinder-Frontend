@@ -38,6 +38,14 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
+### `yarn lint`
+
+Scans the codebase for linting violations.
+
+### `yarn lint:fix`
+
+Attempts to resolve certain linting violations where possible.
+
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
@@ -67,3 +75,9 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `yarn build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+### ESLint
+
+This codebase uses ESLint to ensure code consistency, proper formatting and quality. Most major IDEs include an ESLint extension that will draw attention to linting issues. There are also usually settings in IDEs to fix linting issues automatically. For example, in VS Code, these settings are `Format on Save` and `Format on Paste`.
+
+If an extension is not available to you, runnning `yarn lint` will scan the codebase for linting violations.
