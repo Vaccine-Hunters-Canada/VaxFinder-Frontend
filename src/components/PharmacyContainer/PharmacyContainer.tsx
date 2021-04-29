@@ -7,7 +7,7 @@ import {
   Banner,
   TextContainer,
 } from "@shopify/polaris";
-import { CircleTickMajor, MobileCancelMajor } from "@shopify/polaris-icons";
+import { MobileAcceptMajor, CircleDisabledMajor } from "@shopify/polaris-icons";
 
 interface PharmacyProps {
   pharmacy: {
@@ -56,6 +56,7 @@ export function PharmacyContainer({ pharmacy }: PharmacyProps) {
         sectioned
         primaryFooterAction={{
           content: "Report Availability",
+          icon: MobileAcceptMajor,
           onAction: () => {
             updatePharmacy(true);
           },
@@ -63,6 +64,7 @@ export function PharmacyContainer({ pharmacy }: PharmacyProps) {
         secondaryFooterActions={[
           {
             content: "Report No Availability",
+            icon: CircleDisabledMajor,
             onAction: () => {
               updatePharmacy(false);
             },
