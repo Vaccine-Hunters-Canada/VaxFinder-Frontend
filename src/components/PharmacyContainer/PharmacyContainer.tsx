@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { Card, Stack, Icon, Link } from "@shopify/polaris";
+import {
+  Card,
+  Stack,
+  Icon,
+  Link,
+  Banner,
+  TextContainer,
+} from "@shopify/polaris";
 import { CircleTickMajor, MobileCancelMajor } from "@shopify/polaris-icons";
 
 interface PharmacyProps {
@@ -27,21 +34,19 @@ export function PharmacyContainer({ pharmacy }: PharmacyProps) {
   const availabilityMarkup = () => {
     if (booking) {
       return (
-        <Stack>
-          <Icon source={CircleTickMajor} color="green" />
+        <Banner status="success">
           <p>
             <strong>Appointments available</strong> as of {lastUpdated}
           </p>
-        </Stack>
+        </Banner>
       );
     }
     return (
-      <Stack>
-        <Icon source={MobileCancelMajor} color="red" />
+      <Banner status="critical">
         <p>
           <strong>Appointments not available</strong> as of {lastUpdated}
         </p>
-      </Stack>
+      </Banner>
     );
   };
   return (
@@ -64,16 +69,18 @@ export function PharmacyContainer({ pharmacy }: PharmacyProps) {
           },
         ]}
       >
-        <Card.Section>{availabilityMarkup()}</Card.Section>
-        <Card.Section title="Store Info">
-          <Card.Subsection>{pharmacy.address}</Card.Subsection>
-          <Card.Subsection>
-            {pharmacy.phone}
-            <br />
-            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-            <Link url={pharmacy.website}>{pharmacy.website}</Link>
-          </Card.Subsection>
-        </Card.Section>
+        <TextContainer>
+          <Card.Section fullWidth>{availabilityMarkup()}</Card.Section>
+          <Card.Section title="Store Info">
+            <Card.Subsection>{pharmacy.address}</Card.Subsection>
+            <Card.Subsection>
+              {pharmacy.phone}
+              <br />
+              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+              <Link url={pharmacy.website}>{pharmacy.website}</Link>
+            </Card.Subsection>
+          </Card.Section>
+        </TextContainer>
       </Card>
       <br />
     </section>
