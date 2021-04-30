@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-  Card,
-  Stack,
-  Icon,
-  Link,
-  Banner,
-  TextContainer,
-} from "@shopify/polaris";
+import { Card, Link, Banner, TextContainer } from "@shopify/polaris";
 import { MobileAcceptMajor, CircleDisabledMajor } from "@shopify/polaris-icons";
 
 interface PharmacyProps {

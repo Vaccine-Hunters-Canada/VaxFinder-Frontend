@@ -1,4 +1,4 @@
-import { Card, Layout, Page, TextStyle, Banner } from "@shopify/polaris";
+import { Layout, Page, TextStyle, Banner } from "@shopify/polaris";
 import React, { useState } from "react";
 import { PharmacyList } from "../PharmacyList";
 import { TwitterTimelineEmbed } from "react-twitter-embed";
