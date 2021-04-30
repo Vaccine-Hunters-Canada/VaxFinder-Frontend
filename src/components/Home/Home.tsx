@@ -11,7 +11,11 @@ export function Home() {
   };
   const dismissableBannerMarkup = showBanner ? (
     <>
-      <Banner title="Eligibility:" onDismiss={handleBannerDismiss}>
+      <Banner
+        title="Eligibility:"
+        onDismiss={handleBannerDismiss}
+        status="info"
+      >
         <ul>
           <li>
             You are <strong>40+ years</strong> old

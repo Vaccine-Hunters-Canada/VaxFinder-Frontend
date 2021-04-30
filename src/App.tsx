@@ -34,8 +34,8 @@ export function App() {
     <TopBar
       // theme={topBarTheme}
       showNavigationToggle
-      userMenu={userMenuMarkup}
-      searchField={searchFieldMarkup}
+      // userMenu={userMenuMarkup}
+      // searchField={searchFieldMarkup}
     />
   );
 
@@ -49,16 +49,16 @@ export function App() {
             icon: HomeMajor,
             onClick: () => setPageMarkup("home"),
           },
-          {
-            label: "Ottawa",
+          // {
+          //   label: "Ottawa",
 
-            onClick: () => setPageMarkup("home"),
-          },
-          {
-            label: "Toronto",
+          //   onClick: () => setPageMarkup("home"),
+          // },
+          // {
+          //   label: "Toronto",
 
-            onClick: () => setPageMarkup("home"),
-          },
+          //   onClick: () => setPageMarkup("home"),
+          // },
         ]}
       />
     </Navigation>
