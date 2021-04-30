@@ -1,11 +1,6 @@
 import React, { useCallback, useState } from "react";
 import "@shopify/polaris/styles.css";
-import {
-  Frame,
-  TopBar,
-  Navigation,
-  AppProvider,
-} from "@shopify/polaris";
+import { Frame, TopBar, Navigation, AppProvider } from "@shopify/polaris";
 import { HomeMajor } from "@shopify/polaris-icons";
 import { Home } from "./components/Home";
 import { theme } from "./theme";
@@ -13,10 +8,7 @@ import enTranslations from "@shopify/polaris/locales/en.json";
 
 export function App() {
   const [menuState, setMenuState] = useState("home");
-  const setPageMarkup = useCallback(
-    (value) => setMenuState(value),
-    [],
-  );
+  const setPageMarkup = useCallback((value) => setMenuState(value), []);
 
   const userMenuMarkup = (
     <TopBar.UserMenu
