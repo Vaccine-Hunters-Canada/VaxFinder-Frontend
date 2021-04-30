@@ -13,11 +13,11 @@ jobs:
         with:
           node-version: '14.x'
 
-      - name: Lint
-        run: yarn lint
-
       - name: Install
         run: yarn install
+
+      - name: Lint
+        run: yarn lint
 
       - name: Build
         run: yarn build
