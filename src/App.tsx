@@ -10,6 +10,7 @@ export function App() {
   const [menuState, setMenuState] = useState("home");
   const setPageMarkup = useCallback((value) => setMenuState(value), []);
 
+  /*
   const userMenuMarkup = (
     <TopBar.UserMenu
       initials="EH"
@@ -29,13 +30,13 @@ export function App() {
       value=""
     />
   );
-
+  */
   const topBarMarkup = (
     <TopBar
       // theme={topBarTheme}
       showNavigationToggle
-      userMenu={userMenuMarkup}
-      searchField={searchFieldMarkup}
+      // userMenu={userMenuMarkup}
+      // searchField={searchFieldMarkup}
     />
   );
 
@@ -49,16 +50,16 @@ export function App() {
             icon: HomeMajor,
             onClick: () => setPageMarkup("home"),
           },
-          {
-            label: "Ottawa",
+          // {
+          //   label: "Ottawa",
 
-            onClick: () => setPageMarkup("home"),
-          },
-          {
-            label: "Toronto",
+          //   onClick: () => setPageMarkup("home"),
+          // },
+          // {
+          //   label: "Toronto",
 
-            onClick: () => setPageMarkup("home"),
-          },
+          //   onClick: () => setPageMarkup("home"),
+          // },
         ]}
       />
     </Navigation>
