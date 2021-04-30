@@ -1,8 +1,10 @@
 import React, { useCallback, useState } from "react";
 import "@shopify/polaris/styles.css";
-import { Frame, TopBar, Navigation } from "@shopify/polaris";
+import { Frame, TopBar, Navigation, AppProvider } from "@shopify/polaris";
 import { HomeMajor } from "@shopify/polaris-icons";
 import { Home } from "./components/Home";
+import { theme } from "./theme";
+import enTranslations from "@shopify/polaris/locales/en.json";
 
 export function App() {
   const [menuState, setMenuState] = useState("home");
@@ -70,8 +72,10 @@ export function App() {
   };
 
   return (
-    <Frame topBar={topBarMarkup} navigation={navigationMarkup}>
-      {getCurrentMarkup()}
-    </Frame>
+    <AppProvider theme={theme} i18n={enTranslations}>
+      <Frame topBar={topBarMarkup} navigation={navigationMarkup}>
+        {getCurrentMarkup()}
+      </Frame>
+    </AppProvider>
   );
 }
