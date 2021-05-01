@@ -57,7 +57,7 @@ export function Home() {
     </>
   ) : null;
 
-  const invalidPostalBannerMessage = shouldShowInvalidPostal
+  const invalidPostalCodeMessage = shouldShowInvalidPostal
     ? "You have entered an invalid postal code"
     : undefined;
 
@@ -77,7 +77,7 @@ export function Home() {
                     vaccines.
                   </span>
                 }
-                error={invalidPostalBannerMessage}
+                error={invalidPostalCodeMessage}
               />
               <Button primary submit>
                 Submit
