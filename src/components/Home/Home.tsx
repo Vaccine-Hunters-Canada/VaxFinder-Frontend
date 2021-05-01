@@ -14,16 +14,18 @@ import { PharmacyList } from "../PharmacyList";
 import { TwitterTimelineEmbed } from "react-twitter-embed";
 
 export function Home() {
-  const [showBanner, setShowBanner] = useState(true);
-  const [showPostalPrompt, setShowPostalPrompt] = useState(true);
-  const [showInvalidPostal, setShowInvalidPostal] = useState(false);
-  const [renderCards, setRenderCards] = useState(false);
+  const [shouldShowBanner, setShouldShowBanner] = useState(true);
+  const [shouldShowPostalPrompt, setShouldShowPostalPrompt] = useState(true);
+  const [shouldShowInvalidPostal, setShouldShowInvalidPostal] = useState(false);
+  const [shouldRenderPharmacyList, setShouldRenderPharmacyList] = useState(
+    false,
+  );
   const [postalCode, setPostalCode] = useState("");
 
   const handleBannerDismiss = () => {
-    setShowBanner(false);
+    setShouldShowBanner(false);
   };
-  const dismissableBannerMarkup = showBanner ? (
+  const dismissableBannerMarkup = shouldShowBanner ? (
     <>
       <Banner title="Eligibility:" onDismiss={handleBannerDismiss}>
         <ul>
@@ -37,39 +39,30 @@ export function Home() {
           <li>Insert other eligbility rules</li>
         </ul>
       </Banner>
-      <br />
-      <br />
     </>
   ) : null;
 
   const handleSubmit = () => {
     const postalCodeRegex = /[a-zA-Z][0-9][a-zA-Z](-| |)[0-9][a-zA-Z][0-9]/;
     if (postalCodeRegex.test(postalCode)) {
-      setRenderCards(true);
-      setShowPostalPrompt(false);
+      setShouldRenderPharmacyList(true);
+      setShouldShowPostalPrompt(false);
     } else {
-      setShowInvalidPostal(true);
+      setShouldShowInvalidPostal(true);
     }
   };
-  const afterPostalEntryMarkup = renderCards ? (
+  const afterPostalEntryMarkup = shouldRenderPharmacyList ? (
     <>
-      <TextStyle variation="subdued">
-        Here&apos;s what&apos;s happening with vaccinations in Ottawa
-      </TextStyle>
-      <br />
-      <br />
-      {dismissableBannerMarkup}
+      <Layout.Section>{dismissableBannerMarkup}</Layout.Section>
       <PharmacyList />
     </>
   ) : null;
 
-  const postalLabelMarkup = showInvalidPostal
+  const postalLabelMarkup = shouldShowInvalidPostal
     ? "You have entered an invalid postal code. Please enter a valid one in this format: K2T 0E5"
     : "Please enter your postal code (Example: K2T 0E5):";
-  const promptForPostalMarkup = showPostalPrompt ? (
+  const promptForPostalMarkup = shouldShowPostalPrompt ? (
     <>
-      <br />
-      <br />
       <Card>
         <Card.Section>
           <Form onSubmit={handleSubmit}>
@@ -106,8 +99,6 @@ export function Home() {
         </Layout.Section>
         <Layout.Section secondary>
           <Page>
-            <br />
-            <br />
             <TwitterTimelineEmbed
               sourceType="profile"
               screenName="VaxHuntersCan"
