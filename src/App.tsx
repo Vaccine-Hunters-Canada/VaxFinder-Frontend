@@ -5,6 +5,7 @@ import { HomeMajor } from "@shopify/polaris-icons";
 import { Home } from "./components/Home";
 import { theme } from "./theme";
 import enTranslations from "@shopify/polaris/locales/en.json";
+import { RestfulProvider } from "restful-react";
 
 export function App() {
   const [menuState, setMenuState] = useState("home");
@@ -74,9 +75,11 @@ export function App() {
 
   return (
     <AppProvider theme={theme} i18n={enTranslations}>
-      <Frame topBar={topBarMarkup} navigation={navigationMarkup}>
-        {getCurrentMarkup()}
-      </Frame>
+      <RestfulProvider base={process.env.REACT_APP_API_URL ?? ""}>
+        <Frame topBar={topBarMarkup} navigation={navigationMarkup}>
+          {getCurrentMarkup()}
+        </Frame>
+      </RestfulProvider>
     </AppProvider>
   );
 }
