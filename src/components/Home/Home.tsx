@@ -57,19 +57,21 @@ export function Home() {
     </>
   ) : null;
 
-  const postalLabelMarkup = shouldShowInvalidPostal
-    ? "You have entered an invalid postal code. Please enter a valid one in this format: K2T 0E5"
-    : "Please enter your postal code (Example: K2T 0E5):";
+  const invalidPostalBannerMarkup = shouldShowInvalidPostal ? (
+    <Banner title="You have entered an invalid postal code" status="critical" />
+  ) : null;
+
   const promptForPostalMarkup = shouldShowPostalPrompt ? (
     <>
       <Card>
         <Card.Section>
           <Form onSubmit={handleSubmit}>
             <FormLayout>
+              {invalidPostalBannerMarkup}
               <TextField
                 value={postalCode}
                 onChange={(postal) => setPostalCode(postal)}
-                label={postalLabelMarkup}
+                label="Please enter your postal code (Example: K2T 0E5):"
                 helpText={
                   <span>
                     We’ll use this postal code to find the closest available
