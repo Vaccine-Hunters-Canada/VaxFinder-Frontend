@@ -9,7 +9,7 @@ import {
   Button,
   Card,
 } from "@shopify/polaris";
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import { PharmacyList } from "../PharmacyList";
 import { TwitterTimelineEmbed } from "react-twitter-embed";
 
