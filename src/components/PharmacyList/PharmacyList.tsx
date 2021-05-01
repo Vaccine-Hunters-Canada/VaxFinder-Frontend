@@ -1,5 +1,6 @@
 import { PharmacyContainer } from "../PharmacyContainer";
 import React from "react";
+import { useListVaccineAvailabilityApiV1VaccineAvailabilityGet } from "../../apiClient";
 
 interface Pharmacy {
   id: string;
@@ -12,6 +13,12 @@ interface Pharmacy {
 }
 
 export function PharmacyList() {
+  const { data } = useListVaccineAvailabilityApiV1VaccineAvailabilityGet({
+    queryParams: {
+      postalCode: "A1B 2G6",
+    },
+  });
+
   const pharmacyList: Pharmacy[] = [
     {
       id: "1",
@@ -58,6 +65,8 @@ export function PharmacyList() {
             return <PharmacyContainer key={pharmacy.id} pharmacy={pharmacy} />;
           })
         : null}
+
+      {data ? <div>{data}</div> : undefined}
     </section>
   );
 }

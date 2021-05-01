@@ -12,61 +12,78 @@ import {
   UseMutateProps,
 } from "restful-react";
 
-export const SPEC_VERSION = "0.1.0";
-export interface AddressReadProcedureResponse {
+export const SPEC_VERSION = "1.0.0";
+export interface AddressResponse {
   id: number;
-  line1: string;
-  line2: string;
-  city: string;
+  line1?: string;
+  line2?: string;
+  city?: string;
   province: string;
   postcode: string;
-  latitude: number;
-  longitude: number;
-  geohash: string;
   created_at: string;
 }
 
-export interface EntriesResponse {
-  id: number;
-  numberAvaliable: number;
-  numberTotal: number;
-  date: string;
-  location: LocationsResponse;
-  vaccine: number;
-  inputType: number;
-  tags_optional: string;
-  tags_required: string;
-  created_at: string;
+export interface GeneralResponse {
+  success: boolean;
+  data?: string;
 }
 
 export interface HTTPValidationError {
   detail?: ValidationError[];
 }
 
-export interface LocationsResponse {
+/**
+ * An enumeration.
+ */
+export type InputTypeEnum = number;
+
+export interface LocationExpandedResponse {
   id: number;
   name: string;
-  organization: string;
-  phone: string;
-  notes: string;
-  address: AddressReadProcedureResponse;
+  phone?: string;
+  notes?: string;
   active: number;
-  postcode: string;
+  postcode?: string;
+  url?: string;
+  tags?: string;
   created_at: string;
+  organization?: number;
+  address?: AddressResponse;
 }
 
-export interface OrganizationsCreateProcedureRequest {
-  full_name: string;
+export interface OrganizationCreateRequest {
+  full_name?: string;
   short_name: string;
-  description: string;
+  description?: string;
+  url?: string;
 }
 
-export interface OrganizationsReadProcedureResponse {
+export interface OrganizationResponse {
   id: number;
-  full_name: string;
+  full_name?: string;
   short_name: string;
+  description?: string;
+  url?: string;
+  created_at: string;
+}
+
+export interface RequirementResponse {
+  id: number;
+  name: string;
   description: string;
   created_at: string;
+}
+
+export interface VaccineAvailabilityExpandedResponse {
+  id: string;
+  numberAvaliable: number;
+  numberTotal?: number;
+  date: string;
+  vaccine?: number;
+  inputType: InputTypeEnum;
+  tags?: string;
+  created_at: string;
+  location: LocationExpandedResponse;
 }
 
 export interface ValidationError {
@@ -75,298 +92,299 @@ export interface ValidationError {
   type: string;
 }
 
-export interface GetEntriesApiV1EntriesGetQueryParams {
+export interface ListVaccineAvailabilityApiV1VaccineAvailabilityGetQueryParams {
   postalCode?: string;
 }
 
-export type GetEntriesApiV1EntriesGetProps = Omit<
+export type ListVaccineAvailabilityApiV1VaccineAvailabilityGetProps = Omit<
   GetProps<
-    EntriesResponse[],
+    VaccineAvailabilityExpandedResponse[],
     HTTPValidationError,
-    GetEntriesApiV1EntriesGetQueryParams,
+    ListVaccineAvailabilityApiV1VaccineAvailabilityGetQueryParams,
     void
   >,
   "path"
 >;
 
 /**
- * Get Entries
+ * List Vaccine Availability
  */
-export const GetEntriesApiV1EntriesGet = (
-  props: GetEntriesApiV1EntriesGetProps,
+export const ListVaccineAvailabilityApiV1VaccineAvailabilityGet = (
+  props: ListVaccineAvailabilityApiV1VaccineAvailabilityGetProps,
 ) => (
   <Get<
-    EntriesResponse[],
+    VaccineAvailabilityExpandedResponse[],
     HTTPValidationError,
-    GetEntriesApiV1EntriesGetQueryParams,
+    ListVaccineAvailabilityApiV1VaccineAvailabilityGetQueryParams,
     void
   >
-    path="/api/v1/entries/"
+    path="/api/v1/vaccine-availability"
     {...props}
   />
 );
 
-export type UseGetEntriesApiV1EntriesGetProps = Omit<
+export type UseListVaccineAvailabilityApiV1VaccineAvailabilityGetProps = Omit<
   UseGetProps<
-    EntriesResponse[],
+    VaccineAvailabilityExpandedResponse[],
     HTTPValidationError,
-    GetEntriesApiV1EntriesGetQueryParams,
+    ListVaccineAvailabilityApiV1VaccineAvailabilityGetQueryParams,
     void
   >,
   "path"
 >;
 
 /**
- * Get Entries
+ * List Vaccine Availability
  */
-export const useGetEntriesApiV1EntriesGet = (
-  props: UseGetEntriesApiV1EntriesGetProps,
+export const useListVaccineAvailabilityApiV1VaccineAvailabilityGet = (
+  props: UseListVaccineAvailabilityApiV1VaccineAvailabilityGetProps,
 ) =>
   useGet<
-    EntriesResponse[],
+    VaccineAvailabilityExpandedResponse[],
     HTTPValidationError,
-    GetEntriesApiV1EntriesGetQueryParams,
+    ListVaccineAvailabilityApiV1VaccineAvailabilityGetQueryParams,
     void
-  >("/api/v1/entries/", props);
+  >("/api/v1/vaccine-availability", props);
 
-export interface GetEntryApiV1EntriesEntryIdGetPathParams {
+export interface RetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityEntryIdGetPathParams {
   entry_id: number;
 }
 
-export type GetEntryApiV1EntriesEntryIdGetProps = Omit<
+export type RetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityEntryIdGetProps = Omit<
   GetProps<
-    EntriesResponse,
-    HTTPValidationError,
+    VaccineAvailabilityExpandedResponse,
+    void | HTTPValidationError,
     void,
-    GetEntryApiV1EntriesEntryIdGetPathParams
+    RetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityEntryIdGetPathParams
   >,
   "path"
 > &
-  GetEntryApiV1EntriesEntryIdGetPathParams;
+  RetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityEntryIdGetPathParams;
 
 /**
- * Get Entry
+ * Retrieve Vaccine Availability By Id
  */
-export const GetEntryApiV1EntriesEntryIdGet = ({
+export const RetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityEntryIdGet = ({
   entry_id,
   ...props
-}: GetEntryApiV1EntriesEntryIdGetProps) => (
+}: RetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityEntryIdGetProps) => (
   <Get<
-    EntriesResponse,
-    HTTPValidationError,
+    VaccineAvailabilityExpandedResponse,
+    void | HTTPValidationError,
     void,
-    GetEntryApiV1EntriesEntryIdGetPathParams
+    RetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityEntryIdGetPathParams
   >
-    path={`/api/v1/entries/${entry_id}`}
+    path={`/api/v1/vaccine-availability/${entry_id}`}
     {...props}
   />
 );
 
-export type UseGetEntryApiV1EntriesEntryIdGetProps = Omit<
+export type UseRetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityEntryIdGetProps = Omit<
   UseGetProps<
-    EntriesResponse,
-    HTTPValidationError,
+    VaccineAvailabilityExpandedResponse,
+    void | HTTPValidationError,
     void,
-    GetEntryApiV1EntriesEntryIdGetPathParams
+    RetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityEntryIdGetPathParams
   >,
   "path"
 > &
-  GetEntryApiV1EntriesEntryIdGetPathParams;
+  RetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityEntryIdGetPathParams;
 
 /**
- * Get Entry
+ * Retrieve Vaccine Availability By Id
  */
-export const useGetEntryApiV1EntriesEntryIdGet = ({
+export const useRetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityEntryIdGet = ({
   entry_id,
   ...props
-}: UseGetEntryApiV1EntriesEntryIdGetProps) =>
+}: UseRetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityEntryIdGetProps) =>
   useGet<
-    EntriesResponse,
-    HTTPValidationError,
+    VaccineAvailabilityExpandedResponse,
+    void | HTTPValidationError,
     void,
-    GetEntryApiV1EntriesEntryIdGetPathParams
+    RetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityEntryIdGetPathParams
   >(
-    (paramsInPath: GetEntryApiV1EntriesEntryIdGetPathParams) =>
-      `/api/v1/entries/${paramsInPath.entry_id}`,
+    (
+      paramsInPath: RetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityEntryIdGetPathParams,
+    ) => `/api/v1/vaccine-availability/${paramsInPath.entry_id}`,
     { pathParams: { entry_id }, ...props },
   );
 
-export interface GetLocationsApiV1LocationsGetQueryParams {
+export interface ListLocationsApiV1LocationsGetQueryParams {
   postalCode?: string;
 }
 
-export type GetLocationsApiV1LocationsGetProps = Omit<
+export type ListLocationsApiV1LocationsGetProps = Omit<
   GetProps<
-    LocationsResponse[],
+    LocationExpandedResponse[],
     HTTPValidationError,
-    GetLocationsApiV1LocationsGetQueryParams,
+    ListLocationsApiV1LocationsGetQueryParams,
     void
   >,
   "path"
 >;
 
 /**
- * Get Locations
+ * List Locations
  */
-export const GetLocationsApiV1LocationsGet = (
-  props: GetLocationsApiV1LocationsGetProps,
+export const ListLocationsApiV1LocationsGet = (
+  props: ListLocationsApiV1LocationsGetProps,
 ) => (
   <Get<
-    LocationsResponse[],
+    LocationExpandedResponse[],
     HTTPValidationError,
-    GetLocationsApiV1LocationsGetQueryParams,
+    ListLocationsApiV1LocationsGetQueryParams,
     void
   >
-    path="/api/v1/locations/"
+    path="/api/v1/locations"
     {...props}
   />
 );
 
-export type UseGetLocationsApiV1LocationsGetProps = Omit<
+export type UseListLocationsApiV1LocationsGetProps = Omit<
   UseGetProps<
-    LocationsResponse[],
+    LocationExpandedResponse[],
     HTTPValidationError,
-    GetLocationsApiV1LocationsGetQueryParams,
+    ListLocationsApiV1LocationsGetQueryParams,
     void
   >,
   "path"
 >;
 
 /**
- * Get Locations
+ * List Locations
  */
-export const useGetLocationsApiV1LocationsGet = (
-  props: UseGetLocationsApiV1LocationsGetProps,
+export const useListLocationsApiV1LocationsGet = (
+  props: UseListLocationsApiV1LocationsGetProps,
 ) =>
   useGet<
-    LocationsResponse[],
+    LocationExpandedResponse[],
     HTTPValidationError,
-    GetLocationsApiV1LocationsGetQueryParams,
+    ListLocationsApiV1LocationsGetQueryParams,
     void
-  >("/api/v1/locations/", props);
+  >("/api/v1/locations", props);
 
-export interface GetLocationApiV1LocationsLocationIdGetPathParams {
+export interface RetrieveLocationByIdApiV1LocationsLocationIdGetPathParams {
   location_id: number;
 }
 
-export type GetLocationApiV1LocationsLocationIdGetProps = Omit<
+export type RetrieveLocationByIdApiV1LocationsLocationIdGetProps = Omit<
   GetProps<
-    LocationsResponse,
-    HTTPValidationError,
+    LocationExpandedResponse,
+    void | HTTPValidationError,
     void,
-    GetLocationApiV1LocationsLocationIdGetPathParams
+    RetrieveLocationByIdApiV1LocationsLocationIdGetPathParams
   >,
   "path"
 > &
-  GetLocationApiV1LocationsLocationIdGetPathParams;
+  RetrieveLocationByIdApiV1LocationsLocationIdGetPathParams;
 
 /**
- * Get Location
+ * Retrieve Location By Id
  */
-export const GetLocationApiV1LocationsLocationIdGet = ({
+export const RetrieveLocationByIdApiV1LocationsLocationIdGet = ({
   location_id,
   ...props
-}: GetLocationApiV1LocationsLocationIdGetProps) => (
+}: RetrieveLocationByIdApiV1LocationsLocationIdGetProps) => (
   <Get<
-    LocationsResponse,
-    HTTPValidationError,
+    LocationExpandedResponse,
+    void | HTTPValidationError,
     void,
-    GetLocationApiV1LocationsLocationIdGetPathParams
+    RetrieveLocationByIdApiV1LocationsLocationIdGetPathParams
   >
     path={`/api/v1/locations/${location_id}`}
     {...props}
   />
 );
 
-export type UseGetLocationApiV1LocationsLocationIdGetProps = Omit<
+export type UseRetrieveLocationByIdApiV1LocationsLocationIdGetProps = Omit<
   UseGetProps<
-    LocationsResponse,
-    HTTPValidationError,
+    LocationExpandedResponse,
+    void | HTTPValidationError,
     void,
-    GetLocationApiV1LocationsLocationIdGetPathParams
+    RetrieveLocationByIdApiV1LocationsLocationIdGetPathParams
   >,
   "path"
 > &
-  GetLocationApiV1LocationsLocationIdGetPathParams;
+  RetrieveLocationByIdApiV1LocationsLocationIdGetPathParams;
 
 /**
- * Get Location
+ * Retrieve Location By Id
  */
-export const useGetLocationApiV1LocationsLocationIdGet = ({
+export const useRetrieveLocationByIdApiV1LocationsLocationIdGet = ({
   location_id,
   ...props
-}: UseGetLocationApiV1LocationsLocationIdGetProps) =>
+}: UseRetrieveLocationByIdApiV1LocationsLocationIdGetProps) =>
   useGet<
-    LocationsResponse,
-    HTTPValidationError,
+    LocationExpandedResponse,
+    void | HTTPValidationError,
     void,
-    GetLocationApiV1LocationsLocationIdGetPathParams
+    RetrieveLocationByIdApiV1LocationsLocationIdGetPathParams
   >(
-    (paramsInPath: GetLocationApiV1LocationsLocationIdGetPathParams) =>
+    (paramsInPath: RetrieveLocationByIdApiV1LocationsLocationIdGetPathParams) =>
       `/api/v1/locations/${paramsInPath.location_id}`,
     { pathParams: { location_id }, ...props },
   );
 
-export interface GetOrganizationsApiV1OrganizationsGetQueryParams {
+export interface ListOrganizationsApiV1OrganizationsGetQueryParams {
   name?: string;
 }
 
-export type GetOrganizationsApiV1OrganizationsGetProps = Omit<
+export type ListOrganizationsApiV1OrganizationsGetProps = Omit<
   GetProps<
-    OrganizationsReadProcedureResponse[],
+    OrganizationResponse[],
     HTTPValidationError,
-    GetOrganizationsApiV1OrganizationsGetQueryParams,
+    ListOrganizationsApiV1OrganizationsGetQueryParams,
     void
   >,
   "path"
 >;
 
 /**
- * Get Organizations
+ * List Organizations
  */
-export const GetOrganizationsApiV1OrganizationsGet = (
-  props: GetOrganizationsApiV1OrganizationsGetProps,
+export const ListOrganizationsApiV1OrganizationsGet = (
+  props: ListOrganizationsApiV1OrganizationsGetProps,
 ) => (
   <Get<
-    OrganizationsReadProcedureResponse[],
+    OrganizationResponse[],
     HTTPValidationError,
-    GetOrganizationsApiV1OrganizationsGetQueryParams,
+    ListOrganizationsApiV1OrganizationsGetQueryParams,
     void
   >
-    path="/api/v1/organizations/"
+    path="/api/v1/organizations"
     {...props}
   />
 );
 
-export type UseGetOrganizationsApiV1OrganizationsGetProps = Omit<
+export type UseListOrganizationsApiV1OrganizationsGetProps = Omit<
   UseGetProps<
-    OrganizationsReadProcedureResponse[],
+    OrganizationResponse[],
     HTTPValidationError,
-    GetOrganizationsApiV1OrganizationsGetQueryParams,
+    ListOrganizationsApiV1OrganizationsGetQueryParams,
     void
   >,
   "path"
 >;
 
 /**
- * Get Organizations
+ * List Organizations
  */
-export const useGetOrganizationsApiV1OrganizationsGet = (
-  props: UseGetOrganizationsApiV1OrganizationsGetProps,
+export const useListOrganizationsApiV1OrganizationsGet = (
+  props: UseListOrganizationsApiV1OrganizationsGetProps,
 ) =>
   useGet<
-    OrganizationsReadProcedureResponse[],
+    OrganizationResponse[],
     HTTPValidationError,
-    GetOrganizationsApiV1OrganizationsGetQueryParams,
+    ListOrganizationsApiV1OrganizationsGetQueryParams,
     void
-  >("/api/v1/organizations/", props);
+  >("/api/v1/organizations", props);
 
 export type CreateOrganizationApiV1OrganizationsPostProps = Omit<
   MutateProps<
-    OrganizationsReadProcedureResponse,
+    GeneralResponse,
     HTTPValidationError,
     void,
-    OrganizationsCreateProcedureRequest,
+    OrganizationCreateRequest,
     void
   >,
   "path" | "verb"
@@ -379,24 +397,24 @@ export const CreateOrganizationApiV1OrganizationsPost = (
   props: CreateOrganizationApiV1OrganizationsPostProps,
 ) => (
   <Mutate<
-    OrganizationsReadProcedureResponse,
+    GeneralResponse,
     HTTPValidationError,
     void,
-    OrganizationsCreateProcedureRequest,
+    OrganizationCreateRequest,
     void
   >
     verb="POST"
-    path="/api/v1/organizations/"
+    path="/api/v1/organizations"
     {...props}
   />
 );
 
 export type UseCreateOrganizationApiV1OrganizationsPostProps = Omit<
   UseMutateProps<
-    OrganizationsReadProcedureResponse,
+    GeneralResponse,
     HTTPValidationError,
     void,
-    OrganizationsCreateProcedureRequest,
+    OrganizationCreateRequest,
     void
   >,
   "path" | "verb"
@@ -409,188 +427,284 @@ export const useCreateOrganizationApiV1OrganizationsPost = (
   props: UseCreateOrganizationApiV1OrganizationsPostProps,
 ) =>
   useMutate<
-    OrganizationsReadProcedureResponse,
+    GeneralResponse,
     HTTPValidationError,
     void,
-    OrganizationsCreateProcedureRequest,
+    OrganizationCreateRequest,
     void
-  >("POST", "/api/v1/organizations/", props);
+  >("POST", "/api/v1/organizations", props);
 
-export interface GetOrganizationApiV1OrganizationsOrganizationIdGetPathParams {
+export interface RetrieveOrganizationByIdApiV1OrganizationsOrganizationIdGetPathParams {
   organization_id: number;
 }
 
-export type GetOrganizationApiV1OrganizationsOrganizationIdGetProps = Omit<
+export type RetrieveOrganizationByIdApiV1OrganizationsOrganizationIdGetProps = Omit<
   GetProps<
-    OrganizationsReadProcedureResponse,
-    HTTPValidationError,
+    OrganizationResponse,
+    void | HTTPValidationError,
     void,
-    GetOrganizationApiV1OrganizationsOrganizationIdGetPathParams
+    RetrieveOrganizationByIdApiV1OrganizationsOrganizationIdGetPathParams
   >,
   "path"
 > &
-  GetOrganizationApiV1OrganizationsOrganizationIdGetPathParams;
+  RetrieveOrganizationByIdApiV1OrganizationsOrganizationIdGetPathParams;
 
 /**
- * Get Organization
+ * Retrieve Organization By Id
  */
-export const GetOrganizationApiV1OrganizationsOrganizationIdGet = ({
+export const RetrieveOrganizationByIdApiV1OrganizationsOrganizationIdGet = ({
   organization_id,
   ...props
-}: GetOrganizationApiV1OrganizationsOrganizationIdGetProps) => (
+}: RetrieveOrganizationByIdApiV1OrganizationsOrganizationIdGetProps) => (
   <Get<
-    OrganizationsReadProcedureResponse,
-    HTTPValidationError,
+    OrganizationResponse,
+    void | HTTPValidationError,
     void,
-    GetOrganizationApiV1OrganizationsOrganizationIdGetPathParams
+    RetrieveOrganizationByIdApiV1OrganizationsOrganizationIdGetPathParams
   >
     path={`/api/v1/organizations/${organization_id}`}
     {...props}
   />
 );
 
-export type UseGetOrganizationApiV1OrganizationsOrganizationIdGetProps = Omit<
+export type UseRetrieveOrganizationByIdApiV1OrganizationsOrganizationIdGetProps = Omit<
   UseGetProps<
-    OrganizationsReadProcedureResponse,
-    HTTPValidationError,
+    OrganizationResponse,
+    void | HTTPValidationError,
     void,
-    GetOrganizationApiV1OrganizationsOrganizationIdGetPathParams
+    RetrieveOrganizationByIdApiV1OrganizationsOrganizationIdGetPathParams
   >,
   "path"
 > &
-  GetOrganizationApiV1OrganizationsOrganizationIdGetPathParams;
+  RetrieveOrganizationByIdApiV1OrganizationsOrganizationIdGetPathParams;
 
 /**
- * Get Organization
+ * Retrieve Organization By Id
  */
-export const useGetOrganizationApiV1OrganizationsOrganizationIdGet = ({
+export const useRetrieveOrganizationByIdApiV1OrganizationsOrganizationIdGet = ({
   organization_id,
   ...props
-}: UseGetOrganizationApiV1OrganizationsOrganizationIdGetProps) =>
+}: UseRetrieveOrganizationByIdApiV1OrganizationsOrganizationIdGetProps) =>
   useGet<
-    OrganizationsReadProcedureResponse,
-    HTTPValidationError,
+    OrganizationResponse,
+    void | HTTPValidationError,
     void,
-    GetOrganizationApiV1OrganizationsOrganizationIdGetPathParams
+    RetrieveOrganizationByIdApiV1OrganizationsOrganizationIdGetPathParams
   >(
     (
-      paramsInPath: GetOrganizationApiV1OrganizationsOrganizationIdGetPathParams,
+      paramsInPath: RetrieveOrganizationByIdApiV1OrganizationsOrganizationIdGetPathParams,
     ) => `/api/v1/organizations/${paramsInPath.organization_id}`,
     { pathParams: { organization_id }, ...props },
   );
 
-export interface GetAddressesApiV1AddressesGetQueryParams {
+export interface ListAddressesApiV1AddressesGetQueryParams {
   postalCode?: string;
 }
 
-export type GetAddressesApiV1AddressesGetProps = Omit<
+export type ListAddressesApiV1AddressesGetProps = Omit<
   GetProps<
-    AddressReadProcedureResponse[],
+    AddressResponse[],
     HTTPValidationError,
-    GetAddressesApiV1AddressesGetQueryParams,
+    ListAddressesApiV1AddressesGetQueryParams,
     void
   >,
   "path"
 >;
 
 /**
- * Get Addresses
+ * List Addresses
  */
-export const GetAddressesApiV1AddressesGet = (
-  props: GetAddressesApiV1AddressesGetProps,
+export const ListAddressesApiV1AddressesGet = (
+  props: ListAddressesApiV1AddressesGetProps,
 ) => (
   <Get<
-    AddressReadProcedureResponse[],
+    AddressResponse[],
     HTTPValidationError,
-    GetAddressesApiV1AddressesGetQueryParams,
+    ListAddressesApiV1AddressesGetQueryParams,
     void
   >
-    path="/api/v1/addresses/"
+    path="/api/v1/addresses"
     {...props}
   />
 );
 
-export type UseGetAddressesApiV1AddressesGetProps = Omit<
+export type UseListAddressesApiV1AddressesGetProps = Omit<
   UseGetProps<
-    AddressReadProcedureResponse[],
+    AddressResponse[],
     HTTPValidationError,
-    GetAddressesApiV1AddressesGetQueryParams,
+    ListAddressesApiV1AddressesGetQueryParams,
     void
   >,
   "path"
 >;
 
 /**
- * Get Addresses
+ * List Addresses
  */
-export const useGetAddressesApiV1AddressesGet = (
-  props: UseGetAddressesApiV1AddressesGetProps,
+export const useListAddressesApiV1AddressesGet = (
+  props: UseListAddressesApiV1AddressesGetProps,
 ) =>
   useGet<
-    AddressReadProcedureResponse[],
+    AddressResponse[],
     HTTPValidationError,
-    GetAddressesApiV1AddressesGetQueryParams,
+    ListAddressesApiV1AddressesGetQueryParams,
     void
-  >("/api/v1/addresses/", props);
+  >("/api/v1/addresses", props);
 
-export interface GetAddressApiV1AddressesAddressIdGetPathParams {
+export interface RetrieveAddressByIdApiV1AddressesAddressIdGetPathParams {
   address_id: number;
 }
 
-export type GetAddressApiV1AddressesAddressIdGetProps = Omit<
+export type RetrieveAddressByIdApiV1AddressesAddressIdGetProps = Omit<
   GetProps<
-    AddressReadProcedureResponse,
-    HTTPValidationError,
+    AddressResponse,
+    void | HTTPValidationError,
     void,
-    GetAddressApiV1AddressesAddressIdGetPathParams
+    RetrieveAddressByIdApiV1AddressesAddressIdGetPathParams
   >,
   "path"
 > &
-  GetAddressApiV1AddressesAddressIdGetPathParams;
+  RetrieveAddressByIdApiV1AddressesAddressIdGetPathParams;
 
 /**
- * Get Address
+ * Retrieve Address By Id
  */
-export const GetAddressApiV1AddressesAddressIdGet = ({
+export const RetrieveAddressByIdApiV1AddressesAddressIdGet = ({
   address_id,
   ...props
-}: GetAddressApiV1AddressesAddressIdGetProps) => (
+}: RetrieveAddressByIdApiV1AddressesAddressIdGetProps) => (
   <Get<
-    AddressReadProcedureResponse,
-    HTTPValidationError,
+    AddressResponse,
+    void | HTTPValidationError,
     void,
-    GetAddressApiV1AddressesAddressIdGetPathParams
+    RetrieveAddressByIdApiV1AddressesAddressIdGetPathParams
   >
     path={`/api/v1/addresses/${address_id}`}
     {...props}
   />
 );
 
-export type UseGetAddressApiV1AddressesAddressIdGetProps = Omit<
+export type UseRetrieveAddressByIdApiV1AddressesAddressIdGetProps = Omit<
   UseGetProps<
-    AddressReadProcedureResponse,
-    HTTPValidationError,
+    AddressResponse,
+    void | HTTPValidationError,
     void,
-    GetAddressApiV1AddressesAddressIdGetPathParams
+    RetrieveAddressByIdApiV1AddressesAddressIdGetPathParams
   >,
   "path"
 > &
-  GetAddressApiV1AddressesAddressIdGetPathParams;
+  RetrieveAddressByIdApiV1AddressesAddressIdGetPathParams;
 
 /**
- * Get Address
+ * Retrieve Address By Id
  */
-export const useGetAddressApiV1AddressesAddressIdGet = ({
+export const useRetrieveAddressByIdApiV1AddressesAddressIdGet = ({
   address_id,
   ...props
-}: UseGetAddressApiV1AddressesAddressIdGetProps) =>
+}: UseRetrieveAddressByIdApiV1AddressesAddressIdGetProps) =>
   useGet<
-    AddressReadProcedureResponse,
-    HTTPValidationError,
+    AddressResponse,
+    void | HTTPValidationError,
     void,
-    GetAddressApiV1AddressesAddressIdGetPathParams
+    RetrieveAddressByIdApiV1AddressesAddressIdGetPathParams
   >(
-    (paramsInPath: GetAddressApiV1AddressesAddressIdGetPathParams) =>
+    (paramsInPath: RetrieveAddressByIdApiV1AddressesAddressIdGetPathParams) =>
       `/api/v1/addresses/${paramsInPath.address_id}`,
     { pathParams: { address_id }, ...props },
+  );
+
+export type ListRequirementsApiV1RequirementsGetProps = Omit<
+  GetProps<RequirementResponse[], unknown, void, void>,
+  "path"
+>;
+
+/**
+ * List Requirements
+ */
+export const ListRequirementsApiV1RequirementsGet = (
+  props: ListRequirementsApiV1RequirementsGetProps,
+) => (
+  <Get<RequirementResponse[], unknown, void, void>
+    path="/api/v1/requirements"
+    {...props}
+  />
+);
+
+export type UseListRequirementsApiV1RequirementsGetProps = Omit<
+  UseGetProps<RequirementResponse[], unknown, void, void>,
+  "path"
+>;
+
+/**
+ * List Requirements
+ */
+export const useListRequirementsApiV1RequirementsGet = (
+  props: UseListRequirementsApiV1RequirementsGetProps,
+) =>
+  useGet<RequirementResponse[], unknown, void, void>(
+    "/api/v1/requirements",
+    props,
+  );
+
+export interface RetrieveRequirementByIdApiV1RequirementsRequirementIdGetPathParams {
+  requirement_id: number;
+}
+
+export type RetrieveRequirementByIdApiV1RequirementsRequirementIdGetProps = Omit<
+  GetProps<
+    RequirementResponse,
+    void | HTTPValidationError,
+    void,
+    RetrieveRequirementByIdApiV1RequirementsRequirementIdGetPathParams
+  >,
+  "path"
+> &
+  RetrieveRequirementByIdApiV1RequirementsRequirementIdGetPathParams;
+
+/**
+ * Retrieve Requirement By Id
+ */
+export const RetrieveRequirementByIdApiV1RequirementsRequirementIdGet = ({
+  requirement_id,
+  ...props
+}: RetrieveRequirementByIdApiV1RequirementsRequirementIdGetProps) => (
+  <Get<
+    RequirementResponse,
+    void | HTTPValidationError,
+    void,
+    RetrieveRequirementByIdApiV1RequirementsRequirementIdGetPathParams
+  >
+    path={`/api/v1/requirements/${requirement_id}`}
+    {...props}
+  />
+);
+
+export type UseRetrieveRequirementByIdApiV1RequirementsRequirementIdGetProps = Omit<
+  UseGetProps<
+    RequirementResponse,
+    void | HTTPValidationError,
+    void,
+    RetrieveRequirementByIdApiV1RequirementsRequirementIdGetPathParams
+  >,
+  "path"
+> &
+  RetrieveRequirementByIdApiV1RequirementsRequirementIdGetPathParams;
+
+/**
+ * Retrieve Requirement By Id
+ */
+export const useRetrieveRequirementByIdApiV1RequirementsRequirementIdGet = ({
+  requirement_id,
+  ...props
+}: UseRetrieveRequirementByIdApiV1RequirementsRequirementIdGetProps) =>
+  useGet<
+    RequirementResponse,
+    void | HTTPValidationError,
+    void,
+    RetrieveRequirementByIdApiV1RequirementsRequirementIdGetPathParams
+  >(
+    (
+      paramsInPath: RetrieveRequirementByIdApiV1RequirementsRequirementIdGetPathParams,
+    ) => `/api/v1/requirements/${paramsInPath.requirement_id}`,
+    { pathParams: { requirement_id }, ...props },
   );
