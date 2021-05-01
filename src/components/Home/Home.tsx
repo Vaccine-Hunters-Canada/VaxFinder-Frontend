@@ -57,9 +57,9 @@ export function Home() {
     </>
   ) : null;
 
-  const invalidPostalBannerMarkup = shouldShowInvalidPostal ? (
-    <Banner title="You have entered an invalid postal code" status="critical" />
-  ) : null;
+  const invalidPostalBannerMessage = shouldShowInvalidPostal
+    ? "You have entered an invalid postal code"
+    : undefined;
 
   const promptForPostalMarkup = shouldShowPostalPrompt ? (
     <>
@@ -67,7 +67,6 @@ export function Home() {
         <Card.Section>
           <Form onSubmit={handleSubmit}>
             <FormLayout>
-              {invalidPostalBannerMarkup}
               <TextField
                 value={postalCode}
                 onChange={(postal) => setPostalCode(postal)}
@@ -78,6 +77,7 @@ export function Home() {
                     vaccines.
                   </span>
                 }
+                error={invalidPostalBannerMessage}
               />
               <Button primary submit>
                 Submit
