@@ -8,7 +8,7 @@ export const vaccineAvailabilityHandlers = [
       const response: VaccineAvailabilityExpandedResponse[] = [
         {
           id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-          numberAvaliable: 4,
+          numberAvailable: 4,
           numberTotal: 10,
           date: "2021-05-01",
           vaccine: 1,

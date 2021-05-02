@@ -76,7 +76,7 @@ export interface RequirementResponse {
 
 export interface VaccineAvailabilityExpandedResponse {
   id: string;
-  numberAvaliable: number;
+  numberAvailable: number;
   numberTotal?: number;
   date: string;
   vaccine?: number;
@@ -144,7 +144,7 @@ export const useListVaccineAvailabilityApiV1VaccineAvailabilityGet = (
     HTTPValidationError,
     ListVaccineAvailabilityApiV1VaccineAvailabilityGetQueryParams,
     void
-  >("/api/v1/vaccine-availability", props);
+  >("/api/v1/vaccine-availability");
 
 export interface RetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityEntryIdGetPathParams {
   entry_id: number;

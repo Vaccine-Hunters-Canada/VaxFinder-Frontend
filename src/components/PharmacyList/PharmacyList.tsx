@@ -40,13 +40,14 @@ export function PharmacyList() {
         addressSegments.push(address.province);
         addressSegments.push(address.postcode);
       }
+      const isBooking = pharmacy.numberAvailable > 0;
 
       return {
         id: pharmacy.id,
         pharmacyName: pharmacy.location.name,
-        booking: true,
+        booking: isBooking,
         address: addressSegments.join(" "),
-        lastUpdated: "N/A",
+        lastUpdated: pharmacy.created_at,
         phone: pharmacy.location.phone || "",
         website: pharmacy.location.url || "",
       };
