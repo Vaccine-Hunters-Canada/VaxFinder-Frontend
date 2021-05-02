@@ -98,8 +98,6 @@ export function PharmacyList() {
             return <PharmacyContainer key={pharmacy.id} pharmacy={pharmacy} />;
           })
         : null}
-
-      {data ? <div>{JSON.stringify(data, undefined, 2)}</div> : undefined}
     </section>
   );
 }
