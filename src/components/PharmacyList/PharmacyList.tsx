@@ -1,7 +1,7 @@
 import { PharmacyCard } from "../PharmacyCard";
 import React from "react";
 import { useListVaccineAvailabilityApiV1VaccineAvailabilityGet } from "../../apiClient";
-import { ExceptionList, Spinner } from "@shopify/polaris";
+import { ExceptionList, Spinner, TextStyle } from "@shopify/polaris";
 import { CircleAlertMajor } from "@shopify/polaris-icons";
 import "./PharmacyList.css";
 
@@ -33,8 +33,14 @@ export function PharmacyList() {
           items={[
             {
               icon: CircleAlertMajor,
-              description:
-                "Could not load pharmacy data, please try again later",
+              status: "critical",
+              description: (
+                <TextStyle variation="negative">
+                  <strong>
+                    Could not load pharmacy data, please try again later
+                  </strong>
+                </TextStyle>
+              ),
             },
           ]}
         />
