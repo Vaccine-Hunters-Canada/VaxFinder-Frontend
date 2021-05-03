@@ -3,7 +3,7 @@ import { VaccineAvailabilityExpandedResponse } from "../../apiClient";
 
 export const vaccineAvailabilityHandlers = [
   rest.get(
-    "http://localhost:5000/api/v1/vaccine-availability",
+    `${process.env.REACT_APP_API_URL}/api/v1/vaccine-availability`,
     (req, res, ctx) => {
       const response: VaccineAvailabilityExpandedResponse[] = [
         {
