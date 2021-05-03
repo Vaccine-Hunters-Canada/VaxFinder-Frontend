@@ -125,6 +125,14 @@
     "eqeqeq": ["error", "smart"],
     "id-match": "error",
     "import/no-default-export": "warn",
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": ["src/mocks/**"],
+        "optionalDependencies": false,
+        "peerDependencies": false
+      }
+    ],
     "import/prefer-default-export": "off",
     "import/order": "off",
     "import/no-cycle": "off",

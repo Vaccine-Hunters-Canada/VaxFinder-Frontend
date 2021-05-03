@@ -1,61 +1,69 @@
-import { PharmacyContainer } from "../PharmacyContainer";
+import { PharmacyCard } from "../PharmacyCard";
 import React from "react";
+import { useListVaccineAvailabilityApiV1VaccineAvailabilityGet } from "../../apiClient";
 
-interface Pharmacy {
-  id: string;
-  pharmacyName: string;
-  booking: boolean;
-  address: string;
-  phone: string;
-  website: string;
-  lastUpdated: string;
-}
+type PharmacyProps = React.ComponentProps<typeof PharmacyCard>;
 
 export function PharmacyList() {
-  const pharmacyList: Pharmacy[] = [
-    {
-      id: "1",
-      pharmacyName: "Stittsville IDA",
-      booking: true,
-      address: "250 Stittsville Main St. Stittsville, ON K2S 1S9",
-      phone: "613-835-3881",
-      website: "https://idapharmacy.com/",
-      lastUpdated: "N/a",
+  const { data } = useListVaccineAvailabilityApiV1VaccineAvailabilityGet({
+    queryParams: {
+      postalCode: "A1B 2G6",
     },
-    {
-      id: "2",
-      pharmacyName: "Costco Kanata",
-      booking: false,
-      address: "770 Silver Seven Road Ottawa, ON K2V 0A1",
-      phone: " 613-270-5500",
-      website: " https://www.costcopharmacy.ca/appointment",
-      lastUpdated: "N/a",
-    },
-    {
-      id: "3",
-      pharmacyName: "Example Pharmacy 1",
-      booking: false,
-      address: "123 Road Ottawa, ON K2V 0A1",
-      phone: " 613-111-1111",
-      website: " https://www.website.ca/appointment",
-      lastUpdated: "N/a",
-    },
-    {
-      id: "4",
-      pharmacyName: "Example Pharmacy 2",
-      booking: false,
-      address: "123 Road Ottawa, ON K2V 0A1",
-      phone: " 613-111-1111",
-      website: " https://www.website.ca/appointment",
-      lastUpdated: "N/a",
-    },
-  ];
+  });
+
+  let pharmacyList: PharmacyProps[] = [];
+
+  if (data) {
+    pharmacyList = data.map((pharmacy) => {
+      const addressSegments: string[] = [];
+
+      const { address } = pharmacy.location;
+      if (address) {
+        if (address.line1) {
+          addressSegments.push(address.line1);
+        }
+
+        if (address.line2) {
+          addressSegments.push(address.line2);
+        }
+
+        if (address.city) {
+          addressSegments.push(address.city);
+        }
+
+        addressSegments.push(address.province);
+        addressSegments.push(address.postcode);
+      }
+      const isBooking = pharmacy.numberAvailable > 0;
+
+      return {
+        id: pharmacy.id,
+        pharmacyName: pharmacy.location.name,
+        booking: isBooking,
+        address: addressSegments.join("  "),
+        lastUpdated: pharmacy.created_at,
+        phone: pharmacy.location.phone || "",
+        website: pharmacy.location.url || "",
+      };
+    });
+  }
 
   return (
     <section>
       {pharmacyList
-        ? pharmacyList.map((pharmacy: Pharmacy) => {
-            return <PharmacyContainer key={pharmacy.id} pharmacy={pharmacy} />;
+        ? pharmacyList.map((pharmacy) => {
+            return (
+              <PharmacyCard
+                key={pharmacy.id}
+                id={pharmacy.id}
+                address={pharmacy.address}
+                booking={pharmacy.booking}
+                lastUpdated={pharmacy.lastUpdated}
+                pharmacyName={pharmacy.pharmacyName}
+                phone={pharmacy.phone}
+                website={pharmacy.website}
+              />
+            );
           })
         : null}
     </section>

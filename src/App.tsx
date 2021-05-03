@@ -5,11 +5,13 @@ import { HomeMajor } from "@shopify/polaris-icons";
 import { Home } from "./components/Home";
 import { theme } from "./theme";
 import enTranslations from "@shopify/polaris/locales/en.json";
+import { RestfulProvider } from "restful-react";
 
 export function App() {
   const [menuState, setMenuState] = useState("home");
   const setPageMarkup = useCallback((value) => setMenuState(value), []);
 
+  /*
   const userMenuMarkup = (
     <TopBar.UserMenu
       initials="EH"
@@ -29,13 +31,13 @@ export function App() {
       value=""
     />
   );
-
+  */
   const topBarMarkup = (
     <TopBar
       // theme={topBarTheme}
       showNavigationToggle
-      userMenu={userMenuMarkup}
-      searchField={searchFieldMarkup}
+      // userMenu={userMenuMarkup}
+      // searchField={searchFieldMarkup}
     />
   );
 
@@ -49,16 +51,16 @@ export function App() {
             icon: HomeMajor,
             onClick: () => setPageMarkup("home"),
           },
-          {
-            label: "Ottawa",
+          // {
+          //   label: "Ottawa",
 
-            onClick: () => setPageMarkup("home"),
-          },
-          {
-            label: "Toronto",
+          //   onClick: () => setPageMarkup("home"),
+          // },
+          // {
+          //   label: "Toronto",
 
-            onClick: () => setPageMarkup("home"),
-          },
+          //   onClick: () => setPageMarkup("home"),
+          // },
         ]}
       />
     </Navigation>
@@ -73,9 +75,11 @@ export function App() {
 
   return (
     <AppProvider theme={theme} i18n={enTranslations}>
-      <Frame topBar={topBarMarkup} navigation={navigationMarkup}>
-        {getCurrentMarkup()}
-      </Frame>
+      <RestfulProvider base={process.env.REACT_APP_API_URL ?? ""}>
+        <Frame topBar={topBarMarkup} navigation={navigationMarkup}>
+          {getCurrentMarkup()}
+        </Frame>
+      </RestfulProvider>
     </AppProvider>
   );
 }
