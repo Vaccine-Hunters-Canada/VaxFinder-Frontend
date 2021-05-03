@@ -1,15 +1,46 @@
 import { PharmacyCard } from "../PharmacyCard";
 import React from "react";
 import { useListVaccineAvailabilityApiV1VaccineAvailabilityGet } from "../../apiClient";
+import { ExceptionList, Spinner } from "@shopify/polaris";
+import { CircleAlertMajor } from "@shopify/polaris-icons";
+import "./PharmacyList.css";
 
 type PharmacyProps = React.ComponentProps<typeof PharmacyCard>;
 
 export function PharmacyList() {
-  const { data } = useListVaccineAvailabilityApiV1VaccineAvailabilityGet({
+  const {
+    data,
+    loading,
+    error,
+  } = useListVaccineAvailabilityApiV1VaccineAvailabilityGet({
     queryParams: {
       postalCode: "A1B 2G6",
     },
   });
+
+  if (loading) {
+    return (
+      <div className="wrapper">
+        <Spinner accessibilityLabel="Loading pharmacy data" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="wrapper">
+        <ExceptionList
+          items={[
+            {
+              icon: CircleAlertMajor,
+              description:
+                "Could not load pharmacy data, please try again later",
+            },
+          ]}
+        />
+      </div>
+    );
+  }
 
   let pharmacyList: PharmacyProps[] = [];
 
