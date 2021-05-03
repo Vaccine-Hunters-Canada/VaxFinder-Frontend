@@ -3,20 +3,20 @@ import { Card, Link, Banner, TextContainer } from "@shopify/polaris";
 import { MobileAcceptMajor, CircleDisabledMajor } from "@shopify/polaris-icons";
 
 interface PharmacyProps {
-  pharmacy: {
-    id: string;
-    pharmacyName: string;
-    booking: boolean;
-    address: string;
-    phone: string;
-    website: string;
-    lastUpdated: string;
-  };
+  // Id used for creating React keys
+  // eslint-disable-next-line react/no-unused-prop-types
+  id: string;
+  pharmacyName: string;
+  booking: boolean;
+  address: string;
+  phone: string;
+  website: string;
+  lastUpdated: string;
 }
 
-export function PharmacyContainer({ pharmacy }: PharmacyProps) {
-  const [booking, setBooking] = useState(pharmacy.booking);
-  const [lastUpdated, setlastUpdated] = useState(pharmacy.lastUpdated);
+export function PharmacyCard(props: PharmacyProps) {
+  const [booking, setBooking] = useState(props.booking);
+  const [lastUpdated, setlastUpdated] = useState(props.lastUpdated);
 
   const updatePharmacy = (availability: boolean) => {
     const time = new Date();
@@ -45,7 +45,7 @@ export function PharmacyContainer({ pharmacy }: PharmacyProps) {
   return (
     <section>
       <Card
-        title={pharmacy.pharmacyName}
+        title={props.pharmacyName}
         sectioned
         primaryFooterAction={{
           content: "Report Availability",
@@ -67,12 +67,12 @@ export function PharmacyContainer({ pharmacy }: PharmacyProps) {
         <TextContainer>
           <Card.Section fullWidth>{availabilityMarkup()}</Card.Section>
           <Card.Section title="Store Info">
-            <Card.Subsection>{pharmacy.address}</Card.Subsection>
+            <Card.Subsection>{props.address}</Card.Subsection>
             <Card.Subsection>
-              {pharmacy.phone}
+              {props.phone}
               <br />
               {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-              <Link url={pharmacy.website}>{pharmacy.website}</Link>
+              <Link url={props.website}>{props.website}</Link>
             </Card.Subsection>
           </Card.Section>
         </TextContainer>

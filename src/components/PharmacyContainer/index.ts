@@ -1,1 +1,0 @@
-export { PharmacyContainer } from "./PharmacyContainer";

@@ -17,6 +17,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "start:mock-api": "cross-env REACT_APP_MOCK_API=true react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -42,6 +43,7 @@
     "@types/jest": "^26.0.23",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
+    "cross-env": "^7.0.3",
     "eslint": "^7.25.0",
     "eslint-config-airbnb": "18.2.1",
     "eslint-config-airbnb-typescript": "^12.3.1",
@@ -57,6 +59,10 @@
     "eslint-plugin-react-hooks": "1.7.0",
     "eslint-plugin-testing-library": "3.3.1",
     "husky": ">=6",
+    "msw": "^0.28.2",
     "prettier": "^2.2.1"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }
