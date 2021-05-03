@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { Card, Link, Banner, TextContainer } from "@shopify/polaris";
+import {
+  Card,
+  Link,
+  Banner,
+  TextContainer,
+  Stack,
+  Layout,
+} from "@shopify/polaris";
 import { MobileAcceptMajor, CircleDisabledMajor } from "@shopify/polaris-icons";
 
 interface PharmacyProps {
@@ -43,7 +50,7 @@ export function PharmacyCard(props: PharmacyProps) {
     );
   };
   return (
-    <section>
+    <Layout.Section>
       <Card
         title={props.pharmacyName}
         sectioned
@@ -69,15 +76,19 @@ export function PharmacyCard(props: PharmacyProps) {
           <Card.Section title="Store Info">
             <Card.Subsection>{props.address}</Card.Subsection>
             <Card.Subsection>
-              {props.phone}
-              <br />
-              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-              <Link url={props.website}>{props.website}</Link>
+              <Stack>
+                <Stack.Item>{props.phone}</Stack.Item>
+              </Stack>
+              <Stack>
+                <Stack.Item>
+                  {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                  <Link url={props.website}>{props.website}</Link>
+                </Stack.Item>
+              </Stack>
             </Card.Subsection>
           </Card.Section>
         </TextContainer>
       </Card>
-      <br />
-    </section>
+    </Layout.Section>
   );
 }

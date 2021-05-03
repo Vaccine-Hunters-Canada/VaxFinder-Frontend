@@ -1,15 +1,30 @@
-import { Layout, Page, TextStyle, Banner } from "@shopify/polaris";
+import {
+  Layout,
+  Page,
+  Banner,
+  Form,
+  FormLayout,
+  TextField,
+  Button,
+  Card,
+} from "@shopify/polaris";
 import React, { useState } from "react";
 import { PharmacyList } from "../PharmacyList";
 import { TwitterTimelineEmbed } from "react-twitter-embed";
 
 export function Home() {
-  const [showBanner, setShowBanner] = useState(true);
+  const [shouldShowBanner, setShouldShowBanner] = useState(true);
+  const [shouldShowPostalPrompt, setShouldShowPostalPrompt] = useState(true);
+  const [shouldShowInvalidPostal, setShouldShowInvalidPostal] = useState(false);
+  const [shouldRenderPharmacyList, setShouldRenderPharmacyList] = useState(
+    false,
+  );
+  const [postalCode, setPostalCode] = useState("");
 
   const handleBannerDismiss = () => {
-    setShowBanner(false);
+    setShouldShowBanner(false);
   };
-  const dismissableBannerMarkup = showBanner ? (
+  const dismissableBannerMarkup = shouldShowBanner ? (
     <>
       <Banner
         title="Eligibility:"
@@ -27,28 +42,68 @@ export function Home() {
           <li>Insert other eligbility rules</li>
         </ul>
       </Banner>
-      <br />
-      <br />
     </>
   ) : null;
+
+  const handleSubmit = () => {
+    const postalCodeRegex = /[a-zA-Z][0-9][a-zA-Z](-| |)[0-9][a-zA-Z][0-9]/;
+    if (postalCodeRegex.test(postalCode)) {
+      setShouldRenderPharmacyList(true);
+      setShouldShowPostalPrompt(false);
+    } else {
+      setShouldShowInvalidPostal(true);
+    }
+  };
+  const afterPostalEntryMarkup = shouldRenderPharmacyList ? (
+    <>
+      <Layout.Section>{dismissableBannerMarkup}</Layout.Section>
+      <PharmacyList />
+    </>
+  ) : null;
+
+  const invalidPostalCodeMessage = shouldShowInvalidPostal
+    ? "You have entered an invalid postal code"
+    : undefined;
+
+  const promptForPostalMarkup = shouldShowPostalPrompt ? (
+    <>
+      <Card>
+        <Card.Section>
+          <Form onSubmit={handleSubmit}>
+            <FormLayout>
+              <TextField
+                value={postalCode}
+                onChange={(postal) => setPostalCode(postal)}
+                label="Please enter your postal code (Example: K2T 0E5):"
+                helpText={
+                  <span>
+                    We’ll use this postal code to find the closest available
+                    vaccines.
+                  </span>
+                }
+                error={invalidPostalCodeMessage}
+              />
+              <Button primary submit>
+                Submit
+              </Button>
+            </FormLayout>
+          </Form>
+        </Card.Section>
+      </Card>
+    </>
+  ) : null;
+
   return (
     <>
       <Layout>
         <Layout.Section>
           <Page>
-            <TextStyle variation="subdued">
-              Here&apos;s what&apos;s happening with vaccinations in Ottawa
-            </TextStyle>
-            <br />
-            <br />
-            {dismissableBannerMarkup}
-            <PharmacyList />
+            {promptForPostalMarkup}
+            {afterPostalEntryMarkup}
           </Page>
         </Layout.Section>
         <Layout.Section secondary>
           <Page>
-            <br />
-            <br />
             <TwitterTimelineEmbed
               sourceType="profile"
               screenName="VaxHuntersCan"
