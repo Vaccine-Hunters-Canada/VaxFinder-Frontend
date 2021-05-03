@@ -34,6 +34,14 @@ Start the app in development mode at http://localhost:3000:
 $ yarn start
 ```
 
+## Development with a mocked api
+
+Start the app in development mode with a mocked api at http://localhost:3000:
+
+```sh
+$ yarn start:mock-api
+```
+
 ### Codegen
 
 Generate TypeScript types and typesafe React hooks based off the OpenAPI schema:
