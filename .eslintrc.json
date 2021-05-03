@@ -128,7 +128,12 @@
     "import/no-extraneous-dependencies": [
       "error",
       {
-        "devDependencies": ["src/mocks/**"],
+        "devDependencies": [
+          "src/mocks/**",
+          "src/setupTests.js",
+          "**/*.test.tsx",
+          "src/testUtils.tsx"
+        ],
         "optionalDependencies": false,
         "peerDependencies": false
       }
@@ -184,6 +189,13 @@
     "no-irregular-whitespace": "off",
     "no-multiple-empty-lines": "off",
     "no-new-wrappers": "error",
+    "no-restricted-imports": [
+      "error",
+      {
+        "name": "@testing-library/react",
+        "message": "Please import from src/testUtils instead"
+      }
+    ],
     "no-shadow": [
       "error",
       {
