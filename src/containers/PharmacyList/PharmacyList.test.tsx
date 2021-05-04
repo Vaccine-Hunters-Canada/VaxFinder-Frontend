@@ -4,6 +4,12 @@ import { VaccineAvailabilityExpandedResponse } from "../../apiClient";
 import { server } from "../../mocks/server";
 import { render, screen } from "../../testUtils";
 import { PharmacyList } from "./PharmacyList";
+import { format } from "date-fns-tz";
+
+const formattedDate = format(
+  new Date("2021-05-01T21:07:28.232Z"),
+  "MMM d y, h:mm a z",
+);
 
 describe("PharmacyList", () => {
   test("Should show returned pharmacy details with available appointments", async () => {
@@ -11,6 +17,7 @@ describe("PharmacyList", () => {
 
     await screen.findByRole("heading", { name: /stittsville ida/i });
     await screen.findByText(/appointments available/i);
+    await screen.findByText(`as of ${formattedDate}`);
     await screen.findByText(
       /250 stittsville main st stittsville ontario k2s 1s9/i,
     );
@@ -64,6 +71,7 @@ describe("PharmacyList", () => {
 
     await screen.findByRole("heading", { name: /stittsville ida/i });
     await screen.findByText(/appointments not available/i);
+    await screen.findByText(`as of ${formattedDate}`);
     await screen.findByText(
       /250 stittsville main st stittsville ontario k2s 1s9/i,
     );

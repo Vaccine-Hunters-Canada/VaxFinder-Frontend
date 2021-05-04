@@ -5,6 +5,8 @@
   "dependencies": {
     "@shopify/polaris": "^4.19.0",
     "@shopify/polaris-icons": "^4.5.0",
+    "date-fns": "^2.21.1",
+    "date-fns-tz": "^1.1.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
