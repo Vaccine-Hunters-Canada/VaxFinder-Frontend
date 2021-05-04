@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { format } from "date-fns-tz";
 import {
   Card,
   Link,
@@ -36,7 +37,8 @@ export function PharmacyCard(props: PharmacyProps) {
       return (
         <Banner status="success">
           <p>
-            <strong>Appointments available</strong> as of {lastUpdated}
+            <strong>Appointments available</strong> as of{" "}
+            {format(new Date(lastUpdated), "MMM d y, h:mm a z")}
           </p>
         </Banner>
       );
@@ -44,7 +46,8 @@ export function PharmacyCard(props: PharmacyProps) {
     return (
       <Banner status="critical">
         <p>
-          <strong>Appointments not available</strong> as of {lastUpdated}
+          <strong>Appointments not available</strong> as of{" "}
+          {format(new Date(lastUpdated), "MMM d y, h:mm a z")}
         </p>
       </Banner>
     );
