@@ -29,7 +29,7 @@ export const projInfo = [
   {
     title: "vaccine-peel.ca",
     description:
-      "Overview of vaccine appointment avaiability at Toronto vaccination sites",
+      "Overview of vaccine appointment avaiability at Peel vaccination sites",
     link: "https://www.vaccine-peel.ca",
   },
 ];
