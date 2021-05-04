@@ -1,22 +1,28 @@
-import { PharmacyCard } from "../PharmacyCard";
-import React from "react";
+import { PharmacyCard } from "../../components/PharmacyCard";
+import React, { useState } from "react";
 import { useListVaccineAvailabilityApiV1VaccineAvailabilityGet } from "../../apiClient";
 import { ExceptionList, Spinner, TextStyle } from "@shopify/polaris";
 import { CircleAlertMajor } from "@shopify/polaris-icons";
 import "./PharmacyList.css";
+import { EligibilityBanner } from "../../components/EligibilityBanner";
 
 type PharmacyProps = React.ComponentProps<typeof PharmacyCard>;
 
-export function PharmacyList() {
+interface Props {
+  postalCode: string;
+}
+
+export function PharmacyList(props: Props) {
   const {
     data,
     loading,
     error,
   } = useListVaccineAvailabilityApiV1VaccineAvailabilityGet({
     queryParams: {
-      postalCode: "A1B 2G6",
+      postalCode: props.postalCode,
     },
   });
+  const [shouldShowBanner, setShouldShowBanner] = useState(true);
 
   if (loading) {
     return (
@@ -87,6 +93,10 @@ export function PharmacyList() {
 
   return (
     <section>
+      {shouldShowBanner ? (
+        <EligibilityBanner onDismiss={() => setShouldShowBanner(false)} />
+      ) : null}
+
       {pharmacyList
         ? pharmacyList.map((pharmacy) => {
             return (
