@@ -11,6 +11,7 @@ describe("PharmacyList", () => {
 
     await screen.findByRole("heading", { name: /stittsville ida/i });
     await screen.findByText(/appointments available/i);
+    await screen.findByText(/as of may 1 2021, 5:07 pm edt/i);
     await screen.findByText(
       /250 stittsville main st stittsville ontario k2s 1s9/i,
     );
@@ -64,6 +65,7 @@ describe("PharmacyList", () => {
 
     await screen.findByRole("heading", { name: /stittsville ida/i });
     await screen.findByText(/appointments not available/i);
+    await screen.findByText(/as of may 1 2021, 5:07 pm edt/i);
     await screen.findByText(
       /250 stittsville main st stittsville ontario k2s 1s9/i,
     );
