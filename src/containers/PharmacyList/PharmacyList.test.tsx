@@ -58,7 +58,8 @@ describe("PharmacyList", () => {
 
     // pharmacyList.childNodes[0] is the eligibility notice
 
-    /* eslint-disable no-unsafe-member-access no-unsafe-call */
+    /* eslint-disable no-unsafe-member-access */
+    /* eslint-disable no-unsafe-call */
     await within(pharmacyList.childNodes[1]).findByText(
       /appointments available/i,
     );
@@ -71,7 +72,8 @@ describe("PharmacyList", () => {
     await within(pharmacyList.childNodes[4]).findByText(
       /appointments not available/i,
     );
-    /* eslint-enable no-unsafe-member-access no-unsafe-call */
+    /* eslint-enable no-unsafe-member-access */
+    /* eslint-enable no-unsafe-call */
   });
 
   test("Should show error if pharmacy request fails", async () => {
