@@ -6,7 +6,8 @@ export const projInfo = [
   },
   {
     title: "ontariocovid-19.com",
-    description: "A mobile friendly dashboard for daily Ontario COVID-19",
+    description:
+      "A mobile friendly dashboard for daily Ontario COVID-19 updates",
     link: "https://www.ontariocovid-19.com",
   },
   {
@@ -17,7 +18,7 @@ export const projInfo = [
   },
   {
     title: "vaccineupdates.ca",
-    description: "Search and filter VaxHuntersCan tweets",
+    description: "Search and filter VaxHuntersCan tweets by city or keyword",
     link: "http://vaccineupdates.ca",
   },
   {
