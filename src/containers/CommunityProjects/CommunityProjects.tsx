@@ -18,7 +18,16 @@ export function CommunityProjects() {
   projInfo.forEach((element) => {
     const card = (
       <div className="singleCardWrapper">
-        <Card title={element.title} sectioned>
+        <Card
+          title={element.title}
+          sectioned
+          footerActionAlignment="left"
+          primaryFooterAction={{
+            content: "View Project",
+            external: true,
+            url: String(element.link),
+          }}
+        >
           <p>{element.description}</p>
         </Card>
       </div>
