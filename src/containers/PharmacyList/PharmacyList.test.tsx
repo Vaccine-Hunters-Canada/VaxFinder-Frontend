@@ -1,7 +1,7 @@
 import { rest } from "msw";
 import React from "react";
 import { server } from "../../mocks/server";
-import { render, screen } from "../../testUtils";
+import { render, screen, within } from "../../testUtils";
 import { PharmacyList } from "./PharmacyList";
 import { format } from "date-fns-tz";
 
@@ -57,6 +57,8 @@ describe("PharmacyList", () => {
     const pharmacyList = await screen.findByLabelText(/pharmacy-list/i);
 
     // pharmacyList.childNodes[0] is the eligibility notice
+
+    /* eslint-disable no-unsafe-member-access no-unsafe-call */
     await within(pharmacyList.childNodes[1]).findByText(
       /appointments available/i,
     );
@@ -69,6 +71,7 @@ describe("PharmacyList", () => {
     await within(pharmacyList.childNodes[4]).findByText(
       /appointments not available/i,
     );
+    /* eslint-enable no-unsafe-member-access no-unsafe-call */
   });
 
   test("Should show error if pharmacy request fails", async () => {
