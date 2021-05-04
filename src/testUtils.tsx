@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-imports */
 import React, { ReactElement } from "react";
-import { render, RenderOptions } from "@testing-library/react";
+import { render, RenderOptions, within } from "@testing-library/react";
 import { AppProvider } from "@shopify/polaris";
 import { theme } from "./theme";
 import enTranslations from "@shopify/polaris/locales/en.json";
