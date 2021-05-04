@@ -5,21 +5,27 @@ import { AppProvider } from "@shopify/polaris";
 import { theme } from "./theme";
 import enTranslations from "@shopify/polaris/locales/en.json";
 import { RestfulProvider } from "restful-react";
-
-const AllTheProviders: React.FC = ({ children }) => {
-  return (
-    <AppProvider theme={theme} i18n={enTranslations}>
-      <RestfulProvider base={process.env.REACT_APP_API_URL ?? ""}>
-        {children}
-      </RestfulProvider>
-    </AppProvider>
-  );
-};
+import { Router } from "react-router-dom";
+import { createMemoryHistory } from "history";
 
 const customRender = (
   ui: ReactElement,
   options?: Omit<RenderOptions, "queries">,
-) => render(ui, { wrapper: AllTheProviders, ...options });
+) => {
+  const history = createMemoryHistory();
+  const AllTheProviders: React.FC = ({ children }) => {
+    return (
+      <Router history={history}>
+        <AppProvider theme={theme} i18n={enTranslations}>
+          <RestfulProvider base={process.env.REACT_APP_API_URL ?? ""}>
+            {children}
+          </RestfulProvider>
+        </AppProvider>
+      </Router>
+    );
+  };
+  return { ...render(ui, { wrapper: AllTheProviders, ...options }), history };
+};
 
 // re-export everything
 export * from "@testing-library/react";

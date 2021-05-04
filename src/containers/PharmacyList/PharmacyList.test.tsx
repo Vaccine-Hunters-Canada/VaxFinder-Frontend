@@ -7,7 +7,7 @@ import { PharmacyList } from "./PharmacyList";
 
 describe("PharmacyList", () => {
   test("Should show returned pharmacy details with available appointments", async () => {
-    render(<PharmacyList />);
+    render(<PharmacyList postalCode="k2s 1s9" />);
 
     await screen.findByRole("heading", { name: /stittsville ida/i });
     await screen.findByText(/appointments available/i);
@@ -60,7 +60,7 @@ describe("PharmacyList", () => {
       ),
     );
 
-    render(<PharmacyList />);
+    render(<PharmacyList postalCode="k2s 1s9" />);
 
     await screen.findByRole("heading", { name: /stittsville ida/i });
     await screen.findByText(/appointments not available/i);
@@ -79,7 +79,7 @@ describe("PharmacyList", () => {
       ),
     );
 
-    render(<PharmacyList />);
+    render(<PharmacyList postalCode="k2s 1s9" />);
     await screen.findByText(
       /could not load pharmacy data, please try again later/i,
     );
