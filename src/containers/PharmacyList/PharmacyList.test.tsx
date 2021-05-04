@@ -1,11 +1,10 @@
 import { rest } from "msw";
 import React from "react";
-import { VaccineAvailabilityExpandedResponse } from "../../apiClient";
 import { server } from "../../mocks/server";
 import { render, screen } from "../../testUtils";
 import { PharmacyList } from "./PharmacyList";
 import { format } from "date-fns-tz";
-import { within } from "@testing-library/react";
+import { within } from "@testing-library/react";,
 
 const formattedDate = format(
   new Date("2021-05-01T21:07:28.232Z"),
@@ -33,7 +32,7 @@ describe("PharmacyList", () => {
     expect(available.length).toBe(2);
 
     const unavailable = await screen.findAllByText(
-      /appointments not available/i
+      /appointments not available/i,
     );
     expect(unavailable.length).toBe(2);
 
@@ -41,7 +40,7 @@ describe("PharmacyList", () => {
     expect(dates.length).toBe(4);
 
     const addresses = await screen.findAllByText(
-      /250 stittsville main st stittsville ontario k2s 1s9/i
+      /250 stittsville main st stittsville ontario k2s 1s9/i,
     );
     expect(addresses.length).toBe(4);
 
@@ -60,16 +59,16 @@ describe("PharmacyList", () => {
 
     // pharmacyList.childNodes[0] is the eligibility notice
     await within(pharmacyList.childNodes[1]).findByText(
-      /appointments available/i
+      /appointments available/i,
     );
     await within(pharmacyList.childNodes[2]).findByText(
-      /appointments available/i
+      /appointments available/i,
     );
     await within(pharmacyList.childNodes[3]).findByText(
-      /appointments not available/i
+      /appointments not available/i,
     );
     await within(pharmacyList.childNodes[4]).findByText(
-      /appointments not available/i
+      /appointments not available/i,
     );
   });
 
