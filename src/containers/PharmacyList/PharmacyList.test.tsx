@@ -4,7 +4,6 @@ import { server } from "../../mocks/server";
 import { render, screen } from "../../testUtils";
 import { PharmacyList } from "./PharmacyList";
 import { format } from "date-fns-tz";
-import { within } from "@testing-library/react";
 
 const formattedDate = format(
   new Date("2021-05-01T21:07:28.232Z"),
