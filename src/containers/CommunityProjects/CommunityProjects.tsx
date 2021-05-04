@@ -16,47 +16,33 @@ import "./CommunityProjectsStyles.css";
 export function CommunityProjects() {
   return (
     <Page title="Community Projects">
-      <p>
-        Explore more COVID-19 projects built by people from across Canada!
-      </p>
+      <p>Explore more COVID-19 projects built by people from across Canada!</p>
       <div className="cardFlexBox">
         <div className="singleCardWrapper">
           <Card title="ontariocovid-19.com" sectioned>
             <p>
-              A mobile friendly dashboard for daily Ontario COVID-19
-              updates.
+              A mobile friendly dashboard for daily Ontario COVID-19 updates.
             </p>
           </Card>
         </div>
         <div className="singleCardWrapper">
           <Card title="ontariocovid-19.com" sectioned>
             <p>
-              A mobile friendly dashboard for daily Ontario COVID-19
-              updates.
+              A mobile friendly dashboard for daily Ontario COVID-19 updates.
             </p>
           </Card>
         </div>
         <div className="singleCardWrapper">
           <Card title="ontariocovid-19.com" sectioned>
             <p>
-              A mobile friendly dashboard for daily Ontario COVID-19
-              updates.
+              A mobile friendly dashboard for daily Ontario COVID-19 updates.
             </p>
           </Card>
         </div>
         <div className="singleCardWrapper">
           <Card title="ontariocovid-19.com" sectioned>
             <p>
-              A mobile friendly dashboard for daily Ontario COVID-19
-              updates.
-            </p>
-          </Card>
-        </div>
-        <div className="singleCardWrapper">
-          <Card title="ontariocovid-19.com" sectioned>
-            <p>
-              A mobile friendly dashboard for daily Ontario COVID-19
-              updates.
+              A mobile friendly dashboard for daily Ontario COVID-19 updates.
             </p>
           </Card>
         </div>
