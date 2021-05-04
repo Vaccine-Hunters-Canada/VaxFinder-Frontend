@@ -10,7 +10,7 @@ import { createMemoryHistory } from "history";
 
 const customRender = (
   ui: ReactElement,
-  options?: Omit<RenderOptions, "queries">
+  options?: Omit<RenderOptions, "queries">,
 ) => {
   const history = createMemoryHistory();
   const AllTheProviders: React.FC = ({ children }) => {
