@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { Frame, Layout, Navigation, Page, TopBar } from "@shopify/polaris";
-import { HomeMajor } from "@shopify/polaris-icons";
+import { HomeMajor, GlobeMajor } from "@shopify/polaris-icons";
 import { Routes } from "./Routes";
 import { TwitterTimelineEmbed } from "react-twitter-embed";
 
@@ -18,8 +18,14 @@ export function AppFrame() {
             items={[
               {
                 url: "/",
+                exactMatch: true,
                 label: "Home",
                 icon: HomeMajor,
+              },
+              {
+                url: "/communityProjects",
+                label: "Community Projects",
+                icon: GlobeMajor,
               },
             ]}
           />
