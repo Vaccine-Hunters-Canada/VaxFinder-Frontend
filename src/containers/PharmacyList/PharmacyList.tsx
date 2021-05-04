@@ -54,10 +54,10 @@ export function PharmacyList(props: Props) {
     );
   }
 
-  let pharmacyList: PharmacyProps[] = [];
+  let pharmacyListUnsorted: PharmacyProps[] = [];
 
   if (data) {
-    pharmacyList = data.map((pharmacy) => {
+    pharmacyListUnsorted = data.map((pharmacy) => {
       const addressSegments: string[] = [];
 
       const { address } = pharmacy.location;
@@ -91,8 +91,18 @@ export function PharmacyList(props: Props) {
     });
   }
 
+  const pharmacyList = pharmacyListUnsorted
+    .filter((pharmacy) => {
+      return pharmacy.booking;
+    })
+    .concat(
+      pharmacyListUnsorted.filter((pharmacy) => {
+        return !pharmacy.booking;
+      }),
+    );
+
   return (
-    <section>
+    <section aria-label="pharmacy-list">
       {shouldShowBanner ? (
         <EligibilityBanner onDismiss={() => setShouldShowBanner(false)} />
       ) : null}
