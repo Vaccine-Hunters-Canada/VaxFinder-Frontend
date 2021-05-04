@@ -102,7 +102,7 @@ export function PharmacyList(props: Props) {
     );
 
   return (
-    <section>
+    <section aria-label="pharmacy-list">
       {shouldShowBanner ? (
         <EligibilityBanner onDismiss={() => setShouldShowBanner(false)} />
       ) : null}
