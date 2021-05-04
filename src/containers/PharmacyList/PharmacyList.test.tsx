@@ -4,6 +4,12 @@ import { VaccineAvailabilityExpandedResponse } from "../../apiClient";
 import { server } from "../../mocks/server";
 import { render, screen } from "../../testUtils";
 import { PharmacyList } from "./PharmacyList";
+import { format } from "date-fns-tz";
+
+const formattedDate = format(
+  new Date("2021-05-01T21:07:28.232Z"),
+  "MMM d y, h:mm a z"
+);
 
 describe("PharmacyList", () => {
   test("Should show returned pharmacy details with available appointments", async () => {
@@ -11,9 +17,9 @@ describe("PharmacyList", () => {
 
     await screen.findByRole("heading", { name: /stittsville ida/i });
     await screen.findByText(/appointments available/i);
-    await screen.findByText(/as of may 1 2021, 5:07 pm edt/i);
+    await screen.findByText(`as of ${formattedDate}`);
     await screen.findByText(
-      /250 stittsville main st stittsville ontario k2s 1s9/i,
+      /250 stittsville main st stittsville ontario k2s 1s9/i
     );
     await screen.findByText(/\(613\) 555-5555/i);
     await screen.findByRole("link", { name: /https:\/\/idapharmacy\.com\//i });
@@ -57,17 +63,17 @@ describe("PharmacyList", () => {
     server.use(
       rest.get(
         `${process.env.REACT_APP_API_URL!}/api/v1/vaccine-availability`,
-        async (req, res, ctx) => res(ctx.json(response)),
-      ),
+        async (req, res, ctx) => res(ctx.json(response))
+      )
     );
 
     render(<PharmacyList postalCode="k2s 1s9" />);
 
     await screen.findByRole("heading", { name: /stittsville ida/i });
     await screen.findByText(/appointments not available/i);
-    await screen.findByText(/as of may 1 2021, 5:07 pm edt/i);
+    await screen.findByText(`as of ${formattedDate}`);
     await screen.findByText(
-      /250 stittsville main st stittsville ontario k2s 1s9/i,
+      /250 stittsville main st stittsville ontario k2s 1s9/i
     );
     await screen.findByText(/\(613\) 555-5555/i);
     await screen.findByRole("link", { name: /https:\/\/idapharmacy\.com\//i });
@@ -77,13 +83,13 @@ describe("PharmacyList", () => {
     server.use(
       rest.get(
         `${process.env.REACT_APP_API_URL!}/api/v1/vaccine-availability`,
-        async (req, res, ctx) => res(ctx.status(500)),
-      ),
+        async (req, res, ctx) => res(ctx.status(500))
+      )
     );
 
     render(<PharmacyList postalCode="k2s 1s9" />);
     await screen.findByText(
-      /could not load pharmacy data, please try again later/i,
+      /could not load pharmacy data, please try again later/i
     );
   });
 });
