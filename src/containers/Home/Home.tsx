@@ -1,4 +1,11 @@
-import { Form, FormLayout, TextField, Button, Card } from "@shopify/polaris";
+import {
+  Form,
+  FormLayout,
+  TextField,
+  Button,
+  Card,
+  Page,
+} from "@shopify/polaris";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
@@ -21,7 +28,7 @@ export function Home() {
     : undefined;
 
   return (
-    <>
+    <Page>
       <Card>
         <Card.Section>
           <Form onSubmit={handleSubmit}>
@@ -45,6 +52,6 @@ export function Home() {
           </Form>
         </Card.Section>
       </Card>
-    </>
+    </Page>
   );
 }

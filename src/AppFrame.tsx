@@ -34,9 +34,7 @@ export function AppFrame() {
     >
       <Layout>
         <Layout.Section>
-          <Page>
-            <Routes />
-          </Page>
+          <Routes />
         </Layout.Section>
         <Layout.Section secondary>
           <Page>
