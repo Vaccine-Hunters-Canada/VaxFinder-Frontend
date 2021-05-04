@@ -12,6 +12,10 @@
   margin-bottom: 1.5em;
 }
 
+.Polaris-Card {
+  min-height: 200px;
+}
+
 @media only screen and (max-width: 768px) {
   .singleCardWrapper {
     width: 100%;
@@ -29,6 +33,10 @@
 
   .Polaris-Page-Header {
     padding-left: 0;
+  }
+
+  .Polaris-Card {
+    min-height: 0;
   }
 }
 
