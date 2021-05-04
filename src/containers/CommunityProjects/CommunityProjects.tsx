@@ -1,15 +1,5 @@
-import {
-  Layout,
-  Page,
-  Banner,
-  Form,
-  FormLayout,
-  TextField,
-  Button,
-  Badge,
-  Card,
-} from "@shopify/polaris";
-import React, { useState } from "react";
+import { Page, Card } from "@shopify/polaris";
+import React from "react";
 import { projInfo } from "./CommunityProjectsInfo";
 import "./CommunityProjectsStyles.css";
 
