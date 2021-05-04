@@ -10,43 +10,26 @@ import {
   Card,
 } from "@shopify/polaris";
 import React, { useState } from "react";
-import { TwitterTimelineEmbed } from "react-twitter-embed";
+import { projInfo } from "./CommunityProjectsInfo";
 import "./CommunityProjectsStyles.css";
 
 export function CommunityProjects() {
+  const infoCards: JSX.Element[] = [];
+  projInfo.forEach((element) => {
+    const card = (
+      <div className="singleCardWrapper">
+        <Card title={element.title} sectioned>
+          <p>{element.description}</p>
+        </Card>
+      </div>
+    );
+    infoCards.push(card);
+  });
+
   return (
     <Page title="Community Projects">
       <p>Explore more COVID-19 projects built by people from across Canada!</p>
-      <div className="cardFlexBox">
-        <div className="singleCardWrapper">
-          <Card title="ontariocovid-19.com" sectioned>
-            <p>
-              A mobile friendly dashboard for daily Ontario COVID-19 updates.
-            </p>
-          </Card>
-        </div>
-        <div className="singleCardWrapper">
-          <Card title="ontariocovid-19.com" sectioned>
-            <p>
-              A mobile friendly dashboard for daily Ontario COVID-19 updates.
-            </p>
-          </Card>
-        </div>
-        <div className="singleCardWrapper">
-          <Card title="ontariocovid-19.com" sectioned>
-            <p>
-              A mobile friendly dashboard for daily Ontario COVID-19 updates.
-            </p>
-          </Card>
-        </div>
-        <div className="singleCardWrapper">
-          <Card title="ontariocovid-19.com" sectioned>
-            <p>
-              A mobile friendly dashboard for daily Ontario COVID-19 updates.
-            </p>
-          </Card>
-        </div>
-      </div>
+      <div className="cardFlexBox">{infoCards}</div>
     </Page>
   );
 }
