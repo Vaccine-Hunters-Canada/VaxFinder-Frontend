@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Iframe from "react-iframe";
 import { format } from "date-fns-tz";
 import {
   Card,
@@ -7,8 +8,13 @@ import {
   TextContainer,
   Stack,
   Layout,
+  Button,
 } from "@shopify/polaris";
-import { MobileAcceptMajor, CircleDisabledMajor } from "@shopify/polaris-icons";
+import {
+  MobileAcceptMajor,
+  CircleDisabledMajor,
+  LocationMajor,
+} from "@shopify/polaris-icons";
 
 interface PharmacyProps {
   // Id used for creating React keys
@@ -25,12 +31,29 @@ interface PharmacyProps {
 export function PharmacyCard(props: PharmacyProps) {
   const [booking, setBooking] = useState(props.booking);
   const [lastUpdated, setlastUpdated] = useState(props.lastUpdated);
+  const [showMap, setShowMap] = useState(false);
 
   const updatePharmacy = (availability: boolean) => {
     const time = new Date();
     setlastUpdated(time.toLocaleString());
     setBooking(availability);
   };
+
+  const showTheMap = () => {
+    setShowMap(true);
+  };
+
+  const Map = () => (
+    <Iframe
+      // the key is hardcoded for now, but there's no rate limit or usage limit for embedding
+      url={`https://www.google.com/maps/embed/v1/place?q=${props.address}&key=AIzaSyCJF0WPrXAbLIePWWFbS7rRxdCBaY8pjAs`}
+      width="450px"
+      height="450px"
+      id="myId"
+      className="myClassname"
+      position="relative"
+    />
+  );
 
   const availabilityMarkup = () => {
     if (booking) {
@@ -61,7 +84,7 @@ export function PharmacyCard(props: PharmacyProps) {
           content: "Report Availability",
           icon: MobileAcceptMajor,
           onAction: () => {
-            updatePharmacy(true);
+            setShowMap(true);
           },
         }}
         secondaryFooterActions={[
@@ -88,9 +111,19 @@ export function PharmacyCard(props: PharmacyProps) {
                   <Link url={props.website}>{props.website}</Link>
                 </Stack.Item>
               </Stack>
+              <Stack>
+                {showMap ? null : (
+                  <Stack.Item>
+                    <Button icon={LocationMajor} onClick={showTheMap}>
+                      Load map and directions
+                    </Button>
+                  </Stack.Item>
+                )}
+              </Stack>
             </Card.Subsection>
           </Card.Section>
         </TextContainer>
+        {showMap ? <Map /> : null}
       </Card>
     </Layout.Section>
   );
