@@ -1,7 +1,7 @@
 import { PharmacyCard } from "../../components/PharmacyCard";
 import React, { useState } from "react";
 import { useListVaccineAvailabilityApiV1VaccineAvailabilityGet } from "../../apiClient";
-import { ExceptionList, Spinner, TextStyle } from "@shopify/polaris";
+import { ExceptionList, Spinner, TextStyle, Page } from "@shopify/polaris";
 import { CircleAlertMajor } from "@shopify/polaris-icons";
 import "./PharmacyList.css";
 import { EligibilityBanner } from "../../components/EligibilityBanner";
@@ -34,23 +34,25 @@ export function PharmacyList(props: Props) {
 
   if (error) {
     return (
-      <div className="wrapper">
-        <ExceptionList
-          items={[
-            {
-              icon: CircleAlertMajor,
-              status: "critical",
-              description: (
-                <TextStyle variation="negative">
-                  <strong>
-                    Could not load pharmacy data, please try again later
-                  </strong>
-                </TextStyle>
-              ),
-            },
-          ]}
-        />
-      </div>
+      <Page>
+        <div className="wrapper">
+          <ExceptionList
+            items={[
+              {
+                icon: CircleAlertMajor,
+                status: "critical",
+                description: (
+                  <TextStyle variation="negative">
+                    <strong>
+                      Could not load pharmacy data, please try again later
+                    </strong>
+                  </TextStyle>
+                ),
+              },
+            ]}
+          />
+        </div>
+      </Page>
     );
   }
 
@@ -92,27 +94,29 @@ export function PharmacyList(props: Props) {
   }
 
   return (
-    <section>
-      {shouldShowBanner ? (
-        <EligibilityBanner onDismiss={() => setShouldShowBanner(false)} />
-      ) : null}
+    <Page>
+      <section>
+        {shouldShowBanner ? (
+          <EligibilityBanner onDismiss={() => setShouldShowBanner(false)} />
+        ) : null}
 
-      {pharmacyList
-        ? pharmacyList.map((pharmacy) => {
-            return (
-              <PharmacyCard
-                key={pharmacy.id}
-                id={pharmacy.id}
-                address={pharmacy.address}
-                booking={pharmacy.booking}
-                lastUpdated={pharmacy.lastUpdated}
-                pharmacyName={pharmacy.pharmacyName}
-                phone={pharmacy.phone}
-                website={pharmacy.website}
-              />
-            );
-          })
-        : null}
-    </section>
+        {pharmacyList
+          ? pharmacyList.map((pharmacy) => {
+              return (
+                <PharmacyCard
+                  key={pharmacy.id}
+                  id={pharmacy.id}
+                  address={pharmacy.address}
+                  booking={pharmacy.booking}
+                  lastUpdated={pharmacy.lastUpdated}
+                  pharmacyName={pharmacy.pharmacyName}
+                  phone={pharmacy.phone}
+                  website={pharmacy.website}
+                />
+              );
+            })
+          : null}
+      </section>
+    </Page>
   );
 }
