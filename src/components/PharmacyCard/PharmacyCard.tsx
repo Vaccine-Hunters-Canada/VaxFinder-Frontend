@@ -1,12 +1,6 @@
 import React from "react";
 import { format } from "date-fns-tz";
-import {
-  Card,
-  Banner,
-  TextContainer,
-  Stack,
-  Layout,
-} from "@shopify/polaris";
+import { Card, Banner, TextContainer, Stack, Layout } from "@shopify/polaris";
 import { DomainsMajor } from "@shopify/polaris-icons";
 
 interface PharmacyProps {
