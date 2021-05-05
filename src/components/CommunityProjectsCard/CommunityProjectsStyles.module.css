@@ -1,0 +1,26 @@
+.singleCardWrapper {
+  width: 30%;
+  min-width: 15em;
+  margin-right: 1.5em;
+  margin-bottom: 1.5em;
+}
+
+.singleCardWrapper :global(.Polaris-Card) {
+  min-height: 15em;
+}
+
+@media only screen and (max-width: 77em) {
+  .singleCardWrapper {
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .singleCardWrapper :global(.Polaris-Card) {
+    min-height: 0;
+  }
+
+  .singleCardWrapper:last-child {
+    margin-bottom: 0;
+  }
+}
+

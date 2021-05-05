@@ -5,39 +5,14 @@
   margin-top: 2em;
 }
 
-.singleCardWrapper {
-  width: 30%;
-  min-width: 216px;
-  margin-right: 1.5em;
-  margin-bottom: 1.5em;
-}
-
-.singleCardWrapper :global(.Polaris-Card) {
-  min-height: 200px;
-}
-
-@media only screen and (max-width: 768px) {
-  .singleCardWrapper {
-    width: 100%;
-    margin-right: 0;
-  }
-
-  .singleCardWrapper :global(.Polaris-Card) {
-    min-height: 0;
-  }
-
-  .singleCardWrapper:last-child {
-    margin-bottom: 0;
-  }
-
+@media only screen and (max-width: 77em) {
   /* Override Polaris Page CSS for mobile screens */
   .communityProjectsPage :global(.Polaris-Page) {
-    margin: 0 2vw 0 2vw;
+    margin: 0 2vw;
   }
 
   .communityProjectsPage :global(.Polaris-Page-Header) {
     padding-left: 0;
   }
-
 }
 
