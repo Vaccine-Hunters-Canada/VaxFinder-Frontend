@@ -31,7 +31,7 @@ interface PharmacyProps {
 export function PharmacyCard(props: PharmacyProps) {
   const [booking, setBooking] = useState(props.booking);
   const [lastUpdated, setlastUpdated] = useState(props.lastUpdated);
-  const [showMap, setShowMap] = useState(false);
+  const [shouldShowMap, setShouldShowMap] = useState(false);
 
   const updatePharmacy = (availability: boolean) => {
     const time = new Date();
@@ -39,18 +39,12 @@ export function PharmacyCard(props: PharmacyProps) {
     setBooking(availability);
   };
 
-  const showTheMap = () => {
-    setShowMap(true);
-  };
-
   const Map = () => (
     <Iframe
       // the key is hardcoded for now, but there's no rate limit or usage limit for embedding
       url={`https://www.google.com/maps/embed/v1/place?q=${props.address}&key=AIzaSyCJF0WPrXAbLIePWWFbS7rRxdCBaY8pjAs`}
-      width="450px"
-      height="450px"
-      id="myId"
-      className="myClassname"
+      width="100%"
+      height="100%"
       position="relative"
     />
   );
@@ -84,7 +78,7 @@ export function PharmacyCard(props: PharmacyProps) {
           content: "Report Availability",
           icon: MobileAcceptMajor,
           onAction: () => {
-            setShowMap(true);
+            setShouldShowMap(true);
           },
         }}
         secondaryFooterActions={[
@@ -112,9 +106,14 @@ export function PharmacyCard(props: PharmacyProps) {
                 </Stack.Item>
               </Stack>
               <Stack>
-                {showMap ? null : (
+                {shouldShowMap ? null : (
                   <Stack.Item>
-                    <Button icon={LocationMajor} onClick={showTheMap}>
+                    <Button
+                      icon={LocationMajor}
+                      onClick={() => {
+                        setShouldShowMap(true);
+                      }}
+                    >
                       Load map and directions
                     </Button>
                   </Stack.Item>
@@ -123,7 +122,7 @@ export function PharmacyCard(props: PharmacyProps) {
             </Card.Subsection>
           </Card.Section>
         </TextContainer>
-        {showMap ? <Map /> : null}
+        {shouldShowMap ? <Map /> : null}
       </Card>
     </Layout.Section>
   );
