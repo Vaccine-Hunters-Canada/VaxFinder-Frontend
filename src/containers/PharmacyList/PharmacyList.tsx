@@ -1,22 +1,28 @@
-import { PharmacyCard } from "../PharmacyCard";
-import React from "react";
+import { PharmacyCard } from "../../components/PharmacyCard";
+import React, { useState } from "react";
 import { useListVaccineAvailabilityApiV1VaccineAvailabilityGet } from "../../apiClient";
-import { ExceptionList, Spinner } from "@shopify/polaris";
+import { ExceptionList, Spinner, TextStyle } from "@shopify/polaris";
 import { CircleAlertMajor } from "@shopify/polaris-icons";
 import "./PharmacyList.css";
+import { EligibilityBanner } from "../../components/EligibilityBanner";
 
 type PharmacyProps = React.ComponentProps<typeof PharmacyCard>;
 
-export function PharmacyList() {
+interface Props {
+  postalCode: string;
+}
+
+export function PharmacyList(props: Props) {
   const {
     data,
     loading,
     error,
   } = useListVaccineAvailabilityApiV1VaccineAvailabilityGet({
     queryParams: {
-      postalCode: "A1B 2G6",
+      postalCode: props.postalCode,
     },
   });
+  const [shouldShowBanner, setShouldShowBanner] = useState(true);
 
   if (loading) {
     return (
@@ -33,8 +39,14 @@ export function PharmacyList() {
           items={[
             {
               icon: CircleAlertMajor,
-              description:
-                "Could not load pharmacy data, please try again later",
+              status: "critical",
+              description: (
+                <TextStyle variation="negative">
+                  <strong>
+                    Could not load pharmacy data, please try again later
+                  </strong>
+                </TextStyle>
+              ),
             },
           ]}
         />
@@ -42,10 +54,10 @@ export function PharmacyList() {
     );
   }
 
-  let pharmacyList: PharmacyProps[] = [];
+  let pharmacyListUnsorted: PharmacyProps[] = [];
 
   if (data) {
-    pharmacyList = data.map((pharmacy) => {
+    pharmacyListUnsorted = data.map((pharmacy) => {
       const addressSegments: string[] = [];
 
       const { address } = pharmacy.location;
@@ -79,8 +91,22 @@ export function PharmacyList() {
     });
   }
 
+  const pharmacyList = pharmacyListUnsorted
+    .filter((pharmacy) => {
+      return pharmacy.booking;
+    })
+    .concat(
+      pharmacyListUnsorted.filter((pharmacy) => {
+        return !pharmacy.booking;
+      }),
+    );
+
   return (
-    <section>
+    <section aria-label="pharmacy-list">
+      {shouldShowBanner ? (
+        <EligibilityBanner onDismiss={() => setShouldShowBanner(false)} />
+      ) : null}
+
       {pharmacyList
         ? pharmacyList.map((pharmacy) => {
             return (

@@ -5,11 +5,12 @@
   "dependencies": {
     "@shopify/polaris": "^4.19.0",
     "@shopify/polaris-icons": "^4.5.0",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
+    "date-fns": "^2.21.1",
+    "date-fns-tz": "^1.1.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-iframe": "^1.8.0",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-twitter-embed": "^3.0.3",
     "restful-react": "^15.5.1",
@@ -40,7 +41,12 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.12.0",
+    "@testing-library/react": "^11.2.6",
+    "@testing-library/user-event": "^13.1.8",
     "@types/jest": "^26.0.23",
+    "@types/react": "^16.13.1",
+    "@types/react-router-dom": "^5.1.7",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
     "cross-env": "^7.0.3",
@@ -58,6 +64,7 @@
     "eslint-plugin-react": "7.21.5",
     "eslint-plugin-react-hooks": "1.7.0",
     "eslint-plugin-testing-library": "3.3.1",
+    "history": "^5.0.0",
     "husky": ">=6",
     "msw": "^0.28.2",
     "prettier": "^2.2.1"

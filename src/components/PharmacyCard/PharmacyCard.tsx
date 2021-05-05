@@ -1,13 +1,8 @@
 import React, { useState } from "react";
-import {
-  Card,
-  Link,
-  Banner,
-  TextContainer,
-  Stack,
-  Layout,
-} from "@shopify/polaris";
-import { MobileAcceptMajor, CircleDisabledMajor } from "@shopify/polaris-icons";
+import { format } from "date-fns-tz";
+import { Card, Banner, TextContainer, Stack, Layout } from "@shopify/polaris";
+import { DomainsMajor, LocationMajor } from "@shopify/polaris-icons";
+import Iframe from "react-iframe";
 
 interface PharmacyProps {
   // Id used for creating React keys
@@ -22,21 +17,14 @@ interface PharmacyProps {
 }
 
 export function PharmacyCard(props: PharmacyProps) {
-  const [booking, setBooking] = useState(props.booking);
-  const [lastUpdated, setlastUpdated] = useState(props.lastUpdated);
-
-  const updatePharmacy = (availability: boolean) => {
-    const time = new Date();
-    setlastUpdated(time.toLocaleString());
-    setBooking(availability);
-  };
-
+  const [shouldShowMap, setShouldShowMap] = useState(false);
   const availabilityMarkup = () => {
-    if (booking) {
+    if (props.booking) {
       return (
         <Banner status="success">
           <p>
-            <strong>Appointments available</strong> as of {lastUpdated}
+            <strong>Appointments available</strong> as of{" "}
+            {format(new Date(props.lastUpdated), "MMM d y, h:mm a z")}
           </p>
         </Banner>
       );
@@ -44,29 +32,39 @@ export function PharmacyCard(props: PharmacyProps) {
     return (
       <Banner status="critical">
         <p>
-          <strong>Appointments not available</strong> as of {lastUpdated}
+          <strong>Appointments not available</strong> as of{" "}
+          {format(new Date(props.lastUpdated), "MMM d y, h:mm a z")}
         </p>
       </Banner>
     );
   };
+  const Map = () => (
+    <Iframe
+      // the key is hardcoded for now, but there's no rate limit or usage limit for embedding
+      url={`https://www.google.com/maps/embed/v1/place?q=${props.address}&key=AIzaSyCJF0WPrXAbLIePWWFbS7rRxdCBaY8pjAs`}
+      width="100%"
+      height="350px"
+      position="relative"
+      styles={{ border: "none" }}
+    />
+  );
   return (
     <Layout.Section>
       <Card
         title={props.pharmacyName}
         sectioned
         primaryFooterAction={{
-          content: "Report Availability",
-          icon: MobileAcceptMajor,
-          onAction: () => {
-            updatePharmacy(true);
-          },
+          content: "Visit Website",
+          icon: DomainsMajor,
+          external: true,
+          url: props.website,
         }}
         secondaryFooterActions={[
           {
-            content: "Report No Availability",
-            icon: CircleDisabledMajor,
+            content: "Load Map",
+            icon: LocationMajor,
             onAction: () => {
-              updatePharmacy(false);
+              setShouldShowMap(!shouldShowMap);
             },
           },
         ]}
@@ -79,15 +77,10 @@ export function PharmacyCard(props: PharmacyProps) {
               <Stack>
                 <Stack.Item>{props.phone}</Stack.Item>
               </Stack>
-              <Stack>
-                <Stack.Item>
-                  {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                  <Link url={props.website}>{props.website}</Link>
-                </Stack.Item>
-              </Stack>
             </Card.Subsection>
           </Card.Section>
         </TextContainer>
+        {shouldShowMap ? <Map /> : null}
       </Card>
     </Layout.Section>
   );
