@@ -23,16 +23,6 @@ interface PharmacyProps {
 }
 
 export function PharmacyCard(props: PharmacyProps) {
-  /*
-  const [booking, setBooking] = useState(props.booking);
-  const [lastUpdated, setlastUpdated] = useState(props.lastUpdated);
-
-  const updatePharmacy = (availability: boolean) => {
-    const time = new Date();
-    setlastUpdated(time.toLocaleString());
-    setBooking(availability);
-  };
-  */
   const availabilityMarkup = () => {
     if (props.booking) {
       return (
@@ -72,12 +62,6 @@ export function PharmacyCard(props: PharmacyProps) {
             <Card.Subsection>
               <Stack>
                 <Stack.Item>{props.phone}</Stack.Item>
-              </Stack>
-              <Stack>
-                <Stack.Item>
-                  {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                  <Link url={props.website}>{props.website}</Link>
-                </Stack.Item>
               </Stack>
             </Card.Subsection>
           </Card.Section>
