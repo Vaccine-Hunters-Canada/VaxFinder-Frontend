@@ -2,20 +2,26 @@ import React from "react";
 import { Card } from "@shopify/polaris";
 import styles from "./CommunityProjectsStyles.module.css";
 
-export function CommunityProjectCard({ title, link, description }) {
+interface CommunityProjectCardProps {
+  title: string;
+  link: string;
+  description: string;
+}
+
+export function CommunityProjectCard(props: CommunityProjectCardProps) {
   return (
     <div className={styles.singleCardWrapper}>
       <Card
-        title={String(title)}
+        title={props.title}
         sectioned
         footerActionAlignment="left"
         primaryFooterAction={{
           content: "View Project",
           external: true,
-          url: String(link),
+          url: props.link,
         }}
       >
-        <p>{description}</p>
+        <p>{props.description}</p>
       </Card>
     </div>
   );
