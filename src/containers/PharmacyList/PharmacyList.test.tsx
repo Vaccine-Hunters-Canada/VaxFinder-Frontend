@@ -46,10 +46,10 @@ describe("PharmacyList", () => {
     const phones = await screen.findAllByText(/\(613\) 555-5555/i);
     expect(phones.length).toBe(4);
 
-    const links = await screen.findAllByRole("link", {
-      name: /https:\/\/idapharmacy\.com\//i,
-    });
-    expect(links.length).toBe(4);
+    // const links = await screen.findAllByRole("link", {
+    //   name: /https:\/\/idapharmacy\.com\//i,
+    // });
+    // expect(links.length).toBe(4);
   });
 
   test("Should show pharmacies with available appointments first", async () => {
