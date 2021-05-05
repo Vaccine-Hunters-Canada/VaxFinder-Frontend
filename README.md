@@ -22,9 +22,11 @@ $ git clone git@github.com:Vaccine-Hunters-Canada/VaxFinder-Frontend.git
 
 Optionally create a `.env.local` file and define the path to the API server:
 
-```
+```sh
 REACT_APP_API_URL=http://localhost:5000
 ```
+Before beginning development, install the required packages by running `yarn install` or `npm i`.
+
 
 ## Development
 
