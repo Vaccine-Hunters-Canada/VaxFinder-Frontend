@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { format } from "date-fns-tz";
 import { Card, Banner, TextContainer, Stack, Layout } from "@shopify/polaris";
-import { DomainsMajor } from "@shopify/polaris-icons";
+import { DomainsMajor, LocationMajor } from "@shopify/polaris-icons";
+import Iframe from "react-iframe";
 
 interface PharmacyProps {
   // Id used for creating React keys
@@ -16,6 +17,7 @@ interface PharmacyProps {
 }
 
 export function PharmacyCard(props: PharmacyProps) {
+  const [shouldShowMap, setShouldShowMap] = useState(false);
   const availabilityMarkup = () => {
     if (props.booking) {
       return (
@@ -36,6 +38,16 @@ export function PharmacyCard(props: PharmacyProps) {
       </Banner>
     );
   };
+  const Map = () => (
+    <Iframe
+      // the key is hardcoded for now, but there's no rate limit or usage limit for embedding
+      url={`https://www.google.com/maps/embed/v1/place?q=${props.address}&key=AIzaSyCJF0WPrXAbLIePWWFbS7rRxdCBaY8pjAs`}
+      width="100%"
+      height="350px"
+      position="relative"
+      styles={{ border: "none" }}
+    />
+  );
   return (
     <Layout.Section>
       <Card
@@ -47,6 +59,15 @@ export function PharmacyCard(props: PharmacyProps) {
           external: true,
           url: props.website,
         }}
+        secondaryFooterActions={[
+          {
+            content: "Load Map",
+            icon: LocationMajor,
+            onAction: () => {
+              setShouldShowMap(!shouldShowMap);
+            },
+          },
+        ]}
       >
         <TextContainer>
           <Card.Section fullWidth>{availabilityMarkup()}</Card.Section>
@@ -59,6 +80,7 @@ export function PharmacyCard(props: PharmacyProps) {
             </Card.Subsection>
           </Card.Section>
         </TextContainer>
+        {shouldShowMap ? <Map /> : null}
       </Card>
     </Layout.Section>
   );

@@ -9,6 +9,7 @@
     "date-fns-tz": "^1.1.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-iframe": "^1.8.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-twitter-embed": "^3.0.3",
