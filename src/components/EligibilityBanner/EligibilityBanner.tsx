@@ -10,16 +10,8 @@ export function EligibilityBanner(props: Props) {
     <Layout.Section>
       <>
         <Banner title="Eligibility:" onDismiss={props.onDismiss} status="info">
-          <ul>
-            <li>
-              You are <strong>40+ years</strong> old
-            </li>
-            <li>
-              You are defined as <strong>high-risk</strong> according to this
-              document: url here
-            </li>
-            <li>Insert other eligbility rules</li>
-          </ul>
+          In order to ensure you are eligible to receive your vaccine, please
+          check your appropriate health authority&apos;s vaccination guidelines.
         </Banner>
       </>
     </Layout.Section>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { format } from "date-fns-tz";
 import { Card, Banner, TextContainer, Stack, Layout } from "@shopify/polaris";
 import { DomainsMajor, LocationMajor } from "@shopify/polaris-icons";
