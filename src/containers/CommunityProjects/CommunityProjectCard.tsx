@@ -1,9 +1,10 @@
 import React from "react";
 import { Card } from "@shopify/polaris";
+import styles from "./CommunityProjectsStyles.module.css";
 
 export function CommunityProjectCard({ title, link, description }) {
   return (
-    <div className="singleCardWrapper">
+    <div className={styles.singleCardWrapper}>
       <Card
         title={String(title)}
         sectioned
