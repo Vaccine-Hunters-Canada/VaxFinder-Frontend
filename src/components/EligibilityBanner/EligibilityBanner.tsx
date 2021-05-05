@@ -10,8 +10,8 @@ export function EligibilityBanner(props: Props) {
     <Layout.Section>
       <>
         <Banner title="Eligibility:" onDismiss={props.onDismiss} status="info">
-          In order to ensure you are eligible to recieve your vaccine, please
-          check your appropriate health authorities vaccination guidelines.
+          In order to ensure you are eligible to receive your vaccine, please
+          check your appropriate health authority's vaccination guidelines.
         </Banner>
       </>
     </Layout.Section>
