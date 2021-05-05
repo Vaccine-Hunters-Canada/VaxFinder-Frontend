@@ -64,7 +64,7 @@ export function PharmacyCard(props: PharmacyProps) {
             content: "Load Map",
             icon: LocationMajor,
             onAction: () => {
-              setShouldShowMap(true);
+              setShouldShowMap(!shouldShowMap);
             },
           },
         ]}
