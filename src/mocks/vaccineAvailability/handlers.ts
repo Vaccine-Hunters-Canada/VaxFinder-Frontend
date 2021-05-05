@@ -15,6 +15,7 @@ export const vaccineAvailabilityHandlers = [
           inputType: 1,
           tags: "high-risk",
           created_at: "2021-05-01T21:07:28.232Z",
+          timeslots: [],
           location: {
             id: 0,
             name: "Location1 with no availability",
@@ -25,7 +26,14 @@ export const vaccineAvailabilityHandlers = [
             url: "https://idapharmacy.com/",
             tags: "IDA",
             created_at: "2021-05-01T21:07:28.232Z",
-            organization: 0,
+            organization: {
+              created_at: "2021-05-01T21:07:28.232Z",
+              id: 0,
+              short_name: "IDA",
+              description: "IDA org description",
+              full_name: "Independent Druggists' Alliance",
+              url: "https://idapharmacy.com/",
+            },
             address: {
               id: 123456,
               line1: "250 Stittsville Main St",
@@ -46,6 +54,7 @@ export const vaccineAvailabilityHandlers = [
           inputType: 1,
           tags: "high-risk",
           created_at: "2021-05-01T21:07:28.232Z",
+          timeslots: [],
           location: {
             id: 0,
             name: "Location1 with availability",
@@ -56,7 +65,14 @@ export const vaccineAvailabilityHandlers = [
             url: "https://idapharmacy.com/",
             tags: "IDA",
             created_at: "2021-05-01T21:07:28.232Z",
-            organization: 0,
+            organization: {
+              created_at: "2021-05-01T21:07:28.232Z",
+              id: 0,
+              short_name: "IDA",
+              description: "IDA org description",
+              full_name: "Independent Druggists' Alliance",
+              url: "https://idapharmacy.com/",
+            },
             address: {
               id: 123456,
               line1: "250 Stittsville Main St",
@@ -77,6 +93,7 @@ export const vaccineAvailabilityHandlers = [
           inputType: 1,
           tags: "high-risk",
           created_at: "2021-05-01T21:07:28.232Z",
+          timeslots: [],
           location: {
             id: 0,
             name: "Location2 with no availability",
@@ -87,7 +104,14 @@ export const vaccineAvailabilityHandlers = [
             url: "https://idapharmacy.com/",
             tags: "IDA",
             created_at: "2021-05-01T21:07:28.232Z",
-            organization: 0,
+            organization: {
+              created_at: "2021-05-01T21:07:28.232Z",
+              id: 0,
+              short_name: "IDA",
+              description: "IDA org description",
+              full_name: "Independent Druggists' Alliance",
+              url: "https://idapharmacy.com/",
+            },
             address: {
               id: 123456,
               line1: "250 Stittsville Main St",
@@ -108,6 +132,7 @@ export const vaccineAvailabilityHandlers = [
           inputType: 1,
           tags: "high-risk",
           created_at: "2021-05-01T21:07:28.232Z",
+          timeslots: [],
           location: {
             id: 0,
             name: "Location2 with availability",
@@ -118,7 +143,14 @@ export const vaccineAvailabilityHandlers = [
             url: "https://idapharmacy.com/",
             tags: "IDA",
             created_at: "2021-05-01T21:07:28.232Z",
-            organization: 0,
+            organization: {
+              created_at: "2021-05-01T21:07:28.232Z",
+              id: 0,
+              short_name: "IDA",
+              description: "IDA org description",
+              full_name: "Independent Druggists' Alliance",
+              url: "https://idapharmacy.com/",
+            },
             address: {
               id: 123456,
               line1: "250 Stittsville Main St",

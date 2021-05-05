@@ -13,19 +13,31 @@ import {
 } from "restful-react";
 
 export const SPEC_VERSION = "1.0.0";
-export interface AddressResponse {
-  id: number;
+export interface AddressCreateRequest {
   line1?: string;
   line2?: string;
   city?: string;
   province: string;
   postcode: string;
+}
+
+export interface AddressResponse {
+  line1?: string;
+  line2?: string;
+  city?: string;
+  province: string;
+  postcode: string;
+  id: number;
   created_at: string;
 }
 
-export interface GeneralResponse {
-  success: boolean;
-  data?: string;
+export interface AddressUpdateRequest {
+  line1?: string;
+  line2?: string;
+  city?: string;
+  province: string;
+  postcode: string;
+  id: number;
 }
 
 export interface HTTPValidationError {
@@ -37,8 +49,7 @@ export interface HTTPValidationError {
  */
 export type InputTypeEnum = number;
 
-export interface LocationExpandedResponse {
-  id: number;
+export interface LocationCreateRequest {
   name: string;
   phone?: string;
   notes?: string;
@@ -46,9 +57,49 @@ export interface LocationExpandedResponse {
   postcode?: string;
   url?: string;
   tags?: string;
-  created_at: string;
   organization?: number;
+  address?: number;
+}
+
+export interface LocationExpandedResponse {
+  name: string;
+  phone?: string;
+  notes?: string;
+  active: number;
+  postcode?: string;
+  url?: string;
+  tags?: string;
+  id: number;
+  organization?: OrganizationResponse;
   address?: AddressResponse;
+  created_at: string;
+}
+
+export interface LocationResponse {
+  name: string;
+  phone?: string;
+  notes?: string;
+  active: number;
+  postcode?: string;
+  url?: string;
+  tags?: string;
+  id: number;
+  organization?: number;
+  address?: number;
+  created_at: string;
+}
+
+export interface LocationUpdateRequest {
+  name: string;
+  phone?: string;
+  notes?: string;
+  active: number;
+  postcode?: string;
+  url?: string;
+  tags?: string;
+  id: number;
+  address?: number;
+  organization?: number;
 }
 
 export interface OrganizationCreateRequest {
@@ -59,31 +110,117 @@ export interface OrganizationCreateRequest {
 }
 
 export interface OrganizationResponse {
-  id: number;
   full_name?: string;
   short_name: string;
   description?: string;
   url?: string;
+  id: number;
   created_at: string;
+}
+
+export interface OrganizationUpdateRequest {
+  full_name?: string;
+  short_name: string;
+  description?: string;
+  url?: string;
 }
 
 export interface RequirementResponse {
-  id: number;
   name: string;
   description: string;
+  id: number;
   created_at: string;
 }
 
-export interface VaccineAvailabilityExpandedResponse {
-  id: string;
-  numberAvailable: number;
+export interface RequirementsCreateRequest {
+  name: string;
+  description: string;
+}
+
+export interface RequirementsUpdateRequest {
+  name: string;
+  description: string;
+  id: number;
+}
+
+export interface VaccineAvailabilityCreateRequest {
+  numberAvailable?: number;
   numberTotal?: number;
-  date: string;
+  date?: string;
   vaccine?: number;
-  inputType: InputTypeEnum;
+  inputType?: InputTypeEnum;
   tags?: string;
-  created_at: string;
+  location: number;
+}
+
+export interface VaccineAvailabilityExpandedResponse {
+  numberAvailable?: number;
+  numberTotal?: number;
+  date?: string;
+  vaccine?: number;
+  inputType?: InputTypeEnum;
+  tags?: string;
+  id: string | number;
   location: LocationExpandedResponse;
+  created_at: string;
+  timeslots: VaccineAvailabilityTimeslotResponse[];
+}
+
+export interface VaccineAvailabilityRequirementsCreateRequest {
+  requirements: number[];
+}
+
+export interface VaccineAvailabilityRequirementsResponse {
+  id: number;
+  vaccine_availability: string;
+  requirement: number;
+  active: boolean;
+  created_at: string;
+}
+
+export interface VaccineAvailabilityRequirementsUpdateRequest {
+  active: boolean;
+}
+
+export interface VaccineAvailabilityResponse {
+  numberAvailable?: number;
+  numberTotal?: number;
+  date?: string;
+  vaccine?: number;
+  inputType?: InputTypeEnum;
+  tags?: string;
+  id: string;
+  location: number;
+  created_at: string;
+}
+
+export interface VaccineAvailabilityTimeslotCreateRequest {
+  parentID: string;
+  time: string;
+}
+
+export interface VaccineAvailabilityTimeslotResponse {
+  id: string;
+  vaccine_availability: string;
+  active: boolean;
+  taken_at?: string;
+  created_at: string;
+  time: string;
+}
+
+export interface VaccineAvailabilityTimeslotUpdateRequest {
+  taken_at?: string;
+}
+
+export interface VaccineAvailabilityUpdateRequest {
+  numberAvailable?: number;
+  numberTotal?: number;
+  date?: string;
+  vaccine?: number;
+  inputType?: InputTypeEnum;
+  tags?: string;
+  id: string | number;
+  location: number;
 }
 
 export interface ValidationError {
@@ -93,7 +230,14 @@ export interface ValidationError {
 }
 
 export interface ListVaccineAvailabilityApiV1VaccineAvailabilityGetQueryParams {
-  postalCode?: string;
+  /**
+   * **Search for vaccine availabilities after a certain date and time (UTC)**. The default value is the current date and time (UTC).<br/><br/>Valid example(s): *2021-05-05T21:59:02.961804+00:00*
+   */
+  min_date?: string;
+  /**
+   * **Search for vaccine availabilities within the vicinity of a postal code.**<br/><br/>Valid example(s): *K1A; K1A0; K1A0k; K1A0K9*
+   */
+  postal_code: string;
 }
 
 export type ListVaccineAvailabilityApiV1VaccineAvailabilityGetProps = Omit<
@@ -108,6 +252,9 @@ export type ListVaccineAvailabilityApiV1VaccineAvailabilityGetProps = Omit<
 
 /**
  * List Vaccine Availability
+ *
+ * **Retrieves the list of vaccine availabilities within the vicinity of a
+ * `postal_code` and after the `min_date`.**
  */
 export const ListVaccineAvailabilityApiV1VaccineAvailabilityGet = (
   props: ListVaccineAvailabilityApiV1VaccineAvailabilityGetProps,
@@ -135,6 +282,9 @@ export type UseListVaccineAvailabilityApiV1VaccineAvailabilityGetProps = Omit<
 
 /**
  * List Vaccine Availability
+ *
+ * **Retrieves the list of vaccine availabilities within the vicinity of a
+ * `postal_code` and after the `min_date`.**
  */
 export const useListVaccineAvailabilityApiV1VaccineAvailabilityGet = (
   props: UseListVaccineAvailabilityApiV1VaccineAvailabilityGetProps,
@@ -144,124 +294,849 @@ export const useListVaccineAvailabilityApiV1VaccineAvailabilityGet = (
     HTTPValidationError,
     ListVaccineAvailabilityApiV1VaccineAvailabilityGetQueryParams,
     void
-  >("/api/v1/vaccine-availability");
+  >("/api/v1/vaccine-availability", props);
 
-export interface RetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityEntryIdGetPathParams {
-  entry_id: number;
-}
-
-export type RetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityEntryIdGetProps = Omit<
-  GetProps<
-    VaccineAvailabilityExpandedResponse,
+export type CreateVaccineAvailabilityApiV1VaccineAvailabilityPostProps = Omit<
+  MutateProps<
+    VaccineAvailabilityResponse,
     void | HTTPValidationError,
     void,
-    RetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityEntryIdGetPathParams
+    VaccineAvailabilityCreateRequest,
+    void
   >,
-  "path"
-> &
-  RetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityEntryIdGetPathParams;
+  "path" | "verb"
+>;
 
 /**
- * Retrieve Vaccine Availability By Id
+ * Create Vaccine Availability
+ *
+ * **Creates a new vaccine availability with the entity enclosed in the
+ * request body.** On success, the new vaccine availability is returned in the
+ * body of the response.
  */
-export const RetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityEntryIdGet = ({
-  entry_id,
-  ...props
-}: RetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityEntryIdGetProps) => (
-  <Get<
-    VaccineAvailabilityExpandedResponse,
+export const CreateVaccineAvailabilityApiV1VaccineAvailabilityPost = (
+  props: CreateVaccineAvailabilityApiV1VaccineAvailabilityPostProps,
+) => (
+  <Mutate<
+    VaccineAvailabilityResponse,
     void | HTTPValidationError,
     void,
-    RetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityEntryIdGetPathParams
+    VaccineAvailabilityCreateRequest,
+    void
   >
-    path={`/api/v1/vaccine-availability/${entry_id}`}
+    verb="POST"
+    path="/api/v1/vaccine-availability"
     {...props}
   />
 );
 
-export type UseRetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityEntryIdGetProps = Omit<
+export type UseCreateVaccineAvailabilityApiV1VaccineAvailabilityPostProps = Omit<
+  UseMutateProps<
+    VaccineAvailabilityResponse,
+    void | HTTPValidationError,
+    void,
+    VaccineAvailabilityCreateRequest,
+    void
+  >,
+  "path" | "verb"
+>;
+
+/**
+ * Create Vaccine Availability
+ *
+ * **Creates a new vaccine availability with the entity enclosed in the
+ * request body.** On success, the new vaccine availability is returned in the
+ * body of the response.
+ */
+export const useCreateVaccineAvailabilityApiV1VaccineAvailabilityPost = (
+  props: UseCreateVaccineAvailabilityApiV1VaccineAvailabilityPostProps,
+) =>
+  useMutate<
+    VaccineAvailabilityResponse,
+    void | HTTPValidationError,
+    void,
+    VaccineAvailabilityCreateRequest,
+    void
+  >("POST", "/api/v1/vaccine-availability", props);
+
+export interface RetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdGetPathParams {
+  vaccine_availability_id: string;
+}
+
+export type RetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdGetProps = Omit<
+  GetProps<
+    VaccineAvailabilityExpandedResponse,
+    void | HTTPValidationError,
+    void,
+    RetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdGetPathParams
+  >,
+  "path"
+> &
+  RetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdGetPathParams;
+
+/**
+ * Retrieve Vaccine Availability By Id
+ *
+ * **Retrieves a vaccine availability with the id from the
+ * `vaccine_availability_id` path parameter.**
+ */
+export const RetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdGet = ({
+  vaccine_availability_id,
+  ...props
+}: RetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdGetProps) => (
+  <Get<
+    VaccineAvailabilityExpandedResponse,
+    void | HTTPValidationError,
+    void,
+    RetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdGetPathParams
+  >
+    path={`/api/v1/vaccine-availability/${vaccine_availability_id}`}
+    {...props}
+  />
+);
+
+export type UseRetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdGetProps = Omit<
   UseGetProps<
     VaccineAvailabilityExpandedResponse,
     void | HTTPValidationError,
     void,
-    RetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityEntryIdGetPathParams
+    RetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdGetPathParams
   >,
   "path"
 > &
-  RetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityEntryIdGetPathParams;
+  RetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdGetPathParams;
 
 /**
  * Retrieve Vaccine Availability By Id
+ *
+ * **Retrieves a vaccine availability with the id from the
+ * `vaccine_availability_id` path parameter.**
  */
-export const useRetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityEntryIdGet = ({
-  entry_id,
+export const useRetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdGet = ({
+  vaccine_availability_id,
   ...props
-}: UseRetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityEntryIdGetProps) =>
+}: UseRetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdGetProps) =>
   useGet<
     VaccineAvailabilityExpandedResponse,
     void | HTTPValidationError,
     void,
-    RetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityEntryIdGetPathParams
+    RetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdGetPathParams
   >(
     (
-      paramsInPath: RetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityEntryIdGetPathParams,
-    ) => `/api/v1/vaccine-availability/${paramsInPath.entry_id}`,
-    { pathParams: { entry_id }, ...props },
+      paramsInPath: RetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdGetPathParams,
+    ) => `/api/v1/vaccine-availability/${paramsInPath.vaccine_availability_id}`,
+    { pathParams: { vaccine_availability_id }, ...props },
   );
 
-export interface ListLocationsApiV1LocationsGetQueryParams {
-  postalCode?: string;
+export interface UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutPathParams {
+  vaccine_availability_id: number;
 }
 
-export type ListLocationsApiV1LocationsGetProps = Omit<
-  GetProps<
-    LocationExpandedResponse[],
-    HTTPValidationError,
-    ListLocationsApiV1LocationsGetQueryParams,
-    void
+export type UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutProps = Omit<
+  MutateProps<
+    VaccineAvailabilityResponse,
+    void | HTTPValidationError,
+    void,
+    VaccineAvailabilityUpdateRequest,
+    UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutPathParams
   >,
+  "path" | "verb"
+> &
+  UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutPathParams;
+
+/**
+ * Update Vaccine Availability
+ *
+ * **Updates a vaccine availability with the id from the
+ * `vaccine_availability_id` path parameter with the entity enclosed in the
+ * request body.** On success, the updated vaccine availability is returned in
+ * the body of the response.
+ */
+export const UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPut = ({
+  vaccine_availability_id,
+  ...props
+}: UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutProps) => (
+  <Mutate<
+    VaccineAvailabilityResponse,
+    void | HTTPValidationError,
+    void,
+    VaccineAvailabilityUpdateRequest,
+    UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutPathParams
+  >
+    verb="PUT"
+    path={`/api/v1/vaccine-availability/${vaccine_availability_id}`}
+    {...props}
+  />
+);
+
+export type UseUpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutProps = Omit<
+  UseMutateProps<
+    VaccineAvailabilityResponse,
+    void | HTTPValidationError,
+    void,
+    VaccineAvailabilityUpdateRequest,
+    UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutPathParams
+  >,
+  "path" | "verb"
+> &
+  UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutPathParams;
+
+/**
+ * Update Vaccine Availability
+ *
+ * **Updates a vaccine availability with the id from the
+ * `vaccine_availability_id` path parameter with the entity enclosed in the
+ * request body.** On success, the updated vaccine availability is returned in
+ * the body of the response.
+ */
+export const useUpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPut = ({
+  vaccine_availability_id,
+  ...props
+}: UseUpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutProps) =>
+  useMutate<
+    VaccineAvailabilityResponse,
+    void | HTTPValidationError,
+    void,
+    VaccineAvailabilityUpdateRequest,
+    UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutPathParams
+  >(
+    "PUT",
+    (
+      paramsInPath: UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutPathParams,
+    ) => `/api/v1/vaccine-availability/${paramsInPath.vaccine_availability_id}`,
+    { pathParams: { vaccine_availability_id }, ...props },
+  );
+
+export type DeleteVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdDeleteProps = Omit<
+  MutateProps<void, void | HTTPValidationError, void, number, void>,
+  "path" | "verb"
+>;
+
+/**
+ * Delete Vaccine Availability By Id
+ *
+ * **Deletes a vaccine availability with the id from the
+ * `vaccine_availability_id` path parameter.**
+ */
+export const DeleteVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdDelete = (
+  props: DeleteVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdDeleteProps,
+) => (
+  <Mutate<void, void | HTTPValidationError, void, number, void>
+    verb="DELETE"
+    path="/api/v1/vaccine-availability"
+    {...props}
+  />
+);
+
+export type UseDeleteVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdDeleteProps = Omit<
+  UseMutateProps<void, void | HTTPValidationError, void, number, void>,
+  "path" | "verb"
+>;
+
+/**
+ * Delete Vaccine Availability By Id
+ *
+ * **Deletes a vaccine availability with the id from the
+ * `vaccine_availability_id` path parameter.**
+ */
+export const useDeleteVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdDelete = (
+  props: UseDeleteVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdDeleteProps,
+) =>
+  useMutate<void, void | HTTPValidationError, void, number, void>(
+    "DELETE",
+    "/api/v1/vaccine-availability",
+    { ...props },
+  );
+
+export interface ListTimeslotsForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsGetPathParams {
+  /**
+   * Timeslots for a vaccine availability with this id.
+   */
+  vaccine_availability_id: string;
+}
+
+export type ListTimeslotsForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsGetProps = Omit<
+  GetProps<
+    VaccineAvailabilityTimeslotResponse[],
+    void | HTTPValidationError,
+    void,
+    ListTimeslotsForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsGetPathParams
+  >,
+  "path"
+> &
+  ListTimeslotsForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsGetPathParams;
+
+/**
+ * List Timeslots For Vaccine Availability By Id
+ *
+ * **Retrieves the list of timeslots for a vaccine availability. This
+ * vaccine availability has an ID of `vaccine_availability_id` from the
+ * path.**
+ */
+export const ListTimeslotsForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsGet = ({
+  vaccine_availability_id,
+  ...props
+}: ListTimeslotsForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsGetProps) => (
+  <Get<
+    VaccineAvailabilityTimeslotResponse[],
+    void | HTTPValidationError,
+    void,
+    ListTimeslotsForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsGetPathParams
+  >
+    path={`/api/v1/vaccine-availability/${vaccine_availability_id}/timeslots`}
+    {...props}
+  />
+);
+
+export type UseListTimeslotsForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsGetProps = Omit<
+  UseGetProps<
+    VaccineAvailabilityTimeslotResponse[],
+    void | HTTPValidationError,
+    void,
+    ListTimeslotsForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsGetPathParams
+  >,
+  "path"
+> &
+  ListTimeslotsForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsGetPathParams;
+
+/**
+ * List Timeslots For Vaccine Availability By Id
+ *
+ * **Retrieves the list of timeslots for a vaccine availability. This
+ * vaccine availability has an ID of `vaccine_availability_id` from the
+ * path.**
+ */
+export const useListTimeslotsForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsGet = ({
+  vaccine_availability_id,
+  ...props
+}: UseListTimeslotsForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsGetProps) =>
+  useGet<
+    VaccineAvailabilityTimeslotResponse[],
+    void | HTTPValidationError,
+    void,
+    ListTimeslotsForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsGetPathParams
+  >(
+    (
+      paramsInPath: ListTimeslotsForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsGetPathParams,
+    ) =>
+      `/api/v1/vaccine-availability/${paramsInPath.vaccine_availability_id}/timeslots`,
+    { pathParams: { vaccine_availability_id }, ...props },
+  );
+
+export interface CreateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsPostPathParams {
+  /**
+   * Timeslot for a vaccine availability with this id.
+   */
+  vaccine_availability_id: string;
+}
+
+export type CreateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsPostProps = Omit<
+  MutateProps<
+    VaccineAvailabilityTimeslotResponse,
+    void | HTTPValidationError,
+    void,
+    VaccineAvailabilityTimeslotCreateRequest,
+    CreateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsPostPathParams
+  >,
+  "path" | "verb"
+> &
+  CreateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsPostPathParams;
+
+/**
+ * Create Timeslot For Vaccine Availability By Id
+ *
+ * **Creates a new timeslot for a vaccine availability with the entity
+ * enclosed in the request body. This vaccine availability has an ID of
+ * `vaccine_availability_id` from the path.** On success, the new timeslot is
+ * returned in the body of the response.
+ */
+export const CreateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsPost = ({
+  vaccine_availability_id,
+  ...props
+}: CreateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsPostProps) => (
+  <Mutate<
+    VaccineAvailabilityTimeslotResponse,
+    void | HTTPValidationError,
+    void,
+    VaccineAvailabilityTimeslotCreateRequest,
+    CreateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsPostPathParams
+  >
+    verb="POST"
+    path={`/api/v1/vaccine-availability/${vaccine_availability_id}/timeslots`}
+    {...props}
+  />
+);
+
+export type UseCreateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsPostProps = Omit<
+  UseMutateProps<
+    VaccineAvailabilityTimeslotResponse,
+    void | HTTPValidationError,
+    void,
+    VaccineAvailabilityTimeslotCreateRequest,
+    CreateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsPostPathParams
+  >,
+  "path" | "verb"
+> &
+  CreateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsPostPathParams;
+
+/**
+ * Create Timeslot For Vaccine Availability By Id
+ *
+ * **Creates a new timeslot for a vaccine availability with the entity
+ * enclosed in the request body. This vaccine availability has an ID of
+ * `vaccine_availability_id` from the path.** On success, the new timeslot is
+ * returned in the body of the response.
+ */
+export const useCreateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsPost = ({
+  vaccine_availability_id,
+  ...props
+}: UseCreateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsPostProps) =>
+  useMutate<
+    VaccineAvailabilityTimeslotResponse,
+    void | HTTPValidationError,
+    void,
+    VaccineAvailabilityTimeslotCreateRequest,
+    CreateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsPostPathParams
+  >(
+    "POST",
+    (
+      paramsInPath: CreateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsPostPathParams,
+    ) =>
+      `/api/v1/vaccine-availability/${paramsInPath.vaccine_availability_id}/timeslots`,
+    { pathParams: { vaccine_availability_id }, ...props },
+  );
+
+export interface UpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPutPathParams {
+  /**
+   * Timeslot for a vaccine availability with this id.
+   */
+  vaccine_availability_id: string;
+  timeslot_id: string;
+}
+
+export type UpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPutProps = Omit<
+  MutateProps<
+    VaccineAvailabilityTimeslotResponse,
+    void | HTTPValidationError,
+    void,
+    VaccineAvailabilityTimeslotUpdateRequest,
+    UpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPutPathParams
+  >,
+  "path" | "verb"
+> &
+  UpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPutPathParams;
+
+/**
+ * Update Timeslot For Vaccine Availability By Id
+ *
+ * **Updates a timeslot with the id from the `timeslot_id` path parameter
+ * with the entity enclosed in the request body. The timeslot must be
+ * for a vaccine availability that has an ID of `vaccine_availability_id`
+ * from the path.** On success, the updated timeslot is returned in the body
+ * of the response.
+ */
+export const UpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPut = ({
+  vaccine_availability_id,
+  timeslot_id,
+  ...props
+}: UpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPutProps) => (
+  <Mutate<
+    VaccineAvailabilityTimeslotResponse,
+    void | HTTPValidationError,
+    void,
+    VaccineAvailabilityTimeslotUpdateRequest,
+    UpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPutPathParams
+  >
+    verb="PUT"
+    path={`/api/v1/vaccine-availability/${vaccine_availability_id}/timeslots/${timeslot_id}`}
+    {...props}
+  />
+);
+
+export type UseUpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPutProps = Omit<
+  UseMutateProps<
+    VaccineAvailabilityTimeslotResponse,
+    void | HTTPValidationError,
+    void,
+    VaccineAvailabilityTimeslotUpdateRequest,
+    UpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPutPathParams
+  >,
+  "path" | "verb"
+> &
+  UpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPutPathParams;
+
+/**
+ * Update Timeslot For Vaccine Availability By Id
+ *
+ * **Updates a timeslot with the id from the `timeslot_id` path parameter
+ * with the entity enclosed in the request body. The timeslot must be
+ * for a vaccine availability that has an ID of `vaccine_availability_id`
+ * from the path.** On success, the updated timeslot is returned in the body
+ * of the response.
+ */
+export const useUpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPut = ({
+  vaccine_availability_id,
+  timeslot_id,
+  ...props
+}: UseUpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPutProps) =>
+  useMutate<
+    VaccineAvailabilityTimeslotResponse,
+    void | HTTPValidationError,
+    void,
+    VaccineAvailabilityTimeslotUpdateRequest,
+    UpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPutPathParams
+  >(
+    "PUT",
+    (
+      paramsInPath: UpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPutPathParams,
+    ) =>
+      `/api/v1/vaccine-availability/${paramsInPath.vaccine_availability_id}/timeslots/${paramsInPath.timeslot_id}`,
+    { pathParams: { vaccine_availability_id, timeslot_id }, ...props },
+  );
+
+export interface ListRequirementsForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsGetPathParams {
+  /**
+   * Requirements for a vaccine availability with this id.
+   */
+  vaccine_availability_id: string;
+}
+
+export type ListRequirementsForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsGetProps = Omit<
+  GetProps<
+    VaccineAvailabilityRequirementsResponse[],
+    void | HTTPValidationError,
+    void,
+    ListRequirementsForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsGetPathParams
+  >,
+  "path"
+> &
+  ListRequirementsForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsGetPathParams;
+
+/**
+ * List Requirements For Vaccine Availability By Id
+ *
+ * **Retrieves the list of requirements for a vaccine availability. This
+ * vaccine availability has an ID of `vaccine_availability_id` from the
+ * path.**
+ */
+export const ListRequirementsForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsGet = ({
+  vaccine_availability_id,
+  ...props
+}: ListRequirementsForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsGetProps) => (
+  <Get<
+    VaccineAvailabilityRequirementsResponse[],
+    void | HTTPValidationError,
+    void,
+    ListRequirementsForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsGetPathParams
+  >
+    path={`/api/v1/vaccine-availability/${vaccine_availability_id}/requirements`}
+    {...props}
+  />
+);
+
+export type UseListRequirementsForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsGetProps = Omit<
+  UseGetProps<
+    VaccineAvailabilityRequirementsResponse[],
+    void | HTTPValidationError,
+    void,
+    ListRequirementsForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsGetPathParams
+  >,
+  "path"
+> &
+  ListRequirementsForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsGetPathParams;
+
+/**
+ * List Requirements For Vaccine Availability By Id
+ *
+ * **Retrieves the list of requirements for a vaccine availability. This
+ * vaccine availability has an ID of `vaccine_availability_id` from the
+ * path.**
+ */
+export const useListRequirementsForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsGet = ({
+  vaccine_availability_id,
+  ...props
+}: UseListRequirementsForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsGetProps) =>
+  useGet<
+    VaccineAvailabilityRequirementsResponse[],
+    void | HTTPValidationError,
+    void,
+    ListRequirementsForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsGetPathParams
+  >(
+    (
+      paramsInPath: ListRequirementsForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsGetPathParams,
+    ) =>
+      `/api/v1/vaccine-availability/${paramsInPath.vaccine_availability_id}/requirements`,
+    { pathParams: { vaccine_availability_id }, ...props },
+  );
+
+export interface CreateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsPostPathParams {
+  /**
+   * Requirement for a vaccine availability with this id.
+   */
+  vaccine_availability_id: string;
+}
+
+export type CreateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsPostProps = Omit<
+  MutateProps<
+    VaccineAvailabilityRequirementsResponse,
+    void | HTTPValidationError,
+    void,
+    VaccineAvailabilityRequirementsCreateRequest,
+    CreateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsPostPathParams
+  >,
+  "path" | "verb"
+> &
+  CreateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsPostPathParams;
+
+/**
+ * Create Requirement For Vaccine Availability By Id
+ *
+ * **Creates a new requirements for a vaccine availability with the entity
+ * enclosed in the request body. This vaccine availability has an ID of
+ * `vaccine_availability_id` from the path.** On success, the new timeslot is
+ * returned in the body of the response.
+ */
+export const CreateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsPost = ({
+  vaccine_availability_id,
+  ...props
+}: CreateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsPostProps) => (
+  <Mutate<
+    VaccineAvailabilityRequirementsResponse,
+    void | HTTPValidationError,
+    void,
+    VaccineAvailabilityRequirementsCreateRequest,
+    CreateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsPostPathParams
+  >
+    verb="POST"
+    path={`/api/v1/vaccine-availability/${vaccine_availability_id}/requirements`}
+    {...props}
+  />
+);
+
+export type UseCreateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsPostProps = Omit<
+  UseMutateProps<
+    VaccineAvailabilityRequirementsResponse,
+    void | HTTPValidationError,
+    void,
+    VaccineAvailabilityRequirementsCreateRequest,
+    CreateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsPostPathParams
+  >,
+  "path" | "verb"
+> &
+  CreateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsPostPathParams;
+
+/**
+ * Create Requirement For Vaccine Availability By Id
+ *
+ * **Creates a new requirements for a vaccine availability with the entity
+ * enclosed in the request body. This vaccine availability has an ID of
+ * `vaccine_availability_id` from the path.** On success, the new timeslot is
+ * returned in the body of the response.
+ */
+export const useCreateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsPost = ({
+  vaccine_availability_id,
+  ...props
+}: UseCreateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsPostProps) =>
+  useMutate<
+    VaccineAvailabilityRequirementsResponse,
+    void | HTTPValidationError,
+    void,
+    VaccineAvailabilityRequirementsCreateRequest,
+    CreateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsPostPathParams
+  >(
+    "POST",
+    (
+      paramsInPath: CreateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsPostPathParams,
+    ) =>
+      `/api/v1/vaccine-availability/${paramsInPath.vaccine_availability_id}/requirements`,
+    { pathParams: { vaccine_availability_id }, ...props },
+  );
+
+export interface UpdateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdPutPathParams {
+  /**
+   * Requirement for a vaccine availability with this id.
+   */
+  vaccine_availability_id: string;
+  requirement_id: string;
+}
+
+export type UpdateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdPutProps = Omit<
+  MutateProps<
+    VaccineAvailabilityRequirementsResponse,
+    void | HTTPValidationError,
+    void,
+    VaccineAvailabilityRequirementsUpdateRequest,
+    UpdateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdPutPathParams
+  >,
+  "path" | "verb"
+> &
+  UpdateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdPutPathParams;
+
+/**
+ * Update Requirement For Vaccine Availability By Id
+ *
+ * **Updates a requirement with the id from the `requirement_id` path
+ * parameter with the entity enclosed in the request body. The requirement
+ * must be for a vaccine availability that has an ID of
+ * `vaccine_availability_id` from the path.** On success, the updated
+ * requirement is returned in the body of the response.
+ */
+export const UpdateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdPut = ({
+  vaccine_availability_id,
+  requirement_id,
+  ...props
+}: UpdateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdPutProps) => (
+  <Mutate<
+    VaccineAvailabilityRequirementsResponse,
+    void | HTTPValidationError,
+    void,
+    VaccineAvailabilityRequirementsUpdateRequest,
+    UpdateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdPutPathParams
+  >
+    verb="PUT"
+    path={`/api/v1/vaccine-availability/${vaccine_availability_id}/requirements/${requirement_id}`}
+    {...props}
+  />
+);
+
+export type UseUpdateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdPutProps = Omit<
+  UseMutateProps<
+    VaccineAvailabilityRequirementsResponse,
+    void | HTTPValidationError,
+    void,
+    VaccineAvailabilityRequirementsUpdateRequest,
+    UpdateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdPutPathParams
+  >,
+  "path" | "verb"
+> &
+  UpdateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdPutPathParams;
+
+/**
+ * Update Requirement For Vaccine Availability By Id
+ *
+ * **Updates a requirement with the id from the `requirement_id` path
+ * parameter with the entity enclosed in the request body. The requirement
+ * must be for a vaccine availability that has an ID of
+ * `vaccine_availability_id` from the path.** On success, the updated
+ * requirement is returned in the body of the response.
+ */
+export const useUpdateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdPut = ({
+  vaccine_availability_id,
+  requirement_id,
+  ...props
+}: UseUpdateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdPutProps) =>
+  useMutate<
+    VaccineAvailabilityRequirementsResponse,
+    void | HTTPValidationError,
+    void,
+    VaccineAvailabilityRequirementsUpdateRequest,
+    UpdateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdPutPathParams
+  >(
+    "PUT",
+    (
+      paramsInPath: UpdateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdPutPathParams,
+    ) =>
+      `/api/v1/vaccine-availability/${paramsInPath.vaccine_availability_id}/requirements/${paramsInPath.requirement_id}`,
+    { pathParams: { vaccine_availability_id, requirement_id }, ...props },
+  );
+
+export type ListLocationsApiV1LocationsGetProps = Omit<
+  GetProps<LocationExpandedResponse[], unknown, void, void>,
   "path"
 >;
 
 /**
  * List Locations
+ *
+ * **Retrieves the list of locations.**
  */
 export const ListLocationsApiV1LocationsGet = (
   props: ListLocationsApiV1LocationsGetProps,
 ) => (
-  <Get<
-    LocationExpandedResponse[],
-    HTTPValidationError,
-    ListLocationsApiV1LocationsGetQueryParams,
-    void
-  >
+  <Get<LocationExpandedResponse[], unknown, void, void>
     path="/api/v1/locations"
     {...props}
   />
 );
 
 export type UseListLocationsApiV1LocationsGetProps = Omit<
-  UseGetProps<
-    LocationExpandedResponse[],
-    HTTPValidationError,
-    ListLocationsApiV1LocationsGetQueryParams,
-    void
-  >,
+  UseGetProps<LocationExpandedResponse[], unknown, void, void>,
   "path"
 >;
 
 /**
  * List Locations
+ *
+ * **Retrieves the list of locations.**
  */
 export const useListLocationsApiV1LocationsGet = (
   props: UseListLocationsApiV1LocationsGetProps,
 ) =>
-  useGet<
-    LocationExpandedResponse[],
-    HTTPValidationError,
-    ListLocationsApiV1LocationsGetQueryParams,
+  useGet<LocationExpandedResponse[], unknown, void, void>(
+    "/api/v1/locations",
+    props,
+  );
+
+export type CreateLocationApiV1LocationsPostProps = Omit<
+  MutateProps<
+    LocationResponse,
+    void | HTTPValidationError,
+    void,
+    LocationCreateRequest,
     void
-  >("/api/v1/locations", props);
+  >,
+  "path" | "verb"
+>;
+
+/**
+ * Create Location
+ *
+ * **Creates a new location with the entity enclosed in the request body.** On
+ * success, the new location is returned in the body of the response.
+ */
+export const CreateLocationApiV1LocationsPost = (
+  props: CreateLocationApiV1LocationsPostProps,
+) => (
+  <Mutate<
+    LocationResponse,
+    void | HTTPValidationError,
+    void,
+    LocationCreateRequest,
+    void
+  >
+    verb="POST"
+    path="/api/v1/locations"
+    {...props}
+  />
+);
+
+export type UseCreateLocationApiV1LocationsPostProps = Omit<
+  UseMutateProps<
+    LocationResponse,
+    void | HTTPValidationError,
+    void,
+    LocationCreateRequest,
+    void
+  >,
+  "path" | "verb"
+>;
+
+/**
+ * Create Location
+ *
+ * **Creates a new location with the entity enclosed in the request body.** On
+ * success, the new location is returned in the body of the response.
+ */
+export const useCreateLocationApiV1LocationsPost = (
+  props: UseCreateLocationApiV1LocationsPostProps,
+) =>
+  useMutate<
+    LocationResponse,
+    void | HTTPValidationError,
+    void,
+    LocationCreateRequest,
+    void
+  >("POST", "/api/v1/locations", props);
 
 export interface RetrieveLocationByIdApiV1LocationsLocationIdGetPathParams {
   location_id: number;
@@ -280,6 +1155,9 @@ export type RetrieveLocationByIdApiV1LocationsLocationIdGetProps = Omit<
 
 /**
  * Retrieve Location By Id
+ *
+ * **Retrieves a location with the id from the `location_id` path
+ * parameter.**
  */
 export const RetrieveLocationByIdApiV1LocationsLocationIdGet = ({
   location_id,
@@ -309,6 +1187,9 @@ export type UseRetrieveLocationByIdApiV1LocationsLocationIdGetProps = Omit<
 
 /**
  * Retrieve Location By Id
+ *
+ * **Retrieves a location with the id from the `location_id` path
+ * parameter.**
  */
 export const useRetrieveLocationByIdApiV1LocationsLocationIdGet = ({
   location_id,
@@ -325,64 +1206,162 @@ export const useRetrieveLocationByIdApiV1LocationsLocationIdGet = ({
     { pathParams: { location_id }, ...props },
   );
 
-export interface ListOrganizationsApiV1OrganizationsGetQueryParams {
-  name?: string;
+export interface UpdateLocationApiV1LocationsLocationIdPutPathParams {
+  location_id: number;
 }
 
-export type ListOrganizationsApiV1OrganizationsGetProps = Omit<
-  GetProps<
-    OrganizationResponse[],
-    HTTPValidationError,
-    ListOrganizationsApiV1OrganizationsGetQueryParams,
-    void
+export type UpdateLocationApiV1LocationsLocationIdPutProps = Omit<
+  MutateProps<
+    LocationResponse,
+    void | HTTPValidationError,
+    void,
+    LocationUpdateRequest,
+    UpdateLocationApiV1LocationsLocationIdPutPathParams
   >,
+  "path" | "verb"
+> &
+  UpdateLocationApiV1LocationsLocationIdPutPathParams;
+
+/**
+ * Update Location
+ *
+ * **Updates a location with the id from the `location_id` path parameter
+ * with the entity enclosed in the request body.** On success, the updated
+ * location is returned in the body of the response.
+ */
+export const UpdateLocationApiV1LocationsLocationIdPut = ({
+  location_id,
+  ...props
+}: UpdateLocationApiV1LocationsLocationIdPutProps) => (
+  <Mutate<
+    LocationResponse,
+    void | HTTPValidationError,
+    void,
+    LocationUpdateRequest,
+    UpdateLocationApiV1LocationsLocationIdPutPathParams
+  >
+    verb="PUT"
+    path={`/api/v1/locations/${location_id}`}
+    {...props}
+  />
+);
+
+export type UseUpdateLocationApiV1LocationsLocationIdPutProps = Omit<
+  UseMutateProps<
+    LocationResponse,
+    void | HTTPValidationError,
+    void,
+    LocationUpdateRequest,
+    UpdateLocationApiV1LocationsLocationIdPutPathParams
+  >,
+  "path" | "verb"
+> &
+  UpdateLocationApiV1LocationsLocationIdPutPathParams;
+
+/**
+ * Update Location
+ *
+ * **Updates a location with the id from the `location_id` path parameter
+ * with the entity enclosed in the request body.** On success, the updated
+ * location is returned in the body of the response.
+ */
+export const useUpdateLocationApiV1LocationsLocationIdPut = ({
+  location_id,
+  ...props
+}: UseUpdateLocationApiV1LocationsLocationIdPutProps) =>
+  useMutate<
+    LocationResponse,
+    void | HTTPValidationError,
+    void,
+    LocationUpdateRequest,
+    UpdateLocationApiV1LocationsLocationIdPutPathParams
+  >(
+    "PUT",
+    (paramsInPath: UpdateLocationApiV1LocationsLocationIdPutPathParams) =>
+      `/api/v1/locations/${paramsInPath.location_id}`,
+    { pathParams: { location_id }, ...props },
+  );
+
+export type DeleteLocationByIdApiV1LocationsLocationIdDeleteProps = Omit<
+  MutateProps<void, void | HTTPValidationError, void, number, void>,
+  "path" | "verb"
+>;
+
+/**
+ * Delete Location By Id
+ *
+ * **Deletes a location with the id from the `location_id` path parameter.**
+ */
+export const DeleteLocationByIdApiV1LocationsLocationIdDelete = (
+  props: DeleteLocationByIdApiV1LocationsLocationIdDeleteProps,
+) => (
+  <Mutate<void, void | HTTPValidationError, void, number, void>
+    verb="DELETE"
+    path="/api/v1/locations"
+    {...props}
+  />
+);
+
+export type UseDeleteLocationByIdApiV1LocationsLocationIdDeleteProps = Omit<
+  UseMutateProps<void, void | HTTPValidationError, void, number, void>,
+  "path" | "verb"
+>;
+
+/**
+ * Delete Location By Id
+ *
+ * **Deletes a location with the id from the `location_id` path parameter.**
+ */
+export const useDeleteLocationByIdApiV1LocationsLocationIdDelete = (
+  props: UseDeleteLocationByIdApiV1LocationsLocationIdDeleteProps,
+) =>
+  useMutate<void, void | HTTPValidationError, void, number, void>(
+    "DELETE",
+    "/api/v1/locations",
+    { ...props },
+  );
+
+export type ListOrganizationsApiV1OrganizationsGetProps = Omit<
+  GetProps<OrganizationResponse[], unknown, void, void>,
   "path"
 >;
 
 /**
  * List Organizations
+ *
+ * **Retrieves the list of organizations.**
  */
 export const ListOrganizationsApiV1OrganizationsGet = (
   props: ListOrganizationsApiV1OrganizationsGetProps,
 ) => (
-  <Get<
-    OrganizationResponse[],
-    HTTPValidationError,
-    ListOrganizationsApiV1OrganizationsGetQueryParams,
-    void
-  >
+  <Get<OrganizationResponse[], unknown, void, void>
     path="/api/v1/organizations"
     {...props}
   />
 );
 
 export type UseListOrganizationsApiV1OrganizationsGetProps = Omit<
-  UseGetProps<
-    OrganizationResponse[],
-    HTTPValidationError,
-    ListOrganizationsApiV1OrganizationsGetQueryParams,
-    void
-  >,
+  UseGetProps<OrganizationResponse[], unknown, void, void>,
   "path"
 >;
 
 /**
  * List Organizations
+ *
+ * **Retrieves the list of organizations.**
  */
 export const useListOrganizationsApiV1OrganizationsGet = (
   props: UseListOrganizationsApiV1OrganizationsGetProps,
 ) =>
-  useGet<
-    OrganizationResponse[],
-    HTTPValidationError,
-    ListOrganizationsApiV1OrganizationsGetQueryParams,
-    void
-  >("/api/v1/organizations", props);
+  useGet<OrganizationResponse[], unknown, void, void>(
+    "/api/v1/organizations",
+    props,
+  );
 
 export type CreateOrganizationApiV1OrganizationsPostProps = Omit<
   MutateProps<
-    GeneralResponse,
-    HTTPValidationError,
+    OrganizationResponse,
+    void | HTTPValidationError,
     void,
     OrganizationCreateRequest,
     void
@@ -392,13 +1371,17 @@ export type CreateOrganizationApiV1OrganizationsPostProps = Omit<
 
 /**
  * Create Organization
+ *
+ * **Creates a new organization with the entity enclosed in the request
+ * body.** On success, the new organization is returned in the body of the
+ * response.
  */
 export const CreateOrganizationApiV1OrganizationsPost = (
   props: CreateOrganizationApiV1OrganizationsPostProps,
 ) => (
   <Mutate<
-    GeneralResponse,
-    HTTPValidationError,
+    OrganizationResponse,
+    void | HTTPValidationError,
     void,
     OrganizationCreateRequest,
     void
@@ -411,8 +1394,8 @@ export const CreateOrganizationApiV1OrganizationsPost = (
 
 export type UseCreateOrganizationApiV1OrganizationsPostProps = Omit<
   UseMutateProps<
-    GeneralResponse,
-    HTTPValidationError,
+    OrganizationResponse,
+    void | HTTPValidationError,
     void,
     OrganizationCreateRequest,
     void
@@ -422,13 +1405,17 @@ export type UseCreateOrganizationApiV1OrganizationsPostProps = Omit<
 
 /**
  * Create Organization
+ *
+ * **Creates a new organization with the entity enclosed in the request
+ * body.** On success, the new organization is returned in the body of the
+ * response.
  */
 export const useCreateOrganizationApiV1OrganizationsPost = (
   props: UseCreateOrganizationApiV1OrganizationsPostProps,
 ) =>
   useMutate<
-    GeneralResponse,
-    HTTPValidationError,
+    OrganizationResponse,
+    void | HTTPValidationError,
     void,
     OrganizationCreateRequest,
     void
@@ -451,6 +1438,9 @@ export type RetrieveOrganizationByIdApiV1OrganizationsOrganizationIdGetProps = O
 
 /**
  * Retrieve Organization By Id
+ *
+ * **Retrieves an organization with the id from the `organization_id` path
+ * parameter.**
  */
 export const RetrieveOrganizationByIdApiV1OrganizationsOrganizationIdGet = ({
   organization_id,
@@ -480,6 +1470,9 @@ export type UseRetrieveOrganizationByIdApiV1OrganizationsOrganizationIdGetProps 
 
 /**
  * Retrieve Organization By Id
+ *
+ * **Retrieves an organization with the id from the `organization_id` path
+ * parameter.**
  */
 export const useRetrieveOrganizationByIdApiV1OrganizationsOrganizationIdGet = ({
   organization_id,
@@ -497,59 +1490,217 @@ export const useRetrieveOrganizationByIdApiV1OrganizationsOrganizationIdGet = ({
     { pathParams: { organization_id }, ...props },
   );
 
-export interface ListAddressesApiV1AddressesGetQueryParams {
-  postalCode?: string;
+export interface UpdateOrganizationApiV1OrganizationsOrganizationIdPutPathParams {
+  organization_id: number;
 }
 
-export type ListAddressesApiV1AddressesGetProps = Omit<
-  GetProps<
-    AddressResponse[],
-    HTTPValidationError,
-    ListAddressesApiV1AddressesGetQueryParams,
-    void
+export type UpdateOrganizationApiV1OrganizationsOrganizationIdPutProps = Omit<
+  MutateProps<
+    OrganizationResponse,
+    void | HTTPValidationError,
+    void,
+    OrganizationUpdateRequest,
+    UpdateOrganizationApiV1OrganizationsOrganizationIdPutPathParams
   >,
+  "path" | "verb"
+> &
+  UpdateOrganizationApiV1OrganizationsOrganizationIdPutPathParams;
+
+/**
+ * Update Organization
+ *
+ * **Updates an organization with the id from the `organization_id` path
+ * parameter with the entity enclosed in the request body.** On success,
+ * the updated organization is returned in the body of the response.
+ */
+export const UpdateOrganizationApiV1OrganizationsOrganizationIdPut = ({
+  organization_id,
+  ...props
+}: UpdateOrganizationApiV1OrganizationsOrganizationIdPutProps) => (
+  <Mutate<
+    OrganizationResponse,
+    void | HTTPValidationError,
+    void,
+    OrganizationUpdateRequest,
+    UpdateOrganizationApiV1OrganizationsOrganizationIdPutPathParams
+  >
+    verb="PUT"
+    path={`/api/v1/organizations/${organization_id}`}
+    {...props}
+  />
+);
+
+export type UseUpdateOrganizationApiV1OrganizationsOrganizationIdPutProps = Omit<
+  UseMutateProps<
+    OrganizationResponse,
+    void | HTTPValidationError,
+    void,
+    OrganizationUpdateRequest,
+    UpdateOrganizationApiV1OrganizationsOrganizationIdPutPathParams
+  >,
+  "path" | "verb"
+> &
+  UpdateOrganizationApiV1OrganizationsOrganizationIdPutPathParams;
+
+/**
+ * Update Organization
+ *
+ * **Updates an organization with the id from the `organization_id` path
+ * parameter with the entity enclosed in the request body.** On success,
+ * the updated organization is returned in the body of the response.
+ */
+export const useUpdateOrganizationApiV1OrganizationsOrganizationIdPut = ({
+  organization_id,
+  ...props
+}: UseUpdateOrganizationApiV1OrganizationsOrganizationIdPutProps) =>
+  useMutate<
+    OrganizationResponse,
+    void | HTTPValidationError,
+    void,
+    OrganizationUpdateRequest,
+    UpdateOrganizationApiV1OrganizationsOrganizationIdPutPathParams
+  >(
+    "PUT",
+    (
+      paramsInPath: UpdateOrganizationApiV1OrganizationsOrganizationIdPutPathParams,
+    ) => `/api/v1/organizations/${paramsInPath.organization_id}`,
+    { pathParams: { organization_id }, ...props },
+  );
+
+export type DeleteOrganizationByIdApiV1OrganizationsOrganizationIdDeleteProps = Omit<
+  MutateProps<void, void | HTTPValidationError, void, number, void>,
+  "path" | "verb"
+>;
+
+/**
+ * Delete Organization By Id
+ *
+ * **Deletes an organization with the id from the `organization_id` path
+ * parameter.**
+ */
+export const DeleteOrganizationByIdApiV1OrganizationsOrganizationIdDelete = (
+  props: DeleteOrganizationByIdApiV1OrganizationsOrganizationIdDeleteProps,
+) => (
+  <Mutate<void, void | HTTPValidationError, void, number, void>
+    verb="DELETE"
+    path="/api/v1/organizations"
+    {...props}
+  />
+);
+
+export type UseDeleteOrganizationByIdApiV1OrganizationsOrganizationIdDeleteProps = Omit<
+  UseMutateProps<void, void | HTTPValidationError, void, number, void>,
+  "path" | "verb"
+>;
+
+/**
+ * Delete Organization By Id
+ *
+ * **Deletes an organization with the id from the `organization_id` path
+ * parameter.**
+ */
+export const useDeleteOrganizationByIdApiV1OrganizationsOrganizationIdDelete = (
+  props: UseDeleteOrganizationByIdApiV1OrganizationsOrganizationIdDeleteProps,
+) =>
+  useMutate<void, void | HTTPValidationError, void, number, void>(
+    "DELETE",
+    "/api/v1/organizations",
+    { ...props },
+  );
+
+export type ListAddressesApiV1AddressesGetProps = Omit<
+  GetProps<AddressResponse[], unknown, void, void>,
   "path"
 >;
 
 /**
  * List Addresses
+ *
+ * **Retrieves the list of addresses.**
  */
 export const ListAddressesApiV1AddressesGet = (
   props: ListAddressesApiV1AddressesGetProps,
 ) => (
-  <Get<
-    AddressResponse[],
-    HTTPValidationError,
-    ListAddressesApiV1AddressesGetQueryParams,
-    void
-  >
+  <Get<AddressResponse[], unknown, void, void>
     path="/api/v1/addresses"
     {...props}
   />
 );
 
 export type UseListAddressesApiV1AddressesGetProps = Omit<
-  UseGetProps<
-    AddressResponse[],
-    HTTPValidationError,
-    ListAddressesApiV1AddressesGetQueryParams,
-    void
-  >,
+  UseGetProps<AddressResponse[], unknown, void, void>,
   "path"
 >;
 
 /**
  * List Addresses
+ *
+ * **Retrieves the list of addresses.**
  */
 export const useListAddressesApiV1AddressesGet = (
   props: UseListAddressesApiV1AddressesGetProps,
-) =>
-  useGet<
-    AddressResponse[],
-    HTTPValidationError,
-    ListAddressesApiV1AddressesGetQueryParams,
+) => useGet<AddressResponse[], unknown, void, void>("/api/v1/addresses", props);
+
+export type CreateAddressApiV1AddressesPostProps = Omit<
+  MutateProps<
+    AddressResponse,
+    void | HTTPValidationError,
+    void,
+    AddressCreateRequest,
     void
-  >("/api/v1/addresses", props);
+  >,
+  "path" | "verb"
+>;
+
+/**
+ * Create Address
+ *
+ * **Creates a new address with the entity enclosed in the request body.** On
+ * success, the new address is returned in the body of the response.
+ */
+export const CreateAddressApiV1AddressesPost = (
+  props: CreateAddressApiV1AddressesPostProps,
+) => (
+  <Mutate<
+    AddressResponse,
+    void | HTTPValidationError,
+    void,
+    AddressCreateRequest,
+    void
+  >
+    verb="POST"
+    path="/api/v1/addresses"
+    {...props}
+  />
+);
+
+export type UseCreateAddressApiV1AddressesPostProps = Omit<
+  UseMutateProps<
+    AddressResponse,
+    void | HTTPValidationError,
+    void,
+    AddressCreateRequest,
+    void
+  >,
+  "path" | "verb"
+>;
+
+/**
+ * Create Address
+ *
+ * **Creates a new address with the entity enclosed in the request body.** On
+ * success, the new address is returned in the body of the response.
+ */
+export const useCreateAddressApiV1AddressesPost = (
+  props: UseCreateAddressApiV1AddressesPostProps,
+) =>
+  useMutate<
+    AddressResponse,
+    void | HTTPValidationError,
+    void,
+    AddressCreateRequest,
+    void
+  >("POST", "/api/v1/addresses", props);
 
 export interface RetrieveAddressByIdApiV1AddressesAddressIdGetPathParams {
   address_id: number;
@@ -568,6 +1719,8 @@ export type RetrieveAddressByIdApiV1AddressesAddressIdGetProps = Omit<
 
 /**
  * Retrieve Address By Id
+ *
+ * **Retrieves an address with the id from the `address_id` path parameter.**
  */
 export const RetrieveAddressByIdApiV1AddressesAddressIdGet = ({
   address_id,
@@ -597,6 +1750,8 @@ export type UseRetrieveAddressByIdApiV1AddressesAddressIdGetProps = Omit<
 
 /**
  * Retrieve Address By Id
+ *
+ * **Retrieves an address with the id from the `address_id` path parameter.**
  */
 export const useRetrieveAddressByIdApiV1AddressesAddressIdGet = ({
   address_id,
@@ -613,6 +1768,121 @@ export const useRetrieveAddressByIdApiV1AddressesAddressIdGet = ({
     { pathParams: { address_id }, ...props },
   );
 
+export interface UpdateAddressApiV1AddressesAddressIdPutPathParams {
+  address_id: number;
+}
+
+export type UpdateAddressApiV1AddressesAddressIdPutProps = Omit<
+  MutateProps<
+    AddressResponse,
+    void | HTTPValidationError,
+    void,
+    AddressUpdateRequest,
+    UpdateAddressApiV1AddressesAddressIdPutPathParams
+  >,
+  "path" | "verb"
+> &
+  UpdateAddressApiV1AddressesAddressIdPutPathParams;
+
+/**
+ * Update Address
+ *
+ * **Updates an address with the id from the `address_id` path parameter with
+ * the entity enclosed in the request body.** On success, the updated address
+ * is returned in the body of the response.
+ */
+export const UpdateAddressApiV1AddressesAddressIdPut = ({
+  address_id,
+  ...props
+}: UpdateAddressApiV1AddressesAddressIdPutProps) => (
+  <Mutate<
+    AddressResponse,
+    void | HTTPValidationError,
+    void,
+    AddressUpdateRequest,
+    UpdateAddressApiV1AddressesAddressIdPutPathParams
+  >
+    verb="PUT"
+    path={`/api/v1/addresses/${address_id}`}
+    {...props}
+  />
+);
+
+export type UseUpdateAddressApiV1AddressesAddressIdPutProps = Omit<
+  UseMutateProps<
+    AddressResponse,
+    void | HTTPValidationError,
+    void,
+    AddressUpdateRequest,
+    UpdateAddressApiV1AddressesAddressIdPutPathParams
+  >,
+  "path" | "verb"
+> &
+  UpdateAddressApiV1AddressesAddressIdPutPathParams;
+
+/**
+ * Update Address
+ *
+ * **Updates an address with the id from the `address_id` path parameter with
+ * the entity enclosed in the request body.** On success, the updated address
+ * is returned in the body of the response.
+ */
+export const useUpdateAddressApiV1AddressesAddressIdPut = ({
+  address_id,
+  ...props
+}: UseUpdateAddressApiV1AddressesAddressIdPutProps) =>
+  useMutate<
+    AddressResponse,
+    void | HTTPValidationError,
+    void,
+    AddressUpdateRequest,
+    UpdateAddressApiV1AddressesAddressIdPutPathParams
+  >(
+    "PUT",
+    (paramsInPath: UpdateAddressApiV1AddressesAddressIdPutPathParams) =>
+      `/api/v1/addresses/${paramsInPath.address_id}`,
+    { pathParams: { address_id }, ...props },
+  );
+
+export type DeleteAddressByIdApiV1AddressesAddressIdDeleteProps = Omit<
+  MutateProps<void, void | HTTPValidationError, void, number, void>,
+  "path" | "verb"
+>;
+
+/**
+ * Delete Address By Id
+ *
+ * **Deletes an address with the id from the `address_id` path parameter.**
+ */
+export const DeleteAddressByIdApiV1AddressesAddressIdDelete = (
+  props: DeleteAddressByIdApiV1AddressesAddressIdDeleteProps,
+) => (
+  <Mutate<void, void | HTTPValidationError, void, number, void>
+    verb="DELETE"
+    path="/api/v1/addresses"
+    {...props}
+  />
+);
+
+export type UseDeleteAddressByIdApiV1AddressesAddressIdDeleteProps = Omit<
+  UseMutateProps<void, void | HTTPValidationError, void, number, void>,
+  "path" | "verb"
+>;
+
+/**
+ * Delete Address By Id
+ *
+ * **Deletes an address with the id from the `address_id` path parameter.**
+ */
+export const useDeleteAddressByIdApiV1AddressesAddressIdDelete = (
+  props: UseDeleteAddressByIdApiV1AddressesAddressIdDeleteProps,
+) =>
+  useMutate<void, void | HTTPValidationError, void, number, void>(
+    "DELETE",
+    "/api/v1/addresses",
+    { ...props },
+  );
+
 export type ListRequirementsApiV1RequirementsGetProps = Omit<
   GetProps<RequirementResponse[], unknown, void, void>,
   "path"
@@ -620,6 +1890,8 @@ export type ListRequirementsApiV1RequirementsGetProps = Omit<
 
 /**
  * List Requirements
+ *
+ * **Retrieves the list of requirements.**
  */
 export const ListRequirementsApiV1RequirementsGet = (
   props: ListRequirementsApiV1RequirementsGetProps,
@@ -637,6 +1909,8 @@ export type UseListRequirementsApiV1RequirementsGetProps = Omit<
 
 /**
  * List Requirements
+ *
+ * **Retrieves the list of requirements.**
  */
 export const useListRequirementsApiV1RequirementsGet = (
   props: UseListRequirementsApiV1RequirementsGetProps,
@@ -645,6 +1919,69 @@ export const useListRequirementsApiV1RequirementsGet = (
     "/api/v1/requirements",
     props,
   );
+
+export type CreateRequirementApiV1RequirementsPostProps = Omit<
+  MutateProps<
+    RequirementResponse,
+    void | HTTPValidationError,
+    void,
+    RequirementsCreateRequest,
+    void
+  >,
+  "path" | "verb"
+>;
+
+/**
+ * Create Requirement
+ *
+ * **Creates a new requirement with the entity enclosed in the request
+ * body.** On success, the new requirement is returned in the body of the
+ * response.
+ */
+export const CreateRequirementApiV1RequirementsPost = (
+  props: CreateRequirementApiV1RequirementsPostProps,
+) => (
+  <Mutate<
+    RequirementResponse,
+    void | HTTPValidationError,
+    void,
+    RequirementsCreateRequest,
+    void
+  >
+    verb="POST"
+    path="/api/v1/requirements"
+    {...props}
+  />
+);
+
+export type UseCreateRequirementApiV1RequirementsPostProps = Omit<
+  UseMutateProps<
+    RequirementResponse,
+    void | HTTPValidationError,
+    void,
+    RequirementsCreateRequest,
+    void
+  >,
+  "path" | "verb"
+>;
+
+/**
+ * Create Requirement
+ *
+ * **Creates a new requirement with the entity enclosed in the request
+ * body.** On success, the new requirement is returned in the body of the
+ * response.
+ */
+export const useCreateRequirementApiV1RequirementsPost = (
+  props: UseCreateRequirementApiV1RequirementsPostProps,
+) =>
+  useMutate<
+    RequirementResponse,
+    void | HTTPValidationError,
+    void,
+    RequirementsCreateRequest,
+    void
+  >("POST", "/api/v1/requirements", props);
 
 export interface RetrieveRequirementByIdApiV1RequirementsRequirementIdGetPathParams {
   requirement_id: number;
@@ -663,6 +2000,9 @@ export type RetrieveRequirementByIdApiV1RequirementsRequirementIdGetProps = Omit
 
 /**
  * Retrieve Requirement By Id
+ *
+ * **Retrieves a requirement with the id from the `requirement_id` path
+ * parameter.**
  */
 export const RetrieveRequirementByIdApiV1RequirementsRequirementIdGet = ({
   requirement_id,
@@ -692,6 +2032,9 @@ export type UseRetrieveRequirementByIdApiV1RequirementsRequirementIdGetProps = O
 
 /**
  * Retrieve Requirement By Id
+ *
+ * **Retrieves a requirement with the id from the `requirement_id` path
+ * parameter.**
  */
 export const useRetrieveRequirementByIdApiV1RequirementsRequirementIdGet = ({
   requirement_id,
@@ -707,4 +2050,122 @@ export const useRetrieveRequirementByIdApiV1RequirementsRequirementIdGet = ({
       paramsInPath: RetrieveRequirementByIdApiV1RequirementsRequirementIdGetPathParams,
     ) => `/api/v1/requirements/${paramsInPath.requirement_id}`,
     { pathParams: { requirement_id }, ...props },
+  );
+
+export interface UpdateRequirementApiV1RequirementsRequirementIdPutPathParams {
+  requirement_id: number;
+}
+
+export type UpdateRequirementApiV1RequirementsRequirementIdPutProps = Omit<
+  MutateProps<
+    RequirementResponse,
+    void | HTTPValidationError,
+    void,
+    RequirementsUpdateRequest,
+    UpdateRequirementApiV1RequirementsRequirementIdPutPathParams
+  >,
+  "path" | "verb"
+> &
+  UpdateRequirementApiV1RequirementsRequirementIdPutPathParams;
+
+/**
+ * Update Requirement
+ *
+ * **Updates a requirement with the id from the `requirement_id` path
+ * parameter with the entity enclosed in the request body.** On success,
+ * the updated requirement is returned in the body of the response.
+ */
+export const UpdateRequirementApiV1RequirementsRequirementIdPut = ({
+  requirement_id,
+  ...props
+}: UpdateRequirementApiV1RequirementsRequirementIdPutProps) => (
+  <Mutate<
+    RequirementResponse,
+    void | HTTPValidationError,
+    void,
+    RequirementsUpdateRequest,
+    UpdateRequirementApiV1RequirementsRequirementIdPutPathParams
+  >
+    verb="PUT"
+    path={`/api/v1/requirements/${requirement_id}`}
+    {...props}
+  />
+);
+
+export type UseUpdateRequirementApiV1RequirementsRequirementIdPutProps = Omit<
+  UseMutateProps<
+    RequirementResponse,
+    void | HTTPValidationError,
+    void,
+    RequirementsUpdateRequest,
+    UpdateRequirementApiV1RequirementsRequirementIdPutPathParams
+  >,
+  "path" | "verb"
+> &
+  UpdateRequirementApiV1RequirementsRequirementIdPutPathParams;
+
+/**
+ * Update Requirement
+ *
+ * **Updates a requirement with the id from the `requirement_id` path
+ * parameter with the entity enclosed in the request body.** On success,
+ * the updated requirement is returned in the body of the response.
+ */
+export const useUpdateRequirementApiV1RequirementsRequirementIdPut = ({
+  requirement_id,
+  ...props
+}: UseUpdateRequirementApiV1RequirementsRequirementIdPutProps) =>
+  useMutate<
+    RequirementResponse,
+    void | HTTPValidationError,
+    void,
+    RequirementsUpdateRequest,
+    UpdateRequirementApiV1RequirementsRequirementIdPutPathParams
+  >(
+    "PUT",
+    (
+      paramsInPath: UpdateRequirementApiV1RequirementsRequirementIdPutPathParams,
+    ) => `/api/v1/requirements/${paramsInPath.requirement_id}`,
+    { pathParams: { requirement_id }, ...props },
+  );
+
+export type DeleteRequirementByIdApiV1RequirementsRequirementIdDeleteProps = Omit<
+  MutateProps<void, void | HTTPValidationError, void, number, void>,
+  "path" | "verb"
+>;
+
+/**
+ * Delete Requirement By Id
+ *
+ * **Deletes a requirement with the id from the `requirement_id` path
+ * parameter.**
+ */
+export const DeleteRequirementByIdApiV1RequirementsRequirementIdDelete = (
+  props: DeleteRequirementByIdApiV1RequirementsRequirementIdDeleteProps,
+) => (
+  <Mutate<void, void | HTTPValidationError, void, number, void>
+    verb="DELETE"
+    path="/api/v1/requirements"
+    {...props}
+  />
+);
+
+export type UseDeleteRequirementByIdApiV1RequirementsRequirementIdDeleteProps = Omit<
+  UseMutateProps<void, void | HTTPValidationError, void, number, void>,
+  "path" | "verb"
+>;
+
+/**
+ * Delete Requirement By Id
+ *
+ * **Deletes a requirement with the id from the `requirement_id` path
+ * parameter.**
+ */
+export const useDeleteRequirementByIdApiV1RequirementsRequirementIdDelete = (
+  props: UseDeleteRequirementByIdApiV1RequirementsRequirementIdDeleteProps,
+) =>
+  useMutate<void, void | HTTPValidationError, void, number, void>(
+    "DELETE",
+    "/api/v1/requirements",
+    { ...props },
   );
