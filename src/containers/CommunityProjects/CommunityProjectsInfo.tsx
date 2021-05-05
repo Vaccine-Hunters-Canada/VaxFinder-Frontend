@@ -1,4 +1,4 @@
-export const projInfo = [
+export const projectInfo = [
   {
     title: "Covid Vaccine Notifier",
     description: "Automatic notifications for vaccine appointment availability",

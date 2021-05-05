@@ -1,6 +1,6 @@
 import { Page, TextContainer } from "@shopify/polaris";
 import React from "react";
-import { projInfo } from "./CommunityProjectsInfo";
+import { projectInfo } from "./CommunityProjectsInfo";
 import { CommunityProjectCard } from "../../components/CommunityProjectsCard/CommunityProjectCard";
 import styles from "./CommunityProjectsStyles.module.css";
 
@@ -14,7 +14,7 @@ export function CommunityProjects() {
           </p>
         </TextContainer>
         <div className={styles.cardFlexBox}>
-          {projInfo.map((project) => (
+          {projectInfo.map((project) => (
             <CommunityProjectCard
               title={project.title}
               link={project.link}
