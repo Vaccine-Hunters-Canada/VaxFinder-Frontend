@@ -33,11 +33,13 @@ export function AppFrame() {
                 url: "/",
                 label: "Home",
                 icon: HomeMajor,
+                selected: location.pathname.trim() === "/",
               },
               {
                 url: "/faq",
                 label: "FAQ",
                 icon: QuestionMarkMajor,
+                selected: location.pathname.trim() === "/faq",
               },
             ]}
           />
