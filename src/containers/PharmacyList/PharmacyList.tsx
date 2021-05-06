@@ -102,27 +102,28 @@ export function PharmacyList(props: Props) {
     );
 
   return (
-    <section aria-label="pharmacy-list">
+    <>
       {shouldShowBanner ? (
         <EligibilityBanner onDismiss={() => setShouldShowBanner(false)} />
       ) : null}
-
-      {pharmacyList
-        ? pharmacyList.map((pharmacy) => {
-            return (
-              <PharmacyCard
-                key={pharmacy.id}
-                id={pharmacy.id}
-                address={pharmacy.address}
-                booking={pharmacy.booking}
-                lastUpdated={pharmacy.lastUpdated}
-                pharmacyName={pharmacy.pharmacyName}
-                phone={pharmacy.phone}
-                website={pharmacy.website}
-              />
-            );
-          })
-        : null}
-    </section>
+      <section aria-label="pharmacy-list" style={{ marginTop: "2rem" }}>
+        {pharmacyList
+          ? pharmacyList.map((pharmacy) => {
+              return (
+                <PharmacyCard
+                  key={pharmacy.id}
+                  id={pharmacy.id}
+                  address={pharmacy.address}
+                  booking={pharmacy.booking}
+                  lastUpdated={pharmacy.lastUpdated}
+                  pharmacyName={pharmacy.pharmacyName}
+                  phone={pharmacy.phone}
+                  website={pharmacy.website}
+                />
+              );
+            })
+          : null}
+      </section>
+    </>
   );
 }
