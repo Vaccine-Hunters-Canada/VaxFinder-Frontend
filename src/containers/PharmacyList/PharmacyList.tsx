@@ -19,7 +19,7 @@ export function PharmacyList(props: Props) {
     error,
   } = useListVaccineAvailabilityApiV1VaccineAvailabilityGet({
     queryParams: {
-      postalCode: props.postalCode,
+      postalCode: props.postalCode.substring(0, 3),
     },
   });
   const [shouldShowBanner, setShouldShowBanner] = useState(true);
