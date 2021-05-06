@@ -7,7 +7,7 @@ import Iframe from "react-iframe";
 interface PharmacyProps {
   // Id used for creating React keys
   // eslint-disable-next-line react/no-unused-prop-types
-  id: string;
+  id: string | number;
   pharmacyName: string;
   booking: boolean;
   address: string;
