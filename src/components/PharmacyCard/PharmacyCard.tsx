@@ -34,7 +34,7 @@ export function PharmacyCard(props: PharmacyProps) {
     return (
       <Banner status="critical">
         <p>
-          <strong>Appointments not available</strong> as of{" "}
+          <strong>Appointments not available</strong>
           {props.lastUpdated.length > 0 && (
             <> as of {format(new Date(props.lastUpdated), "MMM d, y")}</>
           )}
