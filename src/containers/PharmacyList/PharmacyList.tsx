@@ -86,7 +86,7 @@ export function PharmacyList(props: Props) {
         pharmacyName: pharmacy.location.name,
         booking: isBooking,
         address: addressSegments.join("  "),
-        lastUpdated: pharmacy.created_at,
+        lastUpdated: pharmacy.date || "",
         phone: pharmacy.location.phone || "",
         website: pharmacy.location.url || "",
       };
