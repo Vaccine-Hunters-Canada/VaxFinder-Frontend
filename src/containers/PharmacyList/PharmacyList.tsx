@@ -19,7 +19,7 @@ export function PharmacyList(props: Props) {
     error,
   } = useListVaccineAvailabilityApiV1VaccineAvailabilityGet({
     queryParams: {
-      postalCode: props.postalCode,
+      postal_code: props.postalCode,
     },
   });
   const [shouldShowBanner, setShouldShowBanner] = useState(true);
@@ -77,7 +77,9 @@ export function PharmacyList(props: Props) {
         addressSegments.push(address.province);
         addressSegments.push(address.postcode);
       }
-      const isBooking = pharmacy.numberAvailable > 0;
+      const isBooking = !!(
+        pharmacy.numberAvailable && pharmacy.numberAvailable > 0
+      );
 
       return {
         id: pharmacy.id,
