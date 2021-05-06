@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Frame, Layout, Navigation, Page, TopBar } from "@shopify/polaris";
 import { HomeMajor } from "@shopify/polaris-icons";
@@ -7,10 +7,23 @@ import { TwitterTimelineEmbed } from "react-twitter-embed";
 
 export function AppFrame() {
   const location = useLocation();
+  const [isMobileNavigationActive, setIsMobileNavigationActive] = useState(
+    false,
+  );
+
+  const handleMobileNavigationToggle = useCallback(
+    () => setIsMobileNavigationActive((isActive) => !isActive),
+    [],
+  );
 
   return (
     <Frame
-      topBar={<TopBar showNavigationToggle />}
+      topBar={
+        <TopBar
+          showNavigationToggle
+          onNavigationToggle={handleMobileNavigationToggle}
+        />
+      }
       navigation={
         <Navigation location={location.pathname}>
           <Navigation.Section
@@ -25,6 +38,8 @@ export function AppFrame() {
           />
         </Navigation>
       }
+      showMobileNavigation={isMobileNavigationActive}
+      onNavigationDismiss={handleMobileNavigationToggle}
     >
       <Layout>
         <Layout.Section>
