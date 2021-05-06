@@ -81,9 +81,6 @@ export function PharmacyList(props: Props) {
         pharmacy.numberAvailable && pharmacy.numberAvailable > 0
       );
 
-      console.log("-----");
-      console.log(pharmacy);
-
       return {
         id: pharmacy.id,
         pharmacyName: pharmacy.location.name,
