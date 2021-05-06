@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Frame, Layout, Navigation, Page, TopBar } from "@shopify/polaris";
-import { HomeMajor } from "@shopify/polaris-icons";
+import { HomeMajor, QuestionMarkMajor } from "@shopify/polaris-icons";
 import { Routes } from "./Routes";
 import { TwitterTimelineEmbed } from "react-twitter-embed";
 
@@ -33,6 +33,11 @@ export function AppFrame() {
                 url: "/",
                 label: "Home",
                 icon: HomeMajor,
+              },
+              {
+                url: "/faq",
+                label: "FAQ",
+                icon: QuestionMarkMajor,
               },
             ]}
           />
