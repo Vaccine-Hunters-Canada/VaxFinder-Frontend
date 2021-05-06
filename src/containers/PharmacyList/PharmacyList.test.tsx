@@ -28,7 +28,7 @@ describe("PharmacyList", () => {
     expect(available.length).toBe(2);
 
     const unavailable = await screen.findAllByText(
-      /appointments not available/i
+      /appointments not available/i,
     );
     expect(unavailable.length).toBe(2);
 
@@ -36,7 +36,7 @@ describe("PharmacyList", () => {
     expect(dates.length).toBe(4);
 
     const addresses = await screen.findAllByText(
-      /250 stittsville main st stittsville ontario k2s 1s9/i
+      /250 stittsville main st stittsville ontario k2s 1s9/i,
     );
     expect(addresses.length).toBe(4);
 
@@ -53,16 +53,16 @@ describe("PharmacyList", () => {
     /* eslint-disable @typescript-eslint/no-unsafe-member-access */
     /* eslint-disable @typescript-eslint/no-unsafe-call */
     await within(pharmacyList.childNodes[1]).findByText(
-      /appointments available/i
+      /appointments available/i,
     );
     await within(pharmacyList.childNodes[2]).findByText(
-      /appointments available/i
+      /appointments available/i,
     );
     await within(pharmacyList.childNodes[3]).findByText(
-      /appointments not available/i
+      /appointments not available/i,
     );
     await within(pharmacyList.childNodes[4]).findByText(
-      /appointments not available/i
+      /appointments not available/i,
     );
     /* eslint-enable @typescript-eslint/no-unsafe-member-access */
     /* eslint-enable @typescript-eslint/no-unsafe-call */
@@ -72,13 +72,13 @@ describe("PharmacyList", () => {
     server.use(
       rest.get(
         `${process.env.REACT_APP_API_URL!}/api/v1/vaccine-availability`,
-        async (req, res, ctx) => res(ctx.status(500))
-      )
+        async (req, res, ctx) => res(ctx.status(500)),
+      ),
     );
 
     render(<PharmacyList postalCode="k2s 1s9" />);
     await screen.findByText(
-      /could not load pharmacy data, please try again later/i
+      /could not load pharmacy data, please try again later/i,
     );
   });
 });
