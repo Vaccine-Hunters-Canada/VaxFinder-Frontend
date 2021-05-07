@@ -23,8 +23,10 @@ export function PharmacyCard(props: PharmacyProps) {
       return (
         <Banner status="success">
           <p>
-            <strong>Appointments available</strong> as of{" "}
-            {format(new Date(props.lastUpdated), "MMM d y, h:mm a z")}
+            <strong>Appointments available</strong>
+            {props.lastUpdated.length > 0 && (
+              <> as of {format(new Date(props.lastUpdated), "MMM d, y")}</>
+            )}
           </p>
         </Banner>
       );
@@ -32,8 +34,10 @@ export function PharmacyCard(props: PharmacyProps) {
     return (
       <Banner status="critical">
         <p>
-          <strong>Appointments not available</strong> as of{" "}
-          {format(new Date(props.lastUpdated), "MMM d y, h:mm a z")}
+          <strong>Appointments not available</strong>
+          {props.lastUpdated.length > 0 && (
+            <> as of {format(new Date(props.lastUpdated), "MMM d, y")}</>
+          )}
         </p>
       </Banner>
     );
