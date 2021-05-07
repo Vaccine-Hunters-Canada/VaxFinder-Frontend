@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { format } from "date-fns-tz";
-import { Card, Banner, TextContainer, Stack, Layout } from "@shopify/polaris";
+import { Card, Banner, TextContainer, Stack } from "@shopify/polaris";
 import { DomainsMajor, LocationMajor } from "@shopify/polaris-icons";
 import Iframe from "react-iframe";
 
@@ -53,39 +53,37 @@ export function PharmacyCard(props: PharmacyProps) {
     />
   );
   return (
-    <Layout.Section>
-      <Card
-        title={props.pharmacyName}
-        sectioned
-        primaryFooterAction={{
-          content: "Visit Website",
-          icon: DomainsMajor,
-          external: true,
-          url: props.website,
-        }}
-        secondaryFooterActions={[
-          {
-            content: "Load Map",
-            icon: LocationMajor,
-            onAction: () => {
-              setShouldShowMap(!shouldShowMap);
-            },
+    <Card
+      title={props.pharmacyName}
+      sectioned
+      primaryFooterAction={{
+        content: "Visit Website",
+        icon: DomainsMajor,
+        external: true,
+        url: props.website,
+      }}
+      secondaryFooterActions={[
+        {
+          content: "Load Map",
+          icon: LocationMajor,
+          onAction: () => {
+            setShouldShowMap(!shouldShowMap);
           },
-        ]}
-      >
-        <TextContainer>
-          <Card.Section fullWidth>{availabilityMarkup()}</Card.Section>
-          <Card.Section title="Store Info">
-            <Card.Subsection>{props.address}</Card.Subsection>
-            <Card.Subsection>
-              <Stack>
-                <Stack.Item>{props.phone}</Stack.Item>
-              </Stack>
-            </Card.Subsection>
-          </Card.Section>
-        </TextContainer>
-        {shouldShowMap ? <Map /> : null}
-      </Card>
-    </Layout.Section>
+        },
+      ]}
+    >
+      <TextContainer>
+        <Card.Section fullWidth>{availabilityMarkup()}</Card.Section>
+        <Card.Section title="Store Info">
+          <Card.Subsection>{props.address}</Card.Subsection>
+          <Card.Subsection>
+            <Stack>
+              <Stack.Item>{props.phone}</Stack.Item>
+            </Stack>
+          </Card.Subsection>
+        </Card.Section>
+      </TextContainer>
+      {shouldShowMap ? <Map /> : null}
+    </Card>
   );
 }

@@ -41,22 +41,20 @@ export function AppFrame() {
       showMobileNavigation={isMobileNavigationActive}
       onNavigationDismiss={handleMobileNavigationToggle}
     >
-      <Layout>
-        <Layout.Section>
-          <Page>
+      <Page fullWidth>
+        <Layout>
+          <Layout.Section>
             <Routes />
-          </Page>
-        </Layout.Section>
-        <Layout.Section secondary>
-          <Page>
+          </Layout.Section>
+          <Layout.Section secondary>
             <TwitterTimelineEmbed
               sourceType="profile"
               screenName="VaxHuntersCan"
               options={{ height: 800 }}
             />
-          </Page>
-        </Layout.Section>
-      </Layout>
+          </Layout.Section>
+        </Layout>
+      </Page>
     </Frame>
   );
 }

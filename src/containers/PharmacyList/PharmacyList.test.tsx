@@ -48,20 +48,18 @@ describe("PharmacyList", () => {
     render(<PharmacyList postalCode="k2s 1s9" />);
     const pharmacyList = await screen.findByLabelText(/pharmacy-list/i);
 
-    // pharmacyList.childNodes[0] is the eligibility notice
-
     /* eslint-disable @typescript-eslint/no-unsafe-member-access */
     /* eslint-disable @typescript-eslint/no-unsafe-call */
+    await within(pharmacyList.childNodes[0]).findByText(
+      /appointments available/i,
+    );
     await within(pharmacyList.childNodes[1]).findByText(
       /appointments available/i,
     );
     await within(pharmacyList.childNodes[2]).findByText(
-      /appointments available/i,
-    );
-    await within(pharmacyList.childNodes[3]).findByText(
       /appointments not available/i,
     );
-    await within(pharmacyList.childNodes[4]).findByText(
+    await within(pharmacyList.childNodes[3]).findByText(
       /appointments not available/i,
     );
     /* eslint-enable @typescript-eslint/no-unsafe-member-access */
