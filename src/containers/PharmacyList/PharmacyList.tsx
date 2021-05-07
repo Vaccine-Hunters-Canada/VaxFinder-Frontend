@@ -2,7 +2,7 @@ import { PharmacyCard } from "../../components/PharmacyCard";
 import React, { useState } from "react";
 import { useListVaccineAvailabilityApiV1VaccineAvailabilityGet } from "../../apiClient";
 import { ExceptionList, Spinner, TextStyle } from "@shopify/polaris";
-import { CircleAlertMajor } from "@shopify/polaris-icons";
+import { CircleAlertMajor, SearchMajor } from "@shopify/polaris-icons";
 import "./PharmacyList.css";
 import { EligibilityBanner } from "../../components/EligibilityBanner";
 
@@ -72,15 +72,12 @@ export function PharmacyList(props: Props) {
         <ExceptionList
           items={[
             {
-              icon: CircleAlertMajor,
-              status: "critical",
+              icon: SearchMajor,
               description: (
-                <TextStyle variation="negative">
-                  <strong>
-                    No nearby pharmicies were found near{" "}
-                    {postalCodeHumanReadable}. Please try again later.
-                  </strong>
-                </TextStyle>
+                <strong>
+                  No nearby pharmicies were found near {postalCodeHumanReadable}
+                  . Please try again later.
+                </strong>
               ),
             },
           ]}
