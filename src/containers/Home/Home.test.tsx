@@ -16,7 +16,7 @@ describe("Home", () => {
     const submit = screen.getByRole("button", { name: /submit/i });
     userEvent.click(submit);
 
-    expect(history.location.pathname).toBe("/search/K2T0E5");
+    expect(history.location.pathname).toBe("/search/k2t0e5");
   });
 
   test("Should prevent user from entering invalid postal code", async () => {

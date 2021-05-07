@@ -5,10 +5,7 @@ import { render, screen, within } from "../../testUtils";
 import { PharmacyList } from "./PharmacyList";
 import { format } from "date-fns-tz";
 
-const formattedDate = format(
-  new Date("2021-05-01T21:07:28.232Z"),
-  "MMM d y, h:mm a z",
-);
+const formattedDate = format(new Date("2021-05-01"), "MMM d, y");
 
 describe("PharmacyList", () => {
   test("Should show all returned pharmacy details with appointment details", async () => {
