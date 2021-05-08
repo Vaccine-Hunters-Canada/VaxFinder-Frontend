@@ -8,7 +8,7 @@ describe("Home", () => {
     const { history } = render(<Home />);
 
     const input = await screen.findByRole("textbox", {
-      name: /please enter your postal code/i,
+      name: /enterpostalcode/i,
     });
     userEvent.type(input, "K2T0E5");
     expect(input.value).toBe("K2T0E5");
@@ -23,7 +23,7 @@ describe("Home", () => {
     const { history } = render(<Home />);
 
     const input = await screen.findByRole("textbox", {
-      name: /please enter your postal code/i,
+      name: /enterpostalcode/i,
     });
     userEvent.type(input, "78701");
     expect(input.value).toBe("78701");
@@ -31,7 +31,7 @@ describe("Home", () => {
     const submit = screen.getByRole("button", { name: /submit/i });
     userEvent.click(submit);
 
-    await screen.findByText(/you have entered an invalid postal code/i);
+    await screen.findByText(/invalidpostal/i);
     expect(history.location.pathname).toBe("/");
   });
 });

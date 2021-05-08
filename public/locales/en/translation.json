@@ -1,0 +1,17 @@
+{
+    "asof": "as of",
+    "appointmentsavailable": "Appointments available",
+    "appointmentsnotavailable": "Appointments not available",
+    "couldnotloadpharmacydata": "Could not load pharmacy data, please try again later",
+    "eligibility": "Eligibility:",
+    "eligibilitymessage": "In order to ensure you are eligible to receive your vaccine, please check your appropriate health authority's vaccination guidelines.",
+    "enterpostalcode": "Please enter your postal code (Example: K2T 0E5):",
+    "home": "Home",
+    "invalidpostal": "You have entered an invalid postal code",
+    "loadingpharmacydata": "Loading pharmacy data",
+    "loadmap": "Load Map",
+    "postalcodetext": "We’ll use this postal code to find the closest available vaccines.",
+    "submit": "Submit",
+    "storeinfo": "Store Info",
+    "visitwebsite": "Visit Website"
+}

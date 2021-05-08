@@ -24,15 +24,13 @@ describe("PharmacyList", () => {
       name: /location2 with no availability/i,
     });
 
-    const available = await screen.findAllByText(/appointments available/i);
+    const available = await screen.findAllByText(/appointmentsavailable/i);
     expect(available.length).toBe(2);
 
-    const unavailable = await screen.findAllByText(
-      /appointments not available/i,
-    );
+    const unavailable = await screen.findAllByText(/appointmentsnotavailable/i);
     expect(unavailable.length).toBe(2);
 
-    const dates = await screen.findAllByText(`as of ${formattedDate}`);
+    const dates = await screen.findAllByText(`asof ${formattedDate}`);
     expect(dates.length).toBe(4);
 
     const addresses = await screen.findAllByText(
@@ -51,16 +49,16 @@ describe("PharmacyList", () => {
     /* eslint-disable @typescript-eslint/no-unsafe-member-access */
     /* eslint-disable @typescript-eslint/no-unsafe-call */
     await within(pharmacyList.childNodes[0]).findByText(
-      /appointments available/i,
+      /appointmentsavailable/i,
     );
     await within(pharmacyList.childNodes[1]).findByText(
-      /appointments available/i,
+      /appointmentsavailable/i,
     );
     await within(pharmacyList.childNodes[2]).findByText(
-      /appointments not available/i,
+      /appointmentsnotavailable/i,
     );
     await within(pharmacyList.childNodes[3]).findByText(
-      /appointments not available/i,
+      /appointmentsnotavailable/i,
     );
     /* eslint-enable @typescript-eslint/no-unsafe-member-access */
     /* eslint-enable @typescript-eslint/no-unsafe-call */
@@ -75,8 +73,6 @@ describe("PharmacyList", () => {
     );
 
     render(<PharmacyList postalCode="k2s 1s9" />);
-    await screen.findByText(
-      /could not load pharmacy data, please try again later/i,
-    );
+    await screen.findByText(/couldnotloadpharmacydata/i);
   });
 });
