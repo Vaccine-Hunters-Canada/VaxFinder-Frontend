@@ -1,8 +1,10 @@
 import { Form, FormLayout, TextField, Button, Card } from "@shopify/polaris";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export function Home() {
+  const { t } = useTranslation();
   const [shouldShowInvalidPostal, setShouldShowInvalidPostal] = useState(false);
   const [postalCode, setPostalCode] = useState("");
   const history = useHistory();
@@ -17,7 +19,7 @@ export function Home() {
   };
 
   const invalidPostalCodeMessage = shouldShowInvalidPostal
-    ? "You have entered an invalid postal code"
+    ? t("invalidpostal")
     : undefined;
 
   return (
@@ -29,17 +31,12 @@ export function Home() {
               <TextField
                 value={postalCode}
                 onChange={setPostalCode}
-                label="Please enter your postal code (Example: K2T 0E5):"
-                helpText={
-                  <span>
-                    We’ll use this postal code to find the closest available
-                    vaccines.
-                  </span>
-                }
+                label={t("enterpostalcode")}
+                helpText={<span>{t("postalcodetext")}</span>}
                 error={invalidPostalCodeMessage}
               />
               <Button primary submit>
-                Submit
+                {t("submit")}
               </Button>
             </FormLayout>
           </Form>

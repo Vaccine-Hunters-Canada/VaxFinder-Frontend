@@ -28,7 +28,7 @@ describe("Home", () => {
     userEvent.type(input, "78701");
     expect(input.value).toBe("78701");
 
-    const submit = screen.getByRole("button", { name: /submit/i });
+    const submit = screen.getByRole("button", { name: /Submit/i });
     userEvent.click(submit);
 
     await screen.findByText(/you have entered an invalid postal code/i);

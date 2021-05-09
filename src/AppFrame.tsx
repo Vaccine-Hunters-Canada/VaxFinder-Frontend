@@ -1,15 +1,25 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import React, { useCallback, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Frame, Layout, Navigation, Page, TopBar } from "@shopify/polaris";
 import { HomeMajor } from "@shopify/polaris-icons";
 import { Routes } from "./Routes";
 import { TwitterTimelineEmbed } from "react-twitter-embed";
+import { useTranslation } from "react-i18next";
+import i18next from "i18next";
 
 export function AppFrame() {
+  const { t, i18n } = useTranslation(undefined, { useSuspense: false });
   const location = useLocation();
   const [isMobileNavigationActive, setIsMobileNavigationActive] = useState(
     false,
   );
+  function languageToggle() {
+    if (i18n.language === "en") {
+      return "Français";
+    }
+    return "English";
+  }
 
   const handleMobileNavigationToggle = useCallback(
     () => setIsMobileNavigationActive((isActive) => !isActive),
@@ -31,8 +41,18 @@ export function AppFrame() {
             items={[
               {
                 url: "/",
-                label: "Home",
+                label: t("home"),
                 icon: HomeMajor,
+              },
+              {
+                label: languageToggle(),
+                onClick: () => {
+                  if (i18n.language === "en") {
+                    i18next.changeLanguage("fr");
+                  } else {
+                    i18next.changeLanguage("en");
+                  }
+                },
               },
             ]}
           />
