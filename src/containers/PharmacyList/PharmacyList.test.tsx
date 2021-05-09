@@ -7,7 +7,7 @@ import { format } from "date-fns-tz";
 
 const formattedDate = format(
   new Date("2021-05-02T03:20:59.077000"),
-  "MMM d y, h:mm a z",
+  "MMM d, y",
 );
 
 describe("PharmacyList", () => {

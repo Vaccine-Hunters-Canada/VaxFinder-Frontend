@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { format } from "date-fns-tz";
-import { Card, Banner, TextContainer, Stack, Layout } from "@shopify/polaris";
+import { Card, Banner, TextContainer, Stack } from "@shopify/polaris";
 import { DomainsMajor, LocationMajor } from "@shopify/polaris-icons";
 import Iframe from "react-iframe";
 
@@ -23,8 +23,10 @@ export function PharmacyCard(props: PharmacyProps) {
       return (
         <Banner status="success">
           <p>
-            <strong>Appointments available</strong> as of{" "}
-            {format(new Date(props.lastUpdated), "MMM d y, h:mm a z")}
+            <strong>Appointments available</strong>
+            {props.lastUpdated.length > 0 && (
+              <> as of {format(new Date(props.lastUpdated), "MMM d, y")}</>
+            )}
           </p>
         </Banner>
       );
@@ -32,8 +34,10 @@ export function PharmacyCard(props: PharmacyProps) {
     return (
       <Banner status="critical">
         <p>
-          <strong>Appointments not available</strong> as of{" "}
-          {format(new Date(props.lastUpdated), "MMM d y, h:mm a z")}
+          <strong>Appointments not available</strong>
+          {props.lastUpdated.length > 0 && (
+            <> as of {format(new Date(props.lastUpdated), "MMM d, y")}</>
+          )}
         </p>
       </Banner>
     );
@@ -49,41 +53,39 @@ export function PharmacyCard(props: PharmacyProps) {
     />
   );
   return (
-    <Layout.Section>
+    <Card
+      title={props.pharmacyName}
+      sectioned
+      primaryFooterAction={{
+        content: "Visit Website",
+        icon: DomainsMajor,
+        external: true,
+        url: props.website,
+      }}
+      secondaryFooterActions={[
+        {
+          content: "Load Map",
+          icon: LocationMajor,
+          onAction: () => {
+            setShouldShowMap(!shouldShowMap);
+          },
+        },
+      ]}
+    >
       <div data-testid="pharmacy-card">
-        <Card
-          title={props.pharmacyName}
-          sectioned
-          primaryFooterAction={{
-            content: "Visit Website",
-            icon: DomainsMajor,
-            external: true,
-            url: props.website,
-          }}
-          secondaryFooterActions={[
-            {
-              content: "Load Map",
-              icon: LocationMajor,
-              onAction: () => {
-                setShouldShowMap(!shouldShowMap);
-              },
-            },
-          ]}
-        >
-          <TextContainer>
-            <Card.Section fullWidth>{availabilityMarkup()}</Card.Section>
-            <Card.Section title="Store Info">
-              <Card.Subsection>{props.address}</Card.Subsection>
-              <Card.Subsection>
-                <Stack>
-                  <Stack.Item>{props.phone}</Stack.Item>
-                </Stack>
-              </Card.Subsection>
-            </Card.Section>
-          </TextContainer>
-          {shouldShowMap ? <Map /> : null}
-        </Card>
+        <TextContainer>
+          <Card.Section fullWidth>{availabilityMarkup()}</Card.Section>
+          <Card.Section title="Store Info">
+            <Card.Subsection>{props.address}</Card.Subsection>
+            <Card.Subsection>
+              <Stack>
+                <Stack.Item>{props.phone}</Stack.Item>
+              </Stack>
+            </Card.Subsection>
+          </Card.Section>
+        </TextContainer>
+        {shouldShowMap ? <Map /> : null}
       </div>
-    </Layout.Section>
+    </Card>
   );
 }

@@ -10,7 +10,7 @@ export function Home() {
   const handleSubmit = () => {
     const postalCodeRegex = /[a-zA-Z][0-9][a-zA-Z](-| |)[0-9][a-zA-Z][0-9]/;
     if (postalCodeRegex.test(postalCode)) {
-      history.push(`/search/${postalCode}`);
+      history.push(`/search/${postalCode.toLowerCase().replace(" ", "")}`);
     } else {
       setShouldShowInvalidPostal(true);
     }
