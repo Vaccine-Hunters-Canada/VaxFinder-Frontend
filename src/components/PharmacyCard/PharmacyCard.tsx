@@ -50,38 +50,40 @@ export function PharmacyCard(props: PharmacyProps) {
   );
   return (
     <Layout.Section>
-      <Card
-        title={props.pharmacyName}
-        sectioned
-        primaryFooterAction={{
-          content: "Visit Website",
-          icon: DomainsMajor,
-          external: true,
-          url: props.website,
-        }}
-        secondaryFooterActions={[
-          {
-            content: "Load Map",
-            icon: LocationMajor,
-            onAction: () => {
-              setShouldShowMap(!shouldShowMap);
+      <div data-testid="pharmacy-card">
+        <Card
+          title={props.pharmacyName}
+          sectioned
+          primaryFooterAction={{
+            content: "Visit Website",
+            icon: DomainsMajor,
+            external: true,
+            url: props.website,
+          }}
+          secondaryFooterActions={[
+            {
+              content: "Load Map",
+              icon: LocationMajor,
+              onAction: () => {
+                setShouldShowMap(!shouldShowMap);
+              },
             },
-          },
-        ]}
-      >
-        <TextContainer>
-          <Card.Section fullWidth>{availabilityMarkup()}</Card.Section>
-          <Card.Section title="Store Info">
-            <Card.Subsection>{props.address}</Card.Subsection>
-            <Card.Subsection>
-              <Stack>
-                <Stack.Item>{props.phone}</Stack.Item>
-              </Stack>
-            </Card.Subsection>
-          </Card.Section>
-        </TextContainer>
-        {shouldShowMap ? <Map /> : null}
-      </Card>
+          ]}
+        >
+          <TextContainer>
+            <Card.Section fullWidth>{availabilityMarkup()}</Card.Section>
+            <Card.Section title="Store Info">
+              <Card.Subsection>{props.address}</Card.Subsection>
+              <Card.Subsection>
+                <Stack>
+                  <Stack.Item>{props.phone}</Stack.Item>
+                </Stack>
+              </Card.Subsection>
+            </Card.Section>
+          </TextContainer>
+          {shouldShowMap ? <Map /> : null}
+        </Card>
+      </div>
     </Layout.Section>
   );
 }

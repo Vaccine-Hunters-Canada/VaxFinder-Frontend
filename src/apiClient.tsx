@@ -19,6 +19,8 @@ export interface AddressCreateRequest {
   city?: string;
   province: string;
   postcode: string;
+  latitude: number;
+  longitude: number;
 }
 
 export interface AddressResponse {
@@ -28,7 +30,7 @@ export interface AddressResponse {
   province: string;
   postcode: string;
   id: number;
-  created_at: string;
+  createdAt: string;
 }
 
 export interface AddressUpdateRequest {
@@ -38,6 +40,8 @@ export interface AddressUpdateRequest {
   province: string;
   postcode: string;
   id: number;
+  latitude: number;
+  longitude: number;
 }
 
 export interface HTTPValidationError {
@@ -72,7 +76,7 @@ export interface LocationExpandedResponse {
   id: number;
   organization?: OrganizationResponse;
   address?: AddressResponse;
-  created_at: string;
+  createdAt: string;
 }
 
 export interface LocationResponse {
@@ -86,7 +90,7 @@ export interface LocationResponse {
   id: number;
   organization?: number;
   address?: number;
-  created_at: string;
+  createdAt: string;
 }
 
 export interface LocationUpdateRequest {
@@ -103,24 +107,24 @@ export interface LocationUpdateRequest {
 }
 
 export interface OrganizationCreateRequest {
-  full_name?: string;
-  short_name: string;
+  fullName?: string;
+  shortName: string;
   description?: string;
   url?: string;
 }
 
 export interface OrganizationResponse {
-  full_name?: string;
-  short_name: string;
+  fullName?: string;
+  shortName: string;
   description?: string;
   url?: string;
   id: number;
-  created_at: string;
+  createdAt: string;
 }
 
 export interface OrganizationUpdateRequest {
-  full_name?: string;
-  short_name: string;
+  fullName?: string;
+  shortName: string;
   description?: string;
   url?: string;
 }
@@ -129,7 +133,7 @@ export interface RequirementResponse {
   name: string;
   description: string;
   id: number;
-  created_at: string;
+  createdAt: string;
 }
 
 export interface RequirementsCreateRequest {
@@ -144,83 +148,111 @@ export interface RequirementsUpdateRequest {
 }
 
 export interface VaccineAvailabilityCreateRequest {
-  numberAvailable?: number;
+  numberAvailable: number;
   numberTotal?: number;
-  date?: string;
   vaccine?: number;
-  inputType?: InputTypeEnum;
+  inputType: InputTypeEnum;
   tags?: string;
   location: number;
+  date: string;
 }
 
 export interface VaccineAvailabilityExpandedResponse {
-  numberAvailable?: number;
+  numberAvailable: number;
   numberTotal?: number;
-  date?: string;
   vaccine?: number;
-  inputType?: InputTypeEnum;
+  inputType: InputTypeEnum;
   tags?: string;
-  id: string | number;
+  id: string;
   location: LocationExpandedResponse;
-  created_at: string;
+  createdAt: string;
   timeslots: VaccineAvailabilityTimeslotResponse[];
+  date: string;
 }
 
-export interface VaccineAvailabilityRequirementsCreateRequest {
-  requirements: number[];
+export interface VaccineAvailabilityRequirementCreateRequest {
+  requirement: number;
+}
+
+export interface VaccineAvailabilityRequirementUpdateRequest {
+  active: boolean;
+  requirement: number;
 }
 
 export interface VaccineAvailabilityRequirementsResponse {
-  id: number;
-  vaccine_availability: string;
+  id: string;
+  vaccineAvailability: string;
   requirement: number;
   active: boolean;
-  created_at: string;
-}
-
-export interface VaccineAvailabilityRequirementsUpdateRequest {
-  active: boolean;
+  createdAt: string;
 }
 
 export interface VaccineAvailabilityResponse {
-  numberAvailable?: number;
+  numberAvailable: number;
   numberTotal?: number;
-  date?: string;
   vaccine?: number;
-  inputType?: InputTypeEnum;
+  inputType: InputTypeEnum;
   tags?: string;
   id: string;
   location: number;
-  created_at: string;
+  createdAt: string;
+  date: string;
 }
 
 export interface VaccineAvailabilityTimeslotCreateRequest {
-  parentID: string;
   time: string;
+}
+
+export interface VaccineAvailabilityTimeslotRequirementExpandedResponse {
+  numberAvailable: number;
+  numberTotal?: number;
+  vaccine?: number;
+  inputType: InputTypeEnum;
+  tags?: string;
+  id: string;
+  location: number;
+  createdAt: string;
+  date: string;
+  timeslots: VaccineAvailabilityTimeslotResponse[];
+  requirements: VaccineAvailabilityRequirementsResponse[];
 }
 
 export interface VaccineAvailabilityTimeslotResponse {
   id: string;
-  vaccine_availability: string;
-  active: boolean;
-  taken_at?: string;
-  created_at: string;
+  vaccineAvailability: string;
   time: string;
+  takenAt?: string;
+  createdAt: string;
 }
 
 export interface VaccineAvailabilityTimeslotUpdateRequest {
-  taken_at?: string;
+  time: string;
+  takenAt?: string;
 }
 
 export interface VaccineAvailabilityUpdateRequest {
-  numberAvailable?: number;
+  numberAvailable: number;
   numberTotal?: number;
-  date?: string;
   vaccine?: number;
-  inputType?: InputTypeEnum;
+  inputType: InputTypeEnum;
   tags?: string;
-  id: string | number;
   location: number;
+  date: string;
+}
+
+export interface VaccineLocationExpandedResponse {
+  name: string;
+  phone?: string;
+  notes?: string;
+  active: number;
+  postcode?: string;
+  url?: string;
+  tags?: string;
+  id: number;
+  organization?: OrganizationResponse;
+  address?: AddressResponse;
+  createdAt: string;
+  vaccineAvailabilities: VaccineAvailabilityTimeslotRequirementExpandedResponse[];
 }
 
 export interface ValidationError {
@@ -229,13 +261,80 @@ export interface ValidationError {
   type: string;
 }
 
-export interface ListVaccineAvailabilityApiV1VaccineAvailabilityGetQueryParams {
+export interface ListVaccineLocationsApiV1VaccineLocationsGetQueryParams {
   /**
-   * **Search for vaccine availabilities after a certain date and time (UTC)**. The default value is the current date and time (UTC).<br/><br/>Valid example(s): *2021-05-05T21:59:02.961804+00:00*
+   * **Search for vaccine availabilities after a certain date and time (UTC) in the format YYYY-MM-DD**. The default value is the current date (UTC).<br/><br/>Valid example(s): *2021-05-30*
    */
   min_date?: string;
   /**
-   * **Search for vaccine availabilities within the vicinity of a postal code.**<br/><br/>Valid example(s): *K1A; K1A0; K1A0k; K1A0K9*
+   * **Search for vaccine availabilities within the vicinity of a postal code. (First 3 characters ONLY)**<br/><br/>Valid example(s): *K1A; M5V;*
+   */
+  postal_code: string;
+}
+
+export type ListVaccineLocationsApiV1VaccineLocationsGetProps = Omit<
+  GetProps<
+    VaccineLocationExpandedResponse[],
+    HTTPValidationError,
+    ListVaccineLocationsApiV1VaccineLocationsGetQueryParams,
+    void
+  >,
+  "path"
+>;
+
+/**
+ * List Vaccine Locations
+ *
+ * **Retrieves the list of vaccine availabilities within the vicinity of a
+ * `postal_code` and after the `min_date`.**
+ */
+export const ListVaccineLocationsApiV1VaccineLocationsGet = (
+  props: ListVaccineLocationsApiV1VaccineLocationsGetProps,
+) => (
+  <Get<
+    VaccineLocationExpandedResponse[],
+    HTTPValidationError,
+    ListVaccineLocationsApiV1VaccineLocationsGetQueryParams,
+    void
+  >
+    path="/api/v1/vaccine-locations"
+    {...props}
+  />
+);
+
+export type UseListVaccineLocationsApiV1VaccineLocationsGetProps = Omit<
+  UseGetProps<
+    VaccineLocationExpandedResponse[],
+    HTTPValidationError,
+    ListVaccineLocationsApiV1VaccineLocationsGetQueryParams,
+    void
+  >,
+  "path"
+>;
+
+/**
+ * List Vaccine Locations
+ *
+ * **Retrieves the list of vaccine availabilities within the vicinity of a
+ * `postal_code` and after the `min_date`.**
+ */
+export const useListVaccineLocationsApiV1VaccineLocationsGet = (
+  props: UseListVaccineLocationsApiV1VaccineLocationsGetProps,
+) =>
+  useGet<
+    VaccineLocationExpandedResponse[],
+    HTTPValidationError,
+    ListVaccineLocationsApiV1VaccineLocationsGetQueryParams,
+    void
+  >("/api/v1/vaccine-locations", props);
+
+export interface ListVaccineAvailabilityApiV1VaccineAvailabilityGetQueryParams {
+  /**
+   * **Search for vaccine availabilities after a certain date and time (UTC) in the format YYYY-MM-DD**. The default value is the current date (UTC).<br/><br/>Valid example(s): *2021-05-30*
+   */
+  min_date?: string;
+  /**
+   * **Search for vaccine availabilities within the vicinity of a postal code. (First 3 characters ONLY)**<br/><br/>Valid example(s): *K1A; M5V;*
    */
   postal_code: string;
 }
@@ -429,7 +528,7 @@ export const useRetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAv
   );
 
 export interface UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutPathParams {
-  vaccine_availability_id: number;
+  vaccine_availability_id: string;
 }
 
 export type UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutProps = Omit<
@@ -508,7 +607,7 @@ export const useUpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabi
   );
 
 export type DeleteVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdDeleteProps = Omit<
-  MutateProps<void, void | HTTPValidationError, void, number, void>,
+  MutateProps<void, void | HTTPValidationError, void, string, void>,
   "path" | "verb"
 >;
 
@@ -521,7 +620,7 @@ export type DeleteVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabi
 export const DeleteVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdDelete = (
   props: DeleteVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdDeleteProps,
 ) => (
-  <Mutate<void, void | HTTPValidationError, void, number, void>
+  <Mutate<void, void | HTTPValidationError, void, string, void>
     verb="DELETE"
     path="/api/v1/vaccine-availability"
     {...props}
@@ -529,7 +628,7 @@ export const DeleteVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailab
 );
 
 export type UseDeleteVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdDeleteProps = Omit<
-  UseMutateProps<void, void | HTTPValidationError, void, number, void>,
+  UseMutateProps<void, void | HTTPValidationError, void, string, void>,
   "path" | "verb"
 >;
 
@@ -542,7 +641,7 @@ export type UseDeleteVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvail
 export const useDeleteVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdDelete = (
   props: UseDeleteVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdDeleteProps,
 ) =>
-  useMutate<void, void | HTTPValidationError, void, number, void>(
+  useMutate<void, void | HTTPValidationError, void, string, void>(
     "DELETE",
     "/api/v1/vaccine-availability",
     { ...props },
@@ -794,6 +893,85 @@ export const useUpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailability
     { pathParams: { vaccine_availability_id, timeslot_id }, ...props },
   );
 
+export interface DeleteTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdDeletePathParams {
+  /**
+   * Timeslot for a vaccine availability with this id.
+   */
+  vaccine_availability_id: string;
+}
+
+export type DeleteTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdDeleteProps = Omit<
+  MutateProps<
+    void,
+    void | HTTPValidationError,
+    void,
+    string,
+    DeleteTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdDeletePathParams
+  >,
+  "path" | "verb"
+> &
+  DeleteTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdDeletePathParams;
+
+/**
+ * Delete Timeslot For Vaccine Availability By Id
+ *
+ * **Deletes a timeslot with the id from the
+ * `timeslot_id` path parameter.**
+ */
+export const DeleteTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdDelete = ({
+  vaccine_availability_id,
+  ...props
+}: DeleteTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdDeleteProps) => (
+  <Mutate<
+    void,
+    void | HTTPValidationError,
+    void,
+    string,
+    DeleteTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdDeletePathParams
+  >
+    verb="DELETE"
+    path={`/api/v1/vaccine-availability/${vaccine_availability_id}/timeslots`}
+    {...props}
+  />
+);
+
+export type UseDeleteTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdDeleteProps = Omit<
+  UseMutateProps<
+    void,
+    void | HTTPValidationError,
+    void,
+    string,
+    DeleteTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdDeletePathParams
+  >,
+  "path" | "verb"
+> &
+  DeleteTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdDeletePathParams;
+
+/**
+ * Delete Timeslot For Vaccine Availability By Id
+ *
+ * **Deletes a timeslot with the id from the
+ * `timeslot_id` path parameter.**
+ */
+export const useDeleteTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdDelete = ({
+  vaccine_availability_id,
+  ...props
+}: UseDeleteTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdDeleteProps) =>
+  useMutate<
+    void,
+    void | HTTPValidationError,
+    void,
+    string,
+    DeleteTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdDeletePathParams
+  >(
+    "DELETE",
+    (
+      paramsInPath: DeleteTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdDeletePathParams,
+    ) =>
+      `/api/v1/vaccine-availability/${paramsInPath.vaccine_availability_id}/timeslots`,
+    { pathParams: { vaccine_availability_id }, ...props },
+  );
+
 export interface ListRequirementsForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsGetPathParams {
   /**
    * Requirements for a vaccine availability with this id.
@@ -881,7 +1059,7 @@ export type CreateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityV
     VaccineAvailabilityRequirementsResponse,
     void | HTTPValidationError,
     void,
-    VaccineAvailabilityRequirementsCreateRequest,
+    VaccineAvailabilityRequirementCreateRequest,
     CreateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsPostPathParams
   >,
   "path" | "verb"
@@ -904,7 +1082,7 @@ export const CreateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailability
     VaccineAvailabilityRequirementsResponse,
     void | HTTPValidationError,
     void,
-    VaccineAvailabilityRequirementsCreateRequest,
+    VaccineAvailabilityRequirementCreateRequest,
     CreateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsPostPathParams
   >
     verb="POST"
@@ -918,7 +1096,7 @@ export type UseCreateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabili
     VaccineAvailabilityRequirementsResponse,
     void | HTTPValidationError,
     void,
-    VaccineAvailabilityRequirementsCreateRequest,
+    VaccineAvailabilityRequirementCreateRequest,
     CreateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsPostPathParams
   >,
   "path" | "verb"
@@ -941,7 +1119,7 @@ export const useCreateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabil
     VaccineAvailabilityRequirementsResponse,
     void | HTTPValidationError,
     void,
-    VaccineAvailabilityRequirementsCreateRequest,
+    VaccineAvailabilityRequirementCreateRequest,
     CreateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsPostPathParams
   >(
     "POST",
@@ -965,7 +1143,7 @@ export type UpdateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityV
     VaccineAvailabilityRequirementsResponse,
     void | HTTPValidationError,
     void,
-    VaccineAvailabilityRequirementsUpdateRequest,
+    VaccineAvailabilityRequirementUpdateRequest,
     UpdateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdPutPathParams
   >,
   "path" | "verb"
@@ -990,7 +1168,7 @@ export const UpdateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailability
     VaccineAvailabilityRequirementsResponse,
     void | HTTPValidationError,
     void,
-    VaccineAvailabilityRequirementsUpdateRequest,
+    VaccineAvailabilityRequirementUpdateRequest,
     UpdateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdPutPathParams
   >
     verb="PUT"
@@ -1004,7 +1182,7 @@ export type UseUpdateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabili
     VaccineAvailabilityRequirementsResponse,
     void | HTTPValidationError,
     void,
-    VaccineAvailabilityRequirementsUpdateRequest,
+    VaccineAvailabilityRequirementUpdateRequest,
     UpdateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdPutPathParams
   >,
   "path" | "verb"
@@ -1029,7 +1207,7 @@ export const useUpdateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabil
     VaccineAvailabilityRequirementsResponse,
     void | HTTPValidationError,
     void,
-    VaccineAvailabilityRequirementsUpdateRequest,
+    VaccineAvailabilityRequirementUpdateRequest,
     UpdateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdPutPathParams
   >(
     "PUT",
@@ -1038,6 +1216,85 @@ export const useUpdateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabil
     ) =>
       `/api/v1/vaccine-availability/${paramsInPath.vaccine_availability_id}/requirements/${paramsInPath.requirement_id}`,
     { pathParams: { vaccine_availability_id, requirement_id }, ...props },
+  );
+
+export interface DeleteRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdDeletePathParams {
+  /**
+   * Requirement for a vaccine availability with this id.
+   */
+  vaccine_availability_id: string;
+}
+
+export type DeleteRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdDeleteProps = Omit<
+  MutateProps<
+    void,
+    void | HTTPValidationError,
+    void,
+    string,
+    DeleteRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdDeletePathParams
+  >,
+  "path" | "verb"
+> &
+  DeleteRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdDeletePathParams;
+
+/**
+ * Delete Requirement For Vaccine Availability By Id
+ *
+ * **Deletes a requirement with the id from the
+ * `timeslot_id` path parameter.**
+ */
+export const DeleteRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdDelete = ({
+  vaccine_availability_id,
+  ...props
+}: DeleteRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdDeleteProps) => (
+  <Mutate<
+    void,
+    void | HTTPValidationError,
+    void,
+    string,
+    DeleteRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdDeletePathParams
+  >
+    verb="DELETE"
+    path={`/api/v1/vaccine-availability/${vaccine_availability_id}/requirements`}
+    {...props}
+  />
+);
+
+export type UseDeleteRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdDeleteProps = Omit<
+  UseMutateProps<
+    void,
+    void | HTTPValidationError,
+    void,
+    string,
+    DeleteRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdDeletePathParams
+  >,
+  "path" | "verb"
+> &
+  DeleteRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdDeletePathParams;
+
+/**
+ * Delete Requirement For Vaccine Availability By Id
+ *
+ * **Deletes a requirement with the id from the
+ * `timeslot_id` path parameter.**
+ */
+export const useDeleteRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdDelete = ({
+  vaccine_availability_id,
+  ...props
+}: UseDeleteRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdDeleteProps) =>
+  useMutate<
+    void,
+    void | HTTPValidationError,
+    void,
+    string,
+    DeleteRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdDeletePathParams
+  >(
+    "DELETE",
+    (
+      paramsInPath: DeleteRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdDeletePathParams,
+    ) =>
+      `/api/v1/vaccine-availability/${paramsInPath.vaccine_availability_id}/requirements`,
+    { pathParams: { vaccine_availability_id }, ...props },
   );
 
 export type ListLocationsApiV1LocationsGetProps = Omit<
