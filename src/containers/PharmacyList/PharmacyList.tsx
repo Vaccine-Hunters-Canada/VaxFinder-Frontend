@@ -1,6 +1,6 @@
 import { PharmacyCard } from "../../components/PharmacyCard";
 import React, { useState } from "react";
-import { useListVaccineAvailabilityApiV1VaccineAvailabilityGet } from "../../apiClient";
+import { useListVaccineLocationsApiV1VaccineLocationsGet } from "../../apiClient";
 import { ExceptionList, Spinner, TextStyle } from "@shopify/polaris";
 import { CircleAlertMajor, SearchMajor } from "@shopify/polaris-icons";
 import "./PharmacyList.css";
@@ -28,7 +28,7 @@ export function PharmacyList(props: Props) {
     data,
     loading,
     error,
-  } = useListVaccineAvailabilityApiV1VaccineAvailabilityGet({
+  } = useListVaccineLocationsApiV1VaccineLocationsGet({
     queryParams: {
       postal_code: postalCodeSearch,
     },
@@ -90,7 +90,7 @@ export function PharmacyList(props: Props) {
     pharmacyListUnsorted = data.map((pharmacy) => {
       const addressSegments: string[] = [];
 
-      const { address } = pharmacy.location;
+      const { address } = pharmacy;
       if (address) {
         if (address.line1) {
           addressSegments.push(address.line1);
@@ -107,18 +107,16 @@ export function PharmacyList(props: Props) {
         addressSegments.push(address.province);
         addressSegments.push(address.postcode);
       }
-      const isBooking = !!(
-        pharmacy.numberAvailable && pharmacy.numberAvailable > 0
-      );
+      const isBooking = pharmacy.vaccineAvailabilities.length > 0;
 
       return {
         id: pharmacy.id,
-        pharmacyName: pharmacy.location.name,
+        pharmacyName: pharmacy.name,
         booking: isBooking,
-        address: addressSegments.join("  "),
-        lastUpdated: pharmacy.date || "",
-        phone: pharmacy.location.phone || "",
-        website: pharmacy.location.url || "",
+        address: addressSegments.join(" "),
+        lastUpdated: pharmacy.createdAt,
+        phone: pharmacy.phone || "",
+        website: pharmacy.url || "",
       };
     });
   }

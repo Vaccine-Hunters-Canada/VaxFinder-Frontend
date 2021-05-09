@@ -72,18 +72,20 @@ export function PharmacyCard(props: PharmacyProps) {
         },
       ]}
     >
-      <TextContainer>
-        <Card.Section fullWidth>{availabilityMarkup()}</Card.Section>
-        <Card.Section title="Store Info">
-          <Card.Subsection>{props.address}</Card.Subsection>
-          <Card.Subsection>
-            <Stack>
-              <Stack.Item>{props.phone}</Stack.Item>
-            </Stack>
-          </Card.Subsection>
-        </Card.Section>
-      </TextContainer>
-      {shouldShowMap ? <Map /> : null}
+      <div data-testid="pharmacy-card">
+        <TextContainer>
+          <Card.Section fullWidth>{availabilityMarkup()}</Card.Section>
+          <Card.Section title="Store Info">
+            <Card.Subsection>{props.address}</Card.Subsection>
+            <Card.Subsection>
+              <Stack>
+                <Stack.Item>{props.phone}</Stack.Item>
+              </Stack>
+            </Card.Subsection>
+          </Card.Section>
+        </TextContainer>
+        {shouldShowMap ? <Map /> : null}
+      </div>
     </Card>
   );
 }
