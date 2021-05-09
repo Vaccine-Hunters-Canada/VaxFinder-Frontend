@@ -75,7 +75,7 @@ export function PharmacyList(props: Props) {
               icon: SearchMajor,
               description: (
                 <strong>
-                  No nearby pharmicies were found near {postalCodeHumanReadable}
+                  No nearby pharmacies were found near {postalCodeHumanReadable}
                   . Please try again later.
                 </strong>
               ),
