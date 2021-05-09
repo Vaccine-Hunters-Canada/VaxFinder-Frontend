@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-import { format } from "date-fns-tz";
-import enCA from "date-fns/locale/en-CA";
-import frCA from "date-fns/locale/fr-CA";
 import { Card, Banner, TextContainer, Stack } from "@shopify/polaris";
 import { DomainsMajor, LocationMajor } from "@shopify/polaris-icons";
 import Iframe from "react-iframe";
@@ -20,15 +17,8 @@ interface PharmacyProps {
 }
 
 export function PharmacyCard(props: PharmacyProps) {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [shouldShowMap, setShouldShowMap] = useState(false);
-  function FormatDate(date: Date) {
-    // alert(i18n.language);
-    if (i18n.language === "fr") {
-      return format(date, "d MMM y", { locale: frCA });
-    }
-    return format(date, "MMM d, y", { locale: enCA });
-  }
   const availabilityMarkup = () => {
     if (props.booking) {
       return (
@@ -36,10 +26,7 @@ export function PharmacyCard(props: PharmacyProps) {
           <p>
             <strong>{t("appointmentsavailable")}</strong>
             {props.lastUpdated.length > 0 && (
-              <>
-                {" "}
-                {t("asof")} {FormatDate(new Date(props.lastUpdated))}
-              </>
+              <> {t("asof", { date: new Date(props.lastUpdated) })}</>
             )}
           </p>
         </Banner>
@@ -50,10 +37,7 @@ export function PharmacyCard(props: PharmacyProps) {
         <p>
           <strong>{t("appointmentsnotavailable")}</strong>
           {props.lastUpdated.length > 0 && (
-            <>
-              {" "}
-              {t("asof")} {FormatDate(new Date(props.lastUpdated))}
-            </>
+            <> {t("asof", { date: new Date(props.lastUpdated) })}</>
           )}
         </p>
       </Banner>

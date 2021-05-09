@@ -1,5 +1,5 @@
 {
-    "asof": "as of",
+    "asof": "as of {{date, MMM d, y}}",
     "appointmentsavailable": "Appointments available",
     "appointmentsnotavailable": "Appointments not available",
     "couldnotloadpharmacydata": "Could not load pharmacy data, please try again later",

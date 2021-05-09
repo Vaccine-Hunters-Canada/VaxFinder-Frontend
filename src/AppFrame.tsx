@@ -52,11 +52,11 @@ export function AppFrame() {
                 onClick: () => {
                   if (
                     i18n.language !== undefined &&
-                    i18n.language.substring(0, 2) === "en"
+                    i18n.language.substring(0, 2) === "fr"
                   ) {
-                    i18next.changeLanguage("fr-CA");
-                  } else {
                     i18next.changeLanguage("en-CA");
+                  } else {
+                    i18next.changeLanguage("fr-CA");
                   }
                 },
               },
