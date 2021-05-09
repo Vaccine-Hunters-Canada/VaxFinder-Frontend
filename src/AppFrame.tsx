@@ -15,10 +15,13 @@ export function AppFrame() {
     false,
   );
   function languageToggle() {
-    if (i18n.language === "en") {
-      return "Français";
+    // Display link to toggle to whichever language isn't set right now
+    // Get language code excluding country
+    // Initially language code set by browser so it is something like en-CA or en-US
+    if (i18n.language !== undefined && i18n.language.substring(0, 2) === "fr") {
+      return "English";
     }
-    return "English";
+    return "Français";
   }
 
   const handleMobileNavigationToggle = useCallback(
@@ -47,10 +50,13 @@ export function AppFrame() {
               {
                 label: languageToggle(),
                 onClick: () => {
-                  if (i18n.language === "en") {
-                    i18next.changeLanguage("fr");
+                  if (
+                    i18n.language !== undefined &&
+                    i18n.language.substring(0, 2) === "en"
+                  ) {
+                    i18next.changeLanguage("fr-CA");
                   } else {
-                    i18next.changeLanguage("en");
+                    i18next.changeLanguage("en-CA");
                   }
                 },
               },
