@@ -1,8 +1,16 @@
 import React, { useState } from "react";
 import { format } from "date-fns-tz";
-import { Card, Banner, TextContainer, Stack } from "@shopify/polaris";
+import {
+  Card,
+  Banner,
+  TextContainer,
+  Stack,
+  DataTable,
+  Button,
+} from "@shopify/polaris";
 import { DomainsMajor, LocationMajor } from "@shopify/polaris-icons";
 import Iframe from "react-iframe";
+import { VaccineAvailabilityTimeslotRequirementExpandedResponse } from "../../apiClient";
 
 interface PharmacyProps {
   // Id used for creating React keys
@@ -14,10 +22,12 @@ interface PharmacyProps {
   phone: string;
   website: string;
   lastUpdated: string;
+  vaccineAvailabilities: VaccineAvailabilityTimeslotRequirementExpandedResponse[];
 }
 
 export function PharmacyCard(props: PharmacyProps) {
   const [shouldShowMap, setShouldShowMap] = useState(false);
+  const [shouldShowSlots, setShouldShowSlots] = useState(false);
   const availabilityMarkup = () => {
     if (props.booking) {
       return (
@@ -52,6 +62,40 @@ export function PharmacyCard(props: PharmacyProps) {
       styles={{ border: "none" }}
     />
   );
+  const generateRows = () => {
+    const rows: (string | number)[][] = [];
+    props.vaccineAvailabilities.forEach((availability) => {
+      const newRow = [availability.date, availability.numberAvailable];
+      rows.push(newRow);
+    });
+    return rows;
+  };
+  const dataTableMarkup = shouldShowSlots ? (
+    <DataTable
+      columnContentTypes={["text", "numeric"]}
+      headings={["Date", "Quantity"]}
+      rows={generateRows()}
+    />
+  ) : undefined;
+
+  const appointmentsAvailableMarkup = () => {
+    if (props.vaccineAvailabilities.length !== 0) {
+      return (
+        <Card.Section title="Dates">
+          <Button
+            primary
+            onClick={() => {
+              setShouldShowSlots(!shouldShowSlots);
+            }}
+          >
+            See Slots
+          </Button>
+          {dataTableMarkup}
+        </Card.Section>
+      );
+    }
+    return undefined;
+  };
   return (
     <Card
       title={props.pharmacyName}
@@ -83,6 +127,7 @@ export function PharmacyCard(props: PharmacyProps) {
               </Stack>
             </Card.Subsection>
           </Card.Section>
+          {appointmentsAvailableMarkup()}
         </TextContainer>
         {shouldShowMap ? <Map /> : null}
       </div>
