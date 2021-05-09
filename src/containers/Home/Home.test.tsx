@@ -13,7 +13,7 @@ describe("Home", () => {
     userEvent.type(input, "K2T0E5");
     expect(input.value).toBe("K2T0E5");
 
-    const submit = screen.getByRole("button", { name: /submit/i });
+    const submit = screen.getByRole("button", { name: /Submit/i });
     userEvent.click(submit);
 
     expect(history.location.pathname).toBe("/search/k2t0e5");

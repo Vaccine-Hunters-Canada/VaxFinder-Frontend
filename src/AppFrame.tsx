@@ -18,7 +18,7 @@ export function AppFrame() {
     // Display link to toggle to whichever language isn't set right now
     // Get language code excluding country
     // Initially language code set by browser so it is something like en-CA or en-US
-    if (i18n.language !== undefined && i18n.language.substring(0, 2) === "fr") {
+    if (i18n.language?.substring(0, 2) === "fr") {
       return "English";
     }
     return "Français";
@@ -50,10 +50,7 @@ export function AppFrame() {
               {
                 label: languageToggle(),
                 onClick: () => {
-                  if (
-                    i18n.language !== undefined &&
-                    i18n.language.substring(0, 2) === "fr"
-                  ) {
+                  if (i18n.language?.substring(0, 2) === "fr") {
                     i18next.changeLanguage("en-CA");
                   } else {
                     i18next.changeLanguage("fr-CA");

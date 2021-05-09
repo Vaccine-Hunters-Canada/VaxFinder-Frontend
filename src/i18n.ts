@@ -23,17 +23,16 @@ i18n
   // for all options read: https://www.i18next.com/overview/configuration-options
   .init({
     fallbackLng: "en",
-    debug: true,
+    debug: false,
 
     interpolation: {
       escapeValue: false, // not needed for react as it escapes by default
-      // eslint-disable-next-line func-names
-      format: function (value, format, lng) {
-        if (value instanceof Date && format !== undefined) {
-          if (lng !== undefined && lng.substring(0, 2) === "fr") {
-            return date_fnz_tz_format(value, format, { locale: frCA });
+      format: function format(value, fmt, lng) {
+        if (value instanceof Date && fmt !== undefined) {
+          if (lng?.substring(0, 2) === "fr") {
+            return date_fnz_tz_format(value, fmt, { locale: frCA });
           }
-          return date_fnz_tz_format(value, format, { locale: enCA });
+          return date_fnz_tz_format(value, fmt, { locale: enCA });
         }
         return value;
       },
