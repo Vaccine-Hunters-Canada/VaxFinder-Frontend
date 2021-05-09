@@ -65,7 +65,10 @@ export function PharmacyCard(props: PharmacyProps) {
   const generateRows = () => {
     const rows: (string | number)[][] = [];
     props.vaccineAvailabilities.forEach((availability) => {
-      const newRow = [availability.date, availability.numberAvailable];
+      const newRow = [
+        format(new Date(availability.date), "MMM d, y"),
+        availability.numberAvailable,
+      ];
       rows.push(newRow);
     });
     return rows;
