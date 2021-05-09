@@ -5,6 +5,7 @@ import { ExceptionList, Spinner, TextStyle } from "@shopify/polaris";
 import { CircleAlertMajor, SearchMajor } from "@shopify/polaris-icons";
 import "./PharmacyList.css";
 import { EligibilityBanner } from "../../components/EligibilityBanner";
+import { useTranslation } from "react-i18next";
 
 type PharmacyProps = React.ComponentProps<typeof PharmacyCard>;
 
@@ -13,6 +14,7 @@ interface Props {
 }
 
 export function PharmacyList(props: Props) {
+  const { t } = useTranslation();
   const postalCodeSearch = props.postalCode
     .toLowerCase()
     .replace(" ", "")
@@ -38,7 +40,7 @@ export function PharmacyList(props: Props) {
   if (loading) {
     return (
       <div className="wrapper">
-        <Spinner accessibilityLabel="Loading pharmacy data" />
+        <Spinner accessibilityLabel={t("loadingpharmacydata")} />
       </div>
     );
   }
@@ -53,9 +55,7 @@ export function PharmacyList(props: Props) {
               status: "critical",
               description: (
                 <TextStyle variation="negative">
-                  <strong>
-                    Could not load pharmacy data, please try again later.
-                  </strong>
+                  <strong>{t("couldnotloadpharmacydata")}</strong>
                 </TextStyle>
               ),
             },
@@ -75,8 +75,7 @@ export function PharmacyList(props: Props) {
               icon: SearchMajor,
               description: (
                 <strong>
-                  No nearby pharmacies were found near {postalCodeHumanReadable}
-                  . Please try again later.
+                  {t("nopharmacies", { postalCode: postalCodeHumanReadable })}
                 </strong>
               ),
             },

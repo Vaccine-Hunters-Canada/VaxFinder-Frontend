@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { format } from "date-fns-tz";
 import { Card, Banner, TextContainer, Stack } from "@shopify/polaris";
 import { DomainsMajor, LocationMajor } from "@shopify/polaris-icons";
 import Iframe from "react-iframe";
+import { useTranslation } from "react-i18next";
 
 interface PharmacyProps {
   // Id used for creating React keys
@@ -17,15 +17,16 @@ interface PharmacyProps {
 }
 
 export function PharmacyCard(props: PharmacyProps) {
+  const { t } = useTranslation();
   const [shouldShowMap, setShouldShowMap] = useState(false);
   const availabilityMarkup = () => {
     if (props.booking) {
       return (
         <Banner status="success">
           <p>
-            <strong>Appointments available</strong>
+            <strong>{t("appointmentsavailable")}</strong>
             {props.lastUpdated.length > 0 && (
-              <> as of {format(new Date(props.lastUpdated), "MMM d, y")}</>
+              <> {t("asof", { date: new Date(props.lastUpdated) })}</>
             )}
           </p>
         </Banner>
@@ -34,9 +35,9 @@ export function PharmacyCard(props: PharmacyProps) {
     return (
       <Banner status="critical">
         <p>
-          <strong>Appointments not available</strong>
+          <strong>{t("appointmentsnotavailable")}</strong>
           {props.lastUpdated.length > 0 && (
-            <> as of {format(new Date(props.lastUpdated), "MMM d, y")}</>
+            <> {t("asof", { date: new Date(props.lastUpdated) })}</>
           )}
         </p>
       </Banner>
@@ -57,14 +58,14 @@ export function PharmacyCard(props: PharmacyProps) {
       title={props.pharmacyName}
       sectioned
       primaryFooterAction={{
-        content: "Visit Website",
+        content: t("visitwebsite"),
         icon: DomainsMajor,
         external: true,
         url: props.website,
       }}
       secondaryFooterActions={[
         {
-          content: "Load Map",
+          content: t("loadmap"),
           icon: LocationMajor,
           onAction: () => {
             setShouldShowMap(!shouldShowMap);
@@ -75,7 +76,7 @@ export function PharmacyCard(props: PharmacyProps) {
       <div data-testid="pharmacy-card">
         <TextContainer>
           <Card.Section fullWidth>{availabilityMarkup()}</Card.Section>
-          <Card.Section title="Store Info">
+          <Card.Section title={t("storeinfo")}>
             <Card.Subsection>{props.address}</Card.Subsection>
             <Card.Subsection>
               <Stack>
