@@ -10,6 +10,7 @@
     "invalidpostal": "Vous avez entré un code postal invalide.",
     "loadingpharmacydata": "Chargement des données de la pharmacie",
     "loadmap": "Carte",
+    "nopharmacies": "Aucune pharmacie n'a été trouvée à proximité de {{postalCode}}. Veuillez réessayer plus tard.",
     "postalcodetext": "Nous utiliserons ce code postal pour trouver les vaccins disponibles les plus proches.",
     "submit": "Soumettre",
     "storeinfo": "Informations sur le magasin",

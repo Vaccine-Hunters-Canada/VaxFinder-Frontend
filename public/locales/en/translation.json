@@ -10,6 +10,7 @@
     "invalidpostal": "You have entered an invalid postal code",
     "loadingpharmacydata": "Loading pharmacy data",
     "loadmap": "Load Map",
+    "nopharmacies": "No nearby pharmacies were found near {{postalCode}}. Please try again later.",
     "postalcodetext": "We’ll use this postal code to find the closest available vaccines.",
     "submit": "Submit",
     "storeinfo": "Store Info",
