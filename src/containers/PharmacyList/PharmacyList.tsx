@@ -2,7 +2,7 @@ import { PharmacyCard } from "../../components/PharmacyCard";
 import React, { useState } from "react";
 import { useListVaccineAvailabilityApiV1VaccineAvailabilityGet } from "../../apiClient";
 import { ExceptionList, Spinner, TextStyle } from "@shopify/polaris";
-import { CircleAlertMajor } from "@shopify/polaris-icons";
+import { CircleAlertMajor, SearchMajor } from "@shopify/polaris-icons";
 import "./PharmacyList.css";
 import { EligibilityBanner } from "../../components/EligibilityBanner";
 
@@ -13,16 +13,24 @@ interface Props {
 }
 
 export function PharmacyList(props: Props) {
+  const postalCodeSearch = props.postalCode
+    .toLowerCase()
+    .replace(" ", "")
+    .substr(0, 3);
+
+  const postalCodeHumanReadable = props.postalCode
+    .substr(0, 3)
+    .concat(" ")
+    .concat(props.postalCode.substr(-3))
+    .toUpperCase();
+
   const {
     data,
     loading,
     error,
   } = useListVaccineAvailabilityApiV1VaccineAvailabilityGet({
     queryParams: {
-      postal_code: props.postalCode
-        .toLowerCase()
-        .replace(" ", "")
-        .substring(0, 3),
+      postal_code: postalCodeSearch,
     },
   });
   const [shouldShowBanner, setShouldShowBanner] = useState(true);
@@ -46,7 +54,7 @@ export function PharmacyList(props: Props) {
               description: (
                 <TextStyle variation="negative">
                   <strong>
-                    Could not load pharmacy data, please try again later
+                    Could not load pharmacy data, please try again later.
                   </strong>
                 </TextStyle>
               ),
@@ -58,6 +66,25 @@ export function PharmacyList(props: Props) {
   }
 
   let pharmacyListUnsorted: PharmacyProps[] = [];
+  if (data && data.length === 0) {
+    return (
+      <div className="wrapper">
+        <ExceptionList
+          items={[
+            {
+              icon: SearchMajor,
+              description: (
+                <strong>
+                  No nearby pharmacies were found near {postalCodeHumanReadable}
+                  . Please try again later.
+                </strong>
+              ),
+            },
+          ]}
+        />
+      </div>
+    );
+  }
 
   if (data) {
     pharmacyListUnsorted = data.map((pharmacy) => {
