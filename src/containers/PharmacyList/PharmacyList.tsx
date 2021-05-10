@@ -6,6 +6,11 @@ import { CircleAlertMajor, SearchMajor } from "@shopify/polaris-icons";
 import "./PharmacyList.css";
 import { EligibilityBanner } from "../../components/EligibilityBanner";
 import { useTranslation } from "react-i18next";
+import {
+  postalCodeIsValid,
+  postalCodeToApiFormat,
+  postalCodeToHumanFormat,
+} from "../../utils";
 
 type PharmacyProps = React.ComponentProps<typeof PharmacyCard>;
 
@@ -15,16 +20,6 @@ interface Props {
 
 export function PharmacyList(props: Props) {
   const { t } = useTranslation();
-  const postalCodeSearch = props.postalCode
-    .toLowerCase()
-    .replace(" ", "")
-    .substr(0, 3);
-
-  const postalCodeHumanReadable = props.postalCode
-    .substr(0, 3)
-    .concat(" ")
-    .concat(props.postalCode.substr(-3))
-    .toUpperCase();
 
   const {
     data,
@@ -32,10 +27,30 @@ export function PharmacyList(props: Props) {
     error,
   } = useListVaccineLocationsApiV1VaccineLocationsGet({
     queryParams: {
-      postal_code: postalCodeSearch,
+      postal_code: postalCodeToApiFormat(props.postalCode),
     },
   });
   const [shouldShowBanner, setShouldShowBanner] = useState(true);
+
+  if (!postalCodeIsValid(props.postalCode)) {
+    return (
+      <div className="wrapper">
+        <ExceptionList
+          items={[
+            {
+              icon: CircleAlertMajor,
+              status: "critical",
+              description: (
+                <TextStyle variation="negative">
+                  <strong>{t("invalidpostal")}</strong>
+                </TextStyle>
+              ),
+            },
+          ]}
+        />
+      </div>
+    );
+  }
 
   if (loading) {
     return (
@@ -75,7 +90,9 @@ export function PharmacyList(props: Props) {
               icon: SearchMajor,
               description: (
                 <strong>
-                  {t("nopharmacies", { postalCode: postalCodeHumanReadable })}
+                  {t("nopharmacies", {
+                    postalCode: postalCodeToHumanFormat(props.postalCode),
+                  })}
                 </strong>
               ),
             },
@@ -104,7 +121,7 @@ export function PharmacyList(props: Props) {
         }
 
         addressSegments.push(address.province);
-        addressSegments.push(address.postcode);
+        addressSegments.push(postalCodeToHumanFormat(address.postcode));
       }
       const isBooking = pharmacy.vaccineAvailabilities.length > 0;
 

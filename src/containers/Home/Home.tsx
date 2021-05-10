@@ -2,6 +2,7 @@ import { Form, FormLayout, TextField, Button, Card } from "@shopify/polaris";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { postalCodeIsValid, postalCodeToBrowserFormat } from "../../utils";
 
 export function Home() {
   const { t } = useTranslation();
@@ -10,9 +11,8 @@ export function Home() {
   const history = useHistory();
 
   const handleSubmit = () => {
-    const postalCodeRegex = /[a-zA-Z][0-9][a-zA-Z](-| |)[0-9][a-zA-Z][0-9]/;
-    if (postalCodeRegex.test(postalCode)) {
-      history.push(`/search/${postalCode.toLowerCase().replace(" ", "")}`);
+    if (postalCodeIsValid(postalCode)) {
+      history.push(`/search/${postalCodeToBrowserFormat(postalCode)}`);
     } else {
       setShouldShowInvalidPostal(true);
     }
