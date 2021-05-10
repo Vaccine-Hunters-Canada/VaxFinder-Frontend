@@ -11,6 +11,7 @@ import {
 import { DomainsMajor, LocationMajor } from "@shopify/polaris-icons";
 import Iframe from "react-iframe";
 import { VaccineAvailabilityTimeslotRequirementExpandedResponse } from "../../apiClient";
+import { useTranslation } from "react-i18next";
 
 interface PharmacyProps {
   // Id used for creating React keys
