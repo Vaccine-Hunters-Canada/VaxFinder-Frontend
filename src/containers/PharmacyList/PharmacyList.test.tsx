@@ -1,5 +1,6 @@
 /* eslint-disable no-await-in-loop */
-/* eslint-disable typescript-eslint/no-unused-vars */
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 import { rest } from "msw";
 import React from "react";
@@ -48,6 +49,37 @@ describe.only("PharmacyList", () => {
       await screen.findByText(vaccineLocation.phone);
     }
   });
+
+  test("Should show pharmacies with available appointments first", async () => {
+    render(<PharmacyList postalCode="k2s 1s9" />);
+    const pharmacyCards = await screen.findAllByTestId(/pharmacy-card/i);
+
+    const locationsWithAvailability = vaccineLocationResponses.filter(
+      (vaccineLocation) => {
+        return vaccineLocation.vaccineAvailabilities.filter(
+          (vaccineAvailability) => {
+            return vaccineAvailability.numberAvailable > 0;
+          },
+        );
+      },
+    );
+
+    console.log("locationsWithAvailability", locationsWithAvailability.length);
+
+    for (let i = 0; i < locationsWithAvailability.length; i++) {
+      const pharmacyCard = within(pharmacyCards[i]);
+      pharmacyCard.getByText(/appointments available/i);
+    }
+
+    for (
+      let i = locationsWithAvailability.length;
+      vaccineLocationResponses.length;
+      i++
+    ) {
+      const pharmacyCard = within(pharmacyCards[i]);
+      pharmacyCard.getAllByText(/appointments not available/i);
+    }
+  });
 });
 
 describe("PharmacyListOld", () => {
@@ -76,20 +108,6 @@ describe("PharmacyListOld", () => {
     await screen.findByText(/1 888 385 1912/i);
   });
 
-  test("Should show pharmacies with available appointments first", async () => {
-    render(<PharmacyList postalCode="k2s 1s9" />);
-    const pharmacyCards = await screen.findAllByTestId(/pharmacy-card/i);
-
-    let utils = within(pharmacyCards[0]);
-    utils.getByText(/appointments available/i);
-
-    utils = within(pharmacyCards[1]);
-    utils.getAllByText(/appointments available/i);
-
-    utils = within(pharmacyCards[2]);
-    utils.getAllByText(/appointments not available/i);
-  });
-
   test("Should show error if pharmacy request fails", async () => {
     server.use(
       rest.get(
@@ -104,5 +122,7 @@ describe("PharmacyListOld", () => {
     );
   });
 });
+
 /* eslint-enable no-await-in-loop */
-/* eslint-enable typescript-eslint/no-unused-vars */
+/* eslint-enable no-restricted-syntax */
+/* eslint-enable @typescript-eslint/no-unused-vars */
