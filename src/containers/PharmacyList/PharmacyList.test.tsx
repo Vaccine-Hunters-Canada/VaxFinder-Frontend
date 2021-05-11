@@ -21,7 +21,7 @@ const formattedDate = format(
   "MMM d, y",
 );
 
-describe.only("PharmacyList", () => {
+describe("PharmacyList", () => {
   test("Should show all returned pharmacy locations", async () => {
     render(<PharmacyList postalCode="k2s 1s9" />);
 
@@ -54,15 +54,15 @@ describe.only("PharmacyList", () => {
 
     const locationsWithAvailability = vaccineLocationResponses.filter(
       (vaccineLocation) => {
-        return vaccineLocation.vaccineAvailabilities.filter(
-          (vaccineAvailability) => {
-            return vaccineAvailability.numberAvailable > 0;
-          },
+        return (
+          vaccineLocation.vaccineAvailabilities.filter(
+            (vaccineAvailability) => {
+              return vaccineAvailability.numberAvailable > 0;
+            },
+          ).length > 0
         );
       },
     );
-
-    console.log("locationsWithAvailability", locationsWithAvailability.length);
 
     for (let i = 0; i < locationsWithAvailability.length; i++) {
       const pharmacyCard = within(pharmacyCards[i]);
@@ -71,39 +71,12 @@ describe.only("PharmacyList", () => {
 
     for (
       let i = locationsWithAvailability.length;
-      vaccineLocationResponses.length;
+      i < vaccineLocationResponses.length;
       i++
     ) {
       const pharmacyCard = within(pharmacyCards[i]);
       pharmacyCard.getAllByText(/appointments not available/i);
     }
-  });
-});
-
-describe("PharmacyListOld", () => {
-  test("Should show all returned pharmacy details with appointment details", async () => {
-    const available = await screen.findAllByText(/appointments available/i);
-    expect(available.length).toBe(2);
-
-    const unavailable = await screen.findAllByText(
-      /appointments not available/i,
-    );
-    expect(unavailable.length).toBe(1);
-
-    const dates = await screen.findAllByText(`as of ${formattedDate}`);
-    expect(dates.length).toBe(3);
-
-    // Find three addresses
-    await screen.findByText(/40 oak street toronto ontario m5a 2c6/i);
-
-    await screen.findByText(/495 sherbourne street toronto ontario m4x 1k7/i);
-
-    await screen.findByText(/288 church street toronto ontario m5b 1z5/i);
-
-    // Find three phone numbers
-    await screen.findByText(/1 888 385 1910/i);
-    await screen.findByText(/1 888 385 1911/i);
-    await screen.findByText(/1 888 385 1912/i);
   });
 
   test("Should show error if pharmacy request fails", async () => {

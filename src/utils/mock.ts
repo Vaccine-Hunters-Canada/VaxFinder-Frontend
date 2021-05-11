@@ -185,7 +185,7 @@ const vaccineLocationsZeroValueAvailability = {
   postcode: "M6M2J5",
   url: "http://www.wpcovidclinic.org/",
   tags: undefined,
-  id: 7,
+  id: 4,
   organization: {
     fullName: "Verto",
     shortName: "Verto",
@@ -239,7 +239,7 @@ const vaccineLocationsMixedAvailabilities = {
   postcode: "M5B1W8",
   url: "https://uht-public.vertoengage.com/",
   tags: undefined,
-  id: 4,
+  id: 5,
   organization: {
     fullName: "Verto",
     shortName: "Verto",
