@@ -1,4 +1,6 @@
 /* eslint-disable no-await-in-loop */
+/* eslint-disable typescript-eslint/no-unused-vars */
+
 import { rest } from "msw";
 import React from "react";
 import { server } from "../../mocks/server";
@@ -103,3 +105,4 @@ describe("PharmacyListOld", () => {
   });
 });
 /* eslint-enable no-await-in-loop */
+/* eslint-enable typescript-eslint/no-unused-vars */
