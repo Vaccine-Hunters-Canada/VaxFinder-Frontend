@@ -4,26 +4,54 @@ import { server } from "../../mocks/server";
 import { render, screen, within } from "../../testUtils";
 import { PharmacyList } from "./PharmacyList";
 import { format } from "date-fns-tz";
+import {
+  vaccineLocationOneAvailability,
+  vaccineLocationMultipleAvailabilities,
+  vaccineLocationNoAvailabilities,
+  vaccineLocationsZeroValueAvailability,
+  vaccineLocationsMixedAvailabilities,
+  vaccineLocationResponses,
+} from "../../utils/mock";
 
 const formattedDate = format(
   new Date("2021-05-02T03:20:59.077000"),
   "MMM d, y",
 );
 
-describe("PharmacyList", () => {
-  test("Should show all returned pharmacy details with appointment details", async () => {
+describe.only("PharmacyList", () => {
+  test("Should show all returned pharmacy locations", async () => {
     render(<PharmacyList postalCode="k2s 1s9" />);
 
-    await screen.findByRole("heading", {
-      name: /Regent Park 40 Oaks/i,
-    });
-    await screen.findByRole("heading", {
-      name: /st\. james town wellesley community centre \(wcc\)/i,
-    });
-    await screen.findByRole("heading", {
-      name: /ryerson university/i,
-    });
+    for (const vaccineLocation of vaccineLocationResponses) {
+      await screen.findByRole("heading", {
+        name: vaccineLocation.name,
+      });
 
+      const address = [];
+
+      if (vaccineLocation.address.line1) {
+        address.push(vaccineLocation.address.line1);
+      }
+
+      if (vaccineLocation.address.line2) {
+        address.push(vaccineLocation.address.line2);
+      }
+
+      if (vaccineLocation.address.city) {
+        address.push(vaccineLocation.address.city);
+      }
+
+      address.push(vaccineLocation.address.province);
+      address.push(vaccineLocation.address.postcode);
+      await screen.findByText(address.join(" "));
+
+      await screen.findByText(vaccineLocation.phone);
+    }
+  });
+});
+
+describe("PharmacyListOld", () => {
+  test("Should show all returned pharmacy details with appointment details", async () => {
     const available = await screen.findAllByText(/appointments available/i);
     expect(available.length).toBe(2);
 
