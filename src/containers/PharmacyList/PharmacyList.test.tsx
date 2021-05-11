@@ -1,3 +1,4 @@
+/* eslint-disable no-await-in-loop */
 import { rest } from "msw";
 import React from "react";
 import { server } from "../../mocks/server";
@@ -29,19 +30,15 @@ describe.only("PharmacyList", () => {
       });
 
       const address = [];
-
       if (vaccineLocation.address.line1) {
         address.push(vaccineLocation.address.line1);
       }
-
       if (vaccineLocation.address.line2) {
         address.push(vaccineLocation.address.line2);
       }
-
       if (vaccineLocation.address.city) {
         address.push(vaccineLocation.address.city);
       }
-
       address.push(vaccineLocation.address.province);
       address.push(postalCodeToHumanFormat(vaccineLocation.address.postcode));
       await screen.findByText(address.join(" "));
@@ -105,3 +102,4 @@ describe("PharmacyListOld", () => {
     );
   });
 });
+/* eslint-enable no-await-in-loop */
