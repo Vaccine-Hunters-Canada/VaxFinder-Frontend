@@ -12,6 +12,7 @@ import {
   vaccineLocationsMixedAvailabilities,
   vaccineLocationResponses,
 } from "../../utils/mock";
+import { postalCodeToHumanFormat } from "../../utils/postalCode";
 
 const formattedDate = format(
   new Date("2021-05-02T03:20:59.077000"),
@@ -42,7 +43,7 @@ describe.only("PharmacyList", () => {
       }
 
       address.push(vaccineLocation.address.province);
-      address.push(vaccineLocation.address.postcode);
+      address.push(postalCodeToHumanFormat(vaccineLocation.address.postcode));
       await screen.findByText(address.join(" "));
 
       await screen.findByText(vaccineLocation.phone);

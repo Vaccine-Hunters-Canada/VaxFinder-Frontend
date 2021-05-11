@@ -1,11 +1,15 @@
 import { PharmacyCard } from "../../components/PharmacyCard";
 import React, { useState } from "react";
-import { useListVaccineLocationsApiV1VaccineLocationsGet } from "../../apiClient";
+import {
+  useListVaccineLocationsApiV1VaccineLocationsGet,
+  VaccineAvailabilityTimeslotRequirementExpandedResponse,
+} from "../../apiClient";
 import { ExceptionList, Spinner, TextStyle } from "@shopify/polaris";
 import { CircleAlertMajor, SearchMajor } from "@shopify/polaris-icons";
 import "./PharmacyList.css";
 import { EligibilityBanner } from "../../components/EligibilityBanner";
 import { useTranslation } from "react-i18next";
+
 import {
   postalCodeIsValid,
   postalCodeToApiFormat,
@@ -124,7 +128,7 @@ export function PharmacyList(props: Props) {
         addressSegments.push(postalCodeToHumanFormat(address.postcode));
       }
 
-      const vaccineAvailabilitiesWithAvailable = pharmacy.vaccineAvailabilities.filter(
+      const vaccineAvailabilitiesWithAvailable: VaccineAvailabilityTimeslotRequirementExpandedResponse[] = pharmacy.vaccineAvailabilities.filter(
         (vaccineAvailability) => {
           return vaccineAvailability.numberAvailable > 0;
         },
