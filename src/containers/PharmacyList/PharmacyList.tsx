@@ -106,17 +106,22 @@ export function PharmacyList(props: Props) {
         addressSegments.push(address.province);
         addressSegments.push(address.postcode);
       }
-      const isBooking = pharmacy.vaccineAvailabilities.length > 0;
+
+      const vaccineAvailabilitiesWithAvailable = pharmacy.vaccineAvailabilities.filter(
+        (vaccineAvailability) => {
+          return vaccineAvailability.numberAvailable > 0;
+        },
+      );
 
       return {
         id: pharmacy.id,
         pharmacyName: pharmacy.name,
-        booking: isBooking,
+        booking: vaccineAvailabilitiesWithAvailable.length > 0,
         address: addressSegments.join(" "),
         lastUpdated: pharmacy.createdAt,
         phone: pharmacy.phone || "",
         website: pharmacy.url || "",
-        vaccineAvailabilities: pharmacy.vaccineAvailabilities,
+        vaccineAvailabilities: vaccineAvailabilitiesWithAvailable,
       };
     });
   }

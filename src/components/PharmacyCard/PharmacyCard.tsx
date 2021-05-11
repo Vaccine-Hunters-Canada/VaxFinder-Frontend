@@ -93,7 +93,7 @@ export function PharmacyCard(props: PharmacyProps) {
               setShouldShowSlots(!shouldShowSlots);
             }}
           >
-            See Slots
+            {shouldShowSlots ? t("hide") : t("show")}
           </Button>
           {dataTableMarkup}
         </Card.Section>
