@@ -64,11 +64,11 @@ describe("PharmacyListOld", () => {
     expect(dates.length).toBe(3);
 
     // Find three addresses
-    await screen.findByText(/40 oak street toronto ontario m5a2c6/i);
+    await screen.findByText(/40 oak street toronto ontario m5a 2c6/i);
 
-    await screen.findByText(/495 sherbourne street toronto ontario m4x1k7/i);
+    await screen.findByText(/495 sherbourne street toronto ontario m4x 1k7/i);
 
-    await screen.findByText(/288 church street toronto ontario m5b1z5/i);
+    await screen.findByText(/288 church street toronto ontario m5b 1z5/i);
 
     // Find three phone numbers
     await screen.findByText(/1 888 385 1910/i);
