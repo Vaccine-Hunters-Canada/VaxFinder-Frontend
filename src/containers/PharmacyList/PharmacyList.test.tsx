@@ -1,6 +1,4 @@
-/* eslint-disable no-await-in-loop */
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable */
 
 import { rest } from "msw";
 import React from "react";
@@ -123,6 +121,4 @@ describe("PharmacyListOld", () => {
   });
 });
 
-/* eslint-enable no-await-in-loop */
-/* eslint-enable no-restricted-syntax */
-/* eslint-enable @typescript-eslint/no-unused-vars */
+/* eslint-enable */
