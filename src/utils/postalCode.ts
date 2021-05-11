@@ -1,5 +1,5 @@
 const postalCodeIsValid = (postalCode: string) => {
-  return /[a-zA-Z][0-9][a-zA-Z][0-9][a-zA-Z][0-9]/.test(
+  return /^[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][ -]?\d[ABCEGHJ-NPRSTV-Z]\d$/i.test(
     postalCodeToBrowserFormat(postalCode),
   );
 };
