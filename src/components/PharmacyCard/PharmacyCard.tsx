@@ -98,11 +98,17 @@ export function PharmacyCard(props: PharmacyProps) {
         props.vaccineAvailabilitiesNew[date].totalAvailable,
       ]);
 
-      props.vaccineAvailabilitiesNew[date].requirements.forEach(
-        (requirement) => {
-          rows.push([requirement.description, requirement.numberAvailable]);
-        },
-      );
+      // TODO:
+      // Based off coversations with the backend team, there may be a need to differentiate vaccineAvailabilities
+      // by requirements on a given day.  If so, something like the below could work.  Styling total vs
+      // requirement-specific rows seems tricky with the default datatable, so we might need to find another
+      // option or build a custom table
+
+      // props.vaccineAvailabilitiesNew[date].requirements.forEach(
+      //   (requirement) => {
+      //     rows.push([requirement.description, requirement.numberAvailable]);
+      //   },
+      // );
     });
 
     return rows;
