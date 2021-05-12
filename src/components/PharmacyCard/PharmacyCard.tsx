@@ -10,8 +10,23 @@ import {
 } from "@shopify/polaris";
 import { DomainsMajor, LocationMajor } from "@shopify/polaris-icons";
 import Iframe from "react-iframe";
-import { VaccineAvailabilityTimeslotRequirementExpandedResponse } from "../../apiClient";
+import {
+  VaccineAvailabilityTimeslotRequirementExpandedResponse,
+  VaccineAvailabilityRequirementsResponse,
+} from "../../apiClient";
 import { useTranslation } from "react-i18next";
+
+interface RequirementsWithAvailabilityInterface
+  extends VaccineAvailabilityRequirementsResponse {
+  numberAvailable: number;
+}
+
+interface VaccineAvailabilitiesByDateAndRequirementsInterface {
+  [key: string]: {
+    totalAvailable: number;
+    requirements: RequirementsWithAvailabilityInterface[];
+  };
+}
 
 interface PharmacyProps {
   // Id used for creating React keys
@@ -24,12 +39,17 @@ interface PharmacyProps {
   website: string;
   lastUpdated: string;
   vaccineAvailabilities: VaccineAvailabilityTimeslotRequirementExpandedResponse[];
+  vaccineAvailabilitiesNew: VaccineAvailabilitiesByDateAndRequirementsInterface;
 }
+
+// TODO: We don't need to carry both vaccineAvailabilities & vaccineAvailabilitiesNew,
+// but I didn't want to clear out the old one until we're happy with the new one
 
 export function PharmacyCard(props: PharmacyProps) {
   const { t } = useTranslation();
   const [shouldShowMap, setShouldShowMap] = useState(false);
   const [shouldShowSlots, setShouldShowSlots] = useState(false);
+
   const availabilityMarkup = () => {
     if (props.booking) {
       return (
@@ -65,14 +85,26 @@ export function PharmacyCard(props: PharmacyProps) {
     />
   );
   const generateRows = () => {
+    // TODO:
+    // We need to decide how we want to display availabilities if we have 1 vs many requirements on a given day.
+    // Below I've set it up to show a total along with a per-requirement breakdown.  If we want to keep this,
+    // we should do some styling cleanup for the user's benefit
+
     const rows: (string | number)[][] = [];
-    props.vaccineAvailabilities.forEach((availability) => {
-      const newRow = [
-        format(new Date(availability.date), "MMM d, y"),
-        availability.numberAvailable,
-      ];
-      rows.push(newRow);
+
+    Object.keys(props.vaccineAvailabilitiesNew).forEach((date) => {
+      rows.push([
+        format(new Date(date), "MMM d, y"),
+        props.vaccineAvailabilitiesNew[date].totalAvailable,
+      ]);
+
+      props.vaccineAvailabilitiesNew[date].requirements.forEach(
+        (requirement) => {
+          rows.push([requirement.description, requirement.numberAvailable]);
+        },
+      );
     });
+
     return rows;
   };
   const dataTableMarkup = shouldShowSlots ? (

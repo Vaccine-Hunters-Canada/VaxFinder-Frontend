@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import {
   useListVaccineLocationsApiV1VaccineLocationsGet,
   VaccineAvailabilityTimeslotRequirementExpandedResponse,
+  VaccineAvailabilityRequirementsResponse,
 } from "../../apiClient";
 import { ExceptionList, Spinner, TextStyle } from "@shopify/polaris";
 import { CircleAlertMajor, SearchMajor } from "@shopify/polaris-icons";
@@ -134,6 +135,39 @@ export function PharmacyList(props: Props) {
         },
       );
 
+      interface RequirementsWithAvailabilityInterface
+        extends VaccineAvailabilityRequirementsResponse {
+        numberAvailable: number;
+      }
+
+      interface VaccineAvailabilitiesByDateAndRequirementsInterface {
+        [key: string]: {
+          totalAvailable: number;
+          requirements: RequirementsWithAvailabilityInterface[];
+        };
+      }
+
+      const vaccineAvailabilitiesByDateAndRequirements: VaccineAvailabilitiesByDateAndRequirementsInterface = {};
+      vaccineAvailabilitiesWithAvailable.forEach((availability) => {
+        if (
+          !(availability.date in vaccineAvailabilitiesByDateAndRequirements)
+        ) {
+          vaccineAvailabilitiesByDateAndRequirements[availability.date] = {
+            totalAvailable: 0,
+            requirements: [],
+          };
+        }
+        vaccineAvailabilitiesByDateAndRequirements[
+          availability.date
+        ].totalAvailable += availability.numberAvailable;
+        vaccineAvailabilitiesByDateAndRequirements[
+          availability.date
+        ].requirements.push({
+          ...availability.requirements[0],
+          numberAvailable: availability.numberAvailable,
+        });
+      });
+
       return {
         id: pharmacy.id,
         pharmacyName: pharmacy.name,
@@ -143,6 +177,7 @@ export function PharmacyList(props: Props) {
         phone: pharmacy.phone || "",
         website: pharmacy.url || "",
         vaccineAvailabilities: vaccineAvailabilitiesWithAvailable,
+        vaccineAvailabilitiesNew: vaccineAvailabilitiesByDateAndRequirements,
       };
     });
   }
@@ -176,6 +211,7 @@ export function PharmacyList(props: Props) {
                   phone={pharmacy.phone}
                   website={pharmacy.website}
                   vaccineAvailabilities={pharmacy.vaccineAvailabilities}
+                  vaccineAvailabilitiesNew={pharmacy.vaccineAvailabilitiesNew}
                 />
               );
             })

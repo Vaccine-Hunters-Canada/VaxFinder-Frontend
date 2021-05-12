@@ -182,6 +182,7 @@ export interface VaccineAvailabilityRequirementUpdateRequest {
 export interface VaccineAvailabilityRequirementsResponse {
   id: string;
   vaccineAvailability: string;
+  description: string;
   requirement: number;
   active: boolean;
   createdAt: string;
