@@ -16,6 +16,17 @@ export const vaccineAvailabilityHandlers = [
           tags: "high-risk",
           createdAt: "2021-05-01T21:07:28.232Z",
           timeslots: [],
+          requirements: [
+            {
+              id: "f7c6fd71-a8ab-40e9-9c8b-cfc8e257c486",
+              vaccineAvailability: "e92693f3-1e50-45ea-80bd-1fae24814bc3",
+              requirement: 4,
+              active: true,
+              name: "HotSpot",
+              description: "18+ in Specific Postal Codes",
+              createdAt: "2021-05-03T02:00:01.847000+00:00",
+            },
+          ],
           location: {
             id: 0,
             name: "Location1 with no availability",
@@ -55,6 +66,17 @@ export const vaccineAvailabilityHandlers = [
           tags: "high-risk",
           createdAt: "2021-05-01T21:07:28.232Z",
           timeslots: [],
+          requirements: [
+            {
+              id: "f7c6fd71-a8ab-40e9-9c8b-cfc8e257c486",
+              vaccineAvailability: "e92693f3-1e50-45ea-80bd-1fae24814bc3",
+              requirement: 4,
+              active: true,
+              name: "HotSpot",
+              description: "18+ in Specific Postal Codes",
+              createdAt: "2021-05-03T02:00:01.847000+00:00",
+            },
+          ],
           location: {
             id: 0,
             name: "Location1 with availability",
@@ -94,6 +116,17 @@ export const vaccineAvailabilityHandlers = [
           tags: "high-risk",
           createdAt: "2021-05-01T21:07:28.232Z",
           timeslots: [],
+          requirements: [
+            {
+              id: "f7c6fd71-a8ab-40e9-9c8b-cfc8e257c486",
+              vaccineAvailability: "e92693f3-1e50-45ea-80bd-1fae24814bc3",
+              requirement: 4,
+              active: true,
+              name: "HotSpot",
+              description: "18+ in Specific Postal Codes",
+              createdAt: "2021-05-03T02:00:01.847000+00:00",
+            },
+          ],
           location: {
             id: 0,
             name: "Location2 with no availability",
@@ -133,6 +166,17 @@ export const vaccineAvailabilityHandlers = [
           tags: "high-risk",
           createdAt: "2021-05-01T21:07:28.232Z",
           timeslots: [],
+          requirements: [
+            {
+              id: "f7c6fd71-a8ab-40e9-9c8b-cfc8e257c486",
+              vaccineAvailability: "e92693f3-1e50-45ea-80bd-1fae24814bc3",
+              requirement: 4,
+              active: true,
+              name: "HotSpot",
+              description: "18+ in Specific Postal Codes",
+              createdAt: "2021-05-03T02:00:01.847000+00:00",
+            },
+          ],
           location: {
             id: 0,
             name: "Location2 with availability",
