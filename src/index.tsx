@@ -2,11 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import { App } from "./App";
+import "./i18n";
 
 let promise: Promise<void> = Promise.resolve();
 
 /**
- * The following sarts our mock api server based on an env var
+ * The following starts our mock api server based on an env var
  */
 if (process.env.REACT_APP_MOCK_API === "true") {
   promise = import("./mocks/browser").then(async ({ worker }) => {

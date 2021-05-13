@@ -6,8 +6,8 @@ import { PharmacyList } from "./PharmacyList";
 import { format } from "date-fns-tz";
 
 const formattedDate = format(
-  new Date("2021-05-01T21:07:28.232Z"),
-  "MMM d y, h:mm a z",
+  new Date("2021-05-02T03:20:59.077000"),
+  "MMM d, y",
 );
 
 describe("PharmacyList", () => {
@@ -15,16 +15,13 @@ describe("PharmacyList", () => {
     render(<PharmacyList postalCode="k2s 1s9" />);
 
     await screen.findByRole("heading", {
-      name: /location1 with availability/i,
+      name: /Regent Park 40 Oaks/i,
     });
     await screen.findByRole("heading", {
-      name: /location2 with availability/i,
+      name: /st\. james town wellesley community centre \(wcc\)/i,
     });
     await screen.findByRole("heading", {
-      name: /location1 with no availability/i,
-    });
-    await screen.findByRole("heading", {
-      name: /location2 with no availability/i,
+      name: /ryerson university/i,
     });
 
     const available = await screen.findAllByText(/appointments available/i);
@@ -33,48 +30,42 @@ describe("PharmacyList", () => {
     const unavailable = await screen.findAllByText(
       /appointments not available/i,
     );
-    expect(unavailable.length).toBe(2);
+    expect(unavailable.length).toBe(1);
 
     const dates = await screen.findAllByText(`as of ${formattedDate}`);
-    expect(dates.length).toBe(4);
+    expect(dates.length).toBe(3);
 
-    const addresses = await screen.findAllByText(
-      /250 stittsville main st stittsville ontario k2s 1s9/i,
-    );
-    expect(addresses.length).toBe(4);
+    // Find three addresses
+    await screen.findByText(/40 oak street toronto ontario m5a 2c6/i);
 
-    const phones = await screen.findAllByText(/\(613\) 555-5555/i);
-    expect(phones.length).toBe(4);
+    await screen.findByText(/495 sherbourne street toronto ontario m4x 1k7/i);
+
+    await screen.findByText(/288 church street toronto ontario m5b 1z5/i);
+
+    // Find three phone numbers
+    await screen.findByText(/1 888 385 1910/i);
+    await screen.findByText(/1 888 385 1911/i);
+    await screen.findByText(/1 888 385 1912/i);
   });
 
   test("Should show pharmacies with available appointments first", async () => {
     render(<PharmacyList postalCode="k2s 1s9" />);
-    const pharmacyList = await screen.findByLabelText(/pharmacy-list/i);
+    const pharmacyCards = await screen.findAllByTestId(/pharmacy-card/i);
 
-    // pharmacyList.childNodes[0] is the eligibility notice
+    let utils = within(pharmacyCards[0]);
+    utils.getByText(/appointments available/i);
 
-    /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-    /* eslint-disable @typescript-eslint/no-unsafe-call */
-    await within(pharmacyList.childNodes[1]).findByText(
-      /appointments available/i,
-    );
-    await within(pharmacyList.childNodes[2]).findByText(
-      /appointments available/i,
-    );
-    await within(pharmacyList.childNodes[3]).findByText(
-      /appointments not available/i,
-    );
-    await within(pharmacyList.childNodes[4]).findByText(
-      /appointments not available/i,
-    );
-    /* eslint-enable @typescript-eslint/no-unsafe-member-access */
-    /* eslint-enable @typescript-eslint/no-unsafe-call */
+    utils = within(pharmacyCards[1]);
+    utils.getAllByText(/appointments available/i);
+
+    utils = within(pharmacyCards[2]);
+    utils.getAllByText(/appointments not available/i);
   });
 
   test("Should show error if pharmacy request fails", async () => {
     server.use(
       rest.get(
-        `${process.env.REACT_APP_API_URL!}/api/v1/vaccine-availability`,
+        `${process.env.REACT_APP_API_URL!}/api/v1/vaccine-locations`,
         async (req, res, ctx) => res(ctx.status(500)),
       ),
     );

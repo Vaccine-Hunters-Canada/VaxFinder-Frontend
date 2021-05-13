@@ -1,10 +1,16 @@
 import { PharmacyCard } from "../../components/PharmacyCard";
 import React, { useState } from "react";
-import { useListVaccineAvailabilityApiV1VaccineAvailabilityGet } from "../../apiClient";
+import { useListVaccineLocationsApiV1VaccineLocationsGet } from "../../apiClient";
 import { ExceptionList, Spinner, TextStyle } from "@shopify/polaris";
-import { CircleAlertMajor } from "@shopify/polaris-icons";
+import { CircleAlertMajor, SearchMajor } from "@shopify/polaris-icons";
 import "./PharmacyList.css";
 import { EligibilityBanner } from "../../components/EligibilityBanner";
+import { useTranslation } from "react-i18next";
+import {
+  postalCodeIsValid,
+  postalCodeToApiFormat,
+  postalCodeToHumanFormat,
+} from "../../utils";
 
 type PharmacyProps = React.ComponentProps<typeof PharmacyCard>;
 
@@ -13,21 +19,43 @@ interface Props {
 }
 
 export function PharmacyList(props: Props) {
+  const { t } = useTranslation();
+
   const {
     data,
     loading,
     error,
-  } = useListVaccineAvailabilityApiV1VaccineAvailabilityGet({
+  } = useListVaccineLocationsApiV1VaccineLocationsGet({
     queryParams: {
-      postal_code: props.postalCode,
+      postal_code: postalCodeToApiFormat(props.postalCode),
     },
   });
   const [shouldShowBanner, setShouldShowBanner] = useState(true);
 
+  if (!postalCodeIsValid(props.postalCode)) {
+    return (
+      <div className="wrapper">
+        <ExceptionList
+          items={[
+            {
+              icon: CircleAlertMajor,
+              status: "critical",
+              description: (
+                <TextStyle variation="negative">
+                  <strong>{t("invalidpostal")}</strong>
+                </TextStyle>
+              ),
+            },
+          ]}
+        />
+      </div>
+    );
+  }
+
   if (loading) {
     return (
       <div className="wrapper">
-        <Spinner accessibilityLabel="Loading pharmacy data" />
+        <Spinner accessibilityLabel={t("loadingpharmacydata")} />
       </div>
     );
   }
@@ -42,9 +70,7 @@ export function PharmacyList(props: Props) {
               status: "critical",
               description: (
                 <TextStyle variation="negative">
-                  <strong>
-                    Could not load pharmacy data, please try again later
-                  </strong>
+                  <strong>{t("couldnotloadpharmacydata")}</strong>
                 </TextStyle>
               ),
             },
@@ -55,12 +81,32 @@ export function PharmacyList(props: Props) {
   }
 
   let pharmacyListUnsorted: PharmacyProps[] = [];
+  if (data && data.length === 0) {
+    return (
+      <div className="wrapper">
+        <ExceptionList
+          items={[
+            {
+              icon: SearchMajor,
+              description: (
+                <strong>
+                  {t("nopharmacies", {
+                    postalCode: postalCodeToHumanFormat(props.postalCode),
+                  })}
+                </strong>
+              ),
+            },
+          ]}
+        />
+      </div>
+    );
+  }
 
   if (data) {
     pharmacyListUnsorted = data.map((pharmacy) => {
       const addressSegments: string[] = [];
 
-      const { address } = pharmacy.location;
+      const { address } = pharmacy;
       if (address) {
         if (address.line1) {
           addressSegments.push(address.line1);
@@ -75,20 +121,18 @@ export function PharmacyList(props: Props) {
         }
 
         addressSegments.push(address.province);
-        addressSegments.push(address.postcode);
+        addressSegments.push(postalCodeToHumanFormat(address.postcode));
       }
-      const isBooking = !!(
-        pharmacy.numberAvailable && pharmacy.numberAvailable > 0
-      );
+      const isBooking = pharmacy.vaccineAvailabilities.length > 0;
 
       return {
         id: pharmacy.id,
-        pharmacyName: pharmacy.location.name,
+        pharmacyName: pharmacy.name,
         booking: isBooking,
-        address: addressSegments.join("  "),
-        lastUpdated: pharmacy.created_at,
-        phone: pharmacy.location.phone || "",
-        website: pharmacy.location.url || "",
+        address: addressSegments.join(" "),
+        lastUpdated: pharmacy.createdAt,
+        phone: pharmacy.phone || "",
+        website: pharmacy.url || "",
       };
     });
   }
@@ -104,27 +148,28 @@ export function PharmacyList(props: Props) {
     );
 
   return (
-    <section aria-label="pharmacy-list">
+    <>
       {shouldShowBanner ? (
         <EligibilityBanner onDismiss={() => setShouldShowBanner(false)} />
       ) : null}
-
-      {pharmacyList
-        ? pharmacyList.map((pharmacy) => {
-            return (
-              <PharmacyCard
-                key={pharmacy.id}
-                id={pharmacy.id}
-                address={pharmacy.address}
-                booking={pharmacy.booking}
-                lastUpdated={pharmacy.lastUpdated}
-                pharmacyName={pharmacy.pharmacyName}
-                phone={pharmacy.phone}
-                website={pharmacy.website}
-              />
-            );
-          })
-        : null}
-    </section>
+      <section aria-label="pharmacy-list" style={{ marginTop: "2rem" }}>
+        {pharmacyList
+          ? pharmacyList.map((pharmacy) => {
+              return (
+                <PharmacyCard
+                  key={pharmacy.id}
+                  id={pharmacy.id}
+                  address={pharmacy.address}
+                  booking={pharmacy.booking}
+                  lastUpdated={pharmacy.lastUpdated}
+                  pharmacyName={pharmacy.pharmacyName}
+                  phone={pharmacy.phone}
+                  website={pharmacy.website}
+                />
+              );
+            })
+          : null}
+      </section>
+    </>
   );
 }
