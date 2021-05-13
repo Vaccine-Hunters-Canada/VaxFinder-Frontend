@@ -167,6 +167,7 @@ export interface VaccineAvailabilityExpandedResponse {
   location: LocationExpandedResponse;
   createdAt: string;
   timeslots: VaccineAvailabilityTimeslotResponse[];
+  requirements: VaccineAvailabilityRequirementsResponse[];
   date: string;
 }
 
@@ -184,6 +185,8 @@ export interface VaccineAvailabilityRequirementsResponse {
   vaccineAvailability: string;
   requirement: number;
   active: boolean;
+  name: string;
+  description: string;
   createdAt: string;
 }
 
@@ -270,6 +273,10 @@ export interface ListVaccineLocationsApiV1VaccineLocationsGetQueryParams {
    * **Search for vaccine availabilities within the vicinity of a postal code. (First 3 characters ONLY)**<br/><br/>Valid example(s): *K1A; M5V;*
    */
   postal_code: string;
+  /**
+   * **Include Vaccine Availabilities with no remaining vaccines**<br/><br/>Valid example(s): *true; false;*
+   */
+  include_empty?: boolean;
 }
 
 export type ListVaccineLocationsApiV1VaccineLocationsGetProps = Omit<
