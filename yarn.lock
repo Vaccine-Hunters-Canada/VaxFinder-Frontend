@@ -6430,18 +6430,6 @@ i18next-browser-languagedetector@^6.1.0:
   dependencies:
     "@babel/runtime" "^7.5.5"
 
-i18next-fs-backend@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/i18next-fs-backend/-/i18next-fs-backend-1.1.1.tgz#1d8028926803f63784ffa0f2b1478fb369f92735"
-  integrity sha512-RFkfy10hNxJqc7MVAp5iAZq0Tum6msBCNebEe3OelOBvrROvzHUPaR8Qe10RQrOGokTm0W4vJGEJzruFkEt+hQ==
-
-i18next-http-backend@^1.2.2:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/i18next-http-backend/-/i18next-http-backend-1.2.2.tgz#e63491b235bdf2d05525e15856e2194b28230018"
-  integrity sha512-L7YhDjUAoPyy1TgsW1Tk3jWJ7AbFecJDLkwvmat82Lb4Lck6VNJv/UQTUYiHpldLhb8IXx1ModzLjPbhyrgBkw==
-  dependencies:
-    node-fetch "2.6.1"
-
 i18next@^19.7.0:
   version "19.9.2"
   resolved "https://registry.yarnpkg.com/i18next/-/i18next-19.9.2.tgz#ea5a124416e3c5ab85fddca2c8e3c3669a8da397"
@@ -8511,7 +8499,7 @@ node-fetch-h2@^2.3.0:
   dependencies:
     http2-client "^1.2.5"
 
-node-fetch@2.6.1, node-fetch@^2.6.1:
+node-fetch@^2.6.1:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.1.tgz#045bd323631f76ed2e2b55573394416b639a0052"
   integrity sha512-V4aYg89jEoVRxRb2fJdAg8FHvI7cEyYdVAh94HH0UIK8oJxUfkjlDQN9RbMx+bEjP7+ggMiFRprSti032Oipxw==

@@ -9,8 +9,6 @@
     "date-fns-tz": "^1.1.4",
     "i18next": "^20.2.2",
     "i18next-browser-languagedetector": "^6.1.0",
-    "i18next-fs-backend": "^1.1.1",
-    "i18next-http-backend": "^1.2.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-i18next": "^11.8.15",
