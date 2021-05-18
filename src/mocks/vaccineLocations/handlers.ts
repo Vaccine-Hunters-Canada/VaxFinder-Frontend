@@ -1,6 +1,6 @@
 import { rest } from "msw";
 import { VaccineLocationExpandedResponse } from "../../apiClient";
-import { vaccineLocationResponses } from "../../utils/mock";
+import { vaccineLocationResponses } from "../mockData";
 
 export const vaccineLocationHandlers = [
   rest.get(
