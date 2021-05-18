@@ -10,10 +10,7 @@ import {
 } from "@shopify/polaris";
 import { DomainsMajor, LocationMajor } from "@shopify/polaris-icons";
 import Iframe from "react-iframe";
-import {
-  VaccineAvailabilityTimeslotRequirementExpandedResponse,
-  VaccineAvailabilityRequirementsResponse,
-} from "../../apiClient";
+import { VaccineAvailabilityRequirementsResponse } from "../../apiClient";
 import { useTranslation } from "react-i18next";
 
 interface RequirementsWithAvailabilityInterface
