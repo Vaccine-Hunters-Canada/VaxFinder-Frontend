@@ -38,12 +38,8 @@ interface PharmacyProps {
   phone: string;
   website: string;
   lastUpdated: string;
-  vaccineAvailabilities: VaccineAvailabilityTimeslotRequirementExpandedResponse[];
-  vaccineAvailabilitiesNew: VaccineAvailabilitiesByDateAndRequirementsInterface;
+  vaccineAvailabilities: VaccineAvailabilitiesByDateAndRequirementsInterface;
 }
-
-// TODO: We don't need to carry both vaccineAvailabilities & vaccineAvailabilitiesNew,
-// but I didn't want to clear out the old one until we're happy with the new one
 
 export function PharmacyCard(props: PharmacyProps) {
   const { t } = useTranslation();
@@ -92,10 +88,10 @@ export function PharmacyCard(props: PharmacyProps) {
 
     const rows: (string | number)[][] = [];
 
-    Object.keys(props.vaccineAvailabilitiesNew).forEach((date) => {
+    Object.keys(props.vaccineAvailabilities).forEach((date) => {
       rows.push([
         format(new Date(date), "MMM d, y"),
-        props.vaccineAvailabilitiesNew[date].totalAvailable,
+        props.vaccineAvailabilities[date].totalAvailable,
       ]);
 
       // TODO:
@@ -104,7 +100,7 @@ export function PharmacyCard(props: PharmacyProps) {
       // requirement-specific rows seems tricky with the default datatable, so we might need to find another
       // option or build a custom table
 
-      // props.vaccineAvailabilitiesNew[date].requirements.forEach(
+      // props.vaccineAvailabilities[date].requirements.forEach(
       //   (requirement) => {
       //     rows.push([requirement.description, requirement.numberAvailable]);
       //   },
@@ -122,7 +118,7 @@ export function PharmacyCard(props: PharmacyProps) {
   ) : undefined;
 
   const appointmentsAvailableMarkup = () => {
-    if (props.vaccineAvailabilities.length !== 0) {
+    if (Object.keys(props.vaccineAvailabilities).length > 0) {
       return (
         <Card.Section title="Dates">
           <Button

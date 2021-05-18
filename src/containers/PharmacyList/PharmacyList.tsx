@@ -176,8 +176,7 @@ export function PharmacyList(props: Props) {
         lastUpdated: pharmacy.createdAt,
         phone: pharmacy.phone || "",
         website: pharmacy.url || "",
-        vaccineAvailabilities: vaccineAvailabilitiesWithAvailable,
-        vaccineAvailabilitiesNew: vaccineAvailabilitiesByDateAndRequirements,
+        vaccineAvailabilities: vaccineAvailabilitiesByDateAndRequirements,
       };
     });
   }
@@ -211,7 +210,6 @@ export function PharmacyList(props: Props) {
                   phone={pharmacy.phone}
                   website={pharmacy.website}
                   vaccineAvailabilities={pharmacy.vaccineAvailabilities}
-                  vaccineAvailabilitiesNew={pharmacy.vaccineAvailabilitiesNew}
                 />
               );
             })
