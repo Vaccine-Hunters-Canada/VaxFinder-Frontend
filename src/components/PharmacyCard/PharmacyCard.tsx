@@ -78,11 +78,6 @@ export function PharmacyCard(props: PharmacyProps) {
     />
   );
   const generateRows = () => {
-    // TODO:
-    // We need to decide how we want to display availabilities if we have 1 vs many requirements on a given day.
-    // Below I've set it up to show a total along with a per-requirement breakdown.  If we want to keep this,
-    // we should do some styling cleanup for the user's benefit
-
     const rows: (string | number)[][] = [];
 
     Object.keys(props.vaccineAvailabilities).forEach((date) => {
@@ -93,15 +88,16 @@ export function PharmacyCard(props: PharmacyProps) {
 
       // TODO:
       // Based off coversations with the backend team, there may be a need to differentiate vaccineAvailabilities
-      // by requirements on a given day.  If so, something like the below could work.  Styling total vs
-      // requirement-specific rows seems tricky with the default datatable, so we might need to find another
-      // option or build a custom table
+      // by requirements on a given day.  If so, something like the below could work.  We would need to consider
+      // styling, inclusion of a total count, etc.
 
-      // props.vaccineAvailabilities[date].requirements.forEach(
-      //   (requirement) => {
-      //     rows.push([requirement.description, requirement.numberAvailable]);
-      //   },
-      // );
+      // rows.push([format(new Date(date), "MMM d, y"), ""]);
+      // props.vaccineAvailabilities[date].requirements.forEach((requirement) => {
+      //   rows.push([
+      //     `- ${requirement.description}`,
+      //     requirement.numberAvailable,
+      //   ]);
+      // });
     });
 
     return rows;
