@@ -140,8 +140,9 @@ export function PharmacyList(props: Props) {
         numberAvailable: number;
       }
 
+      // TODO: Infer this from PharmacyCard.tsx
       interface VaccineAvailabilitiesByDateAndRequirementsInterface {
-        [key: string]: {
+        [date: string]: {
           totalAvailable: number;
           requirements: RequirementsWithAvailabilityInterface[];
         };

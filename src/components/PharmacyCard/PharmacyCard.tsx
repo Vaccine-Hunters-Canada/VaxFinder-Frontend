@@ -19,7 +19,7 @@ interface RequirementsWithAvailabilityInterface
 }
 
 interface VaccineAvailabilitiesByDateAndRequirementsInterface {
-  [key: string]: {
+  [date: string]: {
     totalAvailable: number;
     requirements: RequirementsWithAvailabilityInterface[];
   };
@@ -78,36 +78,38 @@ export function PharmacyCard(props: PharmacyProps) {
       styles={{ border: "none" }}
     />
   );
-  const generateRows = () => {
-    const rows: (string | number)[][] = [];
 
-    Object.keys(props.vaccineAvailabilities).forEach((date) => {
-      rows.push([
-        format(new Date(date), "MMM d, y"),
-        props.vaccineAvailabilities[date].totalAvailable,
-      ]);
+  const dataTableRows = Object.keys(props.vaccineAvailabilities).map((date) => {
+    return [
+      format(new Date(date), "MMM d, y"),
+      props.vaccineAvailabilities[date].totalAvailable,
+    ];
+  });
 
-      // TODO:
-      // Based off coversations with the backend team, there may be a need to differentiate vaccineAvailabilities
-      // by requirements on a given day.  If so, something like the below could work.  We would need to consider
-      // styling, inclusion of a total count, etc.
+  // TODO:
+  // Based off coversations with the backend team, there may be a need to differentiate vaccineAvailabilities
+  // by requirements on a given day.  If so, something like the below could work.  We would need to consider
+  // styling, inclusion of a total count, etc.
+  // const dataTableRowsWithRequirements = () => {
+  //   const rows: (string | number)[][] = [];
 
-      // rows.push([format(new Date(date), "MMM d, y"), ""]);
-      // props.vaccineAvailabilities[date].requirements.forEach((requirement) => {
-      //   rows.push([
-      //     `- ${requirement.description}`,
-      //     requirement.numberAvailable,
-      //   ]);
-      // });
-    });
+  //   Object.keys(props.vaccineAvailabilities).forEach((date) => {
+  //     rows.push([format(new Date(date), "MMM d, y"), ""]);
+  //     props.vaccineAvailabilities[date].requirements.forEach((requirement) => {
+  //       rows.push([
+  //         `- ${requirement.description}`,
+  //         requirement.numberAvailable,
+  //       ]);
+  //     });
+  //   });
+  //   return rows;
+  // };
 
-    return rows;
-  };
   const dataTableMarkup = shouldShowSlots ? (
     <DataTable
       columnContentTypes={["text", "numeric"]}
       headings={["Date", "Quantity"]}
-      rows={generateRows()}
+      rows={dataTableRows}
     />
   ) : undefined;
 
@@ -129,6 +131,7 @@ export function PharmacyCard(props: PharmacyProps) {
     }
     return undefined;
   };
+
   return (
     <Card
       title={props.pharmacyName}
