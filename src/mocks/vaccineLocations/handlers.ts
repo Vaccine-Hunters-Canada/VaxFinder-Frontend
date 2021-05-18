@@ -2,6 +2,7 @@ import { rest } from "msw";
 import { VaccineLocationExpandedResponse } from "../../apiClient";
 import { vaccineLocationResponses } from "../mockData";
 
+// Vaccine location handlers
 export const vaccineLocationHandlers = [
   rest.get(
     `${process.env.REACT_APP_API_URL}/api/v1/vaccine-locations`,
