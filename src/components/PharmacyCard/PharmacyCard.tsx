@@ -74,6 +74,7 @@ export function PharmacyCard(props: PharmacyProps) {
       width="100%"
       height="350px"
       position="relative"
+      frameBorder={0}
       styles={{ border: "none" }}
     />
   );
