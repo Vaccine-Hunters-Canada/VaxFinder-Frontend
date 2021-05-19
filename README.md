@@ -87,3 +87,22 @@ $ yarn build
 ## Production
 
 https://witty-ocean-02e42dd0f.azurestaticapps.net/
+
+## Troubleshooting api client generation
+
+There appears to be a bug in `restful-react` when it comes to generating members from OpenApi's `anyOf` operator. At the time of writing, this gets written `apiClient.ts`:
+
+```
+export interface VaccineAvailabilityTimeslotUpdateRequest {
+  time: string;
+  takenAt?: {};
+}
+```
+
+This will produce an error:
+
+> Don't use `{}` as a type. `{}` actually means "any non-nullish value".
+
+When this happens, you will need to examine the OpenApi schema and determine what the appropriate type should be, and manually update `apiClient.ts`
+
+Bug to track: https://github.com/contiamo/restful-react/issues/317

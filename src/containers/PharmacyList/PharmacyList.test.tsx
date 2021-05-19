@@ -9,12 +9,11 @@ import { PharmacyList } from "./PharmacyList";
 import { format } from "date-fns-tz";
 import {
   vaccineLocationOneAvailability,
-  vaccineLocationMultipleAvailabilities,
   vaccineLocationNoAvailabilities,
   vaccineLocationsZeroValueAvailability,
   vaccineLocationsMixedAvailabilities,
   vaccineLocationResponses,
-} from "../../utils/mock";
+} from "../../mocks/mockData";
 import { postalCodeToHumanFormat } from "../../utils/postalCode";
 
 const formattedDate = format(
