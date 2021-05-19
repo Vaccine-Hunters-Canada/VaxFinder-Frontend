@@ -2,7 +2,7 @@
 import React, { useCallback, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Frame, Layout, Navigation, Page, TopBar } from "@shopify/polaris";
-import { HomeMajor, LanguageMinor } from "@shopify/polaris-icons";
+import { HomeMajor } from "@shopify/polaris-icons";
 import { Routes } from "./Routes";
 import { TwitterTimelineEmbed } from "react-twitter-embed";
 import { useTranslation } from "react-i18next";
