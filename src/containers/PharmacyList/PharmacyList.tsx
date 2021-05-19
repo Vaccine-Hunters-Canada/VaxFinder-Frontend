@@ -1,11 +1,15 @@
 import { PharmacyCard } from "../../components/PharmacyCard";
 import React, { useState } from "react";
-import { useListVaccineLocationsApiV1VaccineLocationsGet } from "../../apiClient";
+import {
+  useListVaccineLocationsApiV1VaccineLocationsGet,
+  VaccineAvailabilityTimeslotRequirementExpandedResponse,
+} from "../../apiClient";
 import { ExceptionList, Spinner, TextStyle } from "@shopify/polaris";
 import { CircleAlertMajor, SearchMajor } from "@shopify/polaris-icons";
 import "./PharmacyList.css";
 import { EligibilityBanner } from "../../components/EligibilityBanner";
 import { useTranslation } from "react-i18next";
+
 import {
   postalCodeIsValid,
   postalCodeToApiFormat,
@@ -123,16 +127,53 @@ export function PharmacyList(props: Props) {
         addressSegments.push(address.province);
         addressSegments.push(postalCodeToHumanFormat(address.postcode));
       }
-      const isBooking = pharmacy.vaccineAvailabilities.length > 0;
+
+      const vaccineAvailabilitiesWithAvailable: VaccineAvailabilityTimeslotRequirementExpandedResponse[] = pharmacy.vaccineAvailabilities.filter(
+        (vaccineAvailability) => {
+          return vaccineAvailability.numberAvailable > 0;
+        },
+      );
+
+      type VaccineAvailabilitiesByDateAndRequirementsInterface = React.ComponentProps<
+        typeof PharmacyCard
+      >["vaccineAvailabilities"];
+
+      let lastUpdated = pharmacy.createdAt;
+      const vaccineAvailabilitiesByDateAndRequirements: VaccineAvailabilitiesByDateAndRequirementsInterface = {};
+      vaccineAvailabilitiesWithAvailable.forEach((availability) => {
+        if (
+          !(availability.date in vaccineAvailabilitiesByDateAndRequirements)
+        ) {
+          vaccineAvailabilitiesByDateAndRequirements[availability.date] = {
+            totalAvailable: 0,
+            requirements: [],
+          };
+        }
+        vaccineAvailabilitiesByDateAndRequirements[
+          availability.date
+        ].totalAvailable += availability.numberAvailable;
+        vaccineAvailabilitiesByDateAndRequirements[
+          availability.date
+        ].requirements.push({
+          ...availability.requirements[0],
+          numberAvailable: availability.numberAvailable,
+        });
+
+        lastUpdated =
+          availability.createdAt > lastUpdated
+            ? availability.createdAt
+            : lastUpdated;
+      });
 
       return {
         id: pharmacy.id,
         pharmacyName: pharmacy.name,
-        booking: isBooking,
+        booking: vaccineAvailabilitiesWithAvailable.length > 0,
         address: addressSegments.join(" "),
-        lastUpdated: pharmacy.createdAt,
+        lastUpdated,
         phone: pharmacy.phone || "",
         website: pharmacy.url || "",
+        vaccineAvailabilities: vaccineAvailabilitiesByDateAndRequirements,
       };
     });
   }
@@ -165,6 +206,7 @@ export function PharmacyList(props: Props) {
                   pharmacyName={pharmacy.pharmacyName}
                   phone={pharmacy.phone}
                   website={pharmacy.website}
+                  vaccineAvailabilities={pharmacy.vaccineAvailabilities}
                 />
               );
             })
