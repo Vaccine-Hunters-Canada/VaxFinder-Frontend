@@ -1,25 +1,12 @@
-// TODO: This file should probably not be ealint-disabled
-/* eslint-disable */
-
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable no-await-in-loop */
 import { rest } from "msw";
 import React from "react";
 import { server } from "../../mocks/server";
 import { render, screen, within } from "../../testUtils";
 import { PharmacyList } from "./PharmacyList";
-import { format } from "date-fns-tz";
-import {
-  vaccineLocationOneAvailability,
-  vaccineLocationNoAvailabilities,
-  vaccineLocationsZeroValueAvailability,
-  vaccineLocationsMixedAvailabilities,
-  vaccineLocationResponses,
-} from "../../mocks/mockData";
+import { vaccineLocationResponses } from "../../mocks/mockData";
 import { postalCodeToHumanFormat } from "../../utils/postalCode";
-
-const formattedDate = format(
-  new Date("2021-05-02T03:20:59.077000"),
-  "MMM d, y",
-);
 
 describe("PharmacyList", () => {
   test("Should show all returned pharmacy locations", async () => {
@@ -64,7 +51,7 @@ describe("PharmacyList", () => {
       },
     );
 
-    for (let i = 0; i < locationsWithAvailability.length; i++) {
+    for (let i = 0; i < locationsWithAvailability.length; i += 1) {
       const pharmacyCard = within(pharmacyCards[i]);
       pharmacyCard.getByText(/appointments available/i);
     }
@@ -72,7 +59,7 @@ describe("PharmacyList", () => {
     for (
       let i = locationsWithAvailability.length;
       i < vaccineLocationResponses.length;
-      i++
+      i += 1
     ) {
       const pharmacyCard = within(pharmacyCards[i]);
       pharmacyCard.getAllByText(/appointments not available/i);
@@ -93,5 +80,3 @@ describe("PharmacyList", () => {
     );
   });
 });
-
-/* eslint-enable */

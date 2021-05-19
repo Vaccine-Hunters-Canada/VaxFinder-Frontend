@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import {
   useListVaccineLocationsApiV1VaccineLocationsGet,
   VaccineAvailabilityTimeslotRequirementExpandedResponse,
-  VaccineAvailabilityRequirementsResponse,
 } from "../../apiClient";
 import { ExceptionList, Spinner, TextStyle } from "@shopify/polaris";
 import { CircleAlertMajor, SearchMajor } from "@shopify/polaris-icons";
@@ -135,18 +134,9 @@ export function PharmacyList(props: Props) {
         },
       );
 
-      interface RequirementsWithAvailabilityInterface
-        extends VaccineAvailabilityRequirementsResponse {
-        numberAvailable: number;
-      }
-
-      // TODO: Infer this from PharmacyCard.tsx
-      interface VaccineAvailabilitiesByDateAndRequirementsInterface {
-        [date: string]: {
-          totalAvailable: number;
-          requirements: RequirementsWithAvailabilityInterface[];
-        };
-      }
+      type VaccineAvailabilitiesByDateAndRequirementsInterface = React.ComponentProps<
+        typeof PharmacyCard
+      >["vaccineAvailabilities"];
 
       let lastUpdated = pharmacy.createdAt;
       const vaccineAvailabilitiesByDateAndRequirements: VaccineAvailabilitiesByDateAndRequirementsInterface = {};
