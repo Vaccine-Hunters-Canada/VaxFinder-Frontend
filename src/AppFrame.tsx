@@ -7,22 +7,64 @@ import { Routes } from "./Routes";
 import { TwitterTimelineEmbed } from "react-twitter-embed";
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";
+import { ItemProps } from "@shopify/polaris/types/latest/src/components/Navigation/components";
+
+const languages = [
+  {
+    langCode: "en-CA",
+    label: "English",
+  },
+  {
+    langCode: "fr-CA",
+    label: "Français",
+  },
+  {
+    langCode: "ar",
+    label: "العربية",
+  },
+  {
+    langCode: "de",
+    label: "Deutsch",
+  },
+  {
+    langCode: "es",
+    label: "Español",
+  },
+  {
+    langCode: "pa",
+    label: "ਪੰਜਾਬੀ/پن٘جابی",
+  },
+  {
+    langCode: "pt",
+    label: "Português",
+  },
+  {
+    langCode: "zh-CN",
+    label: "中文",
+  },
+];
+
+function LanguageBar(): ItemProps[] {
+  const output: ItemProps[] = languages.map((x) => {
+    const selected = i18next.language === x.langCode;
+    return {
+      url: "/",
+      label: x.label,
+      onClick: () => {
+        i18next.changeLanguage(x.langCode);
+      },
+      selected: selected,
+    };
+  });
+  return output;
+}
 
 export function AppFrame() {
-  const { t, i18n } = useTranslation(undefined, { useSuspense: false });
+  const { t } = useTranslation(undefined, { useSuspense: false });
   const location = useLocation();
   const [isMobileNavigationActive, setIsMobileNavigationActive] = useState(
     false,
   );
-  function languageToggle() {
-    // Display link to toggle to whichever language isn't set right now
-    // Get language code excluding country
-    // Initially language code set by browser so it is something like en-CA or en-US
-    if (i18n.language?.substring(0, 2) === "fr") {
-      return "English";
-    }
-    return "Français";
-  }
 
   const handleMobileNavigationToggle = useCallback(
     () => setIsMobileNavigationActive((isActive) => !isActive),
@@ -47,18 +89,12 @@ export function AppFrame() {
                 label: t("home"),
                 icon: HomeMajor,
               },
-              {
-                label: languageToggle(),
-                icon: LanguageMinor,
-                onClick: () => {
-                  if (i18n.language?.substring(0, 2) === "fr") {
-                    i18next.changeLanguage("en-CA");
-                  } else {
-                    i18next.changeLanguage("fr-CA");
-                  }
-                },
-              },
             ]}
+          />
+          <Navigation.Section // Todo translating the word "Language" and displaying icon doesn't work for some reason
+            separator
+            title="Language"
+            items={LanguageBar()}
           />
         </Navigation>
       }

@@ -8,6 +8,7 @@
     "enterpostalcode": "Please enter your postal code (Example: K2T 0E5):",
     "home": "Home",
     "invalidpostal": "You have entered an invalid postal code",
+    "language": "Language",
     "loadingpharmacydata": "Loading pharmacy data",
     "loadmap": "Load Map",
     "nopharmacies": "No nearby pharmacies were found near {{postalCode}}. Please try again later.",
