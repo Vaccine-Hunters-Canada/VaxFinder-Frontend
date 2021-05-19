@@ -148,6 +148,7 @@ export function PharmacyList(props: Props) {
         };
       }
 
+      let lastUpdated = pharmacy.createdAt;
       const vaccineAvailabilitiesByDateAndRequirements: VaccineAvailabilitiesByDateAndRequirementsInterface = {};
       vaccineAvailabilitiesWithAvailable.forEach((availability) => {
         if (
@@ -167,6 +168,11 @@ export function PharmacyList(props: Props) {
           ...availability.requirements[0],
           numberAvailable: availability.numberAvailable,
         });
+
+        lastUpdated =
+          availability.createdAt > lastUpdated
+            ? availability.createdAt
+            : lastUpdated;
       });
 
       return {
@@ -174,7 +180,7 @@ export function PharmacyList(props: Props) {
         pharmacyName: pharmacy.name,
         booking: vaccineAvailabilitiesWithAvailable.length > 0,
         address: addressSegments.join(" "),
-        lastUpdated: pharmacy.createdAt,
+        lastUpdated,
         phone: pharmacy.phone || "",
         website: pharmacy.url || "",
         vaccineAvailabilities: vaccineAvailabilitiesByDateAndRequirements,
