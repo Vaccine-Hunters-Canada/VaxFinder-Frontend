@@ -94,7 +94,7 @@ export function PharmacyList(props: Props) {
               icon: SearchMajor,
               description: (
                 <strong>
-                  {t("nopharmacies", {
+                  {t("noappointmets", {
                     postalCode: postalCodeToHumanFormat(props.postalCode),
                   })}
                 </strong>
