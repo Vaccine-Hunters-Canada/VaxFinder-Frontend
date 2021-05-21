@@ -8,6 +8,7 @@ import {
   frCA as date_fns_frCA,
   zhCN as date_fns_zhCN,
 } from "date-fns/locale";
+import ar from "./locales/ar/translation.json";
 import enCA from "./locales/en/translation.json";
 import frCA from "./locales/fr/translation.json";
 import zhCN from "./locales/zh/translation.json";
@@ -24,6 +25,7 @@ i18n
     fallbackLng: "en-CA",
     debug: false,
     resources: {
+      ar: { translation: ar },
       "en-CA": { translation: enCA },
       "fr-CA": { translation: frCA },
       "zh-CN": { translation: zhCN }, // TODO Chinese is Google Translate should be reviewed by a human before putting on production

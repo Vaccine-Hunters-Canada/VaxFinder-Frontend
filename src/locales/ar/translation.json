@@ -1,0 +1,21 @@
+{
+    "asof": "as of {{date, MMM d, y}}",
+    "appointmentsavailable": "المواعيد المتاحة ",
+    "appointmentsnotavailable": "المواعيد غير متوفرة",
+    "couldnotloadpharmacydata": "لا يمكن تحميل بيانات الصيدلية ، يرجى المحاولة مرة أخرى لاحقًا",
+    "eligibility": "Eligibility:",
+    "eligibilitymessage": "للتأكد من أنك مؤهل لتلقي لقاحك ، يرجى مراجعة إرشادات التطعيم الخاصة بالسلطة الصحية المناسبة",
+    "enterpostalcode": "الرجاء إدخال رمز البريد (مثال: K2T ):",
+    "home": "منزل",
+    "invalidpostal": "لقد أدخلت رمزًا بريديًا غير صالح",
+    "language": "لغة",
+    "loadingpharmacydata": "تحميل بيانات الصيدلية",
+    "loadmap": "تحميل الخريطة",
+    "noappointments": "لم يتم العثور على مواعيد بالقرب من {{postalCode}}. الرجاء معاودة المحاولة في وقت لاحق.",
+    "postalcodetext": "سنستخدم هذا الرمز البريدي للعثور على أقرب اللقاحات المتاحة.",
+    "submit": "إرسال",
+    "details": "التفاصيل",
+    "visitwebsite": "زيارة الموقع",
+    "show": "عرض",
+    "hide": "إخفاء"
+}
