@@ -12,7 +12,7 @@
     "invalidpostal": "Vous avez entré un code postal invalide.",
     "loadingpharmacydata": "Chargement des données de la pharmacie",
     "loadmap": "Carte",
-    "noappointmets": "Il n'y a pas de rendez-vous près de {{postalCode}}. Veuillez réessayer plus tard.",
+    "noappointments": "Il n'y a pas de rendez-vous près de {{postalCode}}. Veuillez réessayer plus tard.",
     "postalcodetext": "Nous utiliserons ce code postal pour trouver les vaccins disponibles les plus proches.",
     "show": "Montrer",
     "submit": "Soumettre",
