@@ -31,8 +31,12 @@ const languages = [
     label: "Español",
   },
   {
+    langCode: "pnb",
+    label: "پن٘جابی",
+  },
+  {
     langCode: "pa",
-    label: "ਪੰਜਾਬੀ/پن٘جابی",
+    label: "ਪੰਜਾਬੀ",
   },
   {
     langCode: "pt",
@@ -40,7 +44,11 @@ const languages = [
   },
   {
     langCode: "zh-CN",
-    label: "中文",
+    label: "简体中文",
+  },
+  {
+    langCode: "zh-TW",
+    label: "繁體中文",
   },
 ];
 

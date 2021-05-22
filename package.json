@@ -9,6 +9,7 @@
     "date-fns-tz": "^1.1.4",
     "i18next": "^20.2.2",
     "i18next-browser-languagedetector": "^6.1.0",
+    "lodash": "^4.17.21",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-i18next": "^11.8.15",
