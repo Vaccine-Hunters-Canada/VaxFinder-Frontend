@@ -9,6 +9,7 @@ import { CircleAlertMajor, SearchMajor } from "@shopify/polaris-icons";
 import "./PharmacyList.css";
 import { EligibilityBanner } from "../../components/EligibilityBanner";
 import { useTranslation } from "react-i18next";
+import { SearchCard } from "../../components/SearchCard";
 
 import {
   postalCodeIsValid,
@@ -190,9 +191,14 @@ export function PharmacyList(props: Props) {
 
   return (
     <>
+      <section aria-label="search" style={{ marginBottom: "2rem" }}>
+        <SearchCard />
+      </section>
+
       {shouldShowBanner ? (
         <EligibilityBanner onDismiss={() => setShouldShowBanner(false)} />
       ) : null}
+
       <section aria-label="pharmacy-list" style={{ marginTop: "2rem" }}>
         {pharmacyList
           ? pharmacyList.map((pharmacy) => {
