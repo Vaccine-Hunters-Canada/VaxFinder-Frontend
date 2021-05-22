@@ -4,6 +4,7 @@ import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import { format as date_fns_tz_format } from "date-fns-tz";
 import {
+  arSA as date_fns_arSA,
   enCA as date_fns_enCA,
   frCA as date_fns_frCA,
   zhCN as date_fns_zhCN,
@@ -28,6 +29,8 @@ export const i18nconfig: InitOptions = {
       if (value instanceof Date && fmt !== undefined) {
         const lang = lng?.substring(0, 2);
         switch (lang) {
+          case "ar":
+            return date_fns_tz_format(value, fmt, { locale: date_fns_arSA });
           case "fr":
             return date_fns_tz_format(value, fmt, { locale: date_fns_frCA });
           case "zh":

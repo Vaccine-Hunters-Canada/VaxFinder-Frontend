@@ -116,7 +116,7 @@ export function PharmacyCard(props: PharmacyProps) {
   const appointmentsAvailableMarkup = () => {
     if (Object.keys(props.vaccineAvailabilities).length > 0) {
       return (
-        <Card.Section title="Dates">
+        <Card.Section title={t("dates")}>
           <Button
             primary
             onClick={() => {
@@ -155,7 +155,7 @@ export function PharmacyCard(props: PharmacyProps) {
       <div data-testid="pharmacy-card">
         <TextContainer>
           <Card.Section fullWidth>{availabilityMarkup()}</Card.Section>
-          <Card.Section title={t("storeinfo")}>
+          <Card.Section title={t("details")}>
             <Card.Subsection>{props.address}</Card.Subsection>
             <Card.Subsection>
               <Stack>
