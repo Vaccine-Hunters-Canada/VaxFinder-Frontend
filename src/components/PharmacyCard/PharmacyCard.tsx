@@ -37,6 +37,113 @@ interface PharmacyProps {
   lastUpdated: string;
   vaccineAvailabilities: VaccineAvailabilitiesByDateAndRequirementsInterface;
 }
+export const dateMarkup = (createdAtDateString: string) => {
+  const createdAtDate = new Date(createdAtDateString);
+  const currentDate = new Date();
+  const secondsSinceCreated = Math.floor(
+    (currentDate.getTime() - createdAtDate.getTime()) / 1000,
+  );
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "June",
+    "July",
+    "Aug",
+    "Sept",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  if (secondsSinceCreated < 60) {
+    return "Just Now";
+  }
+  if (secondsSinceCreated > 60 && secondsSinceCreated < 3600) {
+    return `${Math.floor(secondsSinceCreated / 60)}  minutes ago`;
+  }
+  if (currentDate.getUTCDate() === createdAtDate.getUTCDate()) {
+    if (createdAtDate.getHours() < 12) {
+      return `${createdAtDate.getHours() ? createdAtDate.getHours() : 12}:${
+        createdAtDate.getMinutes() > 9
+          ? createdAtDate.getMinutes()
+          : `0${createdAtDate.getMinutes()}`
+      } am`;
+    }
+    return `${createdAtDate.getHours() ? createdAtDate.getHours() - 12 : 12}:${
+      createdAtDate.getMinutes() > 9
+        ? createdAtDate.getMinutes()
+        : `0${createdAtDate.getMinutes()}`
+    } pm`;
+  }
+  if (currentDate.getUTCDate() === createdAtDate.getUTCDate() + 1) {
+    if (createdAtDate.getHours() < 12) {
+      return `Yesterday at ${
+        createdAtDate.getHours() ? createdAtDate.getHours() : 12
+      }:${
+        createdAtDate.getMinutes() > 9
+          ? createdAtDate.getMinutes()
+          : `0${createdAtDate.getMinutes()}`
+      } am`;
+    }
+    return `Yesterday at ${
+      createdAtDate.getHours() ? createdAtDate.getHours() - 12 : 12
+    }:${
+      createdAtDate.getMinutes() > 9
+        ? createdAtDate.getMinutes()
+        : `0${createdAtDate.getMinutes()}`
+    } pm`;
+  }
+  if (secondsSinceCreated < 604800) {
+    const days = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+    if (createdAtDate.getHours() < 12) {
+      return `${days[createdAtDate.getDay()]} at ${
+        createdAtDate.getHours() ? createdAtDate.getHours() : 12
+      }:${
+        createdAtDate.getMinutes() > 9
+          ? createdAtDate.getMinutes()
+          : `0${createdAtDate.getMinutes()}`
+      } am`;
+    }
+    return `${days[createdAtDate.getDay()]} at ${
+      createdAtDate.getHours() ? createdAtDate.getHours() - 12 : 12
+    }:${
+      createdAtDate.getMinutes() > 9
+        ? createdAtDate.getMinutes()
+        : `0${createdAtDate.getMinutes()}`
+    } pm`;
+  }
+  if (secondsSinceCreated <= 31536000) {
+    if (createdAtDate.getHours() < 12) {
+      return `${months[createdAtDate.getDay()]} ${createdAtDate.getDate()} at ${
+        createdAtDate.getHours() ? createdAtDate.getHours() : 12
+      }:${
+        createdAtDate.getMinutes() > 9
+          ? createdAtDate.getMinutes()
+          : `0${createdAtDate.getMinutes()}`
+      } am`;
+    }
+    return `${months[createdAtDate.getDay()]} ${createdAtDate.getDate()} at ${
+      createdAtDate.getHours() ? createdAtDate.getHours() - 12 : 12
+    }:${
+      createdAtDate.getMinutes() > 9
+        ? createdAtDate.getMinutes()
+        : `0${createdAtDate.getMinutes()}`
+    } pm`;
+  }
+  return `${
+    months[createdAtDate.getDay()]
+  } ${createdAtDate.getDate()}, ${createdAtDate.getFullYear()}`;
+};
 
 export function PharmacyCard(props: PharmacyProps) {
   const { t } = useTranslation();
@@ -50,7 +157,7 @@ export function PharmacyCard(props: PharmacyProps) {
           <p>
             <strong>{t("appointmentsavailable")}</strong>
             {props.lastUpdated.length > 0 && (
-              <> {t("asof", { date: new Date(props.lastUpdated) })}</>
+              <> {t("asof", { date: dateMarkup(props.lastUpdated) })}</>
             )}
           </p>
         </Banner>
