@@ -67,14 +67,14 @@ const languages = [
   */
 ];
 
-function LanguageBar(): ItemProps[] {
-  const output: ItemProps[] = languages.map((x) => {
-    const selected = i18next.language === x.langCode;
+function getLanguageBarItemProps(): ItemProps[] {
+  const output: ItemProps[] = languages.map((language) => {
+    const selected = i18next.language === language.langCode;
     return {
       url: "/",
-      label: x.label,
+      label: language.label,
       onClick: () => {
-        i18next.changeLanguage(x.langCode);
+        i18next.changeLanguage(language.langCode);
       },
       selected: selected,
     };
@@ -117,7 +117,7 @@ export function AppFrame() {
           <Navigation.Section // Todo translating the word "Language" and displaying icon doesn't work for some reason
             separator
             title="Language"
-            items={LanguageBar()}
+            items={getLanguageBarItemProps()}
           />
         </Navigation>
       }
