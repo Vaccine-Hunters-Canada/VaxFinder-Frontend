@@ -7,21 +7,27 @@ import {
   arSA as date_fns_arSA,
   enCA as date_fns_enCA,
   frCA as date_fns_frCA,
+  pl as date_fns_pl,
+  ru as date_fns_ru,
   zhCN as date_fns_zhCN,
 } from "date-fns/locale";
 import ar from "./locales/ar/translation.json";
-import enCA from "./locales/en/translation.json";
-import frCA from "./locales/fr/translation.json";
-import zhCN from "./locales/zh/translation.json";
+import en from "./locales/en/translation.json";
+import fr from "./locales/fr/translation.json";
+import pl from "./locales/pl/translation.json";
+import ru from "./locales/ru/translation.json";
+import zhCN from "./locales/zhCN/translation.json";
 
 export const i18nconfig: InitOptions = {
   fallbackLng: "en-CA",
   debug: false,
   resources: {
     ar: { translation: ar },
-    "en-CA": { translation: enCA },
-    "fr-CA": { translation: frCA },
-    "zh-CN": { translation: zhCN }, // TODO Chinese is Google Translate should be reviewed by a human before putting on production
+    en: { translation: en },
+    fr: { translation: fr },
+    pl: { translation: pl },
+    ru: { translation: ru },
+    "zh-CN": { translation: zhCN },
   },
   interpolation: {
     escapeValue: false, // not needed for react as it escapes by default
@@ -33,6 +39,10 @@ export const i18nconfig: InitOptions = {
             return date_fns_tz_format(value, fmt, { locale: date_fns_arSA });
           case "fr":
             return date_fns_tz_format(value, fmt, { locale: date_fns_frCA });
+          case "pl":
+            return date_fns_tz_format(value, fmt, { locale: date_fns_pl });
+          case "ru":
+            return date_fns_tz_format(value, fmt, { locale: date_fns_ru });
           case "zh":
             return date_fns_tz_format(value, fmt, { locale: date_fns_zhCN });
           default:

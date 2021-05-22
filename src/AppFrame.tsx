@@ -22,6 +22,7 @@ const languages = [
     langCode: "ar",
     label: "العربية",
   },
+  /*
   {
     langCode: "de",
     label: "Deutsch",
@@ -31,25 +32,39 @@ const languages = [
     label: "Español",
   },
   {
-    langCode: "pnb",
+    langCode: "pa-PK",
     label: "پن٘جابی",
   },
   {
-    langCode: "pa",
+    langCode: "pa-IN",
     label: "ਪੰਜਾਬੀ",
   },
+  */
+  {
+    langCode: "pl-PL",
+    label: "Polski",
+  },
+  {
+    langCode: "ru-RU",
+    label: "Русский",
+  },
+  /*
   {
     langCode: "pt",
     label: "Português",
   },
+  */
   {
     langCode: "zh-CN",
-    label: "简体中文",
+    /* label: "简体中文", */
+    label: "中文",
   },
+  /*
   {
     langCode: "zh-TW",
     label: "繁體中文",
   },
+  */
 ];
 
 function LanguageBar(): ItemProps[] {

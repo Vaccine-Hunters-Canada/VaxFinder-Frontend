@@ -1,0 +1,22 @@
+{
+    "asof": "od {{date, MMM d, y}}",
+    "appointmentsavailable": "Dostępne terminy",
+    "appointmentsnotavailable": "Niedostępne terminy",
+    "couldnotloadpharmacydata": "Nie udało się załadować informacji z aptecznej bazy danych, proszę spróbować później.",
+    "dates": "Terminy",
+    "details": "Szczegóły",
+    "eligibility": "Uprawnieni:",
+    "eligibilitymessage": "Sprawdź czy kwalifikujesz się do otrzymania szczepionki, w tym celu zapoznaj się z wytycznymi lokalnych placówek zdrowia dotyczących szczepień.",
+    "enterpostalcode": "Wpisz kod pocztowy:",
+    "hide": "Ukryj",
+    "home": "Strona Główna",
+    "invalidpostal": "Kod pocztowy niepoprawny",
+    "language": "Język",
+    "loadingpharmacydata": "Ładowanie danych apteki",
+    "loadmap": "Pokaż mapę",
+    "noappointments": "W pobliżu kodu pocztowego {{postalCode}} nie znaleziono wolnych terminów. Spróbuj ponownie później.",
+    "postalcodetext": "Użyjemy tego kodu pocztowego, aby znaleźć najbliższy punkt szczepień z dostępnymi terminami.",
+    "show": "Wyświetl",
+    "submit": "Prześlij",
+    "visitwebsite": "Odwiedź stronę"
+}
