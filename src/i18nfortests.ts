@@ -2,9 +2,9 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import { i18nconfig } from "./i18n";
-import _ from "lodash";
+import cloneDeep from "lodash.clonedeep";
 
-const i18nconfig_test = _.cloneDeep(i18nconfig); // Copy default configuration
+const i18nconfig_test = cloneDeep(i18nconfig); // Copy default configuration
 i18nconfig_test.lng = "en-CA"; // Set default language to en-CA for tests don't use language detector
 
 i18n
