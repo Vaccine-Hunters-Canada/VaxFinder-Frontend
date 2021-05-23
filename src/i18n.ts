@@ -11,6 +11,7 @@ import {
   pl as date_fns_pl,
   ru as date_fns_ru,
   zhCN as date_fns_zhCN,
+  zhTW as date_fns_zhTW,
 } from "date-fns/locale";
 import ar from "./locales/ar/translation.json";
 import de from "./locales/de/translation.json";
@@ -19,6 +20,7 @@ import fr from "./locales/fr/translation.json";
 import pl from "./locales/pl/translation.json";
 import ru from "./locales/ru/translation.json";
 import zhCN from "./locales/zhCN/translation.json";
+import zhTW from "./locales/zhTW/translation.json";
 
 export const i18nconfig: InitOptions = {
   fallbackLng: "en-CA",
@@ -31,6 +33,7 @@ export const i18nconfig: InitOptions = {
     pl: { translation: pl },
     ru: { translation: ru },
     "zh-CN": { translation: zhCN },
+    "zh-TW": { translation: zhTW },
   },
   interpolation: {
     escapeValue: false, // not needed for react as it escapes by default
@@ -49,7 +52,10 @@ export const i18nconfig: InitOptions = {
           case "ru":
             return date_fns_tz_format(value, fmt, { locale: date_fns_ru });
           case "zh":
-            return date_fns_tz_format(value, fmt, { locale: date_fns_zhCN });
+            if (lng === "zh-CN") {
+              return date_fns_tz_format(value, fmt, { locale: date_fns_zhCN });
+            }
+            return date_fns_tz_format(value, fmt, { locale: date_fns_zhTW });
           default:
             return date_fns_tz_format(value, fmt, { locale: date_fns_enCA });
         }

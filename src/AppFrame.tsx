@@ -56,15 +56,12 @@ const languages = [
   */
   {
     langCode: "zh-CN",
-    /* label: "简体中文", */
-    label: "中文",
+    label: "简体中文",
   },
-  /*
   {
     langCode: "zh-TW",
     label: "繁體中文",
   },
-  */
 ];
 
 function getLanguageBarItemProps(): ItemProps[] {
