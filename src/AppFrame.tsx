@@ -22,11 +22,11 @@ const languages = [
     langCode: "ar",
     label: "العربية",
   },
-  /*
   {
     langCode: "de",
     label: "Deutsch",
   },
+  /*
   {
     langCode: "es",
     label: "Español",

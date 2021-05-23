@@ -6,12 +6,14 @@ import { format as date_fns_tz_format } from "date-fns-tz";
 import {
   arSA as date_fns_arSA,
   enCA as date_fns_enCA,
+  de as date_fns_de,
   frCA as date_fns_frCA,
   pl as date_fns_pl,
   ru as date_fns_ru,
   zhCN as date_fns_zhCN,
 } from "date-fns/locale";
 import ar from "./locales/ar/translation.json";
+import de from "./locales/de/translation.json";
 import en from "./locales/en/translation.json";
 import fr from "./locales/fr/translation.json";
 import pl from "./locales/pl/translation.json";
@@ -23,6 +25,7 @@ export const i18nconfig: InitOptions = {
   debug: false,
   resources: {
     ar: { translation: ar },
+    de: { translation: de },
     en: { translation: en },
     fr: { translation: fr },
     pl: { translation: pl },
@@ -37,6 +40,8 @@ export const i18nconfig: InitOptions = {
         switch (lang) {
           case "ar":
             return date_fns_tz_format(value, fmt, { locale: date_fns_arSA });
+          case "de":
+            return date_fns_tz_format(value, fmt, { locale: date_fns_de });
           case "fr":
             return date_fns_tz_format(value, fmt, { locale: date_fns_frCA });
           case "pl":
