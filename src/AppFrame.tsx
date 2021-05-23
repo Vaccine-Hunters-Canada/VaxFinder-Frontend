@@ -113,7 +113,7 @@ export function AppFrame() {
           />
           <Navigation.Section // Todo translating the word "Language" and displaying icon doesn't work for some reason
             separator
-            title="Language"
+            title={t("language")}
             items={getLanguageBarItemProps()}
           />
         </Navigation>

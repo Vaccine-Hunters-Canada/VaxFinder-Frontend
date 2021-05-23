@@ -11,6 +11,7 @@
     "hide": "Cacher",
     "home": "Accueil",
     "invalidpostal": "Vous avez entré un code postal invalide.",
+    "language": "Langue",
     "loadingpharmacydata": "Chargement des données de la pharmacie",
     "loadmap": "Carte",
     "noappointments": "Il n'y a pas de rendez-vous près de {{postalCode}}. Veuillez réessayer plus tard.",
