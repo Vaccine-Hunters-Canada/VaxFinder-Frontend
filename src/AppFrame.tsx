@@ -4,10 +4,11 @@ import { useLocation } from "react-router-dom";
 import { Frame, Layout, Navigation, Page, TopBar } from "@shopify/polaris";
 import { HomeMajor } from "@shopify/polaris-icons";
 import { Routes } from "./Routes";
-import { TwitterTimelineEmbed } from "react-twitter-embed";
+// import { TwitterTimelineEmbed } from "react-twitter-embed";
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";
 import { ItemProps } from "@shopify/polaris/types/latest/src/components/Navigation/components";
+import { Twitter } from "./components/Twitter";
 
 const languages = [
   {
@@ -129,11 +130,7 @@ export function AppFrame() {
             <Routes />
           </Layout.Section>
           <Layout.Section secondary>
-            <TwitterTimelineEmbed
-              sourceType="profile"
-              screenName="VaxHuntersCan"
-              options={{ height: 800 }}
-            />
+            <Twitter />
           </Layout.Section>
         </Layout>
       </Page>
