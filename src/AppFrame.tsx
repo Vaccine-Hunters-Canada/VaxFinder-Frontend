@@ -70,6 +70,14 @@ export function AppFrame() {
             <Routes />
           </Layout.Section>
           <Layout.Section secondary>
+            <iframe
+              title="Discord Link"
+              src="https://discord.com/widget?id=822486436837326908&theme=dark"
+              width="100%"
+              height="400"
+              frameBorder="0"
+              sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
+            />
             <TwitterTimelineEmbed
               sourceType="profile"
               screenName="VaxHuntersCan"
