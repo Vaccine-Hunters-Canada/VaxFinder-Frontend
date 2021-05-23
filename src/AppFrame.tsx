@@ -11,11 +11,11 @@ import { ItemProps } from "@shopify/polaris/types/latest/src/components/Navigati
 
 const languages = [
   {
-    langCode: "en-CA",
+    langCode: "en",
     label: "English",
   },
   {
-    langCode: "fr-CA",
+    langCode: "fr",
     label: "Français",
   },
   {
@@ -41,11 +41,11 @@ const languages = [
   },
   */
   {
-    langCode: "pl-PL",
+    langCode: "pl",
     label: "Polski",
   },
   {
-    langCode: "ru-RU",
+    langCode: "ru",
     label: "Русский",
   },
   /*
@@ -66,7 +66,9 @@ const languages = [
 
 function getLanguageBarItemProps(): ItemProps[] {
   const output: ItemProps[] = languages.map((language) => {
-    const selected = i18next.language === language.langCode;
+    const selected =
+      i18next.language === language.langCode ||
+      i18next.language?.substring(0, 2) === language.langCode;
     return {
       url: "/",
       label: language.label,
@@ -111,7 +113,7 @@ export function AppFrame() {
               },
             ]}
           />
-          <Navigation.Section // Todo translating the word "Language" and displaying icon doesn't work for some reason
+          <Navigation.Section
             separator
             title={t("language")}
             items={getLanguageBarItemProps()}

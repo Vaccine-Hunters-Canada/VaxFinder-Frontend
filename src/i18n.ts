@@ -73,4 +73,16 @@ i18n
   .use(initReactI18next)
   // init i18next
   // for all options read: https://www.i18next.com/overview/configuration-options
-  .init(i18nconfig);
+  .init(i18nconfig, function callback() {
+    // We use zh-CN for Simplified Chinese and zh-TW for Traditional Chinese
+    // If language detected by browser is zh-HK or zh-MO (Hong Kong/Macau) switch to zh-TW (Taiwan)
+    // If language detected by browser is zh-SG (Singapore) switch to zh-CN (Mainland China)
+    // We will need to do this for other languages for which we implement multiple translations (e.g. Punjabi)
+    // This is not needed for other languages
+    if (i18n?.language === "zh-HK" || i18n?.language === "zh-MO") {
+      i18n.changeLanguage("zh-TW");
+    }
+    if (i18n?.language === "zh-SG") {
+      i18n.changeLanguage("zh-CN");
+    }
+  });
