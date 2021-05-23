@@ -25,8 +25,8 @@
   "scripts": {
     "start": "react-scripts start",
     "start:mock-api": "cross-env REACT_APP_MOCK_API=true react-scripts start",
-    "build": "react-scripts build",
-    "build:production": "env-cmd -f .env.production npm run build",
+    "build": "env-cmd -f .env react-scripts build",
+    "build:production": "env-cmd -f .env.production react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint --max-warnings 0 --ext .tsx,.ts ./src",
