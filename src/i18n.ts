@@ -8,8 +8,10 @@ import {
   enCA as date_fns_enCA,
   de as date_fns_de,
   frCA as date_fns_frCA,
+  hr as date_fns_hr,
   pl as date_fns_pl,
   ru as date_fns_ru,
+  sr as date_fns_sr,
   zhCN as date_fns_zhCN,
   zhTW as date_fns_zhTW,
 } from "date-fns/locale";
@@ -17,7 +19,9 @@ import ar from "./locales/ar/translation.json";
 import de from "./locales/de/translation.json";
 import en from "./locales/en/translation.json";
 import fr from "./locales/fr/translation.json";
+import hr from "./locales/hr/translation.json";
 import pl from "./locales/pl/translation.json";
+import sr from "./locales/sr/translation.json";
 import ru from "./locales/ru/translation.json";
 import zhCN from "./locales/zhCN/translation.json";
 import zhTW from "./locales/zhTW/translation.json";
@@ -26,14 +30,16 @@ export const i18nconfig: InitOptions = {
   fallbackLng: "en-CA",
   debug: false,
   resources: {
-    ar: { translation: ar },
-    de: { translation: de },
-    en: { translation: en },
-    fr: { translation: fr },
-    pl: { translation: pl },
-    ru: { translation: ru },
-    "zh-CN": { translation: zhCN },
-    "zh-TW": { translation: zhTW },
+    ar: { translation: ar }, // Arabic
+    de: { translation: de }, // German
+    en: { translation: en }, // English
+    fr: { translation: fr }, // French
+    hr: { translation: hr }, // Croatian
+    pl: { translation: pl }, // Polish
+    sr: { translation: sr }, // Serbian
+    ru: { translation: ru }, // Russian
+    "zh-CN": { translation: zhCN }, // Chinese (Traditional)
+    "zh-TW": { translation: zhTW }, // Chinese (Simplified)
   },
   interpolation: {
     escapeValue: false, // not needed for react as it escapes by default
@@ -47,10 +53,14 @@ export const i18nconfig: InitOptions = {
             return date_fns_tz_format(value, fmt, { locale: date_fns_de });
           case "fr":
             return date_fns_tz_format(value, fmt, { locale: date_fns_frCA });
+          case "hr":
+            return date_fns_tz_format(value, fmt, { locale: date_fns_hr });
           case "pl":
             return date_fns_tz_format(value, fmt, { locale: date_fns_pl });
           case "ru":
             return date_fns_tz_format(value, fmt, { locale: date_fns_ru });
+          case "sr":
+            return date_fns_tz_format(value, fmt, { locale: date_fns_sr });
           case "zh":
             if (lng === "zh-CN") {
               return date_fns_tz_format(value, fmt, { locale: date_fns_zhCN });

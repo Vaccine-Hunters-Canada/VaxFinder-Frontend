@@ -1,10 +1,8 @@
-/* eslint-disable @typescript-eslint/no-floating-promises */
 import React, { useCallback, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Frame, Layout, Navigation, Page, TopBar } from "@shopify/polaris";
 import { HomeMajor } from "@shopify/polaris-icons";
 import { Routes } from "./Routes";
-// import { TwitterTimelineEmbed } from "react-twitter-embed";
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";
 import { ItemProps } from "@shopify/polaris/types/latest/src/components/Navigation/components";
@@ -27,20 +25,10 @@ const languages = [
     langCode: "de",
     label: "Deutsch",
   },
-  /*
   {
-    langCode: "es",
-    label: "Español",
+    langCode: "hr",
+    label: "Hrvatski",
   },
-  {
-    langCode: "pa-PK",
-    label: "پن٘جابی",
-  },
-  {
-    langCode: "pa-IN",
-    label: "ਪੰਜਾਬੀ",
-  },
-  */
   {
     langCode: "pl",
     label: "Polski",
@@ -49,12 +37,10 @@ const languages = [
     langCode: "ru",
     label: "Русский",
   },
-  /*
   {
-    langCode: "pt",
-    label: "Português",
+    langCode: "sr",
+    label: "Srpski",
   },
-  */
   {
     langCode: "zh-CN",
     label: "简体中文",
@@ -74,7 +60,14 @@ function getLanguageBarItemProps(): ItemProps[] {
       url: "/",
       label: language.label,
       onClick: () => {
-        i18next.changeLanguage(language.langCode);
+        i18next
+          .changeLanguage(language.langCode)
+          .then(() => {
+            // Success
+          })
+          .catch(() => {
+            // Failure
+          });
       },
       selected: selected,
     };

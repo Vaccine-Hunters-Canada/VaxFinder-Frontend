@@ -1,0 +1,22 @@
+{
+    "asof": "Ažurirano {{date, d MMM y}}",
+    "appointmentsavailable": "Slobodni termini",
+    "appointmentsnotavailable": "Nema slobodnih termina",
+    "couldnotloadpharmacydata": "Učitavanje podataka iz apoteke nije uspelo, molim Vas pokušajte ponovo",
+    "dates": "Datumi",
+    "details": "Detalji",
+    "eligibility": "Ispunjavanje uslova:",
+    "eligibilitymessage": "Kako biste bili sigurni da ispunjavate uslove da primite vakcinu, molim Vas proverite smernice o vakcinaciji vašeg odgovarajućeg zdravstvenog organa",
+    "enterpostalcode": "Molim Vas unesite Vaš poštanski kod (npr. K2T 0E5)",
+    "hide": "Sakrijte",
+    "home": "Naslovna",
+    "invalidpostal": "Uneli ste neispravan poštanski kod",
+    "language": "Jezik",
+    "loadingpharmacydata": "Učitavanje podataka iz apoteke",
+    "loadmap": "Učitajte mapu",
+    "noappointments": "Nije pronađen ni jedan slobodan termin u blizini {{postalCode}}. Molim Vas pokušajte ponovo kasnije.",
+    "postalcodetext": "Iskoristićemo ovaj poštanski broj da pronađemo najbliže dostupne vakcine.",
+    "show": "Prikaži",
+    "submit": "Prihvati",
+    "visitwebsite": "Posetite veb stranicu"
+}

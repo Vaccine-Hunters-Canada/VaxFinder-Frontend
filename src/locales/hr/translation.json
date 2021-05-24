@@ -1,0 +1,22 @@
+{
+    "asof": "Ažurirano {{date, d MMM y}}",
+    "appointmentsavailable": "Slobodni termini",
+    "appointmentsnotavailable": "Nema raspoloživih termina",
+    "couldnotloadpharmacydata": "Učitavanje podataka ljekarne nije uspjelo, pokušajte ponovo kasnije",
+    "dates": "Datumi",
+    "details": "Pojedinosti",
+    "eligibility": "Prihvatljivost:",
+    "eligibilitymessage": "Kako biste bili sigurni da ispunjavate uvjete za primanje cjepiva, provjerite smjernice o cijepljenju odgovarajućeg zdravstvenog tijela",
+    "enterpostalcode": "Unesite poštanski broj (Primjer: K2T 0E5):",
+    "hide": "Sklonite",
+    "home": "Naslovna",
+    "invalidpostal": "Unijeli ste nevažeći poštanski broj",
+    "language": "Jezik",
+    "loadingpharmacydata": "Učitavanje podataka iz ljekarne",
+    "loadmap": "Učitajte kartu",
+    "noappointments": "Nisu pronađeni termini u blizini {{postalCode}}. Molimo pokušajte ponovo kasnije.",
+    "postalcodetext": "Upotrijebit ćemo ovaj poštanski broj za pronalaženje najbližih dostupnih cjepiva.",
+    "show": "Pokaži",
+    "submit": "Prihvati",
+    "visitwebsite": "Posjetite web stranicu"
+}
