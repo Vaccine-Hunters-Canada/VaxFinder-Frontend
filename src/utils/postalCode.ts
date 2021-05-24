@@ -1,4 +1,9 @@
 const postalCodeIsValid = (postalCode: string) => {
+  if (postalCode.length === 3) {
+    return /^[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z]/i.test(
+      postalCodeToBrowserFormat(postalCode),
+    );
+  }
   return /^[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][ -]?\d[ABCEGHJ-NPRSTV-Z]\d$/i.test(
     postalCodeToBrowserFormat(postalCode),
   );
