@@ -26,12 +26,20 @@ const languages = [
     label: "Deutsch",
   },
   {
+    langCode: "es",
+    label: "Español",
+  },
+  {
     langCode: "hr",
     label: "Hrvatski",
   },
   {
     langCode: "pl",
     label: "Polski",
+  },
+  {
+    langCode: "pt",
+    label: "Português",
   },
   {
     langCode: "ru",

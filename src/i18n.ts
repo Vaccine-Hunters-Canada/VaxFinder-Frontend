@@ -7,9 +7,11 @@ import {
   arSA as date_fns_arSA,
   enCA as date_fns_enCA,
   de as date_fns_de,
+  es as date_fns_es,
   frCA as date_fns_frCA,
   hr as date_fns_hr,
   pl as date_fns_pl,
+  pt as date_fns_pt,
   ru as date_fns_ru,
   sr as date_fns_sr,
   zhCN as date_fns_zhCN,
@@ -18,9 +20,11 @@ import {
 import ar from "./locales/ar/translation.json";
 import de from "./locales/de/translation.json";
 import en from "./locales/en/translation.json";
+import es from "./locales/es/translation.json";
 import fr from "./locales/fr/translation.json";
 import hr from "./locales/hr/translation.json";
 import pl from "./locales/pl/translation.json";
+import pt from "./locales/pt/translation.json";
 import sr from "./locales/sr/translation.json";
 import ru from "./locales/ru/translation.json";
 import zhCN from "./locales/zhCN/translation.json";
@@ -33,9 +37,11 @@ export const i18nconfig: InitOptions = {
     ar: { translation: ar }, // Arabic
     de: { translation: de }, // German
     en: { translation: en }, // English
+    es: { translation: es }, // Spanish
     fr: { translation: fr }, // French
     hr: { translation: hr }, // Croatian
     pl: { translation: pl }, // Polish
+    pt: { translation: pt }, // Portugese
     sr: { translation: sr }, // Serbian
     ru: { translation: ru }, // Russian
     "zh-CN": { translation: zhCN }, // Chinese (Traditional)
@@ -51,12 +57,16 @@ export const i18nconfig: InitOptions = {
             return date_fns_tz_format(value, fmt, { locale: date_fns_arSA });
           case "de":
             return date_fns_tz_format(value, fmt, { locale: date_fns_de });
+          case "es":
+            return date_fns_tz_format(value, fmt, { locale: date_fns_es });
           case "fr":
             return date_fns_tz_format(value, fmt, { locale: date_fns_frCA });
           case "hr":
             return date_fns_tz_format(value, fmt, { locale: date_fns_hr });
           case "pl":
             return date_fns_tz_format(value, fmt, { locale: date_fns_pl });
+          case "pt":
+            return date_fns_tz_format(value, fmt, { locale: date_fns_pt });
           case "ru":
             return date_fns_tz_format(value, fmt, { locale: date_fns_ru });
           case "sr":
