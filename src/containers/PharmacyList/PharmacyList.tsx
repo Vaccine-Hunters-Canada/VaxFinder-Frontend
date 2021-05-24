@@ -88,22 +88,25 @@ export function PharmacyList(props: Props) {
   let pharmacyListUnsorted: PharmacyProps[] = [];
   if (data && data.length === 0) {
     return (
-      <div className="wrapper">
-        <ExceptionList
-          items={[
-            {
-              icon: SearchMajor,
-              description: (
-                <strong>
-                  {t("nopharmacies", {
-                    postalCode: postalCodeToHumanFormat(props.postalCode),
-                  })}
-                </strong>
-              ),
-            },
-          ]}
-        />
-      </div>
+      <>
+        <SearchCard />
+        <div className="wrapper">
+          <ExceptionList
+            items={[
+              {
+                icon: SearchMajor,
+                description: (
+                  <strong>
+                    {t("nopharmacies", {
+                      postalCode: postalCodeToHumanFormat(props.postalCode),
+                    })}
+                  </strong>
+                ),
+              },
+            ]}
+          />
+        </div>
+      </>
     );
   }
 
