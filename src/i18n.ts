@@ -12,8 +12,10 @@ import {
   hr as date_fns_hr,
   pl as date_fns_pl,
   pt as date_fns_pt,
+  ro as date_fns_ro,
   ru as date_fns_ru,
   sr as date_fns_sr,
+  tr as date_fns_tr,
   zhCN as date_fns_zhCN,
   zhTW as date_fns_zhTW,
 } from "date-fns/locale";
@@ -25,8 +27,10 @@ import fr from "./locales/fr/translation.json";
 import hr from "./locales/hr/translation.json";
 import pl from "./locales/pl/translation.json";
 import pt from "./locales/pt/translation.json";
-import sr from "./locales/sr/translation.json";
+import ro from "./locales/ro/translation.json";
 import ru from "./locales/ru/translation.json";
+import sr from "./locales/sr/translation.json";
+import tr from "./locales/tr/translation.json";
 import zhCN from "./locales/zhCN/translation.json";
 import zhTW from "./locales/zhTW/translation.json";
 
@@ -42,8 +46,10 @@ export const i18nconfig: InitOptions = {
     hr: { translation: hr }, // Croatian
     pl: { translation: pl }, // Polish
     pt: { translation: pt }, // Portugese
+    ro: { translation: ro }, // Romanian
     sr: { translation: sr }, // Serbian
     ru: { translation: ru }, // Russian
+    tr: { translation: tr }, // Turkish
     "zh-CN": { translation: zhCN }, // Chinese (Traditional)
     "zh-TW": { translation: zhTW }, // Chinese (Simplified)
   },
@@ -67,15 +73,19 @@ export const i18nconfig: InitOptions = {
             return date_fns_tz_format(value, fmt, { locale: date_fns_pl });
           case "pt":
             return date_fns_tz_format(value, fmt, { locale: date_fns_pt });
+          case "ro":
+            return date_fns_tz_format(value, fmt, { locale: date_fns_ro });
           case "ru":
             return date_fns_tz_format(value, fmt, { locale: date_fns_ru });
           case "sr":
             return date_fns_tz_format(value, fmt, { locale: date_fns_sr });
+          case "tr":
+            return date_fns_tz_format(value, fmt, { locale: date_fns_tr });
           case "zh":
             if (lng === "zh-CN") {
-              return date_fns_tz_format(value, fmt, { locale: date_fns_zhCN });
+              return date_fns_tz_format(value, fmt, { locale: date_fns_zhCN }); // Simplified Chinese
             }
-            return date_fns_tz_format(value, fmt, { locale: date_fns_zhTW });
+            return date_fns_tz_format(value, fmt, { locale: date_fns_zhTW }); // Traditional Chinese
           default:
             return date_fns_tz_format(value, fmt, { locale: date_fns_enCA });
         }

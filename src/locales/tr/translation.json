@@ -1,0 +1,22 @@
+{
+    "asof": "{{date, MMM d, y}} tarihinde güncellendi",
+    "appointmentsavailable": "Randevu mevcut",
+    "appointmentsnotavailable": "Randevu yok",
+    "couldnotloadpharmacydata": "Eczane bilgileri yüklenemedi, lütfen tekrar deneyiniz",
+    "dates": "Tarihler",
+    "details": "Detay",
+    "eligibility": "Randevu kriterleri",
+    "eligibilitymessage": "Aşı olma kriterlerine uyduğunuzdan emin olmak için lütfen lokal sağlık biriminizin talimatlarını dikkate alınız.",
+    "enterpostalcode": "Lütfen posta kodunuzu giriniz (örnek: K2T 0E5):",
+    "hide": "Gizle",
+    "home": "Anasayfa",
+    "invalidpostal": "Girilen posta kodu geçersiz",
+    "language": "Dil seçeneği",
+    "loadingpharmacydata": "Eczane bilgileri yükleniyor",
+    "loadmap": "Harita yükle",
+    "noappointments": "{{postalCode}} koduna yakın randevu bulunamadı. Lütfen daha sonra tekrar deneyiniz",
+    "postalcodetext": "Posta koduna en yakın aşı randevularını bulmak için kullanılmaktadır.",
+    "show": "Göster",
+    "submit": "Gönder",
+    "visitwebsite": "Sayfaya git"
+}

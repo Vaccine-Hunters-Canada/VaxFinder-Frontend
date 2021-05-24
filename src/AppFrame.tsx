@@ -42,12 +42,20 @@ const languages = [
     label: "Português",
   },
   {
+    langCode: "ro",
+    label: "Română",
+  },
+  {
     langCode: "ru",
     label: "Русский",
   },
   {
     langCode: "sr",
     label: "Srpski",
+  },
+  {
+    langCode: "tr",
+    label: "Türkçe",
   },
   {
     langCode: "zh-CN",

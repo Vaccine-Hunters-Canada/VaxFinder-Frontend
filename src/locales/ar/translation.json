@@ -1,5 +1,5 @@
 {
-    "asof": "اعتبارا من {{تاريخ, d MMM y}}",
+    "asof": "اعتبارا من {{date, d MMM y}}",
     "appointmentsavailable": "المواعيد المتاحة ",
     "appointmentsnotavailable": "المواعيد غير متوفرة",
     "couldnotloadpharmacydata": "لا يمكن تحميل بيانات الصيدلية ، يرجى المحاولة مرة أخرى لاحقًا",
@@ -7,7 +7,7 @@
     "details": "التفاصيل",
     "eligibility": "الجدارة:",
     "eligibilitymessage": "للتأكد من أنك مؤهل لتلقي لقاحك ، يرجى مراجعة إرشادات التطعيم الخاصة بالسلطة الصحية المناسبة",
-    "enterpostalcode": "الرجاء إدخال رمز البريد (مثال: K2T ):",
+    "enterpostalcode": "الرجاء إدخال رمز البريد ( مثال: K2T 0E5):",
     "hide": "إخفاء",
     "home": "منزل",
     "invalidpostal": "لقد أدخلت رمزًا بريديًا غير صالح",

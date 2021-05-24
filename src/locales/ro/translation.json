@@ -1,0 +1,22 @@
+{
+    "asof": "Începând cu {{date, MMM d, y}}",
+    "appointmentsavailable": "Date disponibile",
+    "appointmentsnotavailable": "Date nedisponibile",
+    "couldnotloadpharmacydata": "Nu s-au găsit datele farmaciei, încercați din nou mai tirziu",
+    "dates": "Datele",
+    "details": "Detalii",
+    "eligibility": "Eligibilitate:",
+    "eligibilitymessage": "Pentru a se asigura că sunteți eligibil pentru a primi vaccin, vă rugăm să consultați regulamentul de vaccinare ale autoritatilor de sănătate",
+    "enterpostalcode": "Vă rugăm să introduceți codul poștal (Exemplu: K2T 0E5):",
+    "hide": "Ascunde",
+    "home": "Acasă",
+    "invalidpostal": "Ați introdus un cod poștal invalid",
+    "language": "Limba",
+    "loadingpharmacydata": "Se încarcă datele farmaciei",
+    "loadmap": "încarcă harta",
+    "noappointments": "Nu s-au găsit date disponibile la farmacii linga {{postalCode}}. încercați din nou mai tirziu",
+    "postalcodetext": "Vom utiliza acest cod poștal pentru a găsi cele mai apropiate vaccinuri disponibile.",
+    "show": "Arată",
+    "submit": "Trimite",
+    "visitwebsite": "Vizitati site-ul"
+}
