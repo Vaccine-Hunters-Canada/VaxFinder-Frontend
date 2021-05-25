@@ -3,6 +3,7 @@
     "appointmentsavailable": "Freie Termine",
     "appointmentsnotavailable": "Keine freien Termine",
     "couldnotloadpharmacydata": "Apothekendaten konnten nicht geladen werden, bitte versuchen Sie es später erneut",
+    "date": "Datum",
     "dates": "Termine",
     "details": "Details",
     "eligibility": "Teilnahmeberechtigung",
@@ -16,6 +17,7 @@
     "loadmap": "Lade Karte",
     "noappointments": "Es wurden keine freien Termine in der Nähe von {{postalCode}} gefunden. Bitte versuchen sie es später erneut",
     "postalcodetext": "Wir werden diese Postleitzahl verwenden, um die näheste verfügbare Impfung zu finden",
+    "quantity": "Menge",
     "show": "Anzeigen",
     "submit": "Einreichen",
     "visitwebsite": "Webseite besuchen"

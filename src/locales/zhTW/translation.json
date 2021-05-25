@@ -3,6 +3,7 @@
     "appointmentsavailable": "可預約",
     "appointmentsnotavailable": "不可預約",
     "couldnotloadpharmacydata": "無法加載藥房信息，請稍後再試。",
+    "date": "日期",
     "dates": "日期",
     "details": "詳情",
     "eligibility": "資格條件",
@@ -16,6 +17,7 @@
     "loadmap": "地圖",
     "noappointments": "{{postalCode}} 附近沒有疫苗可以預約。請稍後再試。",
     "postalcodetext": "我們將會用這個郵編搜尋附近可以預約的疫苗。",
+    "quantity": "數量",
     "show": "顯示",
     "submit": "提交",
     "visitwebsite": "訪問網頁"

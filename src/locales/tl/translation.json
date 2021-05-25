@@ -3,6 +3,7 @@
     "appointmentsavailable": "Mga appointment na bakante",
     "appointmentsnotavailable": "Mga appointment na hindi bakante",
     "couldnotloadpharmacydata": "Hindi mai-load ang data ng parmasya. Subukang muli mamaya.",
+    "date": "Petsa",
     "dates": "Petsa",
     "details": "Mga detalye",
     "eligibility": "Pagiging karapat-dapat:",
@@ -16,6 +17,7 @@
     "loadmap": "I-load ang mapa",
     "noappointments": "Walang appointment na bakante malapit sa {{postalCode}}. Paki check muli mamaya.",
     "postalcodetext": "Gagamitin namin ang postal code na ito upang hanapin ang lugar na may pinakamalapit na bakuna.",
+    "quantity": "Dami",
     "show": "Ipakita",
     "submit": "Ipasa",
     "visitwebsite": "Bisitahin ang website"

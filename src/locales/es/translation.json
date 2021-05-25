@@ -3,6 +3,7 @@
     "appointmentsavailable": "Citas disponibles",
     "appointmentsnotavailable": "Citas no disponibles",
     "couldnotloadpharmacydata": "No se pudo cargar la información de la farmacia, por favor intentenuevamente más tarde.",
+    "date": "Fecha",
     "dates": "Fechas",
     "details": "Detalles",
     "eligibility": "Eligibilidad:",
@@ -16,6 +17,7 @@
     "loadmap": "Cargar mapa",
     "noappointments": "Ninguna cita fue encontrada cerca de {{postalCode}}. Por favor intentne nuevamente más tarde.",
     "postalcodetext": "Usaremos este código postal para encontrar las citas disponibles más cercanas.",
+    "quantity": "Cantidad",
     "show": "Mostrar",
     "submit": "Enviar",
     "visitwebsite": "Visitar sitio"

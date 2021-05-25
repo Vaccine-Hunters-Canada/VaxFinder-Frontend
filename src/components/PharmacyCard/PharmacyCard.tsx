@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { format } from "date-fns-tz";
 import {
   Card,
   Banner,
@@ -39,7 +38,7 @@ interface PharmacyProps {
 }
 
 export function PharmacyCard(props: PharmacyProps) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [shouldShowMap, setShouldShowMap] = useState(false);
   const [shouldShowSlots, setShouldShowSlots] = useState(false);
 
@@ -81,7 +80,7 @@ export function PharmacyCard(props: PharmacyProps) {
 
   const dataTableRows = Object.keys(props.vaccineAvailabilities).map((date) => {
     return [
-      format(new Date(date), "MMM d, y"),
+      new Date(date).toLocaleDateString(i18n.language),
       props.vaccineAvailabilities[date].totalAvailable,
     ];
   });
@@ -108,7 +107,7 @@ export function PharmacyCard(props: PharmacyProps) {
   const dataTableMarkup = shouldShowSlots ? (
     <DataTable
       columnContentTypes={["text", "numeric"]}
-      headings={["Date", "Quantity"]}
+      headings={[t("date"), t("quantity")]}
       rows={dataTableRows}
     />
   ) : undefined;

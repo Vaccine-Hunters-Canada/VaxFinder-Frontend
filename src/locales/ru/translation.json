@@ -3,6 +3,7 @@
     "appointmentsavailable": "Места на вакцинацию есть",
     "appointmentsnotavailable": "Мест на вакцинацию нет",
     "couldnotloadpharmacydata": "Информация об аптеках временно не доступна; попробуйте позже․",
+    "date": "Дата",
     "dates": "Даты",
     "details": "Контактные данные",
     "eligibility": "Право на запись:",
@@ -16,6 +17,7 @@
     "loadmap": "Загрузить карту",
     "noappointments": "Около {{postalCode}} мест на вакцинацию нет; попробуйте позже․",
     "postalcodetext": "Ваш индекс нужен, чтобы найти места вакцинации около Вас.",
+    "quantity": "Количество",
     "show": "Показать",
     "submit": "Ввод",
     "visitwebsite": "Перейти на сайт"

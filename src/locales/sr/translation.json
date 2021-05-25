@@ -3,6 +3,7 @@
     "appointmentsavailable": "Slobodni termini",
     "appointmentsnotavailable": "Nema slobodnih termina",
     "couldnotloadpharmacydata": "Učitavanje podataka iz apoteke nije uspelo, molim Vas pokušajte ponovo",
+    "date": "Datum",
     "dates": "Datumi",
     "details": "Detalji",
     "eligibility": "Ispunjavanje uslova:",
@@ -16,6 +17,7 @@
     "loadmap": "Učitajte mapu",
     "noappointments": "Nije pronađen ni jedan slobodan termin u blizini {{postalCode}}. Molim Vas pokušajte ponovo kasnije.",
     "postalcodetext": "Iskoristićemo ovaj poštanski broj da pronađemo najbliže dostupne vakcine.",
+    "quantity": "Količina",
     "show": "Prikaži",
     "submit": "Prihvati",
     "visitwebsite": "Posetite veb stranicu"

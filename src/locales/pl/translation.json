@@ -3,6 +3,7 @@
     "appointmentsavailable": "Dostępne terminy",
     "appointmentsnotavailable": "Niedostępne terminy",
     "couldnotloadpharmacydata": "Nie udało się załadować informacji z aptecznej bazy danych, proszę spróbować później.",
+    "date": "Data",
     "dates": "Terminy",
     "details": "Szczegóły",
     "eligibility": "Ważne:",
@@ -16,6 +17,7 @@
     "loadmap": "Pokaż mapę",
     "noappointments": "W pobliżu kodu pocztowego {{postalCode}} nie znaleziono wolnych terminów. Spróbuj ponownie później.",
     "postalcodetext": "Użyjemy tego kodu, aby znaleźć najbliższe punkty szczepień z dostępnymi terminami.",
+    "quantity": "Ilość",
     "show": "Wyświetl",
     "submit": "Prześlij",
     "visitwebsite": "Odwiedź stronę"

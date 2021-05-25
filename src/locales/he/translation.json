@@ -3,6 +3,7 @@
     "appointmentsavailable": "תורים  זמינים",
     "appointmentsnotavailable": "תורים לא זמינים",
     "couldnotloadpharmacydata": "לא ניתן להעלות מידע על בית המרקחת,  נא לנסות  מאוחר יותר",
+    "date": "תַאֲרִיך",
     "dates": "תאריכים",
     "details": "פרטים",
     "eligibility": "זכאות:",
@@ -16,6 +17,7 @@
     "loadmap": "העלה מפה",
     "noappointments": "לא נמצאו תורים זמינים ליד {{postalCode}} נא לנסות מאוחר יותר",
     "postalcodetext": "אנו נשתמש במיקוד הדואר הנל כדי לאתר  את החיסונים הכי קרובים",
+    "quantity": "כַּמוּת",
     "show": "הצג",
     "submit": "הגש טופס",
     "visitwebsite": "כניסה לאתר"

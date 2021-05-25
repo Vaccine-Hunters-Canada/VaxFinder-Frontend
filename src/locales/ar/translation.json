@@ -3,6 +3,7 @@
     "appointmentsavailable": "المواعيد المتاحة ",
     "appointmentsnotavailable": "المواعيد غير متوفرة",
     "couldnotloadpharmacydata": "لا يمكن تحميل بيانات الصيدلية ، يرجى المحاولة مرة أخرى لاحقًا",
+    "date": "",
     "dates": "التواريخ",
     "details": "التفاصيل",
     "eligibility": "الجدارة:",
@@ -16,6 +17,7 @@
     "loadmap": "تحميل الخريطة",
     "noappointments": ".الرجاء معاودة المحاولة في وقت لاحق .{{postalCode}} لم يتم العثور على مواعيد بالقرب من",
     "postalcodetext": "سنستخدم هذا الرمز البريدي للعثور على أقرب اللقاحات المتاحة.",
+    "quantity": "",
     "show": "عرض",
     "submit": "إرسال",
     "visitwebsite": "زيارة الموقع"

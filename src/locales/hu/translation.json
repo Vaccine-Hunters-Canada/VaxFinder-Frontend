@@ -3,6 +3,7 @@
     "appointmentsavailable": "Idöpontok állnak rendelkezésre",
     "appointmentsnotavailable": "Idöpontok nem állnak rendelkezésre",
     "couldnotloadpharmacydata": "Nem sikerült betölteni a gyógyszertári adatokat, próbálkozzon újra késobb",
+    "date": "Dátum",
     "dates": "Dátumok",
     "details": "Részletek",
     "eligibility": "Jogosultság:",
@@ -16,6 +17,7 @@
     "loadmap": "Térkép betöltése",
     "noappointments": "Nem található idopont ennek az irányítószámnak {{postalCode}} közelében. Kérem, próbálkozzon újra később.",
     "postalcodetext": "Ezt az irányítószámot használjuk a legközelebbi oltóanyagok megtalálásához.",
+    "quantity": "Mennyiség",
     "show": "Mutasd meg idöpontokat",
     "submit": "Beküldés",
     "visitwebsite": "Látogasson el a weboldalra"

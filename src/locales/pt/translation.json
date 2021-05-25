@@ -3,6 +3,7 @@
     "appointmentsavailable": "Agendamentos disponíveis",
     "appointmentsnotavailable": "Agendamentos indisponíveis",
     "couldnotloadpharmacydata": "Não foi possível carregar os dados da farmácia, tente novamente mais tarde",
+    "date": "Data",
     "dates": "Datas",
     "details": "Detalhes",
     "eligibility": "Elegibilidade",
@@ -16,6 +17,7 @@
     "loadmap": "Carregar mapa",
     "noappointments": "Nenhum agendamento foi encontrado perto de {{postalCode}}. Por favor, tente novamente mais tarde.",
     "postalcodetext": "Usaremos este código postal para encontrar as vacinas disponíveis mais próximas.",
+    "quantity": "Quantidade",
     "show": "Mostrar",
     "submit": "Enviar",
     "visitwebsite": "Visite o site"

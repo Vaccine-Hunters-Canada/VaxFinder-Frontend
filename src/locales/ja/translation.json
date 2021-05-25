@@ -3,6 +3,7 @@
     "appointmentsavailable": "ご利用可能　ー",
     "appointmentsnotavailable": "利用不可　ー",
     "couldnotloadpharmacydata": "薬局情報を読み込めません。しばらくしてからもう一度お試しください。",
+    "date": "日",
     "dates": "日付",
     "details": "詳細",
     "eligibility": "適格性",
@@ -16,6 +17,7 @@
     "loadmap": "地図",
     "noappointments": "{{postalCode}}近くに予約できるワクチンはありません。しばらくしてからもう一度お試しください。",
     "postalcodetext": "近くの薬局を見つけるために、この郵便番号検索に使用されています",
+    "quantity": "量",
     "show": "表示する",
     "submit": "検索",
     "visitwebsite": "ウェブサイトにアクセス"

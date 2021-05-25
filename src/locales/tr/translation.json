@@ -3,6 +3,7 @@
     "appointmentsavailable": "Randevu mevcut",
     "appointmentsnotavailable": "Randevu yok",
     "couldnotloadpharmacydata": "Eczane bilgileri yüklenemedi, lütfen tekrar deneyiniz",
+    "date": "Tarih",
     "dates": "Tarihler",
     "details": "Detay",
     "eligibility": "Randevu kriterleri",
@@ -16,6 +17,7 @@
     "loadmap": "Harita yükle",
     "noappointments": "{{postalCode}} koduna yakın randevu bulunamadı. Lütfen daha sonra tekrar deneyiniz",
     "postalcodetext": "Posta koduna en yakın aşı randevularını bulmak için kullanılmaktadır.",
+    "quantity": "Miktar",
     "show": "Göster",
     "submit": "Gönder",
     "visitwebsite": "Sayfaya git"

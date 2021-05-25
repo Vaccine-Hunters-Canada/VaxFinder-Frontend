@@ -3,6 +3,7 @@
     "appointmentsavailable": "Slobodni termini",
     "appointmentsnotavailable": "Nema raspoloživih termina",
     "couldnotloadpharmacydata": "Učitavanje podataka ljekarne nije uspjelo, pokušajte ponovo kasnije",
+    "date": "Datum",
     "dates": "Datumi",
     "details": "Pojedinosti",
     "eligibility": "Prihvatljivost:",
@@ -16,6 +17,7 @@
     "loadmap": "Učitajte kartu",
     "noappointments": "Nisu pronađeni termini u blizini {{postalCode}}. Molimo pokušajte ponovo kasnije.",
     "postalcodetext": "Upotrijebit ćemo ovaj poštanski broj za pronalaženje najbližih dostupnih cjepiva.",
+    "quantity": "Količina",
     "show": "Pokaži",
     "submit": "Prihvati",
     "visitwebsite": "Posjetite web stranicu"
