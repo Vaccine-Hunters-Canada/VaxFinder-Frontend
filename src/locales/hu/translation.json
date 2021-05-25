@@ -1,0 +1,22 @@
+{
+    "asof": "ettöl a dátumtól kezdve {{date, MMM d, y}}",
+    "appointmentsavailable": "Idöpontok állnak rendelkezésre",
+    "appointmentsnotavailable": "Idöpontok nem állnak rendelkezésre",
+    "couldnotloadpharmacydata": "Nem sikerült betölteni a gyógyszertári adatokat, próbálkozzon újra késobb",
+    "dates": "Dátumok",
+    "details": "Részletek",
+    "eligibility": "Jogosultság:",
+    "eligibilitymessage": "Annak biztosítása érdekében, hogy jogosult legyen az oltás befogadására, ellenörizze a megfelelö egészségügyi hatóság oltási irányelveit.",
+    "enterpostalcode": "Kérem, írja be az irányítószámát (Példa: K2T 0E5):",
+    "hide": "Ne mutasd",
+    "home": "Honlap",
+    "invalidpostal": "Érvénytelen irányítószámot adott meg",
+    "language": "Nyelv",
+    "loadingpharmacydata": "Gyógyszertári adatainak betöltése",
+    "loadmap": "Térkép betöltése",
+    "noappointments": "Nem található idopont ennek az irányítószámnak {{postalCode}} közelében. Kérem, próbálkozzon újra később.",
+    "postalcodetext": "Ezt az irányítószámot használjuk a legközelebbi oltóanyagok megtalálásához.",
+    "show": "Mutasd meg idöpontokat",
+    "submit": "Beküldés",
+    "visitwebsite": "Látogasson el a weboldalra"
+}

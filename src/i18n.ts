@@ -10,6 +10,7 @@ import {
   es as date_fns_es,
   frCA as date_fns_frCA,
   hr as date_fns_hr,
+  hu as date_fns_hu,
   pl as date_fns_pl,
   pt as date_fns_pt,
   ro as date_fns_ro,
@@ -25,6 +26,7 @@ import en from "./locales/en/translation.json";
 import es from "./locales/es/translation.json";
 import fr from "./locales/fr/translation.json";
 import hr from "./locales/hr/translation.json";
+import hu from "./locales/hu/translation.json";
 import pl from "./locales/pl/translation.json";
 import pt from "./locales/pt/translation.json";
 import ro from "./locales/ro/translation.json";
@@ -44,6 +46,7 @@ export const i18nconfig: InitOptions = {
     es: { translation: es }, // Spanish
     fr: { translation: fr }, // French
     hr: { translation: hr }, // Croatian
+    hu: { translation: hu }, // Hungarian
     pl: { translation: pl }, // Polish
     pt: { translation: pt }, // Portugese
     ro: { translation: ro }, // Romanian
@@ -69,6 +72,8 @@ export const i18nconfig: InitOptions = {
             return date_fns_tz_format(value, fmt, { locale: date_fns_frCA });
           case "hr":
             return date_fns_tz_format(value, fmt, { locale: date_fns_hr });
+          case "hu":
+            return date_fns_tz_format(value, fmt, { locale: date_fns_hu });
           case "pl":
             return date_fns_tz_format(value, fmt, { locale: date_fns_pl });
           case "pt":
