@@ -1,5 +1,5 @@
 {
-    "asof": "তারিখ হিসাবে",
+    "asof": "তারিখ হিসাবে {{date, MMM d, y}}",
     "appointmentsavailable": "অ্যাপয়েন্টমেন্ট পাওয়া যাবে",
     "appointmentsnotavailable": "অ্যাপয়েন্টমেন্ট বাকি নেই",
     "couldnotloadpharmacydata": "ফার্মেসীর তথ্য লোড করা যায়নি। পুনরায় চেষ্টা করুন ।",
