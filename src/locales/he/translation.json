@@ -1,0 +1,22 @@
+{
+    "asof": "החל מתאריך {{date, MMM d y}}",
+    "appointmentsavailable": "תורים  זמינים",
+    "appointmentsnotavailable": "תורים לא זמינים",
+    "couldnotloadpharmacydata": "לא ניתן להעלות מידע על בית המרקחת,  נא לנסות  מאוחר יותר",
+    "dates": "תאריכים",
+    "details": "פרטים",
+    "eligibility": "זכאות:",
+    "eligibilitymessage": "על מנת לודא שהינך זכאי לחיסון, נא לבדוק את ההנחיות לגבי החיסון  מאת רשויות הבריאות",
+    "enterpostalcode": "נא להקיש את מיקוד הדואר (Example:   N3K 8T5)",
+    "hide": "החבא",
+    "home": "תפריט ראשי",
+    "invalidpostal": "מיקוד הדואר שהוקש הינו שגוי",
+    "language": "שפה",
+    "loadingpharmacydata": "פרטי בית המרקחת מועלים",
+    "loadmap": "העלה מפה",
+    "noappointments": "לא נמצאו תורים זמינים ליד {{postalCode}} נא לנסות מאוחר יותר",
+    "postalcodetext": "אנו נשתמש במיקוד הדואר הנל כדי לאתר  את החיסונים הכי קרובים",
+    "show": "הצג",
+    "submit": "הגש טופס",
+    "visitwebsite": "כניסה לאתר"
+}

@@ -22,6 +22,10 @@ const languages = [
     label: "العربية",
   },
   {
+    langCode: "bn",
+    label: "বাংলা",
+  },
+  {
     langCode: "de",
     label: "Deutsch",
   },
@@ -34,8 +38,16 @@ const languages = [
     label: "Hrvatski",
   },
   {
+    langCode: "he",
+    label: "עברית",
+  },
+  {
     langCode: "hu",
     label: "Magyar",
+  },
+  {
+    langCode: "ja",
+    label: "日本語",
   },
   {
     langCode: "pl",
@@ -56,6 +68,14 @@ const languages = [
   {
     langCode: "sr",
     label: "Srpski",
+  },
+  {
+    langCode: "ta",
+    label: "தமிழ்",
+  },
+  {
+    langCode: "tl",
+    label: "Tagalog",
   },
   {
     langCode: "tr",
