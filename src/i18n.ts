@@ -20,7 +20,6 @@ import {
   ru as date_fns_ru,
   sr as date_fns_sr,
   ta as date_fns_ta,
-  fil as date_fns_fil,
   tr as date_fns_tr,
   zhCN as date_fns_zhCN,
   zhTW as date_fns_zhTW,
@@ -108,7 +107,7 @@ export const i18nconfig: InitOptions = {
           case "ta":
             return date_fns_tz_format(value, fmt, { locale: date_fns_ta });
           case "tl":
-            return date_fns_tz_format(value, fmt, { locale: date_fns_fil });
+            return value.toLocaleDateString("tl"); // Tagalog is not supported by date_fns
           case "tr":
             return date_fns_tz_format(value, fmt, { locale: date_fns_tr });
           case "zh":
