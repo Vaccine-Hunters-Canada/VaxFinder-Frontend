@@ -2,7 +2,7 @@
 import React, { useCallback, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Frame, Layout, Navigation, Page, TopBar } from "@shopify/polaris";
-import { HomeMajor } from "@shopify/polaris-icons";
+import { HomeMajor, DnsSettingsMajor } from "@shopify/polaris-icons";
 import { Routes } from "./Routes";
 import { TwitterTimelineEmbed } from "react-twitter-embed";
 import { useTranslation } from "react-i18next";
@@ -46,6 +46,11 @@ export function AppFrame() {
                 url: "/",
                 label: t("home"),
                 icon: HomeMajor,
+              },
+              {
+                url: "/admin",
+                label: t("admin"),
+                icon: DnsSettingsMajor,
               },
               {
                 label: languageToggle(),
