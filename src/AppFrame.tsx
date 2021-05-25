@@ -38,6 +38,10 @@ const languages = [
     label: "Hrvatski",
   },
   {
+    langCode: "it",
+    label: "Italiano",
+  },
+  {
     langCode: "he",
     label: "עברית",
   },
