@@ -80,7 +80,11 @@ export function PharmacyCard(props: PharmacyProps) {
 
   const dataTableRows = Object.keys(props.vaccineAvailabilities).map((date) => {
     return [
-      new Date(date).toLocaleDateString(i18n.language),
+      new Date(date).toLocaleDateString(i18n.language, {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      }),
       props.vaccineAvailabilities[date].totalAvailable,
     ];
   });

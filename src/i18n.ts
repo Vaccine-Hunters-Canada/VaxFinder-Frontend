@@ -2,28 +2,7 @@ import i18n, { InitOptions } from "i18next";
 import { initReactI18next } from "react-i18next";
 
 import LanguageDetector from "i18next-browser-languagedetector";
-import { format as date_fns_tz_format } from "date-fns-tz";
-import {
-  arSA as date_fns_arSA,
-  bn as date_fns_bn,
-  enCA as date_fns_enCA,
-  de as date_fns_de,
-  es as date_fns_es,
-  frCA as date_fns_frCA,
-  he as date_fns_he,
-  hr as date_fns_hr,
-  hu as date_fns_hu,
-  ja as date_fns_ja,
-  pl as date_fns_pl,
-  pt as date_fns_pt,
-  ro as date_fns_ro,
-  ru as date_fns_ru,
-  sr as date_fns_sr,
-  ta as date_fns_ta,
-  tr as date_fns_tr,
-  zhCN as date_fns_zhCN,
-  zhTW as date_fns_zhTW,
-} from "date-fns/locale";
+
 import ar from "./locales/ar/translation.json";
 import bn from "./locales/bn/translation.json";
 import de from "./locales/de/translation.json";
@@ -74,50 +53,11 @@ export const i18nconfig: InitOptions = {
     escapeValue: false, // not needed for react as it escapes by default
     format: function format(value, fmt, lng) {
       if (value instanceof Date && fmt !== undefined) {
-        const lang = lng?.substring(0, 2);
-        switch (lang) {
-          case "ar":
-            return date_fns_tz_format(value, fmt, { locale: date_fns_arSA });
-          case "bn":
-            return date_fns_tz_format(value, fmt, { locale: date_fns_bn });
-          case "de":
-            return date_fns_tz_format(value, fmt, { locale: date_fns_de });
-          case "es":
-            return date_fns_tz_format(value, fmt, { locale: date_fns_es });
-          case "fr":
-            return date_fns_tz_format(value, fmt, { locale: date_fns_frCA });
-          case "he":
-            return date_fns_tz_format(value, fmt, { locale: date_fns_he });
-          case "hr":
-            return date_fns_tz_format(value, fmt, { locale: date_fns_hr });
-          case "hu":
-            return date_fns_tz_format(value, fmt, { locale: date_fns_hu });
-          case "ja":
-            return date_fns_tz_format(value, fmt, { locale: date_fns_ja });
-          case "pl":
-            return date_fns_tz_format(value, fmt, { locale: date_fns_pl });
-          case "pt":
-            return date_fns_tz_format(value, fmt, { locale: date_fns_pt });
-          case "ro":
-            return date_fns_tz_format(value, fmt, { locale: date_fns_ro });
-          case "ru":
-            return date_fns_tz_format(value, fmt, { locale: date_fns_ru });
-          case "sr":
-            return date_fns_tz_format(value, fmt, { locale: date_fns_sr });
-          case "ta":
-            return date_fns_tz_format(value, fmt, { locale: date_fns_ta });
-          case "tl":
-            return value.toLocaleDateString("tl"); // Tagalog is not supported by date_fns
-          case "tr":
-            return date_fns_tz_format(value, fmt, { locale: date_fns_tr });
-          case "zh":
-            if (lng === "zh-CN") {
-              return date_fns_tz_format(value, fmt, { locale: date_fns_zhCN }); // Simplified Chinese
-            }
-            return date_fns_tz_format(value, fmt, { locale: date_fns_zhTW }); // Traditional Chinese
-          default:
-            return date_fns_tz_format(value, fmt, { locale: date_fns_enCA });
-        }
+        return value.toLocaleDateString(lng, {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
       }
       return value;
     },
