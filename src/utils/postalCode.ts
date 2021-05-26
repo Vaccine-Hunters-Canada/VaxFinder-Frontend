@@ -21,8 +21,7 @@ const postalCodeToHumanFormat = (postalCode: string) => {
   return postalCode
     .replace(" ", "")
     .substr(0, 3)
-    .concat(" ")
-    .concat(postalCode.substr(-3))
+    .concat(postalCode.length === 3 ? "" : ` ${postalCode.substr(-3)}`)
     .toUpperCase();
 };
 

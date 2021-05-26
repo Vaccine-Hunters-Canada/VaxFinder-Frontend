@@ -194,9 +194,7 @@ export function PharmacyList(props: Props) {
 
   return (
     <>
-      <section aria-label="search" style={{ marginBottom: "2rem" }}>
-        <SearchCard />
-      </section>
+      <SearchCard />
 
       {shouldShowBanner ? (
         <EligibilityBanner onDismiss={() => setShouldShowBanner(false)} />

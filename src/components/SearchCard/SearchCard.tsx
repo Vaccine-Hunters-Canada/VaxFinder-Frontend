@@ -23,7 +23,7 @@ export function SearchCard() {
     : undefined;
 
   return (
-    <>
+    <section aria-label="search" style={{ marginBottom: "2rem" }}>
       <Card>
         <Card.Section>
           <Form onSubmit={handleSubmit}>
@@ -42,6 +42,6 @@ export function SearchCard() {
           </Form>
         </Card.Section>
       </Card>
-    </>
+    </section>
   );
 }
