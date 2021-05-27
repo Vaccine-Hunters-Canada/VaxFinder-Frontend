@@ -16,7 +16,7 @@
     "loadingpharmacydata": "Loading pharmacy data",
     "loadmap": "Load Map",
     "noappointments": "No appointments were found near {{postalCode}}. Please try again later.",
-    "postalcodetext": "We’ll use this postal code to find the closest available vaccines.",
+    "postalcodetext": "We’ll use this postal code to find the closest available vaccine appointments. This information is only stored temporarily and is not used for any other purpose.",
     "quantity": "Quantity",
     "show": "Show",
     "submit": "Submit",

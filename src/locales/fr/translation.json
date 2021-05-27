@@ -16,7 +16,7 @@
     "loadingpharmacydata": "Chargement des données de la pharmacie",
     "loadmap": "Carte",
     "noappointments": "Il n'y a pas de rendez-vous près de {{postalCode}}. Veuillez réessayer plus tard.",
-    "postalcodetext": "Nous utiliserons ce code postal pour trouver les vaccins disponibles les plus proches.",
+    "postalcodetext": "Nous utiliserons ce code postal pour trouver les rendez-vous de vaccination disponibles les plus proches. Ces informations ne sont sauvegardées que temporairement et ne sont utilisées à aucune autre fin.",
     "quantity": "Quantité",
     "show": "Montrer",
     "submit": "Soumettre",
