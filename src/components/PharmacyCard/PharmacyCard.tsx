@@ -166,7 +166,7 @@ export function PharmacyCard(props: PharmacyProps) {
               </Stack>
             </Card.Subsection>
           </Card.Section>
-          {appointmentsAvailableMarkup()}
+          {/* {appointmentsAvailableMarkup()} */}
         </TextContainer>
         {shouldShowMap ? <Map /> : null}
       </div>
