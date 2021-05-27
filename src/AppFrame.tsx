@@ -169,7 +169,7 @@ export function AppFrame() {
           <Layout.Section secondary>
             <iframe
               title="Discord Link"
-              src="https://discord.com/widget?id=822486436837326908&theme=dark"
+              src="https://discord.com/widget?id=822486436837326908&amp;theme=dark"
               width="100%"
               height="400"
               frameBorder="0"
