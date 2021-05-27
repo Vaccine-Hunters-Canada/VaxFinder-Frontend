@@ -166,6 +166,7 @@ export function PharmacyCard(props: PharmacyProps) {
               </Stack>
             </Card.Subsection>
           </Card.Section>
+          {/* eslint-disable-next-line no-unused-vars */}
           {/* {appointmentsAvailableMarkup()} */}
         </TextContainer>
         {shouldShowMap ? <Map /> : null}
