@@ -116,6 +116,7 @@ export function PharmacyCard(props: PharmacyProps) {
     />
   ) : undefined;
 
+  /* eslint-disable  @typescript-eslint/no-unused-vars */
   const appointmentsAvailableMarkup = () => {
     if (Object.keys(props.vaccineAvailabilities).length > 0) {
       return (
@@ -134,6 +135,7 @@ export function PharmacyCard(props: PharmacyProps) {
     }
     return undefined;
   };
+  /* eslint-enable  @typescript-eslint/no-unused-vars */
 
   return (
     <Card
@@ -166,7 +168,6 @@ export function PharmacyCard(props: PharmacyProps) {
               </Stack>
             </Card.Subsection>
           </Card.Section>
-          {/* eslint-disable-next-line no-unused-vars */}
           {/* {appointmentsAvailableMarkup()} */}
         </TextContainer>
         {shouldShowMap ? <Map /> : null}
