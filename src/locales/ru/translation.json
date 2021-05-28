@@ -1,5 +1,5 @@
 {
-    "asof": "на {{date, d MMM y}}",
+    "asof": "(последнее обновление {{date, d MMM y}})",
     "appointmentsavailable": "Места на вакцинацию есть",
     "appointmentsnotavailable": "Мест на вакцинацию нет",
     "couldnotloadpharmacydata": "Информация об аптеках временно не доступна; попробуйте позже․",
