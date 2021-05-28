@@ -19,8 +19,8 @@ export interface AddressCreateRequest {
   city?: string;
   province: string;
   postcode: string;
-  latitude: number;
-  longitude: number;
+  latitude?: number;
+  longitude?: number;
 }
 
 export interface AddressResponse {
@@ -40,8 +40,8 @@ export interface AddressUpdateRequest {
   province: string;
   postcode: string;
   id: number;
-  latitude: number;
-  longitude: number;
+  latitude?: number;
+  longitude?: number;
 }
 
 export interface HTTPValidationError {
@@ -61,8 +61,25 @@ export interface LocationCreateRequest {
   postcode?: string;
   url?: string;
   tags?: string;
+  externalKey?: string;
   organization?: number;
   address?: number;
+}
+
+export interface LocationCreateRequestExpanded {
+  name: string;
+  phone?: string;
+  notes?: string;
+  active: number;
+  postcode: string;
+  url?: string;
+  tags?: string;
+  externalKey?: string;
+  organization?: number;
+  line1?: string;
+  line2?: string;
+  city?: string;
+  province: string;
 }
 
 export interface LocationExpandedResponse {
@@ -73,6 +90,7 @@ export interface LocationExpandedResponse {
   postcode?: string;
   url?: string;
   tags?: string;
+  externalKey?: string;
   id: number;
   organization?: OrganizationResponse;
   address?: AddressResponse;
@@ -87,6 +105,7 @@ export interface LocationResponse {
   postcode?: string;
   url?: string;
   tags?: string;
+  externalKey?: string;
   id: number;
   organization?: number;
   address?: number;
@@ -101,6 +120,7 @@ export interface LocationUpdateRequest {
   postcode?: string;
   url?: string;
   tags?: string;
+  externalKey?: string;
   id: number;
   address?: number;
   organization?: number;
@@ -147,6 +167,16 @@ export interface RequirementsUpdateRequest {
   id: number;
 }
 
+export interface SecurityLoginResponse {
+  result: number;
+  key?: string;
+}
+
+export interface SecurityResponseBase {
+  name: string;
+  password: string;
+}
+
 export interface VaccineAvailabilityCreateRequest {
   numberAvailable: number;
   numberTotal?: number;
@@ -154,6 +184,30 @@ export interface VaccineAvailabilityCreateRequest {
   inputType: InputTypeEnum;
   tags?: string;
   location: number;
+  date: string;
+}
+
+export interface VaccineAvailabilityExpandedCreateRequest {
+  numberAvailable: number;
+  numberTotal?: number;
+  vaccine?: number;
+  inputType: InputTypeEnum;
+  tags?: string;
+  locationID?: number;
+  organization?: number;
+  line1?: string;
+  line2?: string;
+  city?: string;
+  province: string;
+  postcode: string;
+  name: string;
+  phone?: string;
+  notes?: string;
+  active: number;
+  url?: string;
+  tagsL?: string;
+  tagsA?: string;
+  externalKey?: string;
   date: string;
 }
 
@@ -251,6 +305,7 @@ export interface VaccineLocationExpandedResponse {
   postcode?: string;
   url?: string;
   tags?: string;
+  externalKey?: string;
   id: number;
   organization?: OrganizationResponse;
   address?: AddressResponse;
@@ -465,6 +520,73 @@ export const useCreateVaccineAvailabilityApiV1VaccineAvailabilityPost = (
     void
   >("POST", "/api/v1/vaccine-availability", props);
 
+export interface ListVaccineAvailabilityLocationApiV1VaccineAvailabilityLocationGetQueryParams {
+  /**
+   * **Search for vaccine availabilities after a certain date and time (UTC) in the format YYYY-MM-DD**. The default value is the current date (UTC).<br/><br/>Valid example(s): *2021-05-30*
+   */
+  min_date?: string;
+  /**
+   * **Location searching for**
+   */
+  locationID: number;
+}
+
+export type ListVaccineAvailabilityLocationApiV1VaccineAvailabilityLocationGetProps = Omit<
+  GetProps<
+    VaccineAvailabilityResponse[],
+    HTTPValidationError,
+    ListVaccineAvailabilityLocationApiV1VaccineAvailabilityLocationGetQueryParams,
+    void
+  >,
+  "path"
+>;
+
+/**
+ * List Vaccine Availability Location
+ *
+ * **Retrieves the list of vaccine availabilities of a
+ * `locationid` and after the `min_date`.**
+ */
+export const ListVaccineAvailabilityLocationApiV1VaccineAvailabilityLocationGet = (
+  props: ListVaccineAvailabilityLocationApiV1VaccineAvailabilityLocationGetProps,
+) => (
+  <Get<
+    VaccineAvailabilityResponse[],
+    HTTPValidationError,
+    ListVaccineAvailabilityLocationApiV1VaccineAvailabilityLocationGetQueryParams,
+    void
+  >
+    path="/api/v1/vaccine-availability/location/"
+    {...props}
+  />
+);
+
+export type UseListVaccineAvailabilityLocationApiV1VaccineAvailabilityLocationGetProps = Omit<
+  UseGetProps<
+    VaccineAvailabilityResponse[],
+    HTTPValidationError,
+    ListVaccineAvailabilityLocationApiV1VaccineAvailabilityLocationGetQueryParams,
+    void
+  >,
+  "path"
+>;
+
+/**
+ * List Vaccine Availability Location
+ *
+ * **Retrieves the list of vaccine availabilities of a
+ * `locationid` and after the `min_date`.**
+ */
+export const useListVaccineAvailabilityLocationApiV1VaccineAvailabilityLocationGet = (
+  props: UseListVaccineAvailabilityLocationApiV1VaccineAvailabilityLocationGetProps,
+) =>
+  useGet<
+    VaccineAvailabilityResponse[],
+    HTTPValidationError,
+    ListVaccineAvailabilityLocationApiV1VaccineAvailabilityLocationGetQueryParams,
+    void
+  >("/api/v1/vaccine-availability/location/", props);
+
 export interface RetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdGetPathParams {
   vaccine_availability_id: string;
 }
@@ -652,6 +774,162 @@ export const useDeleteVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvai
     "DELETE",
     "/api/v1/vaccine-availability",
     { ...props },
+  );
+
+export interface CreateVaccineAvailabilityExpandedKeyApiV1VaccineAvailabilityLocationsKeyExternalKeyPostPathParams {
+  external_key: string;
+}
+
+export type CreateVaccineAvailabilityExpandedKeyApiV1VaccineAvailabilityLocationsKeyExternalKeyPostProps = Omit<
+  MutateProps<
+    VaccineAvailabilityResponse,
+    void | HTTPValidationError,
+    void,
+    VaccineAvailabilityExpandedCreateRequest,
+    CreateVaccineAvailabilityExpandedKeyApiV1VaccineAvailabilityLocationsKeyExternalKeyPostPathParams
+  >,
+  "path" | "verb"
+> &
+  CreateVaccineAvailabilityExpandedKeyApiV1VaccineAvailabilityLocationsKeyExternalKeyPostPathParams;
+
+/**
+ * Create Vaccine Availability Expanded Key
+ *
+ * **Creates a new vaccine availability with the entity enclosed in the
+ * request body.** On success, the new vaccine availability is returned in the
+ * body of the response.
+ */
+export const CreateVaccineAvailabilityExpandedKeyApiV1VaccineAvailabilityLocationsKeyExternalKeyPost = ({
+  external_key,
+  ...props
+}: CreateVaccineAvailabilityExpandedKeyApiV1VaccineAvailabilityLocationsKeyExternalKeyPostProps) => (
+  <Mutate<
+    VaccineAvailabilityResponse,
+    void | HTTPValidationError,
+    void,
+    VaccineAvailabilityExpandedCreateRequest,
+    CreateVaccineAvailabilityExpandedKeyApiV1VaccineAvailabilityLocationsKeyExternalKeyPostPathParams
+  >
+    verb="POST"
+    path={`/api/v1/vaccine-availability/locations/key/${external_key}`}
+    {...props}
+  />
+);
+
+export type UseCreateVaccineAvailabilityExpandedKeyApiV1VaccineAvailabilityLocationsKeyExternalKeyPostProps = Omit<
+  UseMutateProps<
+    VaccineAvailabilityResponse,
+    void | HTTPValidationError,
+    void,
+    VaccineAvailabilityExpandedCreateRequest,
+    CreateVaccineAvailabilityExpandedKeyApiV1VaccineAvailabilityLocationsKeyExternalKeyPostPathParams
+  >,
+  "path" | "verb"
+> &
+  CreateVaccineAvailabilityExpandedKeyApiV1VaccineAvailabilityLocationsKeyExternalKeyPostPathParams;
+
+/**
+ * Create Vaccine Availability Expanded Key
+ *
+ * **Creates a new vaccine availability with the entity enclosed in the
+ * request body.** On success, the new vaccine availability is returned in the
+ * body of the response.
+ */
+export const useCreateVaccineAvailabilityExpandedKeyApiV1VaccineAvailabilityLocationsKeyExternalKeyPost = ({
+  external_key,
+  ...props
+}: UseCreateVaccineAvailabilityExpandedKeyApiV1VaccineAvailabilityLocationsKeyExternalKeyPostProps) =>
+  useMutate<
+    VaccineAvailabilityResponse,
+    void | HTTPValidationError,
+    void,
+    VaccineAvailabilityExpandedCreateRequest,
+    CreateVaccineAvailabilityExpandedKeyApiV1VaccineAvailabilityLocationsKeyExternalKeyPostPathParams
+  >(
+    "POST",
+    (
+      paramsInPath: CreateVaccineAvailabilityExpandedKeyApiV1VaccineAvailabilityLocationsKeyExternalKeyPostPathParams,
+    ) =>
+      `/api/v1/vaccine-availability/locations/key/${paramsInPath.external_key}`,
+    { pathParams: { external_key }, ...props },
+  );
+
+export interface CreateVaccineAvailabilityExpandedApiV1VaccineAvailabilityLocationsIdLocationIdPostPathParams {
+  location_id: number;
+}
+
+export type CreateVaccineAvailabilityExpandedApiV1VaccineAvailabilityLocationsIdLocationIdPostProps = Omit<
+  MutateProps<
+    VaccineAvailabilityResponse,
+    void | HTTPValidationError,
+    void,
+    VaccineAvailabilityExpandedCreateRequest,
+    CreateVaccineAvailabilityExpandedApiV1VaccineAvailabilityLocationsIdLocationIdPostPathParams
+  >,
+  "path" | "verb"
+> &
+  CreateVaccineAvailabilityExpandedApiV1VaccineAvailabilityLocationsIdLocationIdPostPathParams;
+
+/**
+ * Create Vaccine Availability Expanded
+ *
+ * **Creates a new vaccine availability with the entity enclosed in the
+ * request body.** On success, the new vaccine availability is returned in the
+ * body of the response.
+ */
+export const CreateVaccineAvailabilityExpandedApiV1VaccineAvailabilityLocationsIdLocationIdPost = ({
+  location_id,
+  ...props
+}: CreateVaccineAvailabilityExpandedApiV1VaccineAvailabilityLocationsIdLocationIdPostProps) => (
+  <Mutate<
+    VaccineAvailabilityResponse,
+    void | HTTPValidationError,
+    void,
+    VaccineAvailabilityExpandedCreateRequest,
+    CreateVaccineAvailabilityExpandedApiV1VaccineAvailabilityLocationsIdLocationIdPostPathParams
+  >
+    verb="POST"
+    path={`/api/v1/vaccine-availability/locations/id/${location_id}`}
+    {...props}
+  />
+);
+
+export type UseCreateVaccineAvailabilityExpandedApiV1VaccineAvailabilityLocationsIdLocationIdPostProps = Omit<
+  UseMutateProps<
+    VaccineAvailabilityResponse,
+    void | HTTPValidationError,
+    void,
+    VaccineAvailabilityExpandedCreateRequest,
+    CreateVaccineAvailabilityExpandedApiV1VaccineAvailabilityLocationsIdLocationIdPostPathParams
+  >,
+  "path" | "verb"
+> &
+  CreateVaccineAvailabilityExpandedApiV1VaccineAvailabilityLocationsIdLocationIdPostPathParams;
+
+/**
+ * Create Vaccine Availability Expanded
+ *
+ * **Creates a new vaccine availability with the entity enclosed in the
+ * request body.** On success, the new vaccine availability is returned in the
+ * body of the response.
+ */
+export const useCreateVaccineAvailabilityExpandedApiV1VaccineAvailabilityLocationsIdLocationIdPost = ({
+  location_id,
+  ...props
+}: UseCreateVaccineAvailabilityExpandedApiV1VaccineAvailabilityLocationsIdLocationIdPostProps) =>
+  useMutate<
+    VaccineAvailabilityResponse,
+    void | HTTPValidationError,
+    void,
+    VaccineAvailabilityExpandedCreateRequest,
+    CreateVaccineAvailabilityExpandedApiV1VaccineAvailabilityLocationsIdLocationIdPostPathParams
+  >(
+    "POST",
+    (
+      paramsInPath: CreateVaccineAvailabilityExpandedApiV1VaccineAvailabilityLocationsIdLocationIdPostPathParams,
+    ) =>
+      `/api/v1/vaccine-availability/locations/id/${paramsInPath.location_id}`,
+    { pathParams: { location_id }, ...props },
   );
 
 export interface ListTimeslotsForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsGetPathParams {
@@ -1585,6 +1863,205 @@ export const useDeleteLocationByIdApiV1LocationsLocationIdDelete = (
     { ...props },
   );
 
+export interface RetrieveLocationsByOrganizationApiV1LocationsOrganizationOrganizationIdGetPathParams {
+  organization_id: number;
+}
+
+export type RetrieveLocationsByOrganizationApiV1LocationsOrganizationOrganizationIdGetProps = Omit<
+  GetProps<
+    LocationExpandedResponse[],
+    void | HTTPValidationError,
+    void,
+    RetrieveLocationsByOrganizationApiV1LocationsOrganizationOrganizationIdGetPathParams
+  >,
+  "path"
+> &
+  RetrieveLocationsByOrganizationApiV1LocationsOrganizationOrganizationIdGetPathParams;
+
+/**
+ * Retrieve Locations By Organization
+ *
+ * **Retrieves a location with the id from the `organization_id` path
+ * parameter.**
+ */
+export const RetrieveLocationsByOrganizationApiV1LocationsOrganizationOrganizationIdGet = ({
+  organization_id,
+  ...props
+}: RetrieveLocationsByOrganizationApiV1LocationsOrganizationOrganizationIdGetProps) => (
+  <Get<
+    LocationExpandedResponse[],
+    void | HTTPValidationError,
+    void,
+    RetrieveLocationsByOrganizationApiV1LocationsOrganizationOrganizationIdGetPathParams
+  >
+    path={`/api/v1/locations/organization/${organization_id}`}
+    {...props}
+  />
+);
+
+export type UseRetrieveLocationsByOrganizationApiV1LocationsOrganizationOrganizationIdGetProps = Omit<
+  UseGetProps<
+    LocationExpandedResponse[],
+    void | HTTPValidationError,
+    void,
+    RetrieveLocationsByOrganizationApiV1LocationsOrganizationOrganizationIdGetPathParams
+  >,
+  "path"
+> &
+  RetrieveLocationsByOrganizationApiV1LocationsOrganizationOrganizationIdGetPathParams;
+
+/**
+ * Retrieve Locations By Organization
+ *
+ * **Retrieves a location with the id from the `organization_id` path
+ * parameter.**
+ */
+export const useRetrieveLocationsByOrganizationApiV1LocationsOrganizationOrganizationIdGet = ({
+  organization_id,
+  ...props
+}: UseRetrieveLocationsByOrganizationApiV1LocationsOrganizationOrganizationIdGetProps) =>
+  useGet<
+    LocationExpandedResponse[],
+    void | HTTPValidationError,
+    void,
+    RetrieveLocationsByOrganizationApiV1LocationsOrganizationOrganizationIdGetPathParams
+  >(
+    (
+      paramsInPath: RetrieveLocationsByOrganizationApiV1LocationsOrganizationOrganizationIdGetPathParams,
+    ) => `/api/v1/locations/organization/${paramsInPath.organization_id}`,
+    { pathParams: { organization_id }, ...props },
+  );
+
+export interface RetrieveLocationByExternalKeyApiV1LocationsExternalExternalKeyGetPathParams {
+  external_key: string;
+}
+
+export type RetrieveLocationByExternalKeyApiV1LocationsExternalExternalKeyGetProps = Omit<
+  GetProps<
+    LocationExpandedResponse,
+    void | HTTPValidationError,
+    void,
+    RetrieveLocationByExternalKeyApiV1LocationsExternalExternalKeyGetPathParams
+  >,
+  "path"
+> &
+  RetrieveLocationByExternalKeyApiV1LocationsExternalExternalKeyGetPathParams;
+
+/**
+ * Retrieve Location By External Key
+ *
+ * **Retrieves a location with the external key from the path
+ * parameter.**
+ */
+export const RetrieveLocationByExternalKeyApiV1LocationsExternalExternalKeyGet = ({
+  external_key,
+  ...props
+}: RetrieveLocationByExternalKeyApiV1LocationsExternalExternalKeyGetProps) => (
+  <Get<
+    LocationExpandedResponse,
+    void | HTTPValidationError,
+    void,
+    RetrieveLocationByExternalKeyApiV1LocationsExternalExternalKeyGetPathParams
+  >
+    path={`/api/v1/locations/external/${external_key}`}
+    {...props}
+  />
+);
+
+export type UseRetrieveLocationByExternalKeyApiV1LocationsExternalExternalKeyGetProps = Omit<
+  UseGetProps<
+    LocationExpandedResponse,
+    void | HTTPValidationError,
+    void,
+    RetrieveLocationByExternalKeyApiV1LocationsExternalExternalKeyGetPathParams
+  >,
+  "path"
+> &
+  RetrieveLocationByExternalKeyApiV1LocationsExternalExternalKeyGetPathParams;
+
+/**
+ * Retrieve Location By External Key
+ *
+ * **Retrieves a location with the external key from the path
+ * parameter.**
+ */
+export const useRetrieveLocationByExternalKeyApiV1LocationsExternalExternalKeyGet = ({
+  external_key,
+  ...props
+}: UseRetrieveLocationByExternalKeyApiV1LocationsExternalExternalKeyGetProps) =>
+  useGet<
+    LocationExpandedResponse,
+    void | HTTPValidationError,
+    void,
+    RetrieveLocationByExternalKeyApiV1LocationsExternalExternalKeyGetPathParams
+  >(
+    (
+      paramsInPath: RetrieveLocationByExternalKeyApiV1LocationsExternalExternalKeyGetPathParams,
+    ) => `/api/v1/locations/external/${paramsInPath.external_key}`,
+    { pathParams: { external_key }, ...props },
+  );
+
+export type CreateLocationExpandedApiV1LocationsExpandedPostProps = Omit<
+  MutateProps<
+    number,
+    void | HTTPValidationError,
+    void,
+    LocationCreateRequestExpanded,
+    void
+  >,
+  "path" | "verb"
+>;
+
+/**
+ * Create Location Expanded
+ *
+ * **Creates a new location with the entity enclosed in the request body.** On
+ * success, the new location is returned in the body of the response.
+ */
+export const CreateLocationExpandedApiV1LocationsExpandedPost = (
+  props: CreateLocationExpandedApiV1LocationsExpandedPostProps,
+) => (
+  <Mutate<
+    number,
+    void | HTTPValidationError,
+    void,
+    LocationCreateRequestExpanded,
+    void
+  >
+    verb="POST"
+    path="/api/v1/locations/expanded"
+    {...props}
+  />
+);
+
+export type UseCreateLocationExpandedApiV1LocationsExpandedPostProps = Omit<
+  UseMutateProps<
+    number,
+    void | HTTPValidationError,
+    void,
+    LocationCreateRequestExpanded,
+    void
+  >,
+  "path" | "verb"
+>;
+
+/**
+ * Create Location Expanded
+ *
+ * **Creates a new location with the entity enclosed in the request body.** On
+ * success, the new location is returned in the body of the response.
+ */
+export const useCreateLocationExpandedApiV1LocationsExpandedPost = (
+  props: UseCreateLocationExpandedApiV1LocationsExpandedPostProps,
+) =>
+  useMutate<
+    number,
+    void | HTTPValidationError,
+    void,
+    LocationCreateRequestExpanded,
+    void
+  >("POST", "/api/v1/locations/expanded", props);
+
 export type ListOrganizationsApiV1OrganizationsGetProps = Omit<
   GetProps<OrganizationResponse[], unknown, void, void>,
   "path"
@@ -2432,4 +2909,45 @@ export const useDeleteRequirementByIdApiV1RequirementsRequirementIdDelete = (
     "DELETE",
     "/api/v1/requirements",
     { ...props },
+  );
+
+export type LoginApiV1SecurityLoginGetProps = Omit<
+  GetProps<SecurityLoginResponse, void | HTTPValidationError, void, void>,
+  "path"
+>;
+
+/**
+ * Login
+ *
+ * **Creates a new vaccine availability with the entity enclosed in the
+ * request body.** On success, the new vaccine availability is returned in the
+ * body of the response.
+ */
+export const LoginApiV1SecurityLoginGet = (
+  props: LoginApiV1SecurityLoginGetProps,
+) => (
+  <Get<SecurityLoginResponse, void | HTTPValidationError, void, void>
+    path="/api/v1/security/login"
+    {...props}
+  />
+);
+
+export type UseLoginApiV1SecurityLoginGetProps = Omit<
+  UseGetProps<SecurityLoginResponse, void | HTTPValidationError, void, void>,
+  "path"
+>;
+
+/**
+ * Login
+ *
+ * **Creates a new vaccine availability with the entity enclosed in the
+ * request body.** On success, the new vaccine availability is returned in the
+ * body of the response.
+ */
+export const useLoginApiV1SecurityLoginGet = (
+  props: UseLoginApiV1SecurityLoginGetProps,
+) =>
+  useGet<SecurityLoginResponse, void | HTTPValidationError, void, void>(
+    "/api/v1/security/login",
+    props,
   );

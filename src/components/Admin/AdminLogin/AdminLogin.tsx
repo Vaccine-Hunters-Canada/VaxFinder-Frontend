@@ -1,7 +1,7 @@
 import { Form, FormLayout, TextField, Button, Card } from "@shopify/polaris";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { authAccessToken } from "../../../utils/auth";
+import { getAuthAccessToken } from "../../../utils/auth";
 
 export interface IAdminLoginProps {
   setAccessSessionStateToken: React.Dispatch<
@@ -18,7 +18,7 @@ export function AdminLogin({ setAccessSessionStateToken }: IAdminLoginProps) {
   const [accessToken, setAccessToken] = useState("");
 
   const handleSubmit = () => {
-    const bearerToken = authAccessToken(accessToken);
+    const bearerToken = getAuthAccessToken(accessToken);
     if (bearerToken) {
       window.sessionStorage.setItem("bearerToken", bearerToken);
       setAccessSessionStateToken(bearerToken);
