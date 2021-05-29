@@ -9,10 +9,8 @@ import {
   Stack,
   TextStyle,
 } from "@shopify/polaris";
-import React, { useCallback, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { postalCodeIsValid, postalCodeToBrowserFormat } from "../../utils";
-import DatePicker, { DayValue } from "react-modern-calendar-datepicker";
+import React, { useState } from "react";
+import { postalCodeIsValid } from "../../utils";
 
 export function PopUpForm() {
   const [shouldShowInvalidName, setShouldShowInvalidName] = useState(false);
