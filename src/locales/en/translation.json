@@ -30,6 +30,7 @@
   "visitwebsite": "Visit Website",
   "login" : "Login",
   "logintoadminportal" : "Login to VHC Admin Portal",
+  "logout": "Log out",
   "nopharmacies": "No nearby pharmacies were found near {{postalCode}}. Please try again later.",
   "phone": "Phone",
   "postalcode": "Postal Code",

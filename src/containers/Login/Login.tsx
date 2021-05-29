@@ -10,6 +10,7 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Redirect } from "react-router-dom";
 import { useLoginApiV1SecurityLoginPost } from "../../apiClient";
+import { userService } from "../../services/userService";
 
 export function Login() {
   const [name, setName] = useState("");
@@ -22,7 +23,8 @@ export function Login() {
 
   const handleSubmit = () => {
     post({ name, password })
-      .then(() => {
+      .then((response) => {
+        userService.setItem(response);
         setDidLoginSucceed(true);
       })
       .catch((err) => console.error(err));
@@ -46,7 +48,6 @@ export function Login() {
               onChange={setName}
               placeholder={t("enterusername")}
               label={t("username")}
-              error=""
             />
             <TextField
               type="password"
@@ -54,9 +55,8 @@ export function Login() {
               onChange={setPassword}
               placeholder={t("enterpassword")}
               label={t("password")}
-              error=""
             />
-            <Button primary submit disabled={loading}>
+            <Button primary submit disabled={loading || !name || !password}>
               {t("login")}
             </Button>
           </FormLayout>
