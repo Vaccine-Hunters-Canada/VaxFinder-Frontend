@@ -8,6 +8,7 @@ import {
   Popover,
   Stack,
   TextStyle,
+  Banner,
 } from "@shopify/polaris";
 import React, { useState } from "react";
 import { postalCodeIsValid } from "../../utils";
@@ -38,7 +39,7 @@ export function PopUpForm() {
   );
   const [vaccineType, setVaccineType] = useState(1);
 
-  const [active, setActive] = useState(true);
+  const [active, setActive] = useState(false);
 
   let UTCDate: Date;
 
@@ -134,6 +135,10 @@ export function PopUpForm() {
   return (
     <section aria-label="pop-up" style={{ marginBottom: "2rem" }}>
       <Card>
+        <Banner title="Submission Warning" status="warning">
+          Once you hit submit, this will immediately added to the live website.
+          <strong> PLEASE TRIPLE CHECK YOUR ENTRY BEFORE SUBMITTING.</strong>
+        </Banner>
         <Card.Section>
           <Form onSubmit={handleSubmit}>
             <FormLayout>
@@ -209,11 +214,6 @@ export function PopUpForm() {
                   label="Enter Number Available (Optional)"
                   type="number"
                 />
-                {/* <TextField
-                  value={vaccineType}
-                  onChange={setVaccineType}
-                  label="Enter Vaccine Type (Optional)"
-                /> */}
                 <Stack>
                   <Stack.Item>
                     <TextStyle>Enter Vaccine Type</TextStyle>
