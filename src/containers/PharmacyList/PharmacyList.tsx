@@ -1,11 +1,16 @@
 import { PharmacyCard } from "../../components/PharmacyCard";
 import React, { useState } from "react";
-import { useListVaccineLocationsApiV1VaccineLocationsGet } from "../../apiClient";
+import {
+  useListVaccineLocationsApiV1VaccineLocationsGet,
+  VaccineAvailabilityTimeslotRequirementExpandedResponse,
+} from "../../apiClient";
 import { ExceptionList, Spinner, TextStyle } from "@shopify/polaris";
 import { CircleAlertMajor, SearchMajor } from "@shopify/polaris-icons";
 import "./PharmacyList.css";
 import { EligibilityBanner } from "../../components/EligibilityBanner";
 import { useTranslation } from "react-i18next";
+import { SearchCard } from "../../components/SearchCard";
+
 import {
   postalCodeIsValid,
   postalCodeToApiFormat,
@@ -83,22 +88,25 @@ export function PharmacyList(props: Props) {
   let pharmacyListUnsorted: PharmacyProps[] = [];
   if (data && data.length === 0) {
     return (
-      <div className="wrapper">
-        <ExceptionList
-          items={[
-            {
-              icon: SearchMajor,
-              description: (
-                <strong>
-                  {t("nopharmacies", {
-                    postalCode: postalCodeToHumanFormat(props.postalCode),
-                  })}
-                </strong>
-              ),
-            },
-          ]}
-        />
-      </div>
+      <>
+        <SearchCard />
+        <div className="wrapper">
+          <ExceptionList
+            items={[
+              {
+                icon: SearchMajor,
+                description: (
+                  <strong>
+                    {t("noappointments", {
+                      postalCode: postalCodeToHumanFormat(props.postalCode),
+                    })}
+                  </strong>
+                ),
+              },
+            ]}
+          />
+        </div>
+      </>
     );
   }
 
@@ -123,16 +131,53 @@ export function PharmacyList(props: Props) {
         addressSegments.push(address.province);
         addressSegments.push(postalCodeToHumanFormat(address.postcode));
       }
-      const isBooking = pharmacy.vaccineAvailabilities.length > 0;
+
+      const vaccineAvailabilitiesWithAvailable: VaccineAvailabilityTimeslotRequirementExpandedResponse[] = pharmacy.vaccineAvailabilities.filter(
+        (vaccineAvailability) => {
+          return vaccineAvailability.numberAvailable > 0;
+        },
+      );
+
+      type VaccineAvailabilitiesByDateAndRequirementsInterface = React.ComponentProps<
+        typeof PharmacyCard
+      >["vaccineAvailabilities"];
+
+      let lastUpdated = pharmacy.createdAt;
+      const vaccineAvailabilitiesByDateAndRequirements: VaccineAvailabilitiesByDateAndRequirementsInterface = {};
+      vaccineAvailabilitiesWithAvailable.forEach((availability) => {
+        if (
+          !(availability.date in vaccineAvailabilitiesByDateAndRequirements)
+        ) {
+          vaccineAvailabilitiesByDateAndRequirements[availability.date] = {
+            totalAvailable: 0,
+            requirements: [],
+          };
+        }
+        vaccineAvailabilitiesByDateAndRequirements[
+          availability.date
+        ].totalAvailable += availability.numberAvailable;
+        vaccineAvailabilitiesByDateAndRequirements[
+          availability.date
+        ].requirements.push({
+          ...availability.requirements[0],
+          numberAvailable: availability.numberAvailable,
+        });
+
+        lastUpdated =
+          availability.createdAt > lastUpdated
+            ? availability.createdAt
+            : lastUpdated;
+      });
 
       return {
         id: pharmacy.id,
         pharmacyName: pharmacy.name,
-        booking: isBooking,
+        booking: vaccineAvailabilitiesWithAvailable.length > 0,
         address: addressSegments.join(" "),
-        lastUpdated: pharmacy.createdAt,
+        lastUpdated,
         phone: pharmacy.phone || "",
         website: pharmacy.url || "",
+        vaccineAvailabilities: vaccineAvailabilitiesByDateAndRequirements,
       };
     });
   }
@@ -149,9 +194,12 @@ export function PharmacyList(props: Props) {
 
   return (
     <>
+      <SearchCard />
+
       {shouldShowBanner ? (
         <EligibilityBanner onDismiss={() => setShouldShowBanner(false)} />
       ) : null}
+
       <section aria-label="pharmacy-list" style={{ marginTop: "2rem" }}>
         {pharmacyList
           ? pharmacyList.map((pharmacy) => {
@@ -165,6 +213,7 @@ export function PharmacyList(props: Props) {
                   pharmacyName={pharmacy.pharmacyName}
                   phone={pharmacy.phone}
                   website={pharmacy.website}
+                  vaccineAvailabilities={pharmacy.vaccineAvailabilities}
                 />
               );
             })
