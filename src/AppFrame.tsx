@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { Frame, Layout, Navigation, Page, TopBar } from "@shopify/polaris";
-import { HomeMajor } from "@shopify/polaris-icons";
+import { HomeMajor, LockMajor } from "@shopify/polaris-icons";
 import { Routes } from "./Routes";
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";
@@ -159,12 +159,12 @@ export function AppFrame() {
               separator
               items={[
                 {
-                  url: "/",
                   label: t("logout"),
                   onClick: () => {
                     userService.removeItem();
                     history.push("/login");
                   },
+                  icon: LockMajor,
                 },
               ]}
             />
@@ -173,9 +173,9 @@ export function AppFrame() {
               separator
               items={[
                 {
-                  url: "/",
+                  url: "/login",
                   label: t("login"),
-                  onClick: () => history.push("/login"),
+                  icon: LockMajor,
                 },
               ]}
             />
