@@ -5,11 +5,7 @@ export const createUserService = () => {
   const key = "VACCINE_HUNTER_USER";
 
   return {
-    clear: () => {
-      memoized.clear();
-      sessionStorage.clear();
-    },
-    getItem: () => {
+    getUser: () => {
       if (memoized.has(key)) {
         return memoized.get(key);
       }
@@ -22,11 +18,11 @@ export const createUserService = () => {
       return memoized.get(key);
     },
     checkIsAuthenticated: () => !!sessionStorage.getItem(key),
-    setItem: (item: SecurityLoginResponse) => {
+    setUser: (item: SecurityLoginResponse) => {
       memoized.set(key, item);
       sessionStorage.setItem(key, JSON.stringify(item));
     },
-    removeItem: () => {
+    removeUser: () => {
       memoized.delete(key);
       sessionStorage.removeItem(key);
     },

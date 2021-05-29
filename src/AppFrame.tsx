@@ -161,7 +161,7 @@ export function AppFrame() {
                 {
                   label: t("logout"),
                   onClick: () => {
-                    userService.removeItem();
+                    userService.removeUser();
                     history.push("/login");
                   },
                   icon: LockMajor,

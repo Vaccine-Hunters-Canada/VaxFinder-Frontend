@@ -24,14 +24,14 @@ export function Login() {
   const handleSubmit = () => {
     post({ name, password })
       .then((response) => {
-        userService.setItem(response);
+        userService.setUser(response);
         setDidLoginSucceed(true);
       })
       .catch((err) => console.error(err));
   };
 
   if (didLoginSucceed) {
-    return <Redirect to="/" />;
+    return <Redirect to="/admin" />;
   }
 
   return (
