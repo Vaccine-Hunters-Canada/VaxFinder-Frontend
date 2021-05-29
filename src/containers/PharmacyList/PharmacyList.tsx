@@ -16,6 +16,7 @@ import {
   postalCodeToApiFormat,
   postalCodeToHumanFormat,
 } from "../../utils";
+import { PopUpForm } from "../../components/PopUpForm";
 
 type PharmacyProps = React.ComponentProps<typeof PharmacyCard>;
 
