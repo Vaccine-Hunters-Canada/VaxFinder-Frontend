@@ -5,6 +5,7 @@ import {
   Form,
   FormLayout,
   TextField,
+  TextStyle,
 } from "@shopify/polaris";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -41,6 +42,12 @@ export function Login() {
 
   return (
     <Card>
+      <Card.Section>
+        <TextStyle variation="strong">
+          This page is for Vaccine Hunters Canada moderators to login only. You
+          do not need an account to use this platform.
+        </TextStyle>
+      </Card.Section>
       <Card.Section>
         {error ? (
           <Banner status="critical">{t("anerrorhasoccurred")}</Banner>
