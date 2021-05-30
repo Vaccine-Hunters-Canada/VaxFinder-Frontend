@@ -15,6 +15,7 @@
     "language": "Jezik",
     "loadingpharmacydata": "Učitavanje podataka iz ljekarne",
     "loadmap": "Učitajte kartu",
+    "login": "Prijaviti se",
     "noappointments": "Nisu pronađeni termini u blizini {{postalCode}}. Molimo pokušajte ponovo kasnije.",
     "postalcodetext": "Upotrijebit ćemo ovaj poštanski broj za pronalaženje najbližih dostupnih cjepiva.",
     "quantity": "Količina",

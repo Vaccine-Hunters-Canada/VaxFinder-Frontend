@@ -15,6 +15,7 @@
     "language": "Idioma",
     "loadingpharmacydata": "Cargando información de farmacia",
     "loadmap": "Cargar mapa",
+    "login": "Acceso",
     "noappointments": "Ninguna cita fue encontrada cerca de {{postalCode}}. Por favor intentne nuevamente más tarde.",
     "postalcodetext": "Usaremos este código postal para encontrar las citas disponibles más cercanas.",
     "quantity": "Cantidad",

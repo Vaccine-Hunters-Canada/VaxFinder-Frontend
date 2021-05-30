@@ -15,6 +15,7 @@
     "language": "语言",
     "loadingpharmacydata": "正在加载药房信息",
     "loadmap": "地图",
+    "login": "登录",
     "noappointments": "{{postalCode}} 附近没有疫苗可以预约。请稍后再试。",
     "postalcodetext": "我们将会用这个邮编搜寻附近可以预约的疫苗。",
     "quantity": "数量",
