@@ -15,6 +15,7 @@
     "language": "שפה",
     "loadingpharmacydata": "פרטי בית המרקחת מועלים",
     "loadmap": "העלה מפה",
+    "login" : "Login",
     "noappointments": "לא נמצאו תורים זמינים ליד {{postalCode}} נא לנסות מאוחר יותר",
     "postalcodetext": "אנו נשתמש במיקוד הדואר הנל כדי לאתר  את החיסונים הכי קרובים",
     "quantity": "כַּמוּת",

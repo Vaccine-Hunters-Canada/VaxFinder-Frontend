@@ -15,6 +15,7 @@
     "language": "Dil seçeneği",
     "loadingpharmacydata": "Eczane bilgileri yükleniyor",
     "loadmap": "Harita yükle",
+    "login" : "Login",
     "noappointments": "{{postalCode}} koduna yakın randevu bulunamadı. Lütfen daha sonra tekrar deneyiniz",
     "postalcodetext": "Posta koduna en yakın aşı randevularını bulmak için kullanılmaktadır.",
     "quantity": "Miktar",

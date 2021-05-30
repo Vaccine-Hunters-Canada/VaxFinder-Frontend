@@ -15,6 +15,7 @@
     "language": "Limba",
     "loadingpharmacydata": "Se încarcă datele farmaciei",
     "loadmap": "încarcă harta",
+    "login" : "Login",
     "noappointments": "Nu s-au găsit date disponibile la farmacii linga {{postalCode}}. încercați din nou mai tirziu",
     "postalcodetext": "Vom utiliza acest cod poștal pentru a găsi cele mai apropiate vaccinuri disponibile.",
     "quantity": "Cantitate",

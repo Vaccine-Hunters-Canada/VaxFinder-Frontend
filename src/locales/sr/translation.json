@@ -15,6 +15,7 @@
     "language": "Jezik",
     "loadingpharmacydata": "Učitavanje podataka iz apoteke",
     "loadmap": "Učitajte mapu",
+    "login" : "Login",
     "noappointments": "Nije pronađen ni jedan slobodan termin u blizini {{postalCode}}. Molim Vas pokušajte ponovo kasnije.",
     "postalcodetext": "Iskoristićemo ovaj poštanski broj da pronađemo najbliže dostupne vakcine.",
     "quantity": "Količina",

@@ -15,6 +15,7 @@
     "language": "Lengguwahe",
     "loadingpharmacydata": "Naglo-load ng data ng pharmacy",
     "loadmap": "I-load ang mapa",
+    "login" : "Login",
     "noappointments": "Walang appointment na bakante malapit sa {{postalCode}}. Paki check muli mamaya.",
     "postalcodetext": "Gagamitin namin ang postal code na ito upang hanapin ang lugar na may pinakamalapit na bakuna.",
     "quantity": "Dami",

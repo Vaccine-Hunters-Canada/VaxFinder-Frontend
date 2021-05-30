@@ -15,6 +15,7 @@
     "language": "Nyelv",
     "loadingpharmacydata": "Gyógyszertári adatainak betöltése",
     "loadmap": "Térkép betöltése",
+    "login" : "Login",
     "noappointments": "Nem található idopont ennek az irányítószámnak {{postalCode}} közelében. Kérem, próbálkozzon újra később.",
     "postalcodetext": "Ezt az irányítószámot használjuk a legközelebbi oltóanyagok megtalálásához.",
     "quantity": "Mennyiség",

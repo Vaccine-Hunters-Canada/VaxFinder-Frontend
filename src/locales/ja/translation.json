@@ -15,6 +15,7 @@
     "language": "言語",
     "loadingpharmacydata": "薬局情報の読み込み",
     "loadmap": "地図",
+    "login" : "Login",
     "noappointments": "{{postalCode}}近くに予約できるワクチンはありません。しばらくしてからもう一度お試しください。",
     "postalcodetext": "この郵便番号は近くのワクチン接種可能な薬局を探すために使われます。",
     "quantity": "量",
