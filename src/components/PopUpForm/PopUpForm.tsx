@@ -37,8 +37,9 @@ export function PopUpForm() {
   const [vaccineTypeString, setVaccineTypeString] = useState(
     "Select Vaccine Type",
   );
+  /* eslint-disable  @typescript-eslint/no-unused-vars */
   const [vaccineType, setVaccineType] = useState(1);
-
+  /* eslint-enable  @typescript-eslint/no-unused-vars */
   const [active, setActive] = useState(false);
 
   let UTCDate: Date;
@@ -57,7 +58,9 @@ export function PopUpForm() {
       valid = false;
     } else {
       setShouldShowInvalidDate(false);
+      /* eslint-disable  @typescript-eslint/no-unused-vars */
       UTCDate = new Date(date);
+      /* eslint-enable  @typescript-eslint/no-unused-vars */
     }
 
     if (!address) {
@@ -136,7 +139,8 @@ export function PopUpForm() {
     <section aria-label="pop-up" style={{ marginBottom: "2rem" }}>
       <Card>
         <Banner title="Submission Warning" status="warning">
-          Once you hit submit, this will record will immediately added to the live website.
+          Once you hit submit, this will record will immediately added to the
+          live website.
           <strong> PLEASE TRIPLE CHECK YOUR ENTRY BEFORE SUBMITTING.</strong>
         </Banner>
         <Card.Section>
