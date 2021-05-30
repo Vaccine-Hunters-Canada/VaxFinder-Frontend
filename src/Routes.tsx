@@ -13,7 +13,7 @@ export function Routes() {
       <Route exact path="/" component={Home} />
       <Route exact path="/search/:postalCode" component={Search} />
       <Route exact path="/login" component={Login} />
-      <PrivateRoute exact path="/admin" render={() => <Admin />} />
+      <PrivateRoute path="/admin" render={() => <Admin />} />
     </React.Suspense>
   );
 }
