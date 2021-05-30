@@ -16,6 +16,7 @@ export function Login() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [didLoginSucceed, setDidLoginSucceed] = useState(false);
+  const [isInvalidCredentials, setIsInvalidCredentials] = useState(false);
 
   const { t } = useTranslation();
 
@@ -24,8 +25,12 @@ export function Login() {
   const handleSubmit = () => {
     post({ name, password })
       .then((response) => {
-        userService.setUser(response);
-        setDidLoginSucceed(true);
+        if (response.key) {
+          userService.setUser(response);
+          setDidLoginSucceed(true);
+        } else {
+          setIsInvalidCredentials(true);
+        }
       })
       .catch((err) => console.error(err));
   };
@@ -39,6 +44,10 @@ export function Login() {
       <Card.Section>
         {error ? (
           <Banner status="critical">{t("anerrorhasoccurred")}</Banner>
+        ) : undefined}
+
+        {isInvalidCredentials ? (
+          <Banner status="critical">{t("invalidcredentials")}</Banner>
         ) : undefined}
         <Form onSubmit={handleSubmit}>
           <FormLayout>

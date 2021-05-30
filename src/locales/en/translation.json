@@ -15,6 +15,7 @@
   "enterusername": "Enter your username",
   "hide": "Hide",
   "home": "Home",
+  "invalidcredentials": "You have supplied invalid credentials, please try again.",
   "invaliddate": "You have entered an invalid date",
   "invalidphonenumber": "You have entered an invalid phone number",
   "invalidpostal": "You have entered an invalid postal code",
