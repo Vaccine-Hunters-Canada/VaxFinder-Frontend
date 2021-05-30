@@ -15,6 +15,7 @@
     "language": "語言",
     "loadingpharmacydata": "正在加載藥房信息",
     "loadmap": "地圖",
+    "login": "登錄",
     "noappointments": "{{postalCode}} 附近沒有疫苗可以預約。請稍後再試。",
     "postalcodetext": "我們將會用這個郵編搜尋附近可以預約的疫苗。",
     "quantity": "數量",

@@ -1,12 +1,13 @@
 import React, { useCallback, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { Frame, Layout, Navigation, Page, TopBar } from "@shopify/polaris";
-import { HomeMajor } from "@shopify/polaris-icons";
+import { HomeMajor, LockMajor } from "@shopify/polaris-icons";
 import { Routes } from "./Routes";
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";
 import { ItemProps } from "@shopify/polaris/types/latest/src/components/Navigation/components";
 import { Twitter } from "./components/Twitter";
+import { userService } from "./services/userService";
 
 const languages = [
   {
@@ -131,6 +132,8 @@ export function AppFrame() {
     [],
   );
 
+  const history = useHistory();
+
   return (
     <Frame
       topBar={
@@ -151,6 +154,33 @@ export function AppFrame() {
               },
             ]}
           />
+          {userService.checkIsAuthenticated() ? (
+            <Navigation.Section
+              separator
+              items={[
+                {
+                  label: t("logout"),
+                  onClick: () => {
+                    userService.removeUser();
+                    history.push("/login");
+                  },
+                  icon: LockMajor,
+                },
+              ]}
+            />
+          ) : (
+            <Navigation.Section
+              separator
+              items={[
+                {
+                  url: "/login",
+                  label: t("login"),
+                  icon: LockMajor,
+                },
+              ]}
+            />
+          )}
+
           <Navigation.Section
             separator
             title={t("language")}

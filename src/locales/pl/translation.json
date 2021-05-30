@@ -15,6 +15,7 @@
     "language": "Język",
     "loadingpharmacydata": "Ładowanie danych apteki",
     "loadmap": "Pokaż mapę",
+    "login": "Zaloguj sie",
     "noappointments": "W pobliżu kodu pocztowego {{postalCode}} nie znaleziono wolnych terminów. Spróbuj ponownie później.",
     "postalcodetext": "Użyjemy tego kodu, aby znaleźć najbliższe punkty szczepień z dostępnymi terminami.",
     "quantity": "Ilość",

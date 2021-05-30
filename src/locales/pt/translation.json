@@ -15,6 +15,7 @@
     "language": "Idioma",
     "loadingpharmacydata": "Carregando dados da farmárcia",
     "loadmap": "Carregar mapa",
+    "login": "Conecte-se",
     "noappointments": "Nenhum agendamento foi encontrado perto de {{postalCode}}. Por favor, tente novamente mais tarde.",
     "postalcodetext": "Usaremos este código postal para encontrar as vacinas disponíveis mais próximas.",
     "quantity": "Quantidade",

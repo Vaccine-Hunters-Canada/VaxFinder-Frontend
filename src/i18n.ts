@@ -26,7 +26,7 @@ import zhCN from "./locales/zhCN/translation.json";
 import zhTW from "./locales/zhTW/translation.json";
 
 export const i18nconfig: InitOptions = {
-  fallbackLng: "en-CA",
+  fallbackLng: "en",
   debug: false,
   resources: {
     ar: { translation: ar }, // Arabic
