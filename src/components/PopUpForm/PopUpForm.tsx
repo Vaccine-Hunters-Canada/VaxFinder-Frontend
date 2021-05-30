@@ -136,7 +136,7 @@ export function PopUpForm() {
     <section aria-label="pop-up" style={{ marginBottom: "2rem" }}>
       <Card>
         <Banner title="Submission Warning" status="warning">
-          Once you hit submit, this will immediately added to the live website.
+          Once you hit submit, this will record will immediately added to the live website.
           <strong> PLEASE TRIPLE CHECK YOUR ENTRY BEFORE SUBMITTING.</strong>
         </Banner>
         <Card.Section>
@@ -216,7 +216,7 @@ export function PopUpForm() {
                 />
                 <Stack>
                   <Stack.Item>
-                    <TextStyle>Enter Vaccine Type</TextStyle>
+                    <TextStyle>Enter Vaccine Type (Optional)</TextStyle>
                     <Popover
                       active={active}
                       activator={activator}
