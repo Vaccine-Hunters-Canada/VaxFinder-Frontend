@@ -15,7 +15,7 @@
     "language": "Sprache",
     "loadingpharmacydata": "Lade Apothekendaten",
     "loadmap": "Lade Karte",
-    "login" : "Login",
+    "login": "Anmeldung",
     "noappointments": "Es wurden keine freien Termine in der Nähe von {{postalCode}} gefunden. Bitte versuchen sie es später erneut",
     "postalcodetext": "Wir werden diese Postleitzahl verwenden, um die näheste verfügbare Impfung zu finden",
     "quantity": "Menge",
