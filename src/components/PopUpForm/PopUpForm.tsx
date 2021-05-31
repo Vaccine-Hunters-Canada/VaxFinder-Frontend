@@ -21,6 +21,15 @@ import { useTranslation } from "react-i18next";
 import { format } from "date-fns";
 import { zonedTimeToUtc } from "date-fns-tz";
 
+/**
+ * Form used to record popup clinic details
+ *
+ * This component could have benefited from a form management library, but given it
+ * was a one-off, it has been developed with controlled components. If we start adding
+ * more forms, it might be worthwhile introducing a form lib and refactoring.
+ *
+ * @returns A form component to record popup clinic details
+ */
 export function PopUpForm() {
   /** Error state */
   const [shouldShowInvalidName, setShouldShowInvalidName] = useState(false);
