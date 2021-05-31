@@ -261,7 +261,6 @@ export function PopUpForm() {
                   }
                   error={invalidNameMessage}
                   type="text"
-                  name="name"
                 />
                 <TextField
                   value={date}
