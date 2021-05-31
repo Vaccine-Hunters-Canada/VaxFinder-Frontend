@@ -159,7 +159,7 @@ export function PopUpForm() {
     const requestPayload: VaccineAvailabilityExpandedCreateRequest = {
       active: 1, // boolean indicating if popup is active
       date: format(utcDate, "yyyy-MM-dd'T'HH:mm:ssxxx"),
-      inputType: 2, // represents how availability data was recorded - not used at time of writing
+      inputType: 1, // represents how availability data was recorded - not used at time of writing
       name,
       numberAvailable: Number.isNaN(numAvailable) ? 0 : Number(numAvailable),
       numberTotal: 1, // Not relevant to popup availabilities, so hardcoding
