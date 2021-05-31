@@ -48,7 +48,7 @@ export function PopUpForm() {
   const [vaccineTypeString, setVaccineTypeString] = useState(
     "Select Vaccine Type",
   );
-  const [vaccineType, setVaccineType] = useState(1);
+  const [vaccineId, setVaccineId] = useState(1);
   const [isPopOverActive, setIsPopOverActive] = useState(false);
 
   const [isPopUpRequestSuccessful, setIsPopUpRequestSuccessful] = useState(
@@ -145,14 +145,16 @@ export function PopUpForm() {
       Intl.DateTimeFormat().resolvedOptions().timeZone,
     );
 
+    // This request payload will be used for various vaccintion availabilities in addition to popup clinics,
+    // some values are hardcoded but I will explain them to the best of my understanding
     const requestPayload: VaccineAvailabilityExpandedCreateRequest = {
-      active: 1,
+      active: 1, // boolean indicating if popup is active
       date: format(utcDate, "yyyy-MM-dd'T'HH:mm:ssxxx"),
-      inputType: 2,
+      inputType: 2, // represents how availability data was recorded - not used at time of writing
       name,
       numberAvailable: Number.isNaN(numAvailable) ? 0 : Number(numAvailable),
-      numberTotal: 1,
-      vaccine: vaccineType,
+      numberTotal: 1, // Not relevant to popup availabilities, so hardcoding
+      vaccine: vaccineId, // This is the vaccine id
       postcode: postalCode.replace(/[^\w\s]/gi, ""),
       province,
       city,
@@ -179,7 +181,7 @@ export function PopUpForm() {
         setWebsite("");
         setNumAvailable("");
         setVaccineTypeString("Select Vaccine Type");
-        setVaccineType(1);
+        setVaccineId(1);
         setIsPopUpRequestSuccessful(true);
       })
       .catch((err) => console.error(err));
@@ -326,7 +328,7 @@ export function PopUpForm() {
                           {
                             content: "Pfizer",
                             onAction: () => {
-                              setVaccineType(3);
+                              setVaccineId(3);
                               setVaccineTypeString("Pfizer");
                               setIsPopOverActive(false);
                             },
@@ -334,7 +336,7 @@ export function PopUpForm() {
                           {
                             content: "Moderna",
                             onAction: () => {
-                              setVaccineType(4);
+                              setVaccineId(4);
                               setVaccineTypeString("Moderna");
                               setIsPopOverActive(false);
                             },
@@ -342,7 +344,7 @@ export function PopUpForm() {
                           {
                             content: "AstraZeneca",
                             onAction: () => {
-                              setVaccineType(5);
+                              setVaccineId(5);
                               setVaccineTypeString("AstraZeneca");
                               setIsPopOverActive(false);
                             },
@@ -350,7 +352,7 @@ export function PopUpForm() {
                           {
                             content: "Not Sure",
                             onAction: () => {
-                              setVaccineType(1);
+                              setVaccineId(1);
                               setVaccineTypeString("Not Sure");
                               setIsPopOverActive(false);
                             },
