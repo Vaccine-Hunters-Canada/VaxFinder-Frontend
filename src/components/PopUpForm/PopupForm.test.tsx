@@ -61,7 +61,7 @@ describe("Popup form", () => {
       screen.getByRole("textbox", { name: /enter website url/i }),
       "www.someurl.com",
     );
-  }
+  };
 
   test("Form should show general error if api request fails", async () => {
     server.use(
