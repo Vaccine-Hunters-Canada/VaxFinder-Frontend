@@ -55,13 +55,14 @@ export function PopUpForm() {
     false,
   );
 
-  const slug = slugify(`popup-${address}`, { locale: "fr" });
+  // We generate the location by slugifying the address of the popup
+  const locationId = slugify(`popup-${address}`, { locale: "fr" });
   const {
     mutate: post,
     loading,
     error,
   } = useCreateVaccineAvailabilityExpandedKeyApiV1VaccineAvailabilityLocationsKeyExternalKeyPost(
-    { external_key: slug },
+    { external_key: locationId },
   );
 
   const { t } = useTranslation();
@@ -149,13 +150,13 @@ export function PopUpForm() {
       date: format(utcDate, "yyyy-MM-dd'T'HH:mm:ssxxx"),
       inputType: 2,
       name,
-      numberAvailable: 2,
+      numberAvailable: Number.isNaN(numAvailable) ? 0 : Number(numAvailable),
       numberTotal: 1,
       vaccine: vaccineType,
-      postcode: postalCode,
+      postcode: postalCode.replace(/[^\w\s]/gi, ""),
       province,
       city,
-      externalKey: slug,
+      externalKey: locationId,
       line1: address,
       line2: "",
       notes: "",
@@ -168,6 +169,17 @@ export function PopUpForm() {
 
     post(requestPayload)
       .then((user) => {
+        setName("");
+        setDate("");
+        setAddress("");
+        setCity("");
+        setProvince("");
+        setPostalCode("");
+        setPhoneNumber("");
+        setWebsite("");
+        setNumAvailable("");
+        setVaccineTypeString("Select Vaccine Type");
+        setVaccineType(1);
         setIsPopUpRequestSuccessful(true);
       })
       .catch((err) => console.error(err));
@@ -194,7 +206,7 @@ export function PopUpForm() {
     : undefined;
 
   const invalidPostalCodeMessage = shouldShowInvalidPostal
-    ? "Invalid Postal"
+    ? "Invalid Postal Code"
     : undefined;
 
   const invalidURLMessage = shouldShowInvalidURL
@@ -316,6 +328,7 @@ export function PopUpForm() {
                             onAction: () => {
                               setVaccineType(3);
                               setVaccineTypeString("Pfizer");
+                              setIsPopOverActive(false);
                             },
                           },
                           {
@@ -323,6 +336,7 @@ export function PopUpForm() {
                             onAction: () => {
                               setVaccineType(4);
                               setVaccineTypeString("Moderna");
+                              setIsPopOverActive(false);
                             },
                           },
                           {
@@ -330,13 +344,15 @@ export function PopUpForm() {
                             onAction: () => {
                               setVaccineType(5);
                               setVaccineTypeString("AstraZeneca");
+                              setIsPopOverActive(false);
                             },
                           },
                           {
                             content: "Not Sure",
                             onAction: () => {
-                              setVaccineType(6);
+                              setVaccineType(1);
                               setVaccineTypeString("Not Sure");
+                              setIsPopOverActive(false);
                             },
                           },
                         ]}
