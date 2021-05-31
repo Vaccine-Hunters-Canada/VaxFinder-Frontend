@@ -7,10 +7,11 @@ import {
   TextField,
   TextStyle,
 } from "@shopify/polaris";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Redirect } from "react-router-dom";
 import { useLoginApiV1SecurityLoginPost } from "../../apiClient";
+import { AppContext } from "../../contexts/AppContext";
 import { userService } from "../../services/userService";
 
 export function Login() {
@@ -20,14 +21,16 @@ export function Login() {
   const [isInvalidCredentials, setIsInvalidCredentials] = useState(false);
 
   const { t } = useTranslation();
+  const { setState } = useContext(AppContext);
 
   const { mutate: post, loading, error } = useLoginApiV1SecurityLoginPost({});
 
   const handleSubmit = () => {
     post({ name, password })
-      .then((response) => {
-        if (response.key) {
-          userService.setUser(response);
+      .then((user) => {
+        if (user.key) {
+          userService.setUser(user);
+          setState({ user });
           setDidLoginSucceed(true);
         } else {
           setIsInvalidCredentials(true);

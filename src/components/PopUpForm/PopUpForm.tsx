@@ -10,10 +10,19 @@ import {
   TextStyle,
   Banner,
 } from "@shopify/polaris";
+import slugify from "slugify";
 import React, { useState } from "react";
 import { postalCodeIsValid } from "../../utils";
+import {
+  useCreateVaccineAvailabilityExpandedKeyApiV1VaccineAvailabilityLocationsKeyExternalKeyPost,
+  VaccineAvailabilityExpandedCreateRequest,
+} from "../../apiClient";
+import { useTranslation } from "react-i18next";
+import { format } from "date-fns";
+import { zonedTimeToUtc } from "date-fns-tz";
 
 export function PopUpForm() {
+  /** Error state */
   const [shouldShowInvalidName, setShouldShowInvalidName] = useState(false);
   const [shouldShowInvalidDate, setShouldShowInvalidDate] = useState(false);
   const [shouldShowInvalidAddress, setShouldShowInvalidAddress] = useState(
@@ -25,6 +34,8 @@ export function PopUpForm() {
   );
   const [shouldShowInvalidPostal, setShouldShowInvalidPostal] = useState(false);
   const [shouldShowInvalidURL, setShouldShowInvalidURL] = useState(false);
+
+  /** Controlled component state */
   const [name, setName] = useState("");
   const [date, setDate] = useState("");
   const [address, setAddress] = useState("");
@@ -37,70 +48,129 @@ export function PopUpForm() {
   const [vaccineTypeString, setVaccineTypeString] = useState(
     "Select Vaccine Type",
   );
-  /* eslint-disable  @typescript-eslint/no-unused-vars */
   const [vaccineType, setVaccineType] = useState(1);
-  /* eslint-enable  @typescript-eslint/no-unused-vars */
-  const [active, setActive] = useState(false);
+  const [isPopOverActive, setIsPopOverActive] = useState(false);
 
-  let UTCDate: Date;
+  const [isPopUpRequestSuccessful, setIsPopUpRequestSuccessful] = useState(
+    false,
+  );
 
-  const handleSubmit = () => {
-    let valid = true;
+  const slug = slugify(`popup-${address}`, { locale: "fr" });
+  const {
+    mutate: post,
+    loading,
+    error,
+  } = useCreateVaccineAvailabilityExpandedKeyApiV1VaccineAvailabilityLocationsKeyExternalKeyPost(
+    { external_key: slug },
+  );
+
+  const { t } = useTranslation();
+
+  const getValidUrl = (url = "") => {
+    let newUrl = window.decodeURIComponent(url);
+    newUrl = newUrl.trim().replace(/\s/g, "");
+
+    if (/^(:\/\/)/.test(newUrl)) {
+      return `http${newUrl}`;
+    }
+    if (!/^(f|ht)tps?:\/\//i.test(newUrl)) {
+      return `http://${newUrl}`;
+    }
+
+    return newUrl;
+  };
+
+  const validateForm = () => {
+    let isValid = true;
     if (!name) {
       setShouldShowInvalidName(true);
-      valid = false;
+      isValid = false;
     } else {
       setShouldShowInvalidName(false);
     }
 
     if (!date) {
       setShouldShowInvalidDate(true);
-      valid = false;
+      isValid = false;
     } else {
       setShouldShowInvalidDate(false);
-      /* eslint-disable  @typescript-eslint/no-unused-vars */
-      UTCDate = new Date(date);
-      /* eslint-enable  @typescript-eslint/no-unused-vars */
     }
 
     if (!address) {
       setShouldShowInvalidAddress(true);
-      valid = false;
+      isValid = false;
     } else {
       setShouldShowInvalidAddress(false);
     }
 
     if (!city) {
       setShouldShowInvalidCity(true);
-      valid = false;
+      isValid = false;
     } else {
       setShouldShowInvalidCity(false);
     }
 
     if (!province) {
       setShouldShowInvalidProvince(true);
-      valid = false;
+      isValid = false;
     } else {
       setShouldShowInvalidProvince(false);
     }
 
     if (!postalCodeIsValid(postalCode)) {
       setShouldShowInvalidPostal(true);
-      valid = false;
+      isValid = false;
     } else {
       setShouldShowInvalidPostal(false);
     }
 
     if (!website) {
       setShouldShowInvalidURL(true);
-      valid = false;
+      isValid = false;
     } else {
       setShouldShowInvalidURL(false);
     }
 
-    if (valid) {
-      // POST here
+    return isValid;
+  };
+
+  const handleSubmit = () => {
+    if (!validateForm()) {
+      return;
     }
+
+    const utcDate = zonedTimeToUtc(
+      date,
+      Intl.DateTimeFormat().resolvedOptions().timeZone,
+    );
+
+    const requestPayload: VaccineAvailabilityExpandedCreateRequest = {
+      active: 1,
+      date: format(utcDate, "yyyy-MM-dd'T'HH:mm:ssxxx"),
+      inputType: 2,
+      name,
+      numberAvailable: 2,
+      numberTotal: 1,
+      vaccine: vaccineType,
+      postcode: postalCode,
+      province,
+      city,
+      externalKey: slug,
+      line1: address,
+      line2: "",
+      notes: "",
+      organization: 25, // popups are always 25
+      phone: phoneNumber,
+      tagsA: "",
+      tagsL: "",
+      url: getValidUrl(website),
+    };
+
+    post(requestPayload)
+      .then((user) => {
+        setIsPopUpRequestSuccessful(true);
+      })
+      .catch((err) => console.error(err));
   };
 
   const invalidNameMessage = shouldShowInvalidName
@@ -131,7 +201,7 @@ export function PopUpForm() {
     ? "URL must not be empty"
     : undefined;
   const activator = (
-    <Button onClick={() => setActive(!active)} disclosure>
+    <Button onClick={() => setIsPopOverActive(!isPopOverActive)} disclosure>
       {vaccineTypeString}
     </Button>
   );
@@ -139,10 +209,22 @@ export function PopUpForm() {
     <section aria-label="pop-up" style={{ marginBottom: "2rem" }}>
       <Card>
         <Banner title="Submission Warning" status="warning">
-          Once you hit submit, this will record will immediately added to the
-          live website.
+          Once you hit submit, this record will be immediately added to the live
+          website.
           <strong> PLEASE TRIPLE CHECK YOUR ENTRY BEFORE SUBMITTING.</strong>
         </Banner>
+
+        {error ? (
+          <Banner title="Error" status="critical">
+            {t("anerrorhasoccurred")}
+          </Banner>
+        ) : undefined}
+
+        {isPopUpRequestSuccessful ? (
+          <Banner title="Success" status="success">
+            Your popup has been saved.
+          </Banner>
+        ) : undefined}
         <Card.Section>
           <Form onSubmit={handleSubmit}>
             <FormLayout>
@@ -156,6 +238,7 @@ export function PopUpForm() {
                   }
                   error={invalidNameMessage}
                   type="text"
+                  name="name"
                 />
                 <TextField
                   value={date}
@@ -222,9 +305,9 @@ export function PopUpForm() {
                   <Stack.Item>
                     <TextStyle>Enter Vaccine Type (Optional)</TextStyle>
                     <Popover
-                      active={active}
+                      active={isPopOverActive}
                       activator={activator}
-                      onClose={() => setActive(!active)}
+                      onClose={() => setIsPopOverActive(!isPopOverActive)}
                     >
                       <ActionList
                         items={[
@@ -262,7 +345,7 @@ export function PopUpForm() {
                   </Stack.Item>
                 </Stack>
               </FormLayout.Group>
-              <Button primary submit>
+              <Button primary submit disabled={loading}>
                 Submit
               </Button>
             </FormLayout>
