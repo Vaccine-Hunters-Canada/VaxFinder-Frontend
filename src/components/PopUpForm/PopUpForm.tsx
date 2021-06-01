@@ -164,7 +164,7 @@ export function PopUpForm() {
       numberAvailable: Number.isNaN(numAvailable) ? 0 : Number(numAvailable),
       numberTotal: 1, // Not relevant to popup availabilities, so hardcoding
       vaccine: vaccineId, // This is the vaccine id
-      postcode: postalCode.replace(/[^\w\s]/gi, ""),
+      postcode: postalCode.replace(/[^\w\s]/gi, "").replace(" ", ""),
       province,
       city,
       externalKey: locationId,
