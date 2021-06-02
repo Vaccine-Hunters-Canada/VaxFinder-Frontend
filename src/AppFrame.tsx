@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { Frame, Layout, Navigation, Page, TopBar } from "@shopify/polaris";
 import { HomeMajor, LockMajor } from "@shopify/polaris-icons";
@@ -8,6 +8,7 @@ import i18next from "i18next";
 import { ItemProps } from "@shopify/polaris/types/latest/src/components/Navigation/components";
 import { Twitter } from "./components/Twitter";
 import { userService } from "./services/userService";
+import { AppContext } from "./contexts/AppContext";
 
 const languages = [
   {
@@ -121,6 +122,7 @@ function getLanguageBarItemProps(): ItemProps[] {
 }
 
 export function AppFrame() {
+  const { setState } = useContext(AppContext);
   const { t } = useTranslation(undefined, { useSuspense: false });
   const location = useLocation();
   const [isMobileNavigationActive, setIsMobileNavigationActive] = useState(
@@ -162,6 +164,9 @@ export function AppFrame() {
                   label: t("logout"),
                   onClick: () => {
                     userService.removeUser();
+                    setState({
+                      user: undefined,
+                    });
                     history.push("/login");
                   },
                   icon: LockMajor,

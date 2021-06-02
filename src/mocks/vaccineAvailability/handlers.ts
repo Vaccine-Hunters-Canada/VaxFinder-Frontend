@@ -211,4 +211,8 @@ export const vaccineAvailabilityHandlers = [
       return res(ctx.status(200), ctx.json(response));
     },
   ),
+  rest.post(
+    `${process.env.REACT_APP_API_URL}/api/v1/vaccine-availability/locations/key/:external_key`,
+    (req, res, ctx) => res(ctx.status(200)),
+  ),
 ];

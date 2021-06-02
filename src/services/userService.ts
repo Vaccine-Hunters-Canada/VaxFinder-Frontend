@@ -5,7 +5,7 @@ export const createUserService = () => {
   const key = "VACCINE_HUNTER_USER";
 
   return {
-    getUser: () => {
+    getUser: (): SecurityLoginResponse => {
       if (memoized.has(key)) {
         return memoized.get(key);
       }
@@ -15,7 +15,7 @@ export const createUserService = () => {
         key,
         json ? (JSON.parse(json) as SecurityLoginResponse) : null,
       );
-      return memoized.get(key);
+      return memoized.get(key) as SecurityLoginResponse;
     },
     checkIsAuthenticated: () => !!sessionStorage.getItem(key),
     setUser: (item: SecurityLoginResponse) => {

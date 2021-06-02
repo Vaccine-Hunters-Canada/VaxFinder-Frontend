@@ -10,10 +10,28 @@ import {
   TextStyle,
   Banner,
 } from "@shopify/polaris";
+import slugify from "slugify";
 import React, { useState } from "react";
 import { postalCodeIsValid } from "../../utils";
+import {
+  useCreateVaccineAvailabilityExpandedKeyApiV1VaccineAvailabilityLocationsKeyExternalKeyPost,
+  VaccineAvailabilityExpandedCreateRequest,
+} from "../../apiClient";
+import { useTranslation } from "react-i18next";
+import { format } from "date-fns";
+import { zonedTimeToUtc } from "date-fns-tz";
 
+/**
+ * Form used to record popup clinic details
+ *
+ * This component could have benefited from a form management library, but given it
+ * was a one-off, it has been developed with controlled components. If we start adding
+ * more forms, it might be worthwhile introducing a form lib and refactoring.
+ *
+ * @returns A form component to record popup clinic details
+ */
 export function PopUpForm() {
+  /** Error state */
   const [shouldShowInvalidName, setShouldShowInvalidName] = useState(false);
   const [shouldShowInvalidDate, setShouldShowInvalidDate] = useState(false);
   const [shouldShowInvalidAddress, setShouldShowInvalidAddress] = useState(
@@ -25,6 +43,8 @@ export function PopUpForm() {
   );
   const [shouldShowInvalidPostal, setShouldShowInvalidPostal] = useState(false);
   const [shouldShowInvalidURL, setShouldShowInvalidURL] = useState(false);
+
+  /** Controlled component state */
   const [name, setName] = useState("");
   const [date, setDate] = useState("");
   const [address, setAddress] = useState("");
@@ -37,70 +57,143 @@ export function PopUpForm() {
   const [vaccineTypeString, setVaccineTypeString] = useState(
     "Select Vaccine Type",
   );
-  /* eslint-disable  @typescript-eslint/no-unused-vars */
-  const [vaccineType, setVaccineType] = useState(1);
-  /* eslint-enable  @typescript-eslint/no-unused-vars */
-  const [active, setActive] = useState(false);
+  const [vaccineId, setVaccineId] = useState(1);
+  const [isPopOverActive, setIsPopOverActive] = useState(false);
 
-  let UTCDate: Date;
+  const [isPopUpRequestSuccessful, setIsPopUpRequestSuccessful] = useState(
+    false,
+  );
 
-  const handleSubmit = () => {
-    let valid = true;
+  // We generate the location by slugifying the address of the popup
+  const locationId = slugify(`popup-${address}`, { locale: "fr" });
+  const {
+    mutate: post,
+    loading,
+    error,
+  } = useCreateVaccineAvailabilityExpandedKeyApiV1VaccineAvailabilityLocationsKeyExternalKeyPost(
+    { external_key: locationId },
+  );
+
+  const { t } = useTranslation();
+
+  const getValidUrl = (url = "") => {
+    let newUrl = window.decodeURIComponent(url);
+    newUrl = newUrl.trim().replace(/\s/g, "");
+
+    if (/^(:\/\/)/.test(newUrl)) {
+      return `http${newUrl}`;
+    }
+    if (!/^(f|ht)tps?:\/\//i.test(newUrl)) {
+      return `http://${newUrl}`;
+    }
+
+    return newUrl;
+  };
+
+  const validateForm = () => {
+    let isValid = true;
     if (!name) {
       setShouldShowInvalidName(true);
-      valid = false;
+      isValid = false;
     } else {
       setShouldShowInvalidName(false);
     }
 
     if (!date) {
       setShouldShowInvalidDate(true);
-      valid = false;
+      isValid = false;
     } else {
       setShouldShowInvalidDate(false);
-      /* eslint-disable  @typescript-eslint/no-unused-vars */
-      UTCDate = new Date(date);
-      /* eslint-enable  @typescript-eslint/no-unused-vars */
     }
 
     if (!address) {
       setShouldShowInvalidAddress(true);
-      valid = false;
+      isValid = false;
     } else {
       setShouldShowInvalidAddress(false);
     }
 
     if (!city) {
       setShouldShowInvalidCity(true);
-      valid = false;
+      isValid = false;
     } else {
       setShouldShowInvalidCity(false);
     }
 
     if (!province) {
       setShouldShowInvalidProvince(true);
-      valid = false;
+      isValid = false;
     } else {
       setShouldShowInvalidProvince(false);
     }
 
     if (!postalCodeIsValid(postalCode)) {
       setShouldShowInvalidPostal(true);
-      valid = false;
+      isValid = false;
     } else {
       setShouldShowInvalidPostal(false);
     }
 
     if (!website) {
       setShouldShowInvalidURL(true);
-      valid = false;
+      isValid = false;
     } else {
       setShouldShowInvalidURL(false);
     }
 
-    if (valid) {
-      // POST here
+    return isValid;
+  };
+
+  const handleSubmit = () => {
+    if (!validateForm()) {
+      return;
     }
+
+    const utcDate = zonedTimeToUtc(
+      date,
+      Intl.DateTimeFormat().resolvedOptions().timeZone,
+    );
+
+    // This request payload will be used for various vaccintion availabilities in addition to popup clinics,
+    // some values are hardcoded but I will explain them to the best of my understanding
+    const requestPayload: VaccineAvailabilityExpandedCreateRequest = {
+      active: 1, // boolean indicating if popup is active
+      date: format(utcDate, "yyyy-MM-dd'T'HH:mm:ssxxx"),
+      inputType: 1, // represents how availability data was recorded - not used at time of writing
+      name,
+      numberAvailable: numAvailable ? 1 : Number(numAvailable),
+      numberTotal: numAvailable ? 1 : Number(numAvailable),
+      vaccine: vaccineId, // This is the vaccine id
+      postcode: postalCode.replace(/[\W]/gi, ""),
+      province,
+      city,
+      externalKey: locationId,
+      line1: address,
+      line2: "",
+      notes: "",
+      organization: 25, // popups are always 25
+      phone: phoneNumber,
+      tagsA: "",
+      tagsL: "",
+      url: getValidUrl(website),
+    };
+
+    post(requestPayload)
+      .then((user) => {
+        setName("");
+        setDate("");
+        setAddress("");
+        setCity("");
+        setProvince("");
+        setPostalCode("");
+        setPhoneNumber("");
+        setWebsite("");
+        setNumAvailable("");
+        setVaccineTypeString("Select Vaccine Type");
+        setVaccineId(1);
+        setIsPopUpRequestSuccessful(true);
+      })
+      .catch((err) => console.error(err));
   };
 
   const invalidNameMessage = shouldShowInvalidName
@@ -124,14 +217,14 @@ export function PopUpForm() {
     : undefined;
 
   const invalidPostalCodeMessage = shouldShowInvalidPostal
-    ? "Invalid Postal"
+    ? "Invalid Postal Code"
     : undefined;
 
   const invalidURLMessage = shouldShowInvalidURL
     ? "URL must not be empty"
     : undefined;
   const activator = (
-    <Button onClick={() => setActive(!active)} disclosure>
+    <Button onClick={() => setIsPopOverActive(!isPopOverActive)} disclosure>
       {vaccineTypeString}
     </Button>
   );
@@ -139,10 +232,22 @@ export function PopUpForm() {
     <section aria-label="pop-up" style={{ marginBottom: "2rem" }}>
       <Card>
         <Banner title="Submission Warning" status="warning">
-          Once you hit submit, this will record will immediately added to the
-          live website.
+          Once you hit submit, this record will be immediately added to the live
+          website.
           <strong> PLEASE TRIPLE CHECK YOUR ENTRY BEFORE SUBMITTING.</strong>
         </Banner>
+
+        {error ? (
+          <Banner title="Error" status="critical">
+            {t("anerrorhasoccurred")}
+          </Banner>
+        ) : undefined}
+
+        {isPopUpRequestSuccessful ? (
+          <Banner title="Success" status="success">
+            Your popup has been saved.
+          </Banner>
+        ) : undefined}
         <Card.Section>
           <Form onSubmit={handleSubmit}>
             <FormLayout>
@@ -222,38 +327,42 @@ export function PopUpForm() {
                   <Stack.Item>
                     <TextStyle>Enter Vaccine Type (Optional)</TextStyle>
                     <Popover
-                      active={active}
+                      active={isPopOverActive}
                       activator={activator}
-                      onClose={() => setActive(!active)}
+                      onClose={() => setIsPopOverActive(!isPopOverActive)}
                     >
                       <ActionList
                         items={[
                           {
                             content: "Pfizer",
                             onAction: () => {
-                              setVaccineType(3);
+                              setVaccineId(3);
                               setVaccineTypeString("Pfizer");
+                              setIsPopOverActive(false);
                             },
                           },
                           {
                             content: "Moderna",
                             onAction: () => {
-                              setVaccineType(4);
+                              setVaccineId(4);
                               setVaccineTypeString("Moderna");
+                              setIsPopOverActive(false);
                             },
                           },
                           {
                             content: "AstraZeneca",
                             onAction: () => {
-                              setVaccineType(5);
+                              setVaccineId(5);
                               setVaccineTypeString("AstraZeneca");
+                              setIsPopOverActive(false);
                             },
                           },
                           {
                             content: "Not Sure",
                             onAction: () => {
-                              setVaccineType(6);
+                              setVaccineId(1);
                               setVaccineTypeString("Not Sure");
+                              setIsPopOverActive(false);
                             },
                           },
                         ]}
@@ -262,7 +371,7 @@ export function PopUpForm() {
                   </Stack.Item>
                 </Stack>
               </FormLayout.Group>
-              <Button primary submit>
+              <Button primary submit disabled={loading}>
                 Submit
               </Button>
             </FormLayout>
