@@ -68,13 +68,13 @@ export function PharmacyCard(props: PharmacyProps) {
     );
   };
 
-  const isPopup = (organizationId: number) => organizationId === 25;
-
-  const popupWarningMarkup = isPopup(props.organizationId) ? (
-    <Banner title="This is a pop-up clinic." status="warning">
-      Please visit the website to confirm you are eligible for this location.
-    </Banner>
-  ) : undefined;
+  const POPUP_ORGANIZATION_ID = 25;
+  const popupWarningMarkup =
+    props.organizationId === POPUP_ORGANIZATION_ID ? (
+      <Banner title={t("popupwarning")} status="warning">
+        {t("popupwarningmessage")}
+      </Banner>
+    ) : undefined;
 
   const Map = () => (
     <Iframe
