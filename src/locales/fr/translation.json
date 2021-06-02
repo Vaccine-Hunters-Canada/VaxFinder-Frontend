@@ -17,6 +17,8 @@
     "loadmap": "Carte",
     "login": "Connexion",
     "noappointments": "Il n'y a pas de rendez-vous près de {{postalCode}}. Veuillez réessayer plus tard.",
+    "popupwarning": "Ceci est une clinique éphémère",
+    "popupwarningmessage": "Veuillez visiter le site Web pour confirmer que vous êtes éligible pour ce site de vaccination.",
     "postalcodetext": "Nous utiliserons ce code postal pour trouver les rendez-vous de vaccination disponibles les plus proches. Ces informations ne sont sauvegardées que temporairement et ne sont utilisées à aucune autre fin.",
     "quantity": "Quantité",
     "show": "Montrer",
