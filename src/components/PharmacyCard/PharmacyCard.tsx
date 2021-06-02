@@ -35,6 +35,7 @@ interface PharmacyProps {
   website: string;
   lastUpdated: string;
   vaccineAvailabilities: VaccineAvailabilitiesByDateAndRequirementsInterface;
+  organizationId: number;
 }
 
 export function PharmacyCard(props: PharmacyProps) {
@@ -66,6 +67,15 @@ export function PharmacyCard(props: PharmacyProps) {
       </Banner>
     );
   };
+
+  const isPopup = (organizationId: number) => organizationId === 25;
+
+  const popupWarningMarkup = isPopup(props.organizationId) ? (
+    <Banner title="This is a pop-up clinic." status="warning">
+      Please visit the website to confirm you are eligible for this location.
+    </Banner>
+  ) : undefined;
+
   const Map = () => (
     <Iframe
       // the key is hardcoded for now, but there's no rate limit or usage limit for embedding
@@ -169,6 +179,7 @@ export function PharmacyCard(props: PharmacyProps) {
             </Card.Subsection>
           </Card.Section>
           {/* {appointmentsAvailableMarkup()} */}
+          <Card.Section fullWidth>{popupWarningMarkup}</Card.Section>
         </TextContainer>
         {shouldShowMap ? <Map /> : null}
       </div>

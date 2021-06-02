@@ -178,6 +178,7 @@ export function PharmacyList(props: Props) {
         phone: pharmacy.phone || "",
         website: pharmacy.url || "",
         vaccineAvailabilities: vaccineAvailabilitiesByDateAndRequirements,
+        organizationId: pharmacy.organization?.id || 1,
       };
     });
   }
@@ -214,6 +215,7 @@ export function PharmacyList(props: Props) {
                   phone={pharmacy.phone}
                   website={pharmacy.website}
                   vaccineAvailabilities={pharmacy.vaccineAvailabilities}
+                  organizationId={pharmacy.organizationId}
                 />
               );
             })
