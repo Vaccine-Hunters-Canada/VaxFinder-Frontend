@@ -17,6 +17,8 @@
     "loadmap": "Cargar mapa",
     "login": "Acceso",
     "noappointments": "Ninguna cita fue encontrada cerca de {{postalCode}}. Por favor intente nuevamente más tarde.",
+    "popupwarning": "Esta es una clínica de vacunación emergente",
+    "popupwarningmessage": "Por favor visite el sitio web para confirmar que usted es elegible para esta ubicación",
     "postalcodetext": "Usaremos este código postal para encontrar las citas disponibles más cercanas.",
     "quantity": "Cantidad",
     "show": "Mostrar",
