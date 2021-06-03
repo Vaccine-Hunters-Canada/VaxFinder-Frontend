@@ -179,7 +179,7 @@ export function PharmacyList(props: Props) {
         phone: pharmacy.phone || "",
         website: pharmacy.url || "",
         vaccineAvailabilities: vaccineAvailabilitiesByDateAndRequirements,
-        organizationId: pharmacy.organization?.id || UNKNOWN_ORGANIZATION_ID,
+        organizationId: pharmacy.organization?.id ?? UNKNOWN_ORGANIZATION_ID,
       };
     });
   }
