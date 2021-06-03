@@ -169,6 +169,7 @@ export function PharmacyList(props: Props) {
             : lastUpdated;
       });
 
+      const UNKNOWN_ORGANIZATION_ID = 5;
       return {
         id: pharmacy.id,
         pharmacyName: pharmacy.name,
@@ -178,6 +179,7 @@ export function PharmacyList(props: Props) {
         phone: pharmacy.phone || "",
         website: pharmacy.url || "",
         vaccineAvailabilities: vaccineAvailabilitiesByDateAndRequirements,
+        organizationId: pharmacy.organization?.id || UNKNOWN_ORGANIZATION_ID,
       };
     });
   }
@@ -214,6 +216,7 @@ export function PharmacyList(props: Props) {
                   phone={pharmacy.phone}
                   website={pharmacy.website}
                   vaccineAvailabilities={pharmacy.vaccineAvailabilities}
+                  organizationId={pharmacy.organizationId}
                 />
               );
             })
