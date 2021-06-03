@@ -17,6 +17,8 @@
     "loadmap": "Harita yükle",
     "login": "Oturum aç",
     "noappointments": "{{postalCode}} koduna yakın randevu bulunamadı. Lütfen daha sonra tekrar deneyiniz",
+    "popupwarning": "Bu bir mobil kliniktir",
+    "popupwarningmessage": "Lütfen bu lokasyonun kriterlerine uyduğunuzu teyit etmek için web sayfasına gidiniz",
     "postalcodetext": "Posta koduna en yakın aşı randevularını bulmak için kullanılmaktadır.",
     "quantity": "Miktar",
     "show": "Göster",

@@ -17,6 +17,8 @@
     "loadmap": "地图",
     "login": "登录",
     "noappointments": "{{postalCode}} 附近没有疫苗可以预约。请稍后再试。",
+    "popupwarning": "这是一个临时疫苗接种诊所",
+    "popupwarningmessage": "请访问网站来确认你是否符合这个临时诊所的疫苗接种条件",
     "postalcodetext": "我们将会用这个邮编搜寻附近可以预约的疫苗。",
     "quantity": "数量",
     "show": "显示",
