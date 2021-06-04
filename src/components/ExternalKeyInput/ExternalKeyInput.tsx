@@ -18,15 +18,6 @@ import { postalCodeIsValid } from "../../utils";
 import { useListOrganizationsApiV1OrganizationsGet } from "../../apiClient";
 import { CircleAlertMajor } from "@shopify/polaris-icons";
 
-/**
- * Form used to record popup clinic details
- *
- * This component could have benefited from a form management library, but given it
- * was a one-off, it has been developed with controlled components. If we start adding
- * more forms, it might be worthwhile introducing a form lib and refactoring.
- *
- * @returns A form component to record popup clinic details
- */
 export function ExternalKeyInput() {
   /** Fetch Organizations */
   const { data, loading, error } = useListOrganizationsApiV1OrganizationsGet(
