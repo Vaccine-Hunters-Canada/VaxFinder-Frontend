@@ -118,7 +118,7 @@ export function ExternalKeyInput() {
     return items;
   };
 
-  const postalErrorBanner = shouldShowInvalidPostal ? (
+  const postalErrorBanner = shouldShowInvalidOrganization ? (
     <Banner title="Please select your organization" status="critical">
       Please select your corresponding organization. If you are independant
       pharmacy, select &quot;Independently Owned Pharmacy&quot;.
