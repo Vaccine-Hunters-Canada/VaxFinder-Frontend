@@ -16,6 +16,7 @@ import {
   postalCodeToApiFormat,
   postalCodeToHumanFormat,
 } from "../../utils";
+import { ExternalKeyInput } from "../../components/ExternalKeyInput";
 
 type PharmacyProps = React.ComponentProps<typeof PharmacyCard>;
 
@@ -197,6 +198,7 @@ export function PharmacyList(props: Props) {
   return (
     <>
       <SearchCard />
+      <ExternalKeyInput />
 
       {shouldShowBanner ? (
         <EligibilityBanner onDismiss={() => setShouldShowBanner(false)} />
