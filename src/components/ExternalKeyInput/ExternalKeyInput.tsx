@@ -93,10 +93,6 @@ export function ExternalKeyInput() {
     ? "Invalid Postal Code"
     : undefined;
 
-  const invalidOrganizationMessage = shouldShowInvalidOrganization
-    ? "Please Select an Organization"
-    : undefined;
-
   const activator = (
     <Button onClick={() => setIsPopOverActive(!isPopOverActive)} disclosure>
       {organizationName}
