@@ -22,7 +22,6 @@ import {
 } from "../../apiClient";
 
 import { postalCodeIsValid } from "../../utils";
-import { useTranslation } from "react-i18next";
 import { usePrevious } from "../../hooks/usePrevious";
 
 export function RapidAppointment() {
@@ -74,8 +73,6 @@ export function RapidAppointment() {
   const [isVisitWebsiteChecked, setIsVisitWebsiteChecked] = useState(false);
   const [isEmailChecked, setIsEmailChecked] = useState(false);
   const [shouldShowExpandedForm, setShouldShowExpandedForm] = useState(true);
-
-  const { t } = useTranslation();
 
   const previousData = usePrevious(data);
   useEffect(() => {
