@@ -82,7 +82,7 @@ export function ExternalKeyInput() {
 
     const params = new URLSearchParams();
     const externalKey = slugify(
-      `${organizationId}-${postalCode}-${streetNumber}`,
+      `${streetNumber}-${postalCode.replace(/[\W]/gi, "")}-${organizationId}`,
     );
     params.append("externalKey", externalKey);
 
