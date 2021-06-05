@@ -1,0 +1,1 @@
+export { RapidAppointment } from "./RapidAppointment";
