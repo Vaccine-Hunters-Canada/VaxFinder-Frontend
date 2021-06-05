@@ -17,6 +17,8 @@ import React, { useState } from "react";
 import { postalCodeIsValid } from "../../utils";
 import { useListOrganizationsApiV1OrganizationsGet } from "../../apiClient";
 import { CircleAlertMajor } from "@shopify/polaris-icons";
+import { useHistory } from "react-router-dom";
+import slugify from "slugify";
 
 export function ExternalKeyInput() {
   /** Fetch Organizations */
@@ -33,6 +35,8 @@ export function ExternalKeyInput() {
     shouldShowInvalidOrganization,
     setShouldShowInvalidOrganization,
   ] = useState(false);
+
+  const history = useHistory();
 
   /** Controlled component state */
   const [postalCode, setPostalCode] = useState("");
@@ -72,10 +76,22 @@ export function ExternalKeyInput() {
   };
 
   const handleSubmit = () => {
-    // eslint-disable-next-line no-empty
     if (!validateForm()) {
+      return;
     }
+
+    const params = new URLSearchParams();
+    const externalKey = slugify(
+      `${organizationId}-${postalCode}-${streetNumber}`,
+    );
+    params.append("externalKey", externalKey);
+
+    history.push({
+      pathname: "/admin/rapidAppointment",
+      search: params.toString(),
+    });
   };
+
   const invalidStreetNumber = shouldShowInvalidStreetNumber
     ? "Street number most not be empty."
     : undefined;
