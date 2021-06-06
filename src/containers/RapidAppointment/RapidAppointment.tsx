@@ -23,8 +23,13 @@ import {
 
 import { postalCodeIsValid } from "../../utils";
 import { usePrevious } from "../../hooks/usePrevious";
+import { format, startOfDay } from "date-fns";
+import { zonedTimeToUtc } from "date-fns-tz";
+import { getValidUrl } from "../../utils/getValidUrl";
+import { useTranslation } from "react-i18next";
 
 export function RapidAppointment() {
+  const { t } = useTranslation();
   const { search } = useLocation();
   const params = queryString.parse(search);
 
@@ -32,15 +37,27 @@ export function RapidAppointment() {
     ? params.externalKey[0]
     : params.externalKey;
 
+  const organizationId = Array.isArray(params.organizationId)
+    ? params.organizationId[0]
+    : params.organizationId;
+
   const {
-    data,
-    error,
-    loading,
+    data: locationData,
+    error: locationError,
+    loading: locationLoading,
     refetch,
   } = useRetrieveLocationByExternalKeyApiV1LocationsExternalExternalKeyGet({
     external_key: key || "",
     lazy: true,
   });
+
+  const {
+    mutate: post,
+    loading: createLoading,
+    error: createError,
+  } = useCreateVaccineAvailabilityExpandedKeyApiV1VaccineAvailabilityLocationsKeyExternalKeyPost(
+    { external_key: key || "" },
+  );
 
   /** Error state */
   const [shouldShowInvalidName, setShouldShowInvalidName] = useState(false);
@@ -53,6 +70,12 @@ export function RapidAppointment() {
   );
   const [shouldShowInvalidPostal, setShouldShowInvalidPostal] = useState(false);
   const [shouldShowInvalidURL, setShouldShowInvalidURL] = useState(false);
+  const [shouldShowInvalidBooking, setShouldShowInvalidBooking] = useState(
+    false,
+  );
+  const [shouldShowInvalidReasons, setShouldShowInvalidReasons] = useState(
+    false,
+  );
 
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
@@ -75,20 +98,24 @@ export function RapidAppointment() {
   const [isVisitWebsiteChecked, setIsVisitWebsiteChecked] = useState(false);
   const [isEmailChecked, setIsEmailChecked] = useState(false);
   const [shouldShowExpandedForm, setShouldShowExpandedForm] = useState(true);
+  const [isCreateRequestSuccessful, setIsCreateRequestSuccessful] = useState(
+    false,
+  );
 
-  const previousData = usePrevious(data);
+  const previousData = usePrevious(locationData);
   useEffect(() => {
-    if (!previousData && data) {
-      setName(data.name);
-      setAddress(data.address?.line1 || "");
-      setCity(data.address?.city || "");
-      setProvince(data.address?.province || "");
-      setPostalCode(data.address?.postcode || "");
-      setPhoneNumber(data.phone || "");
-      setWebsite(data.url || "");
+    if (!previousData && locationData) {
+      setName(locationData.name);
+      setAddress(locationData.address?.line1 || "");
+      setCity(locationData.address?.city || "");
+      setProvince(locationData.address?.province || "");
+      setPostalCode(locationData.address?.postcode || "");
+      setPhoneNumber(locationData.phone || "");
+      setWebsite(locationData.url || "");
       setShouldShowExpandedForm(false);
     }
-  }, [data, previousData]);
+  }, [locationData, previousData]);
+
   const validateForm = () => {
     let isValid = true;
     if (!name) {
@@ -132,6 +159,25 @@ export function RapidAppointment() {
     } else {
       setShouldShowInvalidURL(false);
     }
+
+    if (
+      !isWalkInChecked &&
+      !isEmailChecked &&
+      !isCallAheadChecked &&
+      !isVisitWebsiteChecked
+    ) {
+      setShouldShowInvalidBooking(true);
+      isValid = false;
+    } else {
+      setShouldShowInvalidBooking(false);
+    }
+
+    if (!isCancellationsChecked && !isExpiringDosesChecked) {
+      setShouldShowInvalidReasons(true);
+      isValid = false;
+    } else {
+      setShouldShowInvalidReasons(false);
+    }
     return isValid;
   };
 
@@ -140,87 +186,78 @@ export function RapidAppointment() {
       return;
     }
 
-    let tagsCommaSeperatedString = "";
+    const tagsCommaSeparatedString: string[] = [];
 
     if (isCallAheadChecked) {
-      tagsCommaSeperatedString = "Call Ahead";
+      tagsCommaSeparatedString.push("Call Ahead");
     }
     if (isWalkInChecked) {
-      if (!tagsCommaSeperatedString) {
-        tagsCommaSeperatedString = "Walk In";
-      } else {
-        tagsCommaSeperatedString += ",Walk In";
-      }
+      tagsCommaSeparatedString.push("Walk In");
     }
+
     if (isVisitWebsiteChecked) {
-      if (!tagsCommaSeperatedString) {
-        tagsCommaSeperatedString = "Visit Website";
-      } else {
-        tagsCommaSeperatedString += ",Visit Website";
-      }
+      tagsCommaSeparatedString.push("Visit Website");
     }
     if (isEmailChecked) {
-      if (!tagsCommaSeperatedString) {
-        tagsCommaSeperatedString = "Email";
-      } else {
-        tagsCommaSeperatedString += ",Email";
-      }
+      tagsCommaSeparatedString.push("Email");
     }
+
     if (isCancellationsChecked) {
-      if (!tagsCommaSeperatedString) {
-        tagsCommaSeperatedString = "Cancellation";
-      } else {
-        tagsCommaSeperatedString += ",Cancellation";
-      }
+      tagsCommaSeparatedString.push("Cancellation");
     }
+
     if (isExpiringDosesChecked) {
-      if (!tagsCommaSeperatedString) {
-        tagsCommaSeperatedString = "Expiring Doses";
-      } else {
-        tagsCommaSeperatedString += ",Expiring Doses";
-      }
+      tagsCommaSeparatedString.push("Expiring Doses");
     }
 
-    // This request payload will be used for various vaccintion availabilities in addition to popup clinics,
-    // some values are hardcoded but I will explain them to the best of my understanding
-    // const requestPayload: VaccineAvailabilityExpandedCreateRequest = {
-    //   active: 1, // boolean indicating if popup is active
-    //   date: format(utcDate, "yyyy-MM-dd'T'HH:mm:ssxxx"),
-    //   inputType: 1, // represents how availability data was recorded - not used at time of writing
-    //   name,
-    //   numberAvailable: numAvailable ? 1 : Number(numAvailable),
-    //   numberTotal: numAvailable ? 1 : Number(numAvailable),
-    //   vaccine: vaccineId, // This is the vaccine id
-    //   postcode: postalCode.replace(/[\W]/gi, ""),
-    //   province,
-    //   city,
-    //   externalKey: locationId,
-    //   line1: address,
-    //   line2: "",
-    //   notes: "",
-    //   organization: 25, // popups are always 25
-    //   phone: phoneNumber,
-    //   tagsA: tagsCommaSeperatedString,
-    //   tagsL: "",
-    //   url: getValidUrl(website),
-    // };
+    const utcDate = zonedTimeToUtc(
+      startOfDay(new Date()),
+      Intl.DateTimeFormat().resolvedOptions().timeZone,
+    );
 
-    // post(requestPayload)
-    //   .then((user) => {
-    //     setName("");
-    //     setDate("");
-    //     setAddress("");
-    //     setCity("");
-    //     setProvince("");
-    //     setPostalCode("");
-    //     setPhoneNumber("");
-    //     setWebsite("");
-    //     setNumAvailable("");
-    //     setVaccineTypeString("Select Vaccine Type");
-    //     setVaccineId(1);
-    //     setIsPopUpRequestSuccessful(true);
-    //   })
-    //   .catch((err) => console.error(err));
+    const requestPayload: VaccineAvailabilityExpandedCreateRequest = {
+      active: 1, // boolean indicating if location is active
+      date: format(utcDate, "yyyy-MM-dd'T'HH:mm:ssxxx"),
+      inputType: 1, // represents how availability data was recorded - not used at time of writing
+      name,
+      numberAvailable: numAvailable ? 1 : Number(numAvailable),
+      numberTotal: numAvailable ? 1 : Number(numAvailable),
+      vaccine: vaccineId,
+      postcode: postalCode.replace(/[\W]/gi, ""),
+      province,
+      city,
+      externalKey: key!,
+      line1: address,
+      line2: "",
+      notes: "",
+      organization: Number(organizationId!),
+      phone: phoneNumber,
+      tagsA: tagsCommaSeparatedString.join(","),
+      tagsL: "",
+      url: getValidUrl(website),
+    };
+
+    post(requestPayload)
+      .then(() => {
+        setName("");
+        setAddress("");
+        setCity("");
+        setProvince("");
+        setPostalCode("");
+        setPhoneNumber("");
+        setWebsite("");
+        setNumAvailable("");
+        setVaccineTypeString("Select Vaccine Type");
+        setVaccineId(1);
+        setIsCallAheadChecked(false);
+        setIsCancellationsChecked(false);
+        setIsExpiringDosesChecked(false);
+        setIsVisitWebsiteChecked(false);
+        setIsEmailChecked(false);
+        setIsWalkInChecked(false);
+        setIsCreateRequestSuccessful(true);
+      })
+      .catch((err) => console.error(err));
   };
   const invalidNameMessage = shouldShowInvalidName
     ? "Name must not be empty"
@@ -245,17 +282,26 @@ export function RapidAppointment() {
   const invalidURLMessage = shouldShowInvalidURL
     ? "URL must not be empty"
     : undefined;
+
+  const invalidBookingMessage = shouldShowInvalidBooking
+    ? "At least one booking method must be checked"
+    : undefined;
+
+  const invalidReasonMessage = shouldShowInvalidReasons
+    ? "At least one reason must be checked"
+    : undefined;
+
   const activator = (
     <Button onClick={() => setIsPopOverActive(!isPopOverActive)} disclosure>
       {vaccineTypeString}
     </Button>
   );
 
-  if (!params.externalKey) {
+  if (!params.externalKey || !params.organizationId) {
     return <Redirect to="/admin/externalKey" />;
   }
 
-  if (loading) {
+  if (locationLoading) {
     return (
       <div className="wrapper">
         <Spinner accessibilityLabel="Loading" />
@@ -263,206 +309,10 @@ export function RapidAppointment() {
     );
   }
 
-  if (!loading && !data && !error) {
+  if (!locationLoading && !locationData && !locationError) {
     refetch().catch((err) => console.error(err));
   }
 
-  if (shouldShowExpandedForm) {
-    return (
-      <section aria-label="pop-up" style={{ marginBottom: "2rem" }}>
-        <Card>
-          <Banner title="Submission Warning" status="warning">
-            Once you hit submit, this record will be immediately added to the
-            live website.
-            <strong> PLEASE TRIPLE CHECK YOUR ENTRY BEFORE SUBMITTING.</strong>
-          </Banner>
-
-          {/* {error ? (
-            <Banner title="Error" status="critical">
-              {t("anerrorhasoccurred")}
-            </Banner>
-          ) : undefined} */}
-
-          {/* {isPopUpRequestSuccessful ? (
-            <Banner title="Success" status="success">
-              Your popup has been saved.
-            </Banner>
-          ) : undefined} */}
-          <Card.Section>
-            <Form onSubmit={handleSubmit}>
-              <FormLayout>
-                <FormLayout.Group>
-                  <TextField
-                    value={name}
-                    onChange={setName}
-                    label="Enter Clinic Name"
-                    helpText={
-                      <span>Enter the name of the clinic, or location</span>
-                    }
-                    error={invalidNameMessage}
-                    type="text"
-                  />
-                </FormLayout.Group>
-                <FormLayout.Group>
-                  <TextField
-                    value={address}
-                    onChange={setAddress}
-                    label="Enter Address"
-                    error={invalidAddressMessage}
-                    type="text"
-                  />
-                  <TextField
-                    value={city}
-                    onChange={setCity}
-                    label="Enter City"
-                    error={invalidCityMessage}
-                    type="text"
-                  />
-                  <TextField
-                    value={province}
-                    onChange={setProvince}
-                    label="Enter Province"
-                    error={invalidProvinceMessage}
-                    type="text"
-                  />
-                  <TextField
-                    value={postalCode}
-                    onChange={setPostalCode}
-                    label="Enter Postal Code"
-                    error={invalidPostalCodeMessage}
-                    type="text"
-                  />
-                </FormLayout.Group>
-                <FormLayout.Group>
-                  <TextField
-                    value={phoneNumber}
-                    onChange={setPhoneNumber}
-                    label="Enter Phone Number (Optional)"
-                    type="text"
-                  />
-                  <TextField
-                    value={website}
-                    onChange={setWebsite}
-                    label="Enter Website URL"
-                    error={invalidURLMessage}
-                    type="text"
-                  />
-                </FormLayout.Group>
-                <FormLayout.Group>
-                  <TextField
-                    value={numAvailable}
-                    onChange={setNumAvailable}
-                    label="Enter Number Available (Optional)"
-                    type="number"
-                  />
-                  <Stack distribution="fill">
-                    <Stack.Item>
-                      <TextStyle>Enter Vaccine Type (Optional)</TextStyle>
-                      <Popover
-                        active={isPopOverActive}
-                        activator={activator}
-                        onClose={() => setIsPopOverActive(!isPopOverActive)}
-                      >
-                        <ActionList
-                          items={[
-                            {
-                              content: "Pfizer",
-                              onAction: () => {
-                                setVaccineId(3);
-                                setVaccineTypeString("Pfizer");
-                                setIsPopOverActive(false);
-                              },
-                            },
-                            {
-                              content: "Moderna",
-                              onAction: () => {
-                                setVaccineId(4);
-                                setVaccineTypeString("Moderna");
-                                setIsPopOverActive(false);
-                              },
-                            },
-                            {
-                              content: "AstraZeneca",
-                              onAction: () => {
-                                setVaccineId(5);
-                                setVaccineTypeString("AstraZeneca");
-                                setIsPopOverActive(false);
-                              },
-                            },
-                            {
-                              content: "Not Sure",
-                              onAction: () => {
-                                setVaccineId(1);
-                                setVaccineTypeString("Not Sure");
-                                setIsPopOverActive(false);
-                              },
-                            },
-                          ]}
-                        />
-                      </Popover>
-                    </Stack.Item>
-                  </Stack>
-                </FormLayout.Group>
-                <FormLayout.Group>
-                  <Stack vertical>
-                    <TextStyle>Select Booking Methods</TextStyle>
-                    <Checkbox
-                      label="Walk-Ins"
-                      checked={isWalkInChecked}
-                      onChange={() => {
-                        setIsWalkInChecked(!isWalkInChecked);
-                      }}
-                    />
-                    <Checkbox
-                      label="Email"
-                      checked={isEmailChecked}
-                      onChange={() => {
-                        setIsEmailChecked(!isEmailChecked);
-                      }}
-                    />
-                    <Checkbox
-                      label="Call Ahead"
-                      checked={isCallAheadChecked}
-                      onChange={() => {
-                        setIsCallAheadChecked(!isCallAheadChecked);
-                      }}
-                    />
-                    <Checkbox
-                      label="Visit Website"
-                      checked={isVisitWebsiteChecked}
-                      onChange={() => {
-                        setIsVisitWebsiteChecked(!isVisitWebsiteChecked);
-                      }}
-                    />
-                  </Stack>
-                  <Stack vertical>
-                    <TextStyle>Select Appointment Reasoning(s)</TextStyle>
-                    <Checkbox
-                      label="Cancellations"
-                      checked={isCancellationsChecked}
-                      onChange={() => {
-                        setIsCancellationsChecked(!isCancellationsChecked);
-                      }}
-                    />
-                    <Checkbox
-                      label="Expiring Doses"
-                      checked={isExpiringDosesChecked}
-                      onChange={() => {
-                        setIsExpiringDosesChecked(!isExpiringDosesChecked);
-                      }}
-                    />
-                  </Stack>
-                </FormLayout.Group>
-                <Button primary submit disabled={loading}>
-                  Submit
-                </Button>
-              </FormLayout>
-            </Form>
-          </Card.Section>
-        </Card>
-      </section>
-    );
-  }
   return (
     <section aria-label="pop-up" style={{ marginBottom: "2rem" }}>
       <Card>
@@ -472,20 +322,81 @@ export function RapidAppointment() {
           <strong> PLEASE TRIPLE CHECK YOUR ENTRY BEFORE SUBMITTING.</strong>
         </Banner>
 
-        {/* {error ? (
+        {createError ? (
           <Banner title="Error" status="critical">
             {t("anerrorhasoccurred")}
           </Banner>
-        ) : undefined} */}
+        ) : undefined}
 
-        {/* {isPopUpRequestSuccessful ? (
+        {isCreateRequestSuccessful ? (
           <Banner title="Success" status="success">
-            Your popup has been saved.
+            Your record has been saved.
           </Banner>
-        ) : undefined} */}
+        ) : undefined}
         <Card.Section>
           <Form onSubmit={handleSubmit}>
             <FormLayout>
+              {shouldShowExpandedForm ? (
+                <div className="wrapper">
+                  <FormLayout.Group>
+                    <TextField
+                      value={name}
+                      onChange={setName}
+                      label="Enter Clinic Name"
+                      helpText={
+                        <span>Enter the name of the clinic, or location</span>
+                      }
+                      error={invalidNameMessage}
+                      type="text"
+                    />
+                  </FormLayout.Group>
+                  <FormLayout.Group>
+                    <TextField
+                      value={address}
+                      onChange={setAddress}
+                      label="Enter Address"
+                      error={invalidAddressMessage}
+                      type="text"
+                    />
+                    <TextField
+                      value={city}
+                      onChange={setCity}
+                      label="Enter City"
+                      error={invalidCityMessage}
+                      type="text"
+                    />
+                    <TextField
+                      value={province}
+                      onChange={setProvince}
+                      label="Enter Province"
+                      error={invalidProvinceMessage}
+                      type="text"
+                    />
+                    <TextField
+                      value={postalCode}
+                      onChange={setPostalCode}
+                      label="Enter Postal Code"
+                      error={invalidPostalCodeMessage}
+                      type="text"
+                    />
+                  </FormLayout.Group>
+                  <FormLayout.Group>
+                    <TextField
+                      value={phoneNumber}
+                      onChange={setPhoneNumber}
+                      label="Enter Phone Number (Optional)"
+                      type="text"
+                    />
+                    <TextField
+                      value={website}
+                      onChange={setWebsite}
+                      label="Enter Website URL"
+                      error={invalidURLMessage}
+                      type="text"
+                    />
+                  </FormLayout.Group>
+                </div>
+              ) : undefined}
               <FormLayout.Group>
                 <TextField
                   value={numAvailable}
@@ -550,6 +461,7 @@ export function RapidAppointment() {
                     onChange={() => {
                       setIsWalkInChecked(!isWalkInChecked);
                     }}
+                    error={invalidBookingMessage}
                   />
                   <Checkbox
                     label="Email"
@@ -557,6 +469,7 @@ export function RapidAppointment() {
                     onChange={() => {
                       setIsEmailChecked(!isEmailChecked);
                     }}
+                    error={invalidBookingMessage}
                   />
                   <Checkbox
                     label="Call Ahead"
@@ -564,6 +477,7 @@ export function RapidAppointment() {
                     onChange={() => {
                       setIsCallAheadChecked(!isCallAheadChecked);
                     }}
+                    error={invalidBookingMessage}
                   />
                   <Checkbox
                     label="Visit Website"
@@ -571,6 +485,7 @@ export function RapidAppointment() {
                     onChange={() => {
                       setIsVisitWebsiteChecked(!isVisitWebsiteChecked);
                     }}
+                    error={invalidBookingMessage}
                   />
                 </Stack>
                 <Stack vertical>
@@ -581,6 +496,7 @@ export function RapidAppointment() {
                     onChange={() => {
                       setIsCancellationsChecked(!isCancellationsChecked);
                     }}
+                    error={invalidReasonMessage}
                   />
                   <Checkbox
                     label="Expiring Doses"
@@ -588,10 +504,11 @@ export function RapidAppointment() {
                     onChange={() => {
                       setIsExpiringDosesChecked(!isExpiringDosesChecked);
                     }}
+                    error={invalidReasonMessage}
                   />
                 </Stack>
               </FormLayout.Group>
-              <Button primary submit disabled={loading}>
+              <Button primary submit disabled={createLoading}>
                 Submit
               </Button>
             </FormLayout>
@@ -600,4 +517,125 @@ export function RapidAppointment() {
       </Card>
     </section>
   );
+  // return (
+  //   <section aria-label="pop-up" style={{ marginBottom: "2rem" }}>
+  //     <Card>
+  //       {bannerMarkup}
+  //       <Card.Section>
+  //         <Form onSubmit={handleSubmit}>
+  //           <FormLayout>
+  //             <FormLayout.Group>
+  //               <TextField
+  //                 value={numAvailable}
+  //                 onChange={setNumAvailable}
+  //                 label="Enter Number Available (Optional)"
+  //                 type="number"
+  //               />
+  //               <Stack distribution="fill">
+  //                 <Stack.Item>
+  //                   <TextStyle>Enter Vaccine Type (Optional)</TextStyle>
+  //                   <Popover
+  //                     active={isPopOverActive}
+  //                     activator={activator}
+  //                     onClose={() => setIsPopOverActive(!isPopOverActive)}
+  //                   >
+  //                     <ActionList
+  //                       items={[
+  //                         {
+  //                           content: "Pfizer",
+  //                           onAction: () => {
+  //                             setVaccineId(3);
+  //                             setVaccineTypeString("Pfizer");
+  //                             setIsPopOverActive(false);
+  //                           },
+  //                         },
+  //                         {
+  //                           content: "Moderna",
+  //                           onAction: () => {
+  //                             setVaccineId(4);
+  //                             setVaccineTypeString("Moderna");
+  //                             setIsPopOverActive(false);
+  //                           },
+  //                         },
+  //                         {
+  //                           content: "AstraZeneca",
+  //                           onAction: () => {
+  //                             setVaccineId(5);
+  //                             setVaccineTypeString("AstraZeneca");
+  //                             setIsPopOverActive(false);
+  //                           },
+  //                         },
+  //                         {
+  //                           content: "Not Sure",
+  //                           onAction: () => {
+  //                             setVaccineId(1);
+  //                             setVaccineTypeString("Not Sure");
+  //                             setIsPopOverActive(false);
+  //                           },
+  //                         },
+  //                       ]}
+  //                     />
+  //                   </Popover>
+  //                 </Stack.Item>
+  //               </Stack>
+  //             </FormLayout.Group>
+  //             <FormLayout.Group>
+  //               <Stack vertical>
+  //                 <TextStyle>Select Booking Methods</TextStyle>
+  //                 <Checkbox
+  //                   label="Walk-Ins"
+  //                   checked={isWalkInChecked}
+  //                   onChange={() => {
+  //                     setIsWalkInChecked(!isWalkInChecked);
+  //                   }}
+  //                 />
+  //                 <Checkbox
+  //                   label="Email"
+  //                   checked={isEmailChecked}
+  //                   onChange={() => {
+  //                     setIsEmailChecked(!isEmailChecked);
+  //                   }}
+  //                 />
+  //                 <Checkbox
+  //                   label="Call Ahead"
+  //                   checked={isCallAheadChecked}
+  //                   onChange={() => {
+  //                     setIsCallAheadChecked(!isCallAheadChecked);
+  //                   }}
+  //                 />
+  //                 <Checkbox
+  //                   label="Visit Website"
+  //                   checked={isVisitWebsiteChecked}
+  //                   onChange={() => {
+  //                     setIsVisitWebsiteChecked(!isVisitWebsiteChecked);
+  //                   }}
+  //                 />
+  //               </Stack>
+  //               <Stack vertical>
+  //                 <TextStyle>Select Appointment Reasoning(s)</TextStyle>
+  //                 <Checkbox
+  //                   label="Cancellations"
+  //                   checked={isCancellationsChecked}
+  //                   onChange={() => {
+  //                     setIsCancellationsChecked(!isCancellationsChecked);
+  //                   }}
+  //                 />
+  //                 <Checkbox
+  //                   label="Expiring Doses"
+  //                   checked={isExpiringDosesChecked}
+  //                   onChange={() => {
+  //                     setIsExpiringDosesChecked(!isExpiringDosesChecked);
+  //                   }}
+  //                 />
+  //               </Stack>
+  //             </FormLayout.Group>
+  //             <Button primary submit disabled={loading}>
+  //               Submit
+  //             </Button>
+  //           </FormLayout>
+  //         </Form>
+  //       </Card.Section>
+  //     </Card>
+  //   </section>
+  // );
 }

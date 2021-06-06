@@ -23,6 +23,8 @@ describe("ExternalKeyInput", () => {
     const submitButton = await screen.findByRole("button", { name: /submit/i });
     userEvent.click(submitButton);
 
-    expect(history.location.search).toBe("externalKey=100-K2T0E5-1");
+    expect(history.location.search).toBe(
+      "externalKey=100-K2T0E5-1&organizationId=1",
+    );
   });
 });
