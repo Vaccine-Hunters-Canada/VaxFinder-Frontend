@@ -45,7 +45,6 @@ export function Login() {
     setIsPharmacist(true);
     setName("PharmacyUser");
     setPassword(pharmacyPassword);
-    console.log(name);
     post({ name, password })
       .then((user) => {
         if (user.key) {
