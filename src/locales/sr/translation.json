@@ -17,6 +17,8 @@
     "loadmap": "Učitajte mapu",
     "login": "Prijavite se",
     "noappointments": "Nije pronađen ni jedan slobodan termin u blizini {{postalCode}}. Molim Vas pokušajte ponovo kasnije.",
+    "popupwarning": "Ovo je pop-up klinika",
+    "popupwarningmessage": "Posetite web stranicu kako biste potvrdili da li ispunjavate uslove za ovu lokaciju.",
     "postalcodetext": "Iskoristićemo ovaj poštanski broj da pronađemo najbliže dostupne vakcine.",
     "quantity": "Količina",
     "show": "Prikaži",

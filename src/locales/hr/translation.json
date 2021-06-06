@@ -17,6 +17,8 @@
     "loadmap": "Učitajte kartu",
     "login": "Prijaviti se",
     "noappointments": "Nisu pronađeni termini u blizini {{postalCode}}. Molimo pokušajte ponovo kasnije.",
+    "popupwarning": "Ovo je pop-up klinika",
+    "popupwarningmessage": "Posjetite web stranicu kako biste potvrdili ispunjavate li uvjete za ovu lokaciju.",
     "postalcodetext": "Upotrijebit ćemo ovaj poštanski broj za pronalaženje najbližih dostupnih cjepiva.",
     "quantity": "Količina",
     "show": "Pokaži",

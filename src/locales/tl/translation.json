@@ -17,6 +17,8 @@
     "loadmap": "I-load ang mapa",
     "login": "Mag log in",
     "noappointments": "Walang appointment na bakante malapit sa {{postalCode}}. Paki check muli mamaya.",
+    "popupwarning": "Ito ay isang pop-up na klinika.",
+    "popupwarningmessage": "Bisitahin ang website upang kumpirmahin ikaw ay karapat-dapat para sa lokasyong ito.",
     "postalcodetext": "Gagamitin namin ang postal code na ito upang hanapin ang lugar na may pinakamalapit na bakuna.",
     "quantity": "Dami",
     "show": "Ipakita",
