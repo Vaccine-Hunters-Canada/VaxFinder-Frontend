@@ -17,15 +17,17 @@ import { userService } from "../../services/userService";
 export function Login() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [pharmacyPassword, setPharmacyPassword] = useState("");
   const [didLoginSucceed, setDidLoginSucceed] = useState(false);
   const [isInvalidCredentials, setIsInvalidCredentials] = useState(false);
+  const [isPharmacist, setIsPharmacist] = useState(false);
 
   const { t } = useTranslation();
   const { setState } = useContext(AppContext);
 
   const { mutate: post, loading, error } = useLoginApiV1SecurityLoginPost({});
 
-  const handleSubmit = () => {
+  const handleStaffSubmit = () => {
     post({ name, password })
       .then((user) => {
         if (user.key) {
@@ -39,48 +41,99 @@ export function Login() {
       .catch((err) => console.error(err));
   };
 
-  if (didLoginSucceed) {
-    return <Redirect to="/admin" />;
+  const handlePharmacistSubmit = () => {
+    setIsPharmacist(true);
+    setName("PharmacyUser");
+    setPassword(pharmacyPassword);
+    console.log(name);
+    post({ name, password })
+      .then((user) => {
+        if (user.key) {
+          userService.setUser(user);
+          setState({ user });
+          setDidLoginSucceed(true);
+        } else {
+          setIsInvalidCredentials(true);
+        }
+      })
+      .catch((err) => console.error(err));
+  };
+
+  if (!isPharmacist && didLoginSucceed) {
+    return <Redirect to="/admin/popup" />;
+  }
+
+  if (isPharmacist && didLoginSucceed) {
+    return <Redirect to="/admin/externalKey" />;
   }
 
   return (
-    <Card>
-      <Card.Section>
-        <TextStyle variation="strong">
-          This page is for Vaccine Hunters Canada moderators to login only. You
-          do not need an account to use this platform.
-        </TextStyle>
-      </Card.Section>
-      <Card.Section>
-        {error ? (
-          <Banner status="critical">{t("anerrorhasoccurred")}</Banner>
-        ) : undefined}
+    <>
+      <Card>
+        <Card.Section>
+          <TextStyle variation="strong">Pharmacy Staff Login</TextStyle>
+        </Card.Section>
+        <Card.Section>
+          {error ? (
+            <Banner status="critical">{t("anerrorhasoccurred")}</Banner>
+          ) : undefined}
 
-        {isInvalidCredentials ? (
-          <Banner status="critical">{t("invalidcredentials")}</Banner>
-        ) : undefined}
-        <Form onSubmit={handleSubmit}>
-          <FormLayout>
-            <TextField
-              type="text"
-              value={name}
-              onChange={setName}
-              placeholder={t("enterusername")}
-              label={t("username")}
-            />
-            <TextField
-              type="password"
-              value={password}
-              onChange={setPassword}
-              placeholder={t("enterpassword")}
-              label={t("password")}
-            />
-            <Button primary submit disabled={loading || !name || !password}>
-              {t("login")}
-            </Button>
-          </FormLayout>
-        </Form>
-      </Card.Section>
-    </Card>
+          {isInvalidCredentials ? (
+            <Banner status="critical">{t("invalidcredentials")}</Banner>
+          ) : undefined}
+          <Form onSubmit={handlePharmacistSubmit}>
+            <FormLayout>
+              <TextField
+                type="password"
+                value={pharmacyPassword}
+                onChange={setPharmacyPassword}
+                placeholder={t("enterpassword")}
+                label={t("password")}
+              />
+              <Button primary submit disabled={loading || !pharmacyPassword}>
+                {t("login")}
+              </Button>
+            </FormLayout>
+          </Form>
+        </Card.Section>
+      </Card>
+      <Card>
+        <Card.Section>
+          <TextStyle variation="strong">
+            Vaccine Hunters Canada Staff Login
+          </TextStyle>
+        </Card.Section>
+        <Card.Section>
+          {error ? (
+            <Banner status="critical">{t("anerrorhasoccurred")}</Banner>
+          ) : undefined}
+
+          {isInvalidCredentials ? (
+            <Banner status="critical">{t("invalidcredentials")}</Banner>
+          ) : undefined}
+          <Form onSubmit={handleStaffSubmit}>
+            <FormLayout>
+              <TextField
+                type="text"
+                value={name}
+                onChange={setName}
+                placeholder={t("enterusername")}
+                label={t("username")}
+              />
+              <TextField
+                type="password"
+                value={password}
+                onChange={setPassword}
+                placeholder={t("enterpassword")}
+                label={t("password")}
+              />
+              <Button primary submit disabled={loading || !name || !password}>
+                {t("login")}
+              </Button>
+            </FormLayout>
+          </Form>
+        </Card.Section>
+      </Card>
+    </>
   );
 }
