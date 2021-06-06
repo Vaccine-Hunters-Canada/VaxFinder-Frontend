@@ -20,7 +20,7 @@ import {
 import { useTranslation } from "react-i18next";
 import { format } from "date-fns";
 import { zonedTimeToUtc } from "date-fns-tz";
-import { getValidUrl } from '../../utils/getValidUrl';
+import { getValidUrl } from "../../utils/getValidUrl";
 
 /**
  * Form used to record popup clinic details
