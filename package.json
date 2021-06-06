@@ -11,6 +11,7 @@
     "i18next": "^20.2.2",
     "i18next-browser-languagedetector": "^6.1.0",
     "lodash.clonedeep": "^4.5.0",
+    "query-string": "^7.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-i18next": "^11.8.15",
