@@ -68,6 +68,8 @@ export function RapidAppointment() {
   const [vaccineId, setVaccineId] = useState(1);
 
   const [isPopOverActive, setIsPopOverActive] = useState(false);
+  const [isExpiringDosesChecked, setIsExpiringDosesChecked] = useState(false);
+  const [isCancellationsChecked, setIsCancellationsChecked] = useState(false);
   const [isCallAheadChecked, setIsCallAheadChecked] = useState(false);
   const [isWalkInChecked, setIsWalkInChecked] = useState(false);
   const [isVisitWebsiteChecked, setIsVisitWebsiteChecked] = useState(false);
@@ -162,6 +164,20 @@ export function RapidAppointment() {
         tagsCommaSeperatedString = "Email";
       } else {
         tagsCommaSeperatedString += ",Email";
+      }
+    }
+    if (isCancellationsChecked) {
+      if (!tagsCommaSeperatedString) {
+        tagsCommaSeperatedString = "Cancellation";
+      } else {
+        tagsCommaSeperatedString += ",Cancellation";
+      }
+    }
+    if (isExpiringDosesChecked) {
+      if (!tagsCommaSeperatedString) {
+        tagsCommaSeperatedString = "Expiring Doses";
+      } else {
+        tagsCommaSeperatedString += ",Expiring Doses";
       }
     }
 
@@ -419,6 +435,23 @@ export function RapidAppointment() {
                       }}
                     />
                   </Stack>
+                  <Stack vertical>
+                    <TextStyle>Select Appointment Reasoning(s)</TextStyle>
+                    <Checkbox
+                      label="Cancellations"
+                      checked={isCancellationsChecked}
+                      onChange={() => {
+                        setIsCancellationsChecked(!isCancellationsChecked);
+                      }}
+                    />
+                    <Checkbox
+                      label="Expiring Doses"
+                      checked={isExpiringDosesChecked}
+                      onChange={() => {
+                        setIsExpiringDosesChecked(!isExpiringDosesChecked);
+                      }}
+                    />
+                  </Stack>
                 </FormLayout.Group>
                 <Button primary submit disabled={loading}>
                   Submit
@@ -537,6 +570,23 @@ export function RapidAppointment() {
                     checked={isVisitWebsiteChecked}
                     onChange={() => {
                       setIsVisitWebsiteChecked(!isVisitWebsiteChecked);
+                    }}
+                  />
+                </Stack>
+                <Stack vertical>
+                  <TextStyle>Select Appointment Reasoning(s)</TextStyle>
+                  <Checkbox
+                    label="Cancellations"
+                    checked={isCancellationsChecked}
+                    onChange={() => {
+                      setIsCancellationsChecked(!isCancellationsChecked);
+                    }}
+                  />
+                  <Checkbox
+                    label="Expiring Doses"
+                    checked={isExpiringDosesChecked}
+                    onChange={() => {
+                      setIsExpiringDosesChecked(!isExpiringDosesChecked);
                     }}
                   />
                 </Stack>
