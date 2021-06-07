@@ -151,6 +151,7 @@ export function PharmacyList(props: Props) {
           vaccineAvailabilitiesByDateAndRequirements[availability.date] = {
             totalAvailable: 0,
             requirements: [],
+            tags: availability.tags || "",
           };
         }
         vaccineAvailabilitiesByDateAndRequirements[
@@ -161,8 +162,9 @@ export function PharmacyList(props: Props) {
         ].requirements.push({
           ...availability.requirements[0],
           numberAvailable: availability.numberAvailable,
+          tags: availability.tags,
         });
-
+        // console.log(vaccineAvailabilitiesByDateAndRequirements);
         lastUpdated =
           availability.createdAt > lastUpdated
             ? availability.createdAt
