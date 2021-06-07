@@ -20,7 +20,13 @@ export function Login() {
   const [pharmacyPassword, setPharmacyPassword] = useState("");
   const [didStaffLoginSucceed, setDidStaffLoginSucceed] = useState(false);
   const [didPharmacyLoginSucceed, setDidPharmacyLoginSucceed] = useState(false);
-  const [isInvalidCredentials, setIsInvalidCredentials] = useState(false);
+  const [isStaffInvalidCredentials, setIsStaffInvalidCredentials] = useState(
+    false,
+  );
+  const [
+    isPharmacyInvalidCredentials,
+    setIsPharmacyInvalidCredentials,
+  ] = useState(false);
 
   const { t } = useTranslation();
   const { setState } = useContext(AppContext);
@@ -35,7 +41,7 @@ export function Login() {
           setState({ user });
           setDidStaffLoginSucceed(true);
         } else {
-          setIsInvalidCredentials(true);
+          setIsStaffInvalidCredentials(true);
         }
       })
       .catch((err) => console.error(err));
@@ -49,7 +55,7 @@ export function Login() {
           setState({ user });
           setDidPharmacyLoginSucceed(true);
         } else {
-          setIsInvalidCredentials(true);
+          setIsPharmacyInvalidCredentials(true);
         }
       })
       .catch((err) => console.error(err));
@@ -74,7 +80,7 @@ export function Login() {
             <Banner status="critical">{t("anerrorhasoccurred")}</Banner>
           ) : undefined}
 
-          {isInvalidCredentials ? (
+          {isPharmacyInvalidCredentials ? (
             <Banner status="critical">{t("invalidcredentials")}</Banner>
           ) : undefined}
           <Form onSubmit={handlePharmacistSubmit}>
@@ -100,11 +106,7 @@ export function Login() {
           </TextStyle>
         </Card.Section>
         <Card.Section>
-          {error ? (
-            <Banner status="critical">{t("anerrorhasoccurred")}</Banner>
-          ) : undefined}
-
-          {isInvalidCredentials ? (
+          {isStaffInvalidCredentials ? (
             <Banner status="critical">{t("invalidcredentials")}</Banner>
           ) : undefined}
           <Form onSubmit={handleStaffSubmit}>
