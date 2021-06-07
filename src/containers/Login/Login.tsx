@@ -18,9 +18,9 @@ export function Login() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [pharmacyPassword, setPharmacyPassword] = useState("");
-  const [didLoginSucceed, setDidLoginSucceed] = useState(false);
+  const [didStaffLoginSucceed, setDidStaffLoginSucceed] = useState(false);
+  const [didPharmacyLoginSucceed, setDidPharmacyLoginSucceed] = useState(false);
   const [isInvalidCredentials, setIsInvalidCredentials] = useState(false);
-  const [isPharmacist, setIsPharmacist] = useState(false);
 
   const { t } = useTranslation();
   const { setState } = useContext(AppContext);
@@ -33,7 +33,7 @@ export function Login() {
         if (user.key) {
           userService.setUser(user);
           setState({ user });
-          setDidLoginSucceed(true);
+          setDidStaffLoginSucceed(true);
         } else {
           setIsInvalidCredentials(true);
         }
@@ -42,15 +42,12 @@ export function Login() {
   };
 
   const handlePharmacistSubmit = () => {
-    setIsPharmacist(true);
-    setName("PharmacyUser");
-    setPassword(pharmacyPassword);
-    post({ name, password })
+    post({ name: "PharmacyUser", password: pharmacyPassword })
       .then((user) => {
         if (user.key) {
           userService.setUser(user);
           setState({ user });
-          setDidLoginSucceed(true);
+          setDidPharmacyLoginSucceed(true);
         } else {
           setIsInvalidCredentials(true);
         }
@@ -58,11 +55,11 @@ export function Login() {
       .catch((err) => console.error(err));
   };
 
-  if (!isPharmacist && didLoginSucceed) {
+  if (didStaffLoginSucceed) {
     return <Redirect to="/admin/popup" />;
   }
 
-  if (isPharmacist && didLoginSucceed) {
+  if (didPharmacyLoginSucceed) {
     return <Redirect to="/admin/externalKey" />;
   }
 
