@@ -9,6 +9,7 @@ import {
 import { Banner, Button, Card, Spinner } from "@shopify/polaris";
 import { useTranslation } from "react-i18next";
 import { usePrevious } from "../../hooks/usePrevious";
+import { getFormattedZonedDateTime } from "../../utils/getFormattedZonedDateTime";
 
 export function RemoveAppointments() {
   const [avaibilityIdToUpdate, setAvailabilityIdToUpdate] = useState<string>(
@@ -16,7 +17,9 @@ export function RemoveAppointments() {
   );
   const [isUpdateSuccessful, setIsUpdateSuccessful] = useState(false);
 
-  const avaibilityIdsToUpdate = useRef<string[]>([""]);
+  const [availabilityIdsToUpdate, setAvailabilityIdsToUpdate] = useState<
+    string[]
+  >([""]);
 
   const { t } = useTranslation();
   const { search } = useLocation();
@@ -55,7 +58,7 @@ export function RemoveAppointments() {
   } = useUpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPut(
     { vaccine_availability_id: avaibilityIdToUpdate },
   );
-  debugger;
+
   // This will trigger on page load and will request location data
   if (!locationLoading && !locationData && !locationError) {
     locationRefetch().catch((err) => console.error(err));
@@ -82,15 +85,16 @@ export function RemoveAppointments() {
       !updateAvailabilityLoading &&
       !updateAvailabilityError
     ) {
-      if (avaibilityIdsToUpdate.current.length > 0) {
-        const [first, ...rest] = avaibilityIdsToUpdate.current;
+      if (availabilityIdsToUpdate.length > 0) {
+        const [first, ...rest] = availabilityIdsToUpdate;
         setAvailabilityIdToUpdate(first);
-        avaibilityIdsToUpdate.current = rest;
+        setAvailabilityIdsToUpdate(rest);
       } else {
         setIsUpdateSuccessful(true);
       }
     }
   }, [
+    availabilityIdsToUpdate,
     previousUpdateAvailabilitiesLoading,
     updateAvailabilityError,
     updateAvailabilityLoading,
@@ -99,19 +103,23 @@ export function RemoveAppointments() {
   // If our availability id transitions, a request has just been completed and we can
   // update this new availability
   const previousAvailabiltyIdToUpdate = usePrevious(avaibilityIdToUpdate);
-  if (
-    previousAvailabiltyIdToUpdate !== avaibilityIdToUpdate &&
-    availabilitiesData
-  ) {
-    const availaibilityToUpdate = availabilitiesData.find(
-      (a) => a.id === avaibilityIdToUpdate,
-    )!;
-    put({
-      ...availaibilityToUpdate,
-      numberAvailable: 0,
-      numberTotal: 0,
-    }).catch((err) => console.error(err));
-  }
+  useEffect(() => {
+    if (
+      previousAvailabiltyIdToUpdate !== avaibilityIdToUpdate &&
+      availabilitiesData
+    ) {
+      const availaibilityToUpdate = availabilitiesData.find(
+        (a) => a.id === avaibilityIdToUpdate,
+      )!;
+
+      put({
+        ...availaibilityToUpdate,
+        date: getFormattedZonedDateTime(new Date(availaibilityToUpdate.date)),
+        numberAvailable: 0,
+        numberTotal: 0,
+      }).catch((err) => console.error(err));
+    }
+  });
 
   if (!params.externalKey) {
     // Where should we redirect to??
@@ -132,7 +140,11 @@ export function RemoveAppointments() {
       availabilitiesData
         ?.filter((a) => a.inputType === WEB_INPUT_TYPE)
         .map((a) => a.id) || [];
-    avaibilityIdsToUpdate.current = availabilityIdsInputByWeb;
+    if (availabilityIdsInputByWeb.length > 0) {
+      const [first, ...rest] = availabilityIdsInputByWeb;
+      setAvailabilityIdToUpdate(first);
+      setAvailabilityIdsToUpdate(rest);
+    }
   };
 
   return (

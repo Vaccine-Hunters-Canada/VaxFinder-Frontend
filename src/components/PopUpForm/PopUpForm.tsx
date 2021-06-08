@@ -18,9 +18,8 @@ import {
   VaccineAvailabilityExpandedCreateRequest,
 } from "../../apiClient";
 import { useTranslation } from "react-i18next";
-import { format } from "date-fns";
-import { zonedTimeToUtc } from "date-fns-tz";
 import { getValidUrl } from "../../utils/getValidUrl";
+import { getFormattedZonedDateTime } from "../../utils/getFormattedZonedDateTime";
 
 /**
  * Form used to record popup clinic details
@@ -136,16 +135,11 @@ export function PopUpForm() {
       return;
     }
 
-    const utcDate = zonedTimeToUtc(
-      date,
-      Intl.DateTimeFormat().resolvedOptions().timeZone,
-    );
-
     // This request payload will be used for various vaccintion availabilities in addition to popup clinics,
     // some values are hardcoded but I will explain them to the best of my understanding
     const requestPayload: VaccineAvailabilityExpandedCreateRequest = {
       active: 1, // boolean indicating if popup is active
-      date: format(utcDate, "yyyy-MM-dd'T'HH:mm:ssxxx"),
+      date: getFormattedZonedDateTime(new Date(date)),
       inputType: 1, // represents how availability data was recorded - not used at time of writing
       name,
       numberAvailable: numAvailable ? 1 : Number(numAvailable),
