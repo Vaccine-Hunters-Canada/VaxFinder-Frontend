@@ -1,7 +1,7 @@
 import React from "react";
 import { rest } from "msw";
 import { server } from "../../mocks/server";
-import { render, screen } from "../../testUtils";
+import { render, screen, waitFor } from "../../testUtils";
 import { Login } from "./Login";
 import userEvent from "@testing-library/user-event";
 import { SecurityLoginResponse } from "../../apiClient";
@@ -11,12 +11,12 @@ describe("Login", () => {
     render(<Login />);
 
     const usernameInput = screen.getByRole("textbox", { name: /username/i });
-    const passwordInput = screen.getByLabelText(/password/i);
+    const passwordInput = screen.getAllByLabelText(/password/i)[0];
 
     userEvent.type(usernameInput, "");
     userEvent.type(passwordInput, "");
 
-    const submitButton = screen.getByRole("button", { name: /login/i });
+    const submitButton = screen.getAllByRole("button", { name: /login/i })[0];
     expect(submitButton).toBeDisabled();
   });
 
@@ -37,12 +37,12 @@ describe("Login", () => {
     render(<Login />);
 
     const usernameInput = screen.getByRole("textbox", { name: /username/i });
-    const passwordInput = screen.getByLabelText(/password/i);
+    const passwordInput = screen.getAllByLabelText(/password/i)[0];
 
     userEvent.type(usernameInput, "Gamblepudding");
     userEvent.type(passwordInput, "gibberish");
 
-    const submitButton = screen.getByRole("button", { name: /login/i });
+    const submitButton = screen.getAllByRole("button", { name: /login/i })[0];
     userEvent.click(submitButton);
 
     const error = await screen.findByText(
@@ -62,15 +62,47 @@ describe("Login", () => {
     render(<Login />);
 
     const usernameInput = screen.getByRole("textbox", { name: /username/i });
-    const passwordInput = screen.getByLabelText(/password/i);
+    const passwordInput = screen.getAllByLabelText(/password/i)[0];
 
     userEvent.type(usernameInput, "Gamblepudding");
     userEvent.type(passwordInput, "gibberish");
 
-    const submitButton = screen.getByRole("button", { name: /login/i });
+    const submitButton = screen.getAllByRole("button", { name: /login/i })[0];
     userEvent.click(submitButton);
 
     const error = await screen.findByText(/an error has occurred/i);
     expect(error).toBeInTheDocument();
+  });
+
+  test("Successful pharmacy login should redirect to external key", async () => {
+    const { history } = render(<Login />);
+
+    const passwordInput = screen.getAllByLabelText(/password/i)[0];
+
+    userEvent.type(passwordInput, "password");
+
+    const submitButton = screen.getAllByRole("button", { name: /login/i })[0];
+    userEvent.click(submitButton);
+
+    await waitFor(() => {
+      expect(history.location.pathname).toBe("/admin/externalKey");
+    });
+  });
+
+  test("Successful staff login should redirect to popup", async () => {
+    const { history } = render(<Login />);
+
+    const usernameInput = screen.getByRole("textbox", { name: /username/i });
+    const passwordInput = screen.getAllByLabelText(/password/i)[1];
+
+    userEvent.type(usernameInput, "Gamblepudding");
+    userEvent.type(passwordInput, "password");
+
+    const submitButton = screen.getAllByRole("button", { name: /login/i })[1];
+    userEvent.click(submitButton);
+
+    await waitFor(() => {
+      expect(history.location.pathname).toBe("/admin/popup");
+    });
   });
 });
