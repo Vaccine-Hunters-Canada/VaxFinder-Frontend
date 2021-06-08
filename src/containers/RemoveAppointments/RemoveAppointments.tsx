@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import queryString from "query-string";
 import { Redirect, useLocation } from "react-router-dom";
 import {
