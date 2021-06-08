@@ -317,8 +317,8 @@ export function RapidAppointment() {
       date: format(utcDate, "yyyy-MM-dd'T'HH:mm:ssxxx"),
       inputType: 2, // represents how availability data was recorded
       name,
-      numberAvailable: numAvailable ? 1 : Number(numAvailable),
-      numberTotal: numAvailable ? 1 : Number(numAvailable),
+      numberAvailable: numAvailable ? Number(numAvailable) : 1,
+      numberTotal: numAvailable ? Number(numAvailable) : 1,
       vaccine: vaccineId,
       postcode: postalCode.replace(/[\W]/gi, ""),
       province,
