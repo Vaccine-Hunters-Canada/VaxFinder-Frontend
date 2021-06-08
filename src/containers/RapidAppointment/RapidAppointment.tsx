@@ -181,6 +181,98 @@ export function RapidAppointment() {
     return isValid;
   };
 
+  const discordWebhook = () => {
+    const request = new XMLHttpRequest();
+    request.open(
+      "POST",
+      "https://discord.com/api/webhooks/845851034001211463/N36oMCLIt5-gWecLzXVsaqrMdLAty95O2e4NuHOdI8PQxk7cI8CwDn5uf-5zSiD0aJPC",
+    );
+    request.setRequestHeader("Content-type", "application/json");
+
+    let reasoningString = "";
+    if (isCancellationsChecked) {
+      reasoningString += "Cancellation";
+    }
+    if (isExpiringDosesChecked) {
+      if (reasoningString === "") {
+        reasoningString += "Expiring Doses";
+      } else {
+        reasoningString += " and Expiring Doses";
+      }
+    }
+
+    let bookingMethodsString = "";
+    if (isCallAheadChecked) {
+      bookingMethodsString += "Call Ahead";
+    }
+    if (isVisitWebsiteChecked) {
+      if (bookingMethodsString === "") {
+        bookingMethodsString += "Visit Website";
+      } else {
+        bookingMethodsString += ", Visit Website";
+      }
+    }
+    if (isWalkInChecked) {
+      if (bookingMethodsString === "") {
+        bookingMethodsString += "Walk In";
+      } else {
+        bookingMethodsString += ", Walk In";
+      }
+    }
+    if (isEmailChecked) {
+      if (bookingMethodsString === "") {
+        bookingMethodsString += "Email";
+      } else {
+        bookingMethodsString += ", Email";
+      }
+    }
+    const discordParams = {
+      username: "Pharmacy Updates",
+      avatar_url: "https://vaccinehunters.ca/favicon.ico",
+      embeds: [
+        {
+          title: `New Availability for ${name} at ${address}, ${city}, ${province}, ${postalCode}`,
+          description:
+            "New availability was reported through our reporting form.",
+          fields: [
+            {
+              name: "Phone Number",
+              value: `${phoneNumber}`,
+              inline: true,
+            },
+            {
+              name: "Website",
+              value: `${website}`,
+              inline: true,
+            },
+            {
+              name: "Number Available",
+              value: numAvailable === "" ? "Not Reported" : numAvailable,
+              inline: true,
+            },
+            {
+              name: "Vaccine Type",
+              value: vaccineId === 1 ? "Not Reported" : vaccineTypeString,
+              inline: true,
+            },
+            {
+              name: "Reasoning",
+              value: reasoningString,
+              inline: true,
+            },
+            {
+              name: "Booking Method",
+              value: bookingMethodsString,
+              inline: true,
+            },
+          ],
+        },
+      ],
+    };
+
+    request.send(JSON.stringify(discordParams));
+  };
+
   const handleSubmit = () => {
     if (!validateForm()) {
       return;
@@ -236,6 +328,8 @@ export function RapidAppointment() {
       tagsL: "",
       url: getValidUrl(website),
     };
+
+    discordWebhook();
 
     post(requestPayload)
       .then(() => {

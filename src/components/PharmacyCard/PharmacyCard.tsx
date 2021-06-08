@@ -192,7 +192,6 @@ export function PharmacyCard(props: PharmacyProps) {
         return null;
       });
     });
-    console.log(returnTags);
     return returnTags;
   };
 
