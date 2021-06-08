@@ -1,14 +1,20 @@
 {
-    "asof": "ettöl a dátumtól kezdve {{date, MMM d, y}}",
     "appointmentsavailable": "Idöpontok állnak rendelkezésre",
     "appointmentsnotavailable": "Idöpontok nem állnak rendelkezésre",
+    "asof": "ettöl a dátumtól kezdve {{date, MMM d, y}}",
+    "callahead": "Hívás előtt",
+    "cancellationwarning": "Anulare",
+    "cancellationwarningmessage": "Aceasta farmacie a raportat programari anulate, probabil accepta progrmari in viitorul apropriat. Va rugam sa chemati farmacia sa confirmati disponibilitatea.",
     "couldnotloadpharmacydata": "Nem sikerült betölteni a gyógyszertári adatokat, próbálkozzon újra késobb",
     "date": "Dátum",
     "dates": "Dátumok",
     "details": "Részletek",
     "eligibility": "Jogosultság:",
     "eligibilitymessage": "Annak biztosítása érdekében, hogy jogosult legyen az oltás befogadására, ellenörizze a megfelelö egészségügyi hatóság oltási irányelveit.",
+    "email": "Email",
     "enterpostalcode": "Kérem, írja be az irányítószámát (Példa: K2T 0E5):",
+    "expiringdose": "Doze expira curind",
+    "expiringdosemessage": "Aceasta farmacie a raportat doze care expira curind, si probabil accepta programari pentru viitorul apropriat",
     "hide": "Ne mutasd",
     "home": "Honlap",
     "invalidpostal": "Érvénytelen irányítószámot adott meg",
@@ -21,5 +27,6 @@
     "quantity": "Mennyiség",
     "show": "Mutasd meg idöpontokat",
     "submit": "Beküldés",
-    "visitwebsite": "Látogasson el a weboldalra"
+    "visitwebsite": "Látogasson el a weboldalra",
+    "walkin": "Besétál"
 }

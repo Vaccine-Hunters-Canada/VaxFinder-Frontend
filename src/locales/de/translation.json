@@ -1,13 +1,16 @@
 {
-    "asof": "ab {{date, d MMM y}}",
     "appointmentsavailable": "Freie Termine",
     "appointmentsnotavailable": "Keine freien Termine",
+    "asof": "ab {{date, d MMM y}}",
+    "callahead": "Vorher anrufen",
+    "cancellationwarning": "Stornierung",
     "couldnotloadpharmacydata": "Apothekendaten konnten nicht geladen werden, bitte versuchen Sie es später erneut",
     "date": "Datum",
     "dates": "Termine",
     "details": "Details",
     "eligibility": "Teilnahmeberechtigung",
     "eligibilitymessage": "Bitte schauen sie bei den Richtlinien ihrer örtlichen Gesundheitsbehörde nach, ob sie alle Voraussetzungen für eine Impfung erfüllen",
+    "email": "Email",
     "enterpostalcode": "Bitte geben sie ihre Postleitzahl an (Beispiel: K2T 0E5)",
     "hide": "Ausblenden",
     "home": "Startseite",
@@ -21,5 +24,6 @@
     "quantity": "Menge",
     "show": "Anzeigen",
     "submit": "Einreichen",
-    "visitwebsite": "Webseite besuchen"
+    "visitwebsite": "Webseite besuchen",
+    "walkin": "Reingehen"
 }

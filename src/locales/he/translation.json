@@ -1,14 +1,20 @@
 {
-    "asof": "החל מתאריך {{date, MMM d y}}",
     "appointmentsavailable": "תורים  זמינים",
     "appointmentsnotavailable": "תורים לא זמינים",
+    "asof": "החל מתאריך {{date, MMM d y}}",
+    "callahead": "תתקשר מראש",
+    "cancellationwarning": "יש ביטול",
+    "cancellationwarningmessage": "בית מרקחת זה דיווח על פגישות שבוטלו וכנראה הם יקבלו הרשמה לזמן הקרוב. אנא התקשרו מראש לודא שיש מקום",
     "couldnotloadpharmacydata": "לא ניתן להעלות מידע על בית המרקחת,  נא לנסות  מאוחר יותר",
     "date": "תַאֲרִיך",
     "dates": "תאריכים",
     "details": "פרטים",
     "eligibility": "זכאות:",
     "eligibilitymessage": "על מנת לודא שהינך זכאי לחיסון, נא לבדוק את ההנחיות לגבי החיסון  מאת רשויות הבריאות",
+    "email": "אימייל",
     "enterpostalcode": "נא להקיש את מיקוד הדואר (Example:   N3K 8T5)",
+    "expiringdose": "חיסונים שעומדים לפוג בתוקף",
+    "expiringdosemessage": "בית המרקחת הנל דיווח על המצאות חיסונים שתוקפם עומד לפוג לכן סביר שהם יקבלו הזמנת תורים לתאריך הנוכחי. אנא התקשרו קודם כדי לוודא שעדיין יש חיסונים",
     "hide": "החבא",
     "home": "תפריט ראשי",
     "invalidpostal": "מיקוד הדואר שהוקש הינו שגוי",
@@ -21,5 +27,6 @@
     "quantity": "כַּמוּת",
     "show": "הצג",
     "submit": "הגש טופס",
-    "visitwebsite": "כניסה לאתר"
+    "visitwebsite": "כניסה לאתר",
+    "walkin": "ללכת ב"
 }

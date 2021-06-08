@@ -1,14 +1,20 @@
 {
-    "asof": "{{date, MMM d, y}} tarihinde güncellendi",
     "appointmentsavailable": "Randevu mevcut",
     "appointmentsnotavailable": "Randevu yok",
+    "asof": "{{date, MMM d, y}} tarihinde güncellendi",
+    "callahead": "öncesinde çağrı",
+    "cancellationwarning": "İptal",
+    "cancellationwarningmessage": "Bu eczane bazı randevuların iptal edildiğini rapor etmiştir. Yakın gelecek için randevu olma ihtimali olduğu anlamına geldiğinden dolayı lütfen teyit için önceden eczaneyi arayınız.",
     "couldnotloadpharmacydata": "Eczane bilgileri yüklenemedi, lütfen tekrar deneyiniz",
     "date": "Tarih",
     "dates": "Tarihler",
     "details": "Detay",
     "eligibility": "Randevu kriterleri",
     "eligibilitymessage": "Aşı olma kriterlerine uyduğunuzdan emin olmak için lütfen lokal sağlık biriminizin talimatlarını dikkate alınız.",
+    "email": "E-posta",
     "enterpostalcode": "Lütfen posta kodunuzu giriniz (örnek: K2T 0E5):",
+    "expiringdose": "Raf ömrü tükenecek dozlar",
+    "expiringdosemessage": "Bu eczane bazı dozların raf ömrünün yakında biteceğini rapor etmiştir, bu nedenle bugün için randevu alınma ihtimali bulunmaktadır. Lütfen teyit etmek için eczaneyi arayınız.",
     "hide": "Gizle",
     "home": "Anasayfa",
     "invalidpostal": "Girilen posta kodu geçersiz",
@@ -23,5 +29,6 @@
     "quantity": "Miktar",
     "show": "Göster",
     "submit": "Gönder",
-    "visitwebsite": "Sayfaya git"
+    "visitwebsite": "Sayfaya git",
+    "walkin": "İçine girilebilen"
 }

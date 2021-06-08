@@ -1,13 +1,16 @@
 {
-    "asof": "Începând cu {{date, MMM d, y}}",
     "appointmentsavailable": "Date disponibile",
     "appointmentsnotavailable": "Date nedisponibile",
+    "asof": "Începând cu {{date, MMM d, y}}",
+    "callahead": "înainte de apel",
+    "cancellationwarning": "Anulare",
     "couldnotloadpharmacydata": "Nu s-au găsit datele farmaciei, încercați din nou mai tirziu",
     "date": "Data",
     "dates": "Datele",
     "details": "Detalii",
     "eligibility": "Eligibilitate:",
     "eligibilitymessage": "Pentru a se asigura că sunteți eligibil pentru a primi vaccin, vă rugăm să consultați regulamentul de vaccinare ale autoritatilor de sănătate",
+    "email": "E-mail",
     "enterpostalcode": "Vă rugăm să introduceți codul poștal (Exemplu: K2T 0E5):",
     "hide": "Ascunde",
     "home": "Acasă",
@@ -21,5 +24,6 @@
     "quantity": "Cantitate",
     "show": "Arată",
     "submit": "Trimite",
-    "visitwebsite": "Vizitati site-ul"
+    "visitwebsite": "Vizitati site-ul",
+    "walkin": "Intra"
 }

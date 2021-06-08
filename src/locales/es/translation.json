@@ -1,13 +1,16 @@
 {
-    "asof": "A partir de {{date, MMM d, y}}",
     "appointmentsavailable": "Citas disponibles",
     "appointmentsnotavailable": "Citas no disponibles",
+    "asof": "A partir de {{date, MMM d, y}}",
+    "callahead": "Llamar con anticipación",
+    "cancellationwarning": "Cancelación",
     "couldnotloadpharmacydata": "No se pudo cargar la información de la farmacia, por favor intente nuevamente más tarde.",
     "date": "Fecha",
     "dates": "Fechas",
     "details": "Detalles",
     "eligibility": "Eligibilidad:",
     "eligibilitymessage": "Para asegurarse que usted es elegible para recibir su vacuna, por favor verifique los lineamientos de su autoridad de salud apropiada.",
+    "email": "Correo electrónico",
     "enterpostalcode": "Por favor ingrese su código postal (Ejemplo: K2T 0E5):",
     "hide": "Ocultar",
     "home": "Página de inicio",
@@ -23,5 +26,6 @@
     "quantity": "Cantidad",
     "show": "Mostrar",
     "submit": "Enviar",
-    "visitwebsite": "Visitar sitio"
+    "visitwebsite": "Visitar sitio",
+    "walkin": "Entrar"
 }
