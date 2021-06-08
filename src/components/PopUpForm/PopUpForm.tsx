@@ -20,6 +20,7 @@ import {
 import { useTranslation } from "react-i18next";
 import { format } from "date-fns";
 import { zonedTimeToUtc } from "date-fns-tz";
+import { getValidUrl } from "../../utils/getValidUrl";
 
 /**
  * Form used to record popup clinic details
@@ -75,20 +76,6 @@ export function PopUpForm() {
   );
 
   const { t } = useTranslation();
-
-  const getValidUrl = (url = "") => {
-    let newUrl = window.decodeURIComponent(url);
-    newUrl = newUrl.trim().replace(/\s/g, "");
-
-    if (/^(:\/\/)/.test(newUrl)) {
-      return `http${newUrl}`;
-    }
-    if (!/^(f|ht)tps?:\/\//i.test(newUrl)) {
-      return `http://${newUrl}`;
-    }
-
-    return newUrl;
-  };
 
   const validateForm = () => {
     let isValid = true;

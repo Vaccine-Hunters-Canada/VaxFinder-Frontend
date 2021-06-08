@@ -85,6 +85,7 @@ export function ExternalKeyInput() {
       `${streetNumber}-${postalCode.replace(/[\W]/gi, "")}-${organizationId}`,
     );
     params.append("externalKey", externalKey);
+    params.append("organizationId", organizationId.toString());
 
     history.push({
       pathname: "/admin/rapidAppointment",

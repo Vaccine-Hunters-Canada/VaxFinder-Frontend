@@ -6,6 +6,7 @@ import {
   Stack,
   DataTable,
   Button,
+  Badge,
 } from "@shopify/polaris";
 import { DomainsMajor, LocationMajor } from "@shopify/polaris-icons";
 import Iframe from "react-iframe";
@@ -15,12 +16,14 @@ import { useTranslation } from "react-i18next";
 interface RequirementsWithAvailabilityInterface
   extends VaccineAvailabilityRequirementsResponse {
   numberAvailable: number;
+  tags: string | undefined;
 }
 
 interface VaccineAvailabilitiesByDateAndRequirementsInterface {
   [date: string]: {
     totalAvailable: number;
     requirements: RequirementsWithAvailabilityInterface[];
+    tags: string;
   };
 }
 
@@ -69,13 +72,35 @@ export function PharmacyCard(props: PharmacyProps) {
   };
 
   const POPUP_ORGANIZATION_ID = 25;
-  const popupWarningMarkup =
-    props.organizationId === POPUP_ORGANIZATION_ID ? (
-      <Banner title={t("popupwarning")} status="warning">
-        {t("popupwarningmessage")}
-      </Banner>
-    ) : undefined;
-
+  const bannerMarkup = () => {
+    if (props.organizationId === POPUP_ORGANIZATION_ID) {
+      return (
+        <Banner title={t("popupwarning")} status="warning">
+          {t("popupwarningmessage")}
+        </Banner>
+      );
+    }
+    let returnValue;
+    // eslint-disable-next-line consistent-return
+    Object.keys(props.vaccineAvailabilities).forEach((availability) => {
+      const tags = props.vaccineAvailabilities[availability].tags.split(",");
+      if (tags.includes("Cancellation")) {
+        returnValue = (
+          <Banner title={t("cancellationwarning")} status="warning">
+            {t("cancellationwarningmessage")}
+          </Banner>
+        );
+      }
+      if (tags.includes("Expiring Doses")) {
+        returnValue = (
+          <Banner title={t("expiringdose")} status="warning">
+            {t("expiringdosemessage")}
+          </Banner>
+        );
+      }
+    });
+    return returnValue;
+  };
   const Map = () => (
     <Iframe
       // the key is hardcoded for now, but there's no rate limit or usage limit for embedding
@@ -147,6 +172,29 @@ export function PharmacyCard(props: PharmacyProps) {
   };
   /* eslint-enable  @typescript-eslint/no-unused-vars */
 
+  const badgeMarkup = () => {
+    let returnTags;
+    Object.keys(props.vaccineAvailabilities).forEach((availability) => {
+      const tags = props.vaccineAvailabilities[availability].tags.split(",");
+      returnTags = tags.map((tag) => {
+        if (tag === "Walk In") {
+          return <Badge status="info">{t("walkin")}</Badge>;
+        }
+        if (tag === "Call Ahead") {
+          return <Badge status="info">{t("callahead")}</Badge>;
+        }
+        if (tag === "Visit Website") {
+          return <Badge status="info">{t("visitwebsite")}</Badge>;
+        }
+        if (tag === "Email") {
+          return <Badge status="info">{t("email")}</Badge>;
+        }
+        return null;
+      });
+    });
+    return returnTags;
+  };
+
   return (
     <Card
       title={props.pharmacyName}
@@ -169,6 +217,7 @@ export function PharmacyCard(props: PharmacyProps) {
     >
       <div data-testid="pharmacy-card">
         <TextContainer>
+          <Stack>{badgeMarkup()}</Stack>
           <Card.Section fullWidth>{availabilityMarkup()}</Card.Section>
           <Card.Section title={t("details")}>
             <Card.Subsection>{props.address}</Card.Subsection>
@@ -179,7 +228,7 @@ export function PharmacyCard(props: PharmacyProps) {
             </Card.Subsection>
           </Card.Section>
           {/* {appointmentsAvailableMarkup()} */}
-          <Card.Section fullWidth>{popupWarningMarkup}</Card.Section>
+          <Card.Section fullWidth>{bannerMarkup()}</Card.Section>
         </TextContainer>
         {shouldShowMap ? <Map /> : null}
       </div>
