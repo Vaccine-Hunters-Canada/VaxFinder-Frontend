@@ -12,14 +12,15 @@ import { usePrevious } from "../../hooks/usePrevious";
 import { getFormattedZonedDateTime } from "../../utils/getFormattedZonedDateTime";
 
 export function RemoveAppointments() {
+  // A collection of ids for availabilities to be updated one at a time
+  const [availabilityIdsToUpdate, setAvailabilityIdsToUpdate] = useState<
+    string[]
+  >([""]);
+  // The id of the availability currently being updated
   const [avaibilityIdToUpdate, setAvailabilityIdToUpdate] = useState<string>(
     "",
   );
   const [isUpdateSuccessful, setIsUpdateSuccessful] = useState(false);
-
-  const [availabilityIdsToUpdate, setAvailabilityIdsToUpdate] = useState<
-    string[]
-  >([""]);
 
   const { t } = useTranslation();
   const { search } = useLocation();
@@ -119,7 +120,12 @@ export function RemoveAppointments() {
         numberTotal: 0,
       }).catch((err) => console.error(err));
     }
-  });
+  }, [
+    avaibilityIdToUpdate,
+    availabilitiesData,
+    previousAvailabiltyIdToUpdate,
+    put,
+  ]);
 
   if (!params.externalKey) {
     // Where should we redirect to??
@@ -135,6 +141,7 @@ export function RemoveAppointments() {
   }
 
   const handleSubmit = () => {
+    console.warn("ARGH");
     const WEB_INPUT_TYPE = 2;
     const availabilityIdsInputByWeb =
       availabilitiesData
@@ -149,6 +156,11 @@ export function RemoveAppointments() {
 
   return (
     <Card>
+      {locationError?.status === 404 ? (
+        <Banner title="Error" status="critical">
+          Could not find the location specified.
+        </Banner>
+      ) : undefined}
       {locationError || availabilitiesError || updateAvailabilityError ? (
         <Banner title="Error" status="critical">
           {t("anerrorhasoccurred")}
@@ -156,18 +168,14 @@ export function RemoveAppointments() {
       ) : undefined}
       {isUpdateSuccessful ? (
         <Banner title="Success" status="success">
-          Success
+          Successfully removed appointments
         </Banner>
       ) : undefined}
       <Card.Section>
         <p>Remove appointments</p>
-        <Button
-          primary
-          submit
-          disabled={updateAvailabilityLoading}
-          onClick={handleSubmit}
-        >
-          Submit
+
+        <Button primary onClick={handleSubmit}>
+          Remove
         </Button>
       </Card.Section>
     </Card>

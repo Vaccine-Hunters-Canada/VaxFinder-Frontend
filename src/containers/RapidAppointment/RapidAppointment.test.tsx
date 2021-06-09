@@ -11,6 +11,9 @@ jest.mock("react-router-dom", () => ({
 }));
 
 describe("Rapid appointment form", () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
   test("Should not show location-related controls if location details are successfully retrieved from api", () => {
     // A valid location will be serve to the form via MSW
     render(<RapidAppointment />);

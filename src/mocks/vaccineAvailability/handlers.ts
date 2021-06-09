@@ -215,4 +215,60 @@ export const vaccineAvailabilityHandlers = [
     `${process.env.REACT_APP_API_URL}/api/v1/vaccine-availability/locations/key/:external_key`,
     (req, res, ctx) => res(ctx.status(200)),
   ),
+  rest.get(
+    `${process.env.REACT_APP_API_URL}/api/v1/vaccine-availability/location/`,
+    (req, res, ctx) => {
+      const payload = [
+        {
+          numberAvailable: 100,
+          numberTotal: 100,
+          vaccine: 4,
+          inputType: 2,
+          tags: "Walk In,Email,Cancellation,Expiring Doses",
+          id: "5353546a-25cb-46f5-a625-0040d9eaccb7",
+          location: 2238,
+          createdAt: "2021-06-08T19:56:10.173000+00:00",
+          date: "2021-06-10T04:00:00+00:00",
+        },
+        {
+          numberAvailable: 200,
+          numberTotal: 200,
+          vaccine: 4,
+          inputType: 2,
+          tags: "Walk In,Email,Cancellation,Expiring Doses",
+          id: "5353546a-25cb-46f5-a625-0040d9eaccb7",
+          location: 2238,
+          createdAt: "2021-06-08T19:56:10.173000+00:00",
+          date: "2021-06-09T04:00:00+00:00",
+        },
+        {
+          numberAvailable: 300,
+          numberTotal: 300,
+          vaccine: 1,
+          inputType: 2,
+          tags: "Walk In,Email,Cancellation,Expiring Doses",
+          id: "5353546a-25cb-46f5-a625-0040d9eaccb7",
+          location: 2238,
+          createdAt: "2021-06-08T19:56:10.173000+00:00",
+          date: "2021-06-08T04:00:00+00:00",
+        },
+        {
+          numberAvailable: 1,
+          numberTotal: 1,
+          vaccine: 3,
+          inputType: 1,
+          tags: "Walk In,Email,Cancellation",
+          id: "34d5fc06-c65f-45c2-a185-1eaaa929c265",
+          location: 2238,
+          createdAt: "2021-06-06T17:46:18.697000+00:00",
+          date: "2021-06-06T04:00:00+00:00",
+        },
+      ];
+      return res(ctx.json(payload));
+    },
+  ),
+  rest.put(
+    `${process.env.REACT_APP_API_URL}/api/v1/vaccine-availability/:vaccine_availability_id`,
+    (req, res, ctx) => res(ctx.status(200)),
+  ),
 ];
