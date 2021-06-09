@@ -132,7 +132,30 @@ export function RemoveAppointments() {
     return <Redirect to="/" />;
   }
 
-  if (locationLoading || availabilitiesLoading) {
+  if (locationError?.status === 404) {
+    return (
+      <Card>
+        <Banner title="Error" status="critical">
+          Could not find the location specified.
+        </Banner>
+      </Card>
+    );
+  }
+
+  if (locationError || availabilitiesError || updateAvailabilityError) {
+    return (
+      <Card>
+        <Banner title="Error" status="critical">
+          {t("anerrorhasoccurred")}
+        </Banner>
+      </Card>
+    );
+  }
+
+  // I need to check for availabilities data, not just the loading prop
+  // In the course of my tests, it seemed like after the request was made, there
+  // was a render where loading was false AND data was still null
+  if (locationLoading || availabilitiesLoading || !availabilitiesData) {
     return (
       <div className="wrapper">
         <Spinner accessibilityLabel="Loading" />
@@ -146,6 +169,7 @@ export function RemoveAppointments() {
       availabilitiesData
         ?.filter((a) => a.inputType === WEB_INPUT_TYPE)
         .map((a) => a.id) || [];
+
     if (availabilityIdsInputByWeb.length > 0) {
       const [first, ...rest] = availabilityIdsInputByWeb;
       setAvailabilityIdToUpdate(first);
@@ -155,16 +179,6 @@ export function RemoveAppointments() {
 
   return (
     <Card>
-      {locationError?.status === 404 ? (
-        <Banner title="Error" status="critical">
-          Could not find the location specified.
-        </Banner>
-      ) : undefined}
-      {locationError || availabilitiesError || updateAvailabilityError ? (
-        <Banner title="Error" status="critical">
-          {t("anerrorhasoccurred")}
-        </Banner>
-      ) : undefined}
       {isUpdateSuccessful ? (
         <Banner title="Success" status="success">
           Successfully removed appointments

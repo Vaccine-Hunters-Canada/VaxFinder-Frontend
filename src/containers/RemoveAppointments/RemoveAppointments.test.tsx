@@ -1,7 +1,8 @@
-import { rest } from "msw";
+import userEvent from "@testing-library/user-event";
+import { ResponseResolver, rest } from "msw";
 import React from "react";
 import { server } from "../../mocks/server";
-import { render, screen } from "../../testUtils";
+import { render, screen, waitFor } from "../../testUtils";
 import { RemoveAppointments } from "./RemoveAppointments";
 
 jest.mock("react-router-dom", () => ({
@@ -73,5 +74,36 @@ describe("Remove appointments", () => {
     expect(
       await screen.findByText(/an error has occurred/i),
     ).toBeInTheDocument();
+  });
+
+  // We have 4 availabilties in our mock data, but only 3 are inputted via the web and are therefore
+  // subject to being updated so their vaccines can be removed
+  test("should ensure the 3 availabilities are updated to remove vaccine numbers", async () => {
+    const handler: ResponseResolver = async (req, res, ctx) => {
+      return res(ctx.status(200));
+    };
+
+    const mockHandler = jest.fn(handler);
+    server.use(
+      rest.put(
+        `${process.env
+          .REACT_APP_API_URL!}/api/v1/vaccine-availability/:vaccine_availability_id`,
+        mockHandler,
+      ),
+    );
+
+    render(<RemoveAppointments />);
+    const button = await screen.findByRole("button", { name: /remove/i });
+    userEvent.click(button);
+    expect(
+      await screen.findByText(/successfully removed appointments/i),
+    ).toBeInTheDocument();
+
+    const NUMBER_OF_AVAILABILITIES_TO_UPDATE = 3;
+    await waitFor(() => {
+      expect(mockHandler).toHaveBeenCalledTimes(
+        NUMBER_OF_AVAILABILITIES_TO_UPDATE,
+      );
+    });
   });
 });
