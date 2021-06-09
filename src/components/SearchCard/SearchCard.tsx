@@ -1,4 +1,11 @@
-import { Form, FormLayout, TextField, Button, Card } from "@shopify/polaris";
+import {
+  Form,
+  FormLayout,
+  TextField,
+  Button,
+  Card,
+  Heading,
+} from "@shopify/polaris";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -26,6 +33,11 @@ export function SearchCard() {
     <section aria-label="search" style={{ marginBottom: "2rem" }}>
       <Card>
         <Card.Section>
+          <Heading element="h1">Find a Vaccine Near You</Heading>
+          <p style={{ marginBottom: 30, color: "grey" }}>
+            (Please note this is not an exhaustive list of all available
+            vaccines in Canada)
+          </p>
           <Form onSubmit={handleSubmit}>
             <FormLayout>
               <TextField
