@@ -173,7 +173,11 @@ export function RemoveAppointments() {
       <Card.Section>
         <p>Remove appointments</p>
 
-        <Button primary onClick={handleSubmit}>
+        <Button
+          primary
+          onClick={handleSubmit}
+          disabled={updateAvailabilityLoading}
+        >
           Remove
         </Button>
       </Card.Section>
