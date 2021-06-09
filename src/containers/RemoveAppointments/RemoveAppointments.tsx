@@ -74,8 +74,8 @@ export function RemoveAppointments() {
     }
   }, [availabilitiesRefetch, locationData, previousLocationData]);
 
-  // Check to see if we have transitioned from loading to not loading - with the absence of
-  // an error that indicates a PUT requrest succeeded and we should queue up our next
+  // Check to see if we have transitioned from loading to not loading of an availability update request
+  // - with the absence of an error - that indicates a PUT request succeeded and we should queue up our next
   // availability to be processed if one exists
   const previousUpdateAvailabilitiesLoading = usePrevious(
     updateAvailabilityLoading,
@@ -101,7 +101,7 @@ export function RemoveAppointments() {
     updateAvailabilityLoading,
   ]);
 
-  // If our availability id transitions, a request has just been completed and we can
+  // If our current availability id transitions, a request has just been completed and we can
   // update this new availability
   const previousAvailabiltyIdToUpdate = usePrevious(avaibilityIdToUpdate);
   useEffect(() => {
@@ -141,7 +141,6 @@ export function RemoveAppointments() {
   }
 
   const handleSubmit = () => {
-    console.warn("ARGH");
     const WEB_INPUT_TYPE = 2;
     const availabilityIdsInputByWeb =
       availabilitiesData
