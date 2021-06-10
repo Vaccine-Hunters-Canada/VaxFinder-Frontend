@@ -189,6 +189,12 @@ export function PharmacyCard(props: PharmacyProps) {
         if (tag === "Email") {
           return <Badge status="info">{t("email")}</Badge>;
         }
+        if (tag === "1st Dose") {
+          return <Badge>{t("firstdose")}</Badge>;
+        }
+        if (tag === "2nd Dose") {
+          return <Badge>{t("seconddose")}</Badge>;
+        }
         return null;
       });
     });

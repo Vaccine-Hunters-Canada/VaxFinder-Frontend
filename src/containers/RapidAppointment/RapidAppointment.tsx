@@ -193,9 +193,9 @@ export function RapidAppointment() {
 
   const discordWebhook = () => {
     // Ensure we don't invoke this during test runs and development
-    if (process.env.NODE_ENV !== "production") {
-      return;
-    }
+    // if (process.env.NODE_ENV !== "production") {
+    //   return;
+    // }
 
     const request = new XMLHttpRequest();
     request.open(

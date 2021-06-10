@@ -48,9 +48,6 @@ export function PopUpForm() {
   const [shouldShowInvalidBooking, setShouldShowInvalidBooking] = useState(
     false,
   );
-  const [shouldShowInvalidReasons, setShouldShowInvalidReasons] = useState(
-    false,
-  );
   const [shouldShowInvalidDoses, setShouldShowInvalidDoses] = useState(false);
 
   /** Controlled component state */
@@ -153,13 +150,6 @@ export function PopUpForm() {
       isValid = false;
     } else {
       setShouldShowInvalidBooking(false);
-    }
-
-    if (!isCancellationsChecked && !isExpiringDosesChecked) {
-      setShouldShowInvalidReasons(true);
-      isValid = false;
-    } else {
-      setShouldShowInvalidReasons(false);
     }
 
     if (isFirstDose || isSecondDose) {
@@ -293,10 +283,6 @@ export function PopUpForm() {
 
   const invalidBookingMessage = shouldShowInvalidBooking
     ? "At least one booking method must be checked"
-    : undefined;
-
-  const invalidReasonMessage = shouldShowInvalidReasons
-    ? "At least one reason must be checked"
     : undefined;
 
   const invalidDoseMessage = shouldShowInvalidDoses
@@ -484,25 +470,6 @@ export function PopUpForm() {
                       setIsVisitWebsiteChecked(!isVisitWebsiteChecked);
                     }}
                     error={invalidBookingMessage}
-                  />
-                </Stack>
-                <Stack vertical>
-                  <TextStyle>Select Appointment Reasoning(s)</TextStyle>
-                  <Checkbox
-                    label="Cancellations"
-                    checked={isCancellationsChecked}
-                    onChange={() => {
-                      setIsCancellationsChecked(!isCancellationsChecked);
-                    }}
-                    error={invalidReasonMessage}
-                  />
-                  <Checkbox
-                    label="Expiring Doses"
-                    checked={isExpiringDosesChecked}
-                    onChange={() => {
-                      setIsExpiringDosesChecked(!isExpiringDosesChecked);
-                    }}
-                    error={invalidReasonMessage}
                   />
                 </Stack>
                 <Stack vertical>
