@@ -210,8 +210,8 @@ export function PopUpForm() {
       date: format(utcDate, "yyyy-MM-dd'T'HH:mm:ssxxx"),
       inputType: 1, // represents how availability data was recorded - not used at time of writing
       name,
-      numberAvailable: numAvailable ? 1 : Number(numAvailable),
-      numberTotal: numAvailable ? 1 : Number(numAvailable),
+      numberAvailable: numAvailable ? Number(numAvailable) : 1,
+      numberTotal: numAvailable ? Number(numAvailable) : 1,
       vaccine: vaccineId, // This is the vaccine id
       postcode: postalCode.replace(/[\W]/gi, ""),
       province,
