@@ -172,47 +172,44 @@ export function PharmacyCard(props: PharmacyProps) {
   };
 
   const badgeMarkup = () => {
-    let returnTags;
+    const returnTags: JSX.Element[] = [];
     Object.keys(props.vaccineAvailabilities).forEach((availability) => {
       const tags = props.vaccineAvailabilities[availability].tags.split(",");
-      returnTags = tags.map((tag, index) => {
+      tags.forEach((tag) => {
         if (tag === "Walk In") {
-          return (
+          returnTags.push(
             <Badge key={tag} status="info">
               {t("walkin")}
-            </Badge>
+            </Badge>,
           );
         }
         if (tag === "Call Ahead") {
-          return (
+          returnTags.push(
             <Badge key={tag} status="info">
               {t("callahead")}
-            </Badge>
+            </Badge>,
           );
         }
         if (tag === "Visit Website") {
-          return (
+          returnTags.push(
             <Badge key={tag} status="info">
               {t("visitwebsite")}
-            </Badge>
+            </Badge>,
           );
         }
         if (tag === "Email") {
-          return (
+          returnTags.push(
             <Badge key={tag} status="info">
               {t("email")}
-            </Badge>
+            </Badge>,
           );
         }
         if (tag === "1st Dose") {
-          return <Badge key={tag}>{t("firstdose")}</Badge>;
+          returnTags.push(<Badge key={tag}>{t("firstdose")}</Badge>);
         }
         if (tag === "2nd Dose") {
-          return <Badge key={tag}>{t("seconddose")}</Badge>;
+          returnTags.push(<Badge key={tag}>{t("seconddose")}</Badge>);
         }
-        // This collection of JSX elements will not be re-ordered
-        // eslint-disable-next-line react/no-array-index-key
-        return <React.Fragment key={index} />;
       });
     });
     return returnTags;
