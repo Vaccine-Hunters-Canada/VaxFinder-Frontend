@@ -88,6 +88,10 @@ const languages = [
     label: "Türkçe",
   },
   {
+    langCode: "vi",
+    label: "Tiếng Việt",
+  },
+  {
     langCode: "zh-CN",
     label: "简体中文",
   },

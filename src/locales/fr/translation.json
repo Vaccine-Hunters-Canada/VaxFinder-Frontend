@@ -1,14 +1,21 @@
 {
-    "asof": "mis à jour le {{date, d MMM y}}",
     "appointmentsavailable": "Rendez-vous disponibles",
     "appointmentsnotavailable": "Rendez-vous non disponibles",
+    "asof": "mis à jour le {{date, d MMM y}}",
+    "callahead": "Appeler à l'avance",
+    "cancellationwarning": "Annulation",
+    "cancellationwarningmessage": "Cette pharmacie a signalé des rendez-vous annulés, ce qui signifie qu'elle acceptera probablement des rendez-vous dans un proche avenir. Veuillez appeler à l'avance pour confirmer la disponibilité.",
     "couldnotloadpharmacydata": "Impossible de charger les données de la pharmacie, veuillez réessayer plus tard.",
     "date": "Date",
     "dates": "Dates",
     "details": "Détails",
     "eligibility": "Admissibilité:",
     "eligibilitymessage": "Afin de vous assurer que vous êtes admissible à recevoir votre vaccin, veuillez vérifier les directives de vaccination de votre autorité sanitaire appropriée.",
+    "email": "Courriel",
     "enterpostalcode": "Veuillez entrer votre code postal (Exemple: K2T 0E5):",
+    "expiringdose": "Doses expirant bientôt",
+    "expiringdosemessage": "Cette pharmacie a signalé les rendez-vous pour les doses expiront bientôt, ce qui signifie qu'elle accepte probablement les rendez-vous pour la date actuelle. Veuillez appeler à l'avance pour confirmer la disponibilité.",
+    "firstdose": "Première dose",
     "hide": "Cacher",
     "home": "Accueil",
     "invalidpostal": "Vous avez entré un code postal invalide.",
@@ -21,7 +28,9 @@
     "popupwarningmessage": "Veuillez visiter le site Web pour confirmer que vous êtes éligible pour ce site de vaccination.",
     "postalcodetext": "Nous utiliserons ce code postal pour trouver les rendez-vous de vaccination disponibles les plus proches. Ces informations ne sont sauvegardées que temporairement et ne sont utilisées à aucune autre fin.",
     "quantity": "Quantité",
+    "seconddose": "Deuxième dose",
     "show": "Montrer",
     "submit": "Soumettre",
-    "visitwebsite": "Visitez le site Web"
+    "visitwebsite": "Visitez le site Web",
+    "walkin": "Sans rendez-vous"
 }
