@@ -170,32 +170,49 @@ export function PharmacyCard(props: PharmacyProps) {
     }
     return undefined;
   };
-  /* eslint-enable  @typescript-eslint/no-unused-vars */
 
   const badgeMarkup = () => {
     let returnTags;
     Object.keys(props.vaccineAvailabilities).forEach((availability) => {
       const tags = props.vaccineAvailabilities[availability].tags.split(",");
-      returnTags = tags.map((tag) => {
+      returnTags = tags.map((tag, index) => {
         if (tag === "Walk In") {
-          return <Badge status="info">{t("walkin")}</Badge>;
+          return (
+            <Badge key={tag} status="info">
+              {t("walkin")}
+            </Badge>
+          );
         }
         if (tag === "Call Ahead") {
-          return <Badge status="info">{t("callahead")}</Badge>;
+          return (
+            <Badge key={tag} status="info">
+              {t("callahead")}
+            </Badge>
+          );
         }
         if (tag === "Visit Website") {
-          return <Badge status="info">{t("visitwebsite")}</Badge>;
+          return (
+            <Badge key={tag} status="info">
+              {t("visitwebsite")}
+            </Badge>
+          );
         }
         if (tag === "Email") {
-          return <Badge status="info">{t("email")}</Badge>;
+          return (
+            <Badge key={tag} status="info">
+              {t("email")}
+            </Badge>
+          );
         }
         if (tag === "1st Dose") {
-          return <Badge>{t("firstdose")}</Badge>;
+          return <Badge key={tag}>{t("firstdose")}</Badge>;
         }
         if (tag === "2nd Dose") {
-          return <Badge>{t("seconddose")}</Badge>;
+          return <Badge key={tag}>{t("seconddose")}</Badge>;
         }
-        return null;
+        // This collection of JSX elements will not be re-ordered
+        // eslint-disable-next-line react/no-array-index-key
+        return <React.Fragment key={index} />;
       });
     });
     return returnTags;
