@@ -22,6 +22,7 @@ import sr from "./locales/sr/translation.json";
 import ta from "./locales/ta/translation.json";
 import tl from "./locales/tl/translation.json";
 import tr from "./locales/tr/translation.json";
+import vi from "./locales/vi/translation.json";
 import zhCN from "./locales/zhCN/translation.json";
 import zhTW from "./locales/zhTW/translation.json";
 
@@ -48,6 +49,7 @@ export const i18nconfig: InitOptions = {
     ta: { translation: ta }, // Tamil
     tl: { translation: tl }, // Tagalog
     tr: { translation: tr }, // Turkish
+    vi: { translation: vi }, // Vietnamese
     "zh-CN": { translation: zhCN }, // Chinese (Traditional)
     "zh-TW": { translation: zhTW }, // Chinese (Simplified)
   },

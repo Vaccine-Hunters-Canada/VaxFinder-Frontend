@@ -1,14 +1,18 @@
 {
-    "asof": "od {{date, MMM d, y}}",
     "appointmentsavailable": "Dostępne terminy",
     "appointmentsnotavailable": "Niedostępne terminy",
+    "asof": "od {{date, MMM d, y}}",
+    "callahead": "Zadzwońcie",
+    "cancellationwarning": "Anulowanie",
     "couldnotloadpharmacydata": "Nie udało się załadować informacji z aptecznej bazy danych, proszę spróbować później.",
     "date": "Data",
     "dates": "Terminy",
     "details": "Szczegóły",
     "eligibility": "Ważne:",
     "eligibilitymessage": "Sprawdź czy kwalifikujesz się do otrzymania szczepionki, w tym celu zapoznaj się z wytycznymi lokalnych placówek zdrowia dotyczących szczepień.",
+    "email": "E-mail",
     "enterpostalcode": "Wpisz kod pocztowy:",
+    "firstdose": "pierwsza dawka",
     "hide": "Ukryj",
     "home": "Strona Główna",
     "invalidpostal": "Niepoprawny kod pocztowy.",
@@ -19,7 +23,9 @@
     "noappointments": "W pobliżu kodu pocztowego {{postalCode}} nie znaleziono wolnych terminów. Spróbuj ponownie później.",
     "postalcodetext": "Użyjemy tego kodu, aby znaleźć najbliższe punkty szczepień z dostępnymi terminami.",
     "quantity": "Ilość",
+    "seconddose": "druga dawka",
     "show": "Wyświetl",
     "submit": "Prześlij",
-    "visitwebsite": "Odwiedź stronę"
+    "visitwebsite": "Odwiedź stronę",
+    "walkin": "Wejść"
 }

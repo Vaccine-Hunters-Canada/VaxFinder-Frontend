@@ -1,14 +1,18 @@
 {
-    "asof": "{{date, MMM d, y}}〜現在で",
     "appointmentsavailable": "ご予約可能　ー",
     "appointmentsnotavailable": "予約不可　ー",
+    "asof": "{{date, MMM d, y}}〜現在で",
+    "callahead": "先にコール",
+    "cancellationwarning": "取り消し",
     "couldnotloadpharmacydata": "薬局情報を読み込めません。しばらくしてからもう一度お試しください。",
     "date": "日",
     "dates": "日付",
     "details": "詳細",
     "eligibility": "利用可能",
     "eligibilitymessage": "ワクチン接種可能かを確認するために、適切な州の保健当局の予防接種情報をご確認ください。",
+    "email": "Eメール",
     "enterpostalcode": "郵便番号を入力してください（例：K2T 0E5):",
+    "firstdose": "最初の投与",
     "hide": "隠す",
     "home": "ホ－ム",
     "invalidpostal": "この郵便番号は無効です",
@@ -19,7 +23,9 @@
     "noappointments": "{{postalCode}}近くに予約できるワクチンはありません。しばらくしてからもう一度お試しください。",
     "postalcodetext": "この郵便番号は近くのワクチン接種可能な薬局を探すために使われます。",
     "quantity": "量",
+    "seconddose": "第二の用量",
     "show": "表示する",
     "submit": "検索",
-    "visitwebsite": "ウェブサイトにアクセス"
+    "visitwebsite": "ウェブサイトにアクセス",
+    "walkin": "ウォークイン"
 }
