@@ -76,6 +76,7 @@ export function RapidAppointment() {
   const [shouldShowInvalidReasons, setShouldShowInvalidReasons] = useState(
     false,
   );
+  const [shouldShowInvalidDoses, setShouldShowInvalidDoses] = useState(false);
 
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
@@ -97,6 +98,8 @@ export function RapidAppointment() {
   const [isWalkInChecked, setIsWalkInChecked] = useState(false);
   const [isVisitWebsiteChecked, setIsVisitWebsiteChecked] = useState(false);
   const [isEmailChecked, setIsEmailChecked] = useState(false);
+  const [isFirstDose, setIsFirstDose] = useState(false);
+  const [isSecondDose, setIsSecondDose] = useState(false);
   const [shouldShowExpandedForm, setShouldShowExpandedForm] = useState(true);
   const [isCreateRequestSuccessful, setIsCreateRequestSuccessful] = useState(
     false,
@@ -178,6 +181,13 @@ export function RapidAppointment() {
     } else {
       setShouldShowInvalidReasons(false);
     }
+
+    if (isFirstDose || isSecondDose) {
+      setShouldShowInvalidDoses(false);
+    } else {
+      setShouldShowInvalidDoses(true);
+      isValid = false;
+    }
     return isValid;
   };
 
@@ -231,6 +241,16 @@ export function RapidAppointment() {
         bookingMethodsString += ", Email";
       }
     }
+
+    let doseString = "";
+    if (isFirstDose && isSecondDose) {
+      doseString = "First and Second";
+    } else if (isFirstDose) {
+      doseString = "First Dose Only";
+    } else if (isSecondDose) {
+      doseString = "Second Dose Only";
+    }
+
     const discordParams = {
       username: "Pharmacy Updates",
       avatar_url: "https://vaccinehunters.ca/favicon.ico",
@@ -270,6 +290,11 @@ export function RapidAppointment() {
               value: bookingMethodsString,
               inline: true,
             },
+            {
+              name: "Doses",
+              value: doseString,
+              inline: true,
+            },
           ],
         },
       ],
@@ -305,6 +330,14 @@ export function RapidAppointment() {
 
     if (isExpiringDosesChecked) {
       tagsCommaSeparatedString.push("Expiring Doses");
+    }
+
+    if (isFirstDose) {
+      tagsCommaSeparatedString.push("1st Dose");
+    }
+
+    if (isSecondDose) {
+      tagsCommaSeparatedString.push("2nd Dose");
     }
 
     const utcDate = zonedTimeToUtc(
@@ -354,6 +387,8 @@ export function RapidAppointment() {
         setIsVisitWebsiteChecked(false);
         setIsEmailChecked(false);
         setIsWalkInChecked(false);
+        setIsFirstDose(false);
+        setIsSecondDose(false);
         setIsCreateRequestSuccessful(true);
       })
       .catch((err) => console.error(err));
@@ -388,6 +423,10 @@ export function RapidAppointment() {
 
   const invalidReasonMessage = shouldShowInvalidReasons
     ? "At least one reason must be checked"
+    : undefined;
+
+  const invalidDoseMessage = shouldShowInvalidDoses
+    ? "At least one dose must be checked"
     : undefined;
 
   const activator = (
@@ -604,6 +643,25 @@ export function RapidAppointment() {
                       setIsExpiringDosesChecked(!isExpiringDosesChecked);
                     }}
                     error={invalidReasonMessage}
+                  />
+                </Stack>
+                <Stack vertical>
+                  <TextStyle>Select Doses</TextStyle>
+                  <Checkbox
+                    label="1st Dose"
+                    checked={isFirstDose}
+                    onChange={() => {
+                      setIsFirstDose(!isFirstDose);
+                    }}
+                    error={invalidDoseMessage}
+                  />
+                  <Checkbox
+                    label="2nd Dose"
+                    checked={isSecondDose}
+                    onChange={() => {
+                      setIsSecondDose(!isSecondDose);
+                    }}
+                    error={invalidDoseMessage}
                   />
                 </Stack>
               </FormLayout.Group>

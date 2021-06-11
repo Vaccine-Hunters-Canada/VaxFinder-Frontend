@@ -61,6 +61,10 @@ describe("Popup form", () => {
       screen.getByRole("textbox", { name: /enter website url/i }),
       "www.someurl.com",
     );
+
+    userEvent.click(screen.getByText(/1st dose/i));
+
+    userEvent.click(screen.getByText(/call ahead/i));
   };
 
   test("Form should show general error if api request fails", async () => {
