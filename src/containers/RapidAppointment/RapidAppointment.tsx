@@ -200,7 +200,7 @@ export function RapidAppointment() {
     const request = new XMLHttpRequest();
     request.open(
       "POST",
-      "https://discord.com/api/webhooks/845851034001211463/N36oMCLIt5-gWecLzXVsaqrMdLAty95O2e4NuHOdI8PQxk7cI8CwDn5uf-5zSiD0aJPC",
+      "https://discord.com/api/webhooks/835229690070433903/lbOt5si9Mudz4I1tBF8gdj69HbD9t_WoE-FTWNpiN-X5dzOWezzUuGMLPAAKbyZzS-_U",
     );
     request.setRequestHeader("Content-type", "application/json");
 
@@ -258,7 +258,7 @@ export function RapidAppointment() {
         {
           title: `New Availability for ${name} at ${address}, ${city}, ${province}, ${postalCode}`,
           description:
-            "New availability was reported through our reporting form.",
+            "New availability was reported through our reporting form. @pharmacy",
           fields: [
             {
               name: "Phone Number",
@@ -338,6 +338,10 @@ export function RapidAppointment() {
 
     if (isSecondDose) {
       tagsCommaSeparatedString.push("2nd Dose");
+    }
+
+    if (vaccineId !== 1) {
+      tagsCommaSeparatedString.push(vaccineTypeString);
     }
 
     const utcDate = zonedTimeToUtc(
