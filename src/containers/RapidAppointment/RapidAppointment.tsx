@@ -340,6 +340,10 @@ export function RapidAppointment() {
       tagsCommaSeparatedString.push("2nd Dose");
     }
 
+    if (vaccineId !== 1) {
+      tagsCommaSeparatedString.push(vaccineTypeString);
+    }
+
     const utcDate = zonedTimeToUtc(
       startOfDay(new Date()),
       Intl.DateTimeFormat().resolvedOptions().timeZone,
