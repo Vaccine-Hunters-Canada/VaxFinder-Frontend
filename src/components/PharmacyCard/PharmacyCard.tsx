@@ -210,6 +210,27 @@ export function PharmacyCard(props: PharmacyProps) {
         if (tag === "2nd Dose") {
           returnTags.push(<Badge key={tag}>{t("seconddose")}</Badge>);
         }
+        if (tag === "Pfizer") {
+          returnTags.push(
+            <Badge key={tag} status="warning">
+              Pfizer
+            </Badge>,
+          );
+        }
+        if (tag === "Moderna") {
+          returnTags.push(
+            <Badge key={tag} status="warning">
+              Moderna
+            </Badge>,
+          );
+        }
+        if (tag === "AstraZeneca") {
+          returnTags.push(
+            <Badge key={tag} status="warning">
+              AstraZeneca
+            </Badge>,
+          );
+        }
       });
     });
     return returnTags;
