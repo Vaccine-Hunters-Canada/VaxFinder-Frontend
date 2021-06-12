@@ -2,6 +2,7 @@ import React from "react";
 import { Route } from "react-router-dom";
 import { PopUpForm } from "../components/PopUpForm";
 import { ExternalKeyInput } from "../containers/ExternalKeyInput";
+import { PharmacistLanding } from "../containers/PharmacistLanding";
 import { RapidAppointment } from "../containers/RapidAppointment";
 import { RemoveAppointments } from "../containers/RemoveAppointments";
 
@@ -24,6 +25,11 @@ export default function AdminRoutes() {
         exact
         path="/admin/removeAppointments"
         render={() => <RemoveAppointments />}
+      />
+      <Route
+        exact
+        path="/admin/pharmacistLanding"
+        render={() => <PharmacistLanding />}
       />
     </>
   );
