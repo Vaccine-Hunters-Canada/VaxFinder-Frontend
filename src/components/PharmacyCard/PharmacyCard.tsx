@@ -180,28 +180,28 @@ export function PharmacyCard(props: PharmacyProps) {
           returnTags.push(
             <Badge key={tag} status="info">
               {t("walkin")}
-            </Badge>
+            </Badge>,
           );
         }
         if (tag === "Call Ahead") {
           returnTags.push(
             <Badge key={tag} status="info">
               {t("callahead")}
-            </Badge>
+            </Badge>,
           );
         }
         if (tag === "Visit Website") {
           returnTags.push(
             <Badge key={tag} status="info">
               {t("visitwebsite")}
-            </Badge>
+            </Badge>,
           );
         }
         if (tag === "Email") {
           returnTags.push(
             <Badge key={tag} status="info">
               {t("email")}
-            </Badge>
+            </Badge>,
           );
         }
         if (tag === "1st Dose") {
