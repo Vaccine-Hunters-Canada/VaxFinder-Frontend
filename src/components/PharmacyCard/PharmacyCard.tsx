@@ -180,28 +180,28 @@ export function PharmacyCard(props: PharmacyProps) {
           returnTags.push(
             <Badge key={tag} status="info">
               {t("walkin")}
-            </Badge>,
+            </Badge>
           );
         }
         if (tag === "Call Ahead") {
           returnTags.push(
             <Badge key={tag} status="info">
               {t("callahead")}
-            </Badge>,
+            </Badge>
           );
         }
         if (tag === "Visit Website") {
           returnTags.push(
             <Badge key={tag} status="info">
               {t("visitwebsite")}
-            </Badge>,
+            </Badge>
           );
         }
         if (tag === "Email") {
           returnTags.push(
             <Badge key={tag} status="info">
               {t("email")}
-            </Badge>,
+            </Badge>
           );
         }
         if (tag === "1st Dose") {
@@ -209,6 +209,27 @@ export function PharmacyCard(props: PharmacyProps) {
         }
         if (tag === "2nd Dose") {
           returnTags.push(<Badge key={tag}>{t("seconddose")}</Badge>);
+        }
+        if (tag === "Pfizer") {
+          returnTags.push(
+            <Badge key={tag} status="warning">
+              Pfizer
+            </Badge>,
+          );
+        }
+        if (tag === "Moderna") {
+          returnTags.push(
+            <Badge key={tag} status="warning">
+              Moderna
+            </Badge>,
+          );
+        }
+        if (tag === "AstraZeneca") {
+          returnTags.push(
+            <Badge key={tag} status="warning">
+              AstraZeneca
+            </Badge>,
+          );
         }
       });
     });
