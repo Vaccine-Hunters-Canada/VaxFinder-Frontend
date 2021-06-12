@@ -198,6 +198,10 @@ export function PopUpForm() {
       tagsCommaSeparatedString.push("2nd Dose");
     }
 
+    if (vaccineId !== 1) {
+      tagsCommaSeparatedString.push(vaccineTypeString);
+    }
+
     const utcDate = zonedTimeToUtc(
       date,
       Intl.DateTimeFormat().resolvedOptions().timeZone,
