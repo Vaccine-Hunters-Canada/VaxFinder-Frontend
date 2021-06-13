@@ -1,14 +1,18 @@
 {
-    "asof": "come di {{date, MMM d, y}}",
     "appointmentsavailable": "Appuntamenti disponibili",
     "appointmentsnotavailable": "Appuntamenti non disponibili",
+    "asof": "come di {{date, MMM d, y}}",
+    "callahead": "chiamare in anticipo",
+    "cancellationwarning": "Cancellazione",
     "couldnotloadpharmacydata": "Impossibile caricare i dati della farmacia, riprova più tardi",
     "date": "La data",
     "dates": "Date/dati",
     "details": "Dettagli",
     "eligibility": "Eleggibilità",
     "eligibilitymessage": "Per fare sicuro di vostra eleggibilità a ricevere il vaccino, legge la guida per la vaccinazione dell'autorità sanitaria competente",
+    "email": "E-mail",
     "enterpostalcode": "Inserisci il tuo codice postale (Esempio: K2T 0E5):",
+    "firstdose": "prima Dose",
     "hide": "Nascondere",
     "home": "Casa",
     "invalidpostal": "Hai inserito un codice postale non valido",
@@ -18,8 +22,12 @@
     "login": "Login",
     "noappointments": "Nessun appuntamento trovato vicino a {{PostalCode}}. Per favore riprova più tardi.",
     "postalcodetext": "Utilizzeremo questo codice postale per trovare i vaccini disponibili più vicini.",
+    "privacypolicy": "politica sulla riservatezza",
     "quantity": "Quantità",
+    "seconddose": "seconda dose",
     "show": "Mostrare",
     "submit": "Invia",
-    "visitwebsite": "Visita il sito web"
+    "termsofservice": "Termini di servizio",
+    "visitwebsite": "Visita il sito web",
+    "walkin": "Entrare"
 }

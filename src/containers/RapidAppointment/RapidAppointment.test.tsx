@@ -121,6 +121,9 @@ describe("Rapid appointment form", () => {
     // Required reason
     userEvent.click(await screen.findByText(/cancellations/i));
 
+    // Required dose category
+    userEvent.click(screen.getByText(/1st dose/i));
+
     const button = await screen.findByRole("button", {
       name: /submit/i,
     });

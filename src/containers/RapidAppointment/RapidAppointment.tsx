@@ -76,6 +76,7 @@ export function RapidAppointment() {
   const [shouldShowInvalidReasons, setShouldShowInvalidReasons] = useState(
     false,
   );
+  const [shouldShowInvalidDoses, setShouldShowInvalidDoses] = useState(false);
 
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
@@ -97,6 +98,8 @@ export function RapidAppointment() {
   const [isWalkInChecked, setIsWalkInChecked] = useState(false);
   const [isVisitWebsiteChecked, setIsVisitWebsiteChecked] = useState(false);
   const [isEmailChecked, setIsEmailChecked] = useState(false);
+  const [isFirstDose, setIsFirstDose] = useState(false);
+  const [isSecondDose, setIsSecondDose] = useState(false);
   const [shouldShowExpandedForm, setShouldShowExpandedForm] = useState(true);
   const [isCreateRequestSuccessful, setIsCreateRequestSuccessful] = useState(
     false,
@@ -178,6 +181,13 @@ export function RapidAppointment() {
     } else {
       setShouldShowInvalidReasons(false);
     }
+
+    if (isFirstDose || isSecondDose) {
+      setShouldShowInvalidDoses(false);
+    } else {
+      setShouldShowInvalidDoses(true);
+      isValid = false;
+    }
     return isValid;
   };
 
@@ -190,7 +200,7 @@ export function RapidAppointment() {
     const request = new XMLHttpRequest();
     request.open(
       "POST",
-      "https://discord.com/api/webhooks/845851034001211463/N36oMCLIt5-gWecLzXVsaqrMdLAty95O2e4NuHOdI8PQxk7cI8CwDn5uf-5zSiD0aJPC",
+      "https://discord.com/api/webhooks/835229690070433903/lbOt5si9Mudz4I1tBF8gdj69HbD9t_WoE-FTWNpiN-X5dzOWezzUuGMLPAAKbyZzS-_U",
     );
     request.setRequestHeader("Content-type", "application/json");
 
@@ -231,6 +241,16 @@ export function RapidAppointment() {
         bookingMethodsString += ", Email";
       }
     }
+
+    let doseString = "";
+    if (isFirstDose && isSecondDose) {
+      doseString = "First and Second";
+    } else if (isFirstDose) {
+      doseString = "First Dose Only";
+    } else if (isSecondDose) {
+      doseString = "Second Dose Only";
+    }
+
     const discordParams = {
       username: "Pharmacy Updates",
       avatar_url: "https://vaccinehunters.ca/favicon.ico",
@@ -238,7 +258,7 @@ export function RapidAppointment() {
         {
           title: `New Availability for ${name} at ${address}, ${city}, ${province}, ${postalCode}`,
           description:
-            "New availability was reported through our reporting form.",
+            "New availability was reported through our reporting form. @pharmacy",
           fields: [
             {
               name: "Phone Number",
@@ -268,6 +288,11 @@ export function RapidAppointment() {
             {
               name: "Booking Method",
               value: bookingMethodsString,
+              inline: true,
+            },
+            {
+              name: "Doses",
+              value: doseString,
               inline: true,
             },
           ],
@@ -306,6 +331,23 @@ export function RapidAppointment() {
     if (isExpiringDosesChecked) {
       tagsCommaSeparatedString.push("Expiring Doses");
     }
+
+    if (isFirstDose) {
+      tagsCommaSeparatedString.push("1st Dose");
+    }
+
+    if (isSecondDose) {
+      tagsCommaSeparatedString.push("2nd Dose");
+    }
+
+    if (vaccineId !== 1) {
+      tagsCommaSeparatedString.push(vaccineTypeString);
+    }
+
+    const utcDate = zonedTimeToUtc(
+      startOfDay(new Date()),
+      Intl.DateTimeFormat().resolvedOptions().timeZone,
+    );
 
     const requestPayload: VaccineAvailabilityExpandedCreateRequest = {
       active: 1, // boolean indicating if location is active
@@ -349,6 +391,8 @@ export function RapidAppointment() {
         setIsVisitWebsiteChecked(false);
         setIsEmailChecked(false);
         setIsWalkInChecked(false);
+        setIsFirstDose(false);
+        setIsSecondDose(false);
         setIsCreateRequestSuccessful(true);
       })
       .catch((err) => console.error(err));
@@ -383,6 +427,10 @@ export function RapidAppointment() {
 
   const invalidReasonMessage = shouldShowInvalidReasons
     ? "At least one reason must be checked"
+    : undefined;
+
+  const invalidDoseMessage = shouldShowInvalidDoses
+    ? "At least one dose must be checked"
     : undefined;
 
   const activator = (
@@ -599,6 +647,25 @@ export function RapidAppointment() {
                       setIsExpiringDosesChecked(!isExpiringDosesChecked);
                     }}
                     error={invalidReasonMessage}
+                  />
+                </Stack>
+                <Stack vertical>
+                  <TextStyle>Select Doses</TextStyle>
+                  <Checkbox
+                    label="1st Dose"
+                    checked={isFirstDose}
+                    onChange={() => {
+                      setIsFirstDose(!isFirstDose);
+                    }}
+                    error={invalidDoseMessage}
+                  />
+                  <Checkbox
+                    label="2nd Dose"
+                    checked={isSecondDose}
+                    onChange={() => {
+                      setIsSecondDose(!isSecondDose);
+                    }}
+                    error={invalidDoseMessage}
                   />
                 </Stack>
               </FormLayout.Group>
