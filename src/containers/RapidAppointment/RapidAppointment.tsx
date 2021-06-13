@@ -183,9 +183,9 @@ export function RapidAppointment() {
 
   const discordWebhook = () => {
     // Ensure we don't invoke this during test runs and development
-    // if (process.env.NODE_ENV !== "production") {
-    //   return;
-    // }
+    if (process.env.NODE_ENV !== "production") {
+      return;
+    }
 
     const request = new XMLHttpRequest();
     request.open(
@@ -247,8 +247,7 @@ export function RapidAppointment() {
     const discordParams = {
       username: "Pharmacy Updates",
       avatar_url: "https://vaccinehunters.ca/favicon.ico",
-      // eslint-disable-next-line no-useless-escape
-      content: `<@&${835240707241148428}>`,
+      content: "<@&835240707241148428>",
       embeds: [
         {
           title: `New Availability for ${name} at ${address}, ${city}, ${province}, ${postalCode}`,
