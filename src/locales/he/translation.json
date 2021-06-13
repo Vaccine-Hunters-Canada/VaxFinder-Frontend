@@ -25,10 +25,12 @@
     "login": "התחברות",
     "noappointments": "לא נמצאו תורים זמינים ליד {{postalCode}} נא לנסות מאוחר יותר",
     "postalcodetext": "אנו נשתמש במיקוד הדואר הנל כדי לאתר  את החיסונים הכי קרובים",
+    "privacypolicy": "מדיניות פרטיות",
     "quantity": "כַּמוּת",
     "seconddose": "המנה השנייה",
     "show": "הצג",
     "submit": "הגש טופס",
+    "termsofservice": "תנאי השירות",
     "visitwebsite": "כניסה לאתר",
     "walkin": "ללכת ב"
 }
