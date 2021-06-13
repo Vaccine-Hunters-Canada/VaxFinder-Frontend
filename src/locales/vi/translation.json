@@ -25,10 +25,12 @@
     "login": "Đăng nhập",
     "noappointments": "Không tìm thấy điểm chủng ngừa nào còn nhận tiêm ở gần {{mã bưu điện}}. Vui lòng thử lại sau",
     "postalcodetext": "Chúng tôi sẽ sử dụng mã bưu điện này để tìm những chỗ có nhận tiêm vắc-xin gần nơi bạn ở nhất",
+    "privacypolicy": "Chính sách bảo mật",
     "quantity": "Số lượng",
     "seconddose": "thứ hai Liều lượng",
     "show": "Hiển thị",
     "submit": "Gửi",
+    "termsofservice": "Điều khoản dịch vụ",
     "visitwebsite": "Truy cập trang mạng",
     "walkin": "Không cần hẹn trước"
 }

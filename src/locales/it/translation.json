@@ -22,10 +22,12 @@
     "login": "Login",
     "noappointments": "Nessun appuntamento trovato vicino a {{PostalCode}}. Per favore riprova più tardi.",
     "postalcodetext": "Utilizzeremo questo codice postale per trovare i vaccini disponibili più vicini.",
+    "privacypolicy": "politica sulla riservatezza",
     "quantity": "Quantità",
     "seconddose": "seconda dose",
     "show": "Mostrare",
     "submit": "Invia",
+    "termsofservice": "Termini di servizio",
     "visitwebsite": "Visita il sito web",
     "walkin": "Entrare"
 }

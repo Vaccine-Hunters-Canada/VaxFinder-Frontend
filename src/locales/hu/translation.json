@@ -25,10 +25,12 @@
     "login": "Belépés",
     "noappointments": "Nem található idopont ennek az irányítószámnak {{postalCode}} közelében. Kérem, próbálkozzon újra később.",
     "postalcodetext": "Ezt az irányítószámot használjuk a legközelebbi oltóanyagok megtalálásához.",
+    "privacypolicy": "Adatvédelmi irányelvek",
     "quantity": "Mennyiség",
     "seconddose": "A doua doză",
     "show": "Mutasd meg idöpontokat",
     "submit": "Beküldés",
+    "termsofservice": "Szolgáltatás feltételei",
     "visitwebsite": "Látogasson el a weboldalra",
     "walkin": "Besétál"
 }

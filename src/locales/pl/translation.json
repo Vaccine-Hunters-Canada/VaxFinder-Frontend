@@ -22,10 +22,12 @@
     "login": "Zaloguj sie",
     "noappointments": "W pobliżu kodu pocztowego {{postalCode}} nie znaleziono wolnych terminów. Spróbuj ponownie później.",
     "postalcodetext": "Użyjemy tego kodu, aby znaleźć najbliższe punkty szczepień z dostępnymi terminami.",
+    "privacypolicy": "Polityka prywatności",
     "quantity": "Ilość",
     "seconddose": "druga dawka",
     "show": "Wyświetl",
     "submit": "Prześlij",
+    "termsofservice": "Warunki usługi",
     "visitwebsite": "Odwiedź stronę",
     "walkin": "Wejść"
 }

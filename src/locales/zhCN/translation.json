@@ -27,10 +27,12 @@
     "popupwarning": "这是一个临时疫苗接种诊所",
     "popupwarningmessage": "请访问网站来确认你是否符合这个临时诊所的疫苗接种条件",
     "postalcodetext": "我们将会用这个邮编搜寻附近可以预约的疫苗。",
+    "privacypolicy": "隐私政策",
     "quantity": "数量",
     "seconddose": "第二剂",
     "show": "显示",
     "submit": "提交",
+    "termsofservice": "服务条款",
     "visitwebsite": "访问网页",
     "walkin": "无需预约"
 }
