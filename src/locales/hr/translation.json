@@ -27,10 +27,12 @@
     "popupwarning": "Ovo je pop-up klinika",
     "popupwarningmessage": "Posjetite web stranicu kako biste potvrdili ispunjavate li uvjete za ovu lokaciju.",
     "postalcodetext": "Upotrijebit ćemo ovaj poštanski broj za pronalaženje najbližih dostupnih cjepiva.",
+    "privacypolicy": "Izjava o privatnosti",
     "quantity": "Količina",
     "seconddose": "druga doza",
     "show": "Pokaži",
     "submit": "Prihvati",
+    "termsofservice": "Uvjeti pružanja usluge",
     "visitwebsite": "Posjetite web stranicu",
     "walkin": "Walk-in klinika"
 }

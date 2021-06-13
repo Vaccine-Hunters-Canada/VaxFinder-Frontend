@@ -22,10 +22,12 @@
     "login": "Autentificare",
     "noappointments": "Nu s-au găsit date disponibile la farmacii linga {{postalCode}}. încercați din nou mai tirziu",
     "postalcodetext": "Vom utiliza acest cod poștal pentru a găsi cele mai apropiate vaccinuri disponibile.",
+    "privacypolicy": "Politica de Confidențialitate",
     "quantity": "Cantitate",
     "seconddose": "A doua doză",
     "show": "Arată",
     "submit": "Trimite",
+    "termsofservice": "Termenii serviciului",
     "visitwebsite": "Vizitati site-ul",
     "walkin": "Intra"
 }
