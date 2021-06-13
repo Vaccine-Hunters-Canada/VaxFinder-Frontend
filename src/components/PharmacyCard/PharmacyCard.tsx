@@ -170,26 +170,67 @@ export function PharmacyCard(props: PharmacyProps) {
     }
     return undefined;
   };
-  /* eslint-enable  @typescript-eslint/no-unused-vars */
 
   const badgeMarkup = () => {
-    let returnTags;
+    const returnTags: JSX.Element[] = [];
     Object.keys(props.vaccineAvailabilities).forEach((availability) => {
       const tags = props.vaccineAvailabilities[availability].tags.split(",");
-      returnTags = tags.map((tag) => {
+      tags.forEach((tag) => {
         if (tag === "Walk In") {
-          return <Badge status="info">{t("walkin")}</Badge>;
+          returnTags.push(
+            <Badge key={tag} status="info">
+              {t("walkin")}
+            </Badge>,
+          );
         }
         if (tag === "Call Ahead") {
-          return <Badge status="info">{t("callahead")}</Badge>;
+          returnTags.push(
+            <Badge key={tag} status="info">
+              {t("callahead")}
+            </Badge>,
+          );
         }
         if (tag === "Visit Website") {
-          return <Badge status="info">{t("visitwebsite")}</Badge>;
+          returnTags.push(
+            <Badge key={tag} status="info">
+              {t("visitwebsite")}
+            </Badge>,
+          );
         }
         if (tag === "Email") {
-          return <Badge status="info">{t("email")}</Badge>;
+          returnTags.push(
+            <Badge key={tag} status="info">
+              {t("email")}
+            </Badge>,
+          );
         }
-        return null;
+        if (tag === "1st Dose") {
+          returnTags.push(<Badge key={tag}>{t("firstdose")}</Badge>);
+        }
+        if (tag === "2nd Dose") {
+          returnTags.push(<Badge key={tag}>{t("seconddose")}</Badge>);
+        }
+        if (tag === "Pfizer") {
+          returnTags.push(
+            <Badge key={tag} status="warning">
+              Pfizer
+            </Badge>,
+          );
+        }
+        if (tag === "Moderna") {
+          returnTags.push(
+            <Badge key={tag} status="warning">
+              Moderna
+            </Badge>,
+          );
+        }
+        if (tag === "AstraZeneca") {
+          returnTags.push(
+            <Badge key={tag} status="warning">
+              AstraZeneca
+            </Badge>,
+          );
+        }
       });
     });
     return returnTags;

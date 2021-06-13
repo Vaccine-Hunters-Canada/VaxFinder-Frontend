@@ -9,6 +9,7 @@ import {
   Stack,
   TextStyle,
   Banner,
+  Checkbox,
 } from "@shopify/polaris";
 import slugify from "slugify";
 import React, { useState } from "react";
@@ -44,6 +45,10 @@ export function PopUpForm() {
   );
   const [shouldShowInvalidPostal, setShouldShowInvalidPostal] = useState(false);
   const [shouldShowInvalidURL, setShouldShowInvalidURL] = useState(false);
+  const [shouldShowInvalidBooking, setShouldShowInvalidBooking] = useState(
+    false,
+  );
+  const [shouldShowInvalidDoses, setShouldShowInvalidDoses] = useState(false);
 
   /** Controlled component state */
   const [name, setName] = useState("");
@@ -60,7 +65,14 @@ export function PopUpForm() {
   );
   const [vaccineId, setVaccineId] = useState(1);
   const [isPopOverActive, setIsPopOverActive] = useState(false);
-
+  const [isExpiringDosesChecked, setIsExpiringDosesChecked] = useState(false);
+  const [isCancellationsChecked, setIsCancellationsChecked] = useState(false);
+  const [isCallAheadChecked, setIsCallAheadChecked] = useState(false);
+  const [isWalkInChecked, setIsWalkInChecked] = useState(false);
+  const [isVisitWebsiteChecked, setIsVisitWebsiteChecked] = useState(false);
+  const [isEmailChecked, setIsEmailChecked] = useState(false);
+  const [isFirstDose, setIsFirstDose] = useState(false);
+  const [isSecondDose, setIsSecondDose] = useState(false);
   const [isPopUpRequestSuccessful, setIsPopUpRequestSuccessful] = useState(
     false,
   );
@@ -128,12 +140,66 @@ export function PopUpForm() {
       setShouldShowInvalidURL(false);
     }
 
+    if (
+      !isWalkInChecked &&
+      !isEmailChecked &&
+      !isCallAheadChecked &&
+      !isVisitWebsiteChecked
+    ) {
+      setShouldShowInvalidBooking(true);
+      isValid = false;
+    } else {
+      setShouldShowInvalidBooking(false);
+    }
+
+    if (isFirstDose || isSecondDose) {
+      setShouldShowInvalidDoses(false);
+    } else {
+      setShouldShowInvalidDoses(true);
+      isValid = false;
+    }
     return isValid;
   };
 
   const handleSubmit = () => {
     if (!validateForm()) {
       return;
+    }
+
+    const tagsCommaSeparatedString: string[] = [];
+
+    if (isCallAheadChecked) {
+      tagsCommaSeparatedString.push("Call Ahead");
+    }
+    if (isWalkInChecked) {
+      tagsCommaSeparatedString.push("Walk In");
+    }
+
+    if (isVisitWebsiteChecked) {
+      tagsCommaSeparatedString.push("Visit Website");
+    }
+    if (isEmailChecked) {
+      tagsCommaSeparatedString.push("Email");
+    }
+
+    if (isCancellationsChecked) {
+      tagsCommaSeparatedString.push("Cancellation");
+    }
+
+    if (isExpiringDosesChecked) {
+      tagsCommaSeparatedString.push("Expiring Doses");
+    }
+
+    if (isFirstDose) {
+      tagsCommaSeparatedString.push("1st Dose");
+    }
+
+    if (isSecondDose) {
+      tagsCommaSeparatedString.push("2nd Dose");
+    }
+
+    if (vaccineId !== 1) {
+      tagsCommaSeparatedString.push(vaccineTypeString);
     }
 
     const utcDate = zonedTimeToUtc(
@@ -148,8 +214,8 @@ export function PopUpForm() {
       date: format(utcDate, "yyyy-MM-dd'T'HH:mm:ssxxx"),
       inputType: 1, // represents how availability data was recorded - not used at time of writing
       name,
-      numberAvailable: numAvailable ? 1 : Number(numAvailable),
-      numberTotal: numAvailable ? 1 : Number(numAvailable),
+      numberAvailable: numAvailable ? Number(numAvailable) : 1,
+      numberTotal: numAvailable ? Number(numAvailable) : 1,
       vaccine: vaccineId, // This is the vaccine id
       postcode: postalCode.replace(/[\W]/gi, ""),
       province,
@@ -160,7 +226,7 @@ export function PopUpForm() {
       notes: "",
       organization: 25, // popups are always 25
       phone: phoneNumber,
-      tagsA: "",
+      tagsA: tagsCommaSeparatedString.join(","),
       tagsL: "",
       url: getValidUrl(website),
     };
@@ -178,6 +244,14 @@ export function PopUpForm() {
         setNumAvailable("");
         setVaccineTypeString("Select Vaccine Type");
         setVaccineId(1);
+        setIsCallAheadChecked(false);
+        setIsCancellationsChecked(false);
+        setIsExpiringDosesChecked(false);
+        setIsVisitWebsiteChecked(false);
+        setIsEmailChecked(false);
+        setIsWalkInChecked(false);
+        setIsFirstDose(false);
+        setIsSecondDose(false);
         setIsPopUpRequestSuccessful(true);
       })
       .catch((err) => console.error(err));
@@ -209,6 +283,14 @@ export function PopUpForm() {
 
   const invalidURLMessage = shouldShowInvalidURL
     ? "URL must not be empty"
+    : undefined;
+
+  const invalidBookingMessage = shouldShowInvalidBooking
+    ? "At least one booking method must be checked"
+    : undefined;
+
+  const invalidDoseMessage = shouldShowInvalidDoses
+    ? "At least one dose must be checked"
     : undefined;
   const activator = (
     <Button onClick={() => setIsPopOverActive(!isPopOverActive)} disclosure>
@@ -310,7 +392,7 @@ export function PopUpForm() {
                   label="Enter Number Available (Optional)"
                   type="number"
                 />
-                <Stack>
+                <Stack distribution="fill">
                   <Stack.Item>
                     <TextStyle>Enter Vaccine Type (Optional)</TextStyle>
                     <Popover
@@ -356,6 +438,62 @@ export function PopUpForm() {
                       />
                     </Popover>
                   </Stack.Item>
+                </Stack>
+              </FormLayout.Group>
+              <FormLayout.Group>
+                <Stack vertical>
+                  <TextStyle>Select Booking Methods</TextStyle>
+                  <Checkbox
+                    label="Walk-Ins"
+                    checked={isWalkInChecked}
+                    onChange={() => {
+                      setIsWalkInChecked(!isWalkInChecked);
+                    }}
+                    error={invalidBookingMessage}
+                  />
+                  <Checkbox
+                    label="Email"
+                    checked={isEmailChecked}
+                    onChange={() => {
+                      setIsEmailChecked(!isEmailChecked);
+                    }}
+                    error={invalidBookingMessage}
+                  />
+                  <Checkbox
+                    label="Call Ahead"
+                    checked={isCallAheadChecked}
+                    onChange={() => {
+                      setIsCallAheadChecked(!isCallAheadChecked);
+                    }}
+                    error={invalidBookingMessage}
+                  />
+                  <Checkbox
+                    label="Visit Website"
+                    checked={isVisitWebsiteChecked}
+                    onChange={() => {
+                      setIsVisitWebsiteChecked(!isVisitWebsiteChecked);
+                    }}
+                    error={invalidBookingMessage}
+                  />
+                </Stack>
+                <Stack vertical>
+                  <TextStyle>Select Doses</TextStyle>
+                  <Checkbox
+                    label="1st Dose"
+                    checked={isFirstDose}
+                    onChange={() => {
+                      setIsFirstDose(!isFirstDose);
+                    }}
+                    error={invalidDoseMessage}
+                  />
+                  <Checkbox
+                    label="2nd Dose"
+                    checked={isSecondDose}
+                    onChange={() => {
+                      setIsSecondDose(!isSecondDose);
+                    }}
+                    error={invalidDoseMessage}
+                  />
                 </Stack>
               </FormLayout.Group>
               <Button primary submit disabled={loading}>
