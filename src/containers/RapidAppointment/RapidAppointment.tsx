@@ -23,10 +23,10 @@ import {
 
 import { postalCodeIsValid } from "../../utils";
 import { usePrevious } from "../../hooks/usePrevious";
-import { format, startOfDay } from "date-fns";
-import { zonedTimeToUtc } from "date-fns-tz";
+import { startOfDay } from "date-fns";
 import { getValidUrl } from "../../utils/getValidUrl";
 import { useTranslation } from "react-i18next";
+import { getFormattedZonedDateTime } from "../../utils/getFormattedZonedDateTime";
 
 export function RapidAppointment() {
   const { t } = useTranslation();
@@ -71,9 +71,6 @@ export function RapidAppointment() {
   const [shouldShowInvalidPostal, setShouldShowInvalidPostal] = useState(false);
   const [shouldShowInvalidURL, setShouldShowInvalidURL] = useState(false);
   const [shouldShowInvalidBooking, setShouldShowInvalidBooking] = useState(
-    false,
-  );
-  const [shouldShowInvalidReasons, setShouldShowInvalidReasons] = useState(
     false,
   );
   const [shouldShowInvalidDoses, setShouldShowInvalidDoses] = useState(false);
@@ -175,13 +172,6 @@ export function RapidAppointment() {
       setShouldShowInvalidBooking(false);
     }
 
-    if (!isCancellationsChecked && !isExpiringDosesChecked) {
-      setShouldShowInvalidReasons(true);
-      isValid = false;
-    } else {
-      setShouldShowInvalidReasons(false);
-    }
-
     if (isFirstDose || isSecondDose) {
       setShouldShowInvalidDoses(false);
     } else {
@@ -214,6 +204,9 @@ export function RapidAppointment() {
       } else {
         reasoningString += " and Expiring Doses";
       }
+    }
+    if (!isCancellationsChecked && !isExpiringDosesChecked) {
+      reasoningString = "General Availability";
     }
 
     let bookingMethodsString = "";
@@ -254,6 +247,7 @@ export function RapidAppointment() {
     const discordParams = {
       username: "Pharmacy Updates",
       avatar_url: "https://vaccinehunters.ca/favicon.ico",
+      content: "<@&835240707241148428>",
       embeds: [
         {
           title: `New Availability for ${name} at ${address}, ${city}, ${province}, ${postalCode}`,
@@ -344,18 +338,13 @@ export function RapidAppointment() {
       tagsCommaSeparatedString.push(vaccineTypeString);
     }
 
-    const utcDate = zonedTimeToUtc(
-      startOfDay(new Date()),
-      Intl.DateTimeFormat().resolvedOptions().timeZone,
-    );
-
     const requestPayload: VaccineAvailabilityExpandedCreateRequest = {
       active: 1, // boolean indicating if location is active
-      date: format(utcDate, "yyyy-MM-dd'T'HH:mm:ssxxx"),
+      date: getFormattedZonedDateTime(startOfDay(new Date())),
       inputType: 2, // represents how availability data was recorded
       name,
-      numberAvailable: numAvailable ? 1 : Number(numAvailable),
-      numberTotal: numAvailable ? 1 : Number(numAvailable),
+      numberAvailable: numAvailable ? Number(numAvailable) : 1,
+      numberTotal: numAvailable ? Number(numAvailable) : 1,
       vaccine: vaccineId,
       postcode: postalCode.replace(/[\W]/gi, ""),
       province,
@@ -423,10 +412,6 @@ export function RapidAppointment() {
 
   const invalidBookingMessage = shouldShowInvalidBooking
     ? "At least one booking method must be checked"
-    : undefined;
-
-  const invalidReasonMessage = shouldShowInvalidReasons
-    ? "At least one reason must be checked"
     : undefined;
 
   const invalidDoseMessage = shouldShowInvalidDoses
@@ -631,14 +616,15 @@ export function RapidAppointment() {
                   />
                 </Stack>
                 <Stack vertical>
-                  <TextStyle>Select Appointment Reasoning(s)</TextStyle>
+                  <TextStyle>
+                    Select Appointment Reasoning(s) (Optional)
+                  </TextStyle>
                   <Checkbox
                     label="Cancellations"
                     checked={isCancellationsChecked}
                     onChange={() => {
                       setIsCancellationsChecked(!isCancellationsChecked);
                     }}
-                    error={invalidReasonMessage}
                   />
                   <Checkbox
                     label="Expiring Doses"
@@ -646,7 +632,6 @@ export function RapidAppointment() {
                     onChange={() => {
                       setIsExpiringDosesChecked(!isExpiringDosesChecked);
                     }}
-                    error={invalidReasonMessage}
                   />
                 </Stack>
                 <Stack vertical>

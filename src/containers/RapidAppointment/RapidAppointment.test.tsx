@@ -11,6 +11,9 @@ jest.mock("react-router-dom", () => ({
 }));
 
 describe("Rapid appointment form", () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
   test("Should not show location-related controls if location details are successfully retrieved from api", () => {
     // A valid location will be serve to the form via MSW
     render(<RapidAppointment />);
@@ -57,11 +60,6 @@ describe("Rapid appointment form", () => {
       /at least one booking method must be checked/i,
     );
     expect(bookingErrors.length).toBe(4);
-
-    const reasonErrors = await screen.findAllByText(
-      /At least one reason must be checked/i,
-    );
-    expect(reasonErrors.length).toBe(2);
   });
 
   test("Long form should show validation errors if form values are invalid", async () => {
@@ -102,11 +100,6 @@ describe("Rapid appointment form", () => {
       /at least one booking method must be checked/i,
     );
     expect(bookingErrors.length).toBe(4);
-
-    const reasonErrors = await screen.findAllByText(
-      /At least one reason must be checked/i,
-    );
-    expect(reasonErrors.length).toBe(2);
   });
 
   test("Form should show success message if form values are submitted", async () => {

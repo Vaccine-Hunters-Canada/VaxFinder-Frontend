@@ -88,7 +88,7 @@ export function ExternalKeyInput() {
     params.append("organizationId", organizationId.toString());
 
     history.push({
-      pathname: "/admin/rapidAppointment",
+      pathname: "/admin/pharmacistLanding",
       search: params.toString(),
     });
   };
