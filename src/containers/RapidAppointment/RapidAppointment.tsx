@@ -73,9 +73,6 @@ export function RapidAppointment() {
   const [shouldShowInvalidBooking, setShouldShowInvalidBooking] = useState(
     false,
   );
-  const [shouldShowInvalidReasons, setShouldShowInvalidReasons] = useState(
-    false,
-  );
   const [shouldShowInvalidDoses, setShouldShowInvalidDoses] = useState(false);
 
   const [name, setName] = useState("");
@@ -175,13 +172,6 @@ export function RapidAppointment() {
       setShouldShowInvalidBooking(false);
     }
 
-    if (!isCancellationsChecked && !isExpiringDosesChecked) {
-      setShouldShowInvalidReasons(true);
-      isValid = false;
-    } else {
-      setShouldShowInvalidReasons(false);
-    }
-
     if (isFirstDose || isSecondDose) {
       setShouldShowInvalidDoses(false);
     } else {
@@ -214,6 +204,9 @@ export function RapidAppointment() {
       } else {
         reasoningString += " and Expiring Doses";
       }
+    }
+    if (!isCancellationsChecked && !isExpiringDosesChecked) {
+      reasoningString = "General Availability";
     }
 
     let bookingMethodsString = "";
@@ -254,6 +247,7 @@ export function RapidAppointment() {
     const discordParams = {
       username: "Pharmacy Updates",
       avatar_url: "https://vaccinehunters.ca/favicon.ico",
+      text: "@pharmacy",
       embeds: [
         {
           title: `New Availability for ${name} at ${address}, ${city}, ${province}, ${postalCode}`,
@@ -423,10 +417,6 @@ export function RapidAppointment() {
 
   const invalidBookingMessage = shouldShowInvalidBooking
     ? "At least one booking method must be checked"
-    : undefined;
-
-  const invalidReasonMessage = shouldShowInvalidReasons
-    ? "At least one reason must be checked"
     : undefined;
 
   const invalidDoseMessage = shouldShowInvalidDoses
@@ -631,14 +621,15 @@ export function RapidAppointment() {
                   />
                 </Stack>
                 <Stack vertical>
-                  <TextStyle>Select Appointment Reasoning(s)</TextStyle>
+                  <TextStyle>
+                    Select Appointment Reasoning(s) (Optional)
+                  </TextStyle>
                   <Checkbox
                     label="Cancellations"
                     checked={isCancellationsChecked}
                     onChange={() => {
                       setIsCancellationsChecked(!isCancellationsChecked);
                     }}
-                    error={invalidReasonMessage}
                   />
                   <Checkbox
                     label="Expiring Doses"
@@ -646,7 +637,6 @@ export function RapidAppointment() {
                     onChange={() => {
                       setIsExpiringDosesChecked(!isExpiringDosesChecked);
                     }}
-                    error={invalidReasonMessage}
                   />
                 </Stack>
                 <Stack vertical>
