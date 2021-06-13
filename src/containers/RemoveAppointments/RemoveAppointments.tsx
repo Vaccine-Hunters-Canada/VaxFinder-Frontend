@@ -184,7 +184,8 @@ export function RemoveAppointments() {
           {
             // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
             title: `No doses left for ${locationData.name} at ${locationData.address?.line1}, ${locationData.address?.city}, ${locationData.address?.province}, ${locationData.address?.postcode}`,
-            description: "New out of doses warning issues from this pharmacy",
+            description:
+              "This pharmacy has reported that they no longer have any doses",
           },
         ],
       };
