@@ -205,12 +205,12 @@ export function AppFrame() {
             items={[
               {
                 url: "/tos",
-                label: "Terms Of Service",
+                label: t("termsofservice"),
                 icon: CircleInformationMajor,
               },
               {
                 url: "/privacypolicy",
-                label: "Privacy Policy",
+                label: t("privacypolicy"),
                 icon: ViewMajor,
               },
             ]}
