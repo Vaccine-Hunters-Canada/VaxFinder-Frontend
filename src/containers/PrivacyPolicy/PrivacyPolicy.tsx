@@ -1,12 +1,12 @@
-import { DisplayText } from "@shopify/polaris";
+import { Heading } from "@shopify/polaris";
 import React from "react";
 
 export function PrivacyPolicy() {
   return (
     <>
-      <DisplayText size="extraLarge">Our Privacy Policy</DisplayText>
-      <hr />
-      <DisplayText>
+      <div className="legal">
+        <Heading>Our Privacy Policy</Heading>
+        <hr />
         <strong>At a glance:</strong>
         <ul>
           <li>
@@ -343,7 +343,7 @@ export function PrivacyPolicy() {
         <br />
         <br />
         <strong>Last updated: June 12, 2021.</strong>
-      </DisplayText>
+      </div>
     </>
   );
 }

@@ -1,14 +1,11 @@
-import { DisplayText } from "@shopify/polaris";
+import { Heading } from "@shopify/polaris";
 import React from "react";
 
 export function TermsOfService() {
   return (
     <>
-      <DisplayText size="extraLarge">
-        Vaccine Hunters Canada Terms of Service
-      </DisplayText>
-      <hr />
-      <DisplayText>
+      <div className="legal">
+        <Heading>Vaccine Hunters Canada Terms of Service</Heading>
         PLEASE READ THESE TERMS AND CONDITIONS CAREFULLY AS THEY CONTAIN
         IMPORTANT INFORMATION REGARDING YOUR USE OF THIS WEBSITE AND VHC CANADA
         SERVICES AND YOUR LEGAL RIGHTS, REMEDIES AND OBLIGATIONS. BY ACCESSING
@@ -627,7 +624,7 @@ export function TermsOfService() {
         <br />
         <br />
         <strong>Last Updated: June 11, 2021</strong>
-      </DisplayText>
+      </div>
     </>
   );
 }

@@ -1,3 +1,9 @@
 .wrapper {
   margin-left: -2rem;
 }
+@media (max-width: 489px) {
+  .legal {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
