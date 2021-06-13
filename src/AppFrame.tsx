@@ -197,11 +197,6 @@ export function AppFrame() {
 
           <Navigation.Section
             separator
-            title={t("language")}
-            items={getLanguageBarItemProps()}
-          />
-          <Navigation.Section
-            separator
             items={[
               {
                 url: "/tos",
@@ -214,6 +209,12 @@ export function AppFrame() {
                 icon: ViewMajor,
               },
             ]}
+          />
+
+          <Navigation.Section
+            separator
+            title={t("language")}
+            items={getLanguageBarItemProps()}
           />
         </Navigation>
       }
