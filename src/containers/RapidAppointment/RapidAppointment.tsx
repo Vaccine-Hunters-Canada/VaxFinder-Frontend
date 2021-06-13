@@ -23,10 +23,10 @@ import {
 
 import { postalCodeIsValid } from "../../utils";
 import { usePrevious } from "../../hooks/usePrevious";
-import { format, startOfDay } from "date-fns";
-import { zonedTimeToUtc } from "date-fns-tz";
+import { startOfDay } from "date-fns";
 import { getValidUrl } from "../../utils/getValidUrl";
 import { useTranslation } from "react-i18next";
+import { getFormattedZonedDateTime } from "../../utils/getFormattedZonedDateTime";
 
 export function RapidAppointment() {
   const { t } = useTranslation();
@@ -338,18 +338,13 @@ export function RapidAppointment() {
       tagsCommaSeparatedString.push(vaccineTypeString);
     }
 
-    const utcDate = zonedTimeToUtc(
-      startOfDay(new Date()),
-      Intl.DateTimeFormat().resolvedOptions().timeZone,
-    );
-
     const requestPayload: VaccineAvailabilityExpandedCreateRequest = {
       active: 1, // boolean indicating if location is active
-      date: format(utcDate, "yyyy-MM-dd'T'HH:mm:ssxxx"),
+      date: getFormattedZonedDateTime(startOfDay(new Date())),
       inputType: 2, // represents how availability data was recorded
       name,
-      numberAvailable: numAvailable ? 1 : Number(numAvailable),
-      numberTotal: numAvailable ? 1 : Number(numAvailable),
+      numberAvailable: numAvailable ? Number(numAvailable) : 1,
+      numberTotal: numAvailable ? Number(numAvailable) : 1,
       vaccine: vaccineId,
       postcode: postalCode.replace(/[\W]/gi, ""),
       province,
