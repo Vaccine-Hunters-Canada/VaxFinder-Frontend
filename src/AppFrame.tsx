@@ -132,7 +132,7 @@ function getLanguageBarItemProps(): ItemProps[] {
 
 export function AppFrame() {
   const { setState } = useContext(AppContext);
-  const { t } = useTranslation(undefined, { useSuspense: false });
+  const { t, i18n } = useTranslation(undefined, { useSuspense: false });
   const location = useLocation();
   const [isMobileNavigationActive, setIsMobileNavigationActive] = useState(
     false,
@@ -144,6 +144,20 @@ export function AppFrame() {
   );
 
   const history = useHistory();
+
+  // If logged in, force English
+  if (userService.checkIsAuthenticated()) {
+    if (i18n.language?.substring(0, 2) !== "en") {
+      i18next
+        .changeLanguage("en")
+        .then(() => {
+          // Success
+        })
+        .catch(() => {
+          // Failure
+        });
+    }
+  }
 
   return (
     <Frame
@@ -211,11 +225,17 @@ export function AppFrame() {
             ]}
           />
 
-          <Navigation.Section
-            separator
-            title={t("language")}
-            items={getLanguageBarItemProps()}
-          />
+          {/* Hide language bar when logged in because admin section is English only */}
+          {userService.checkIsAuthenticated() ? (
+            ""
+          ) : (
+            <Navigation.Section
+              separator
+              title={t("language")}
+              items={getLanguageBarItemProps()}
+            />
+          )}
+
         </Navigation>
       }
       showMobileNavigation={isMobileNavigationActive}
