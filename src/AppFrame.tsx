@@ -235,7 +235,6 @@ export function AppFrame() {
               items={getLanguageBarItemProps()}
             />
           )}
-
         </Navigation>
       }
       showMobileNavigation={isMobileNavigationActive}
