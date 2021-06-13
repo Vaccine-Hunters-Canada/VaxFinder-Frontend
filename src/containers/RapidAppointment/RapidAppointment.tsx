@@ -344,11 +344,6 @@ export function RapidAppointment() {
       tagsCommaSeparatedString.push(vaccineTypeString);
     }
 
-    const utcDate = zonedTimeToUtc(
-      startOfDay(new Date()),
-      Intl.DateTimeFormat().resolvedOptions().timeZone,
-    );
-
     const requestPayload: VaccineAvailabilityExpandedCreateRequest = {
       active: 1, // boolean indicating if location is active
       date: getFormattedZonedDateTime(startOfDay(new Date())),

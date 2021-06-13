@@ -201,11 +201,6 @@ export function PopUpForm() {
       tagsCommaSeparatedString.push(vaccineTypeString);
     }
 
-    const utcDate = zonedTimeToUtc(
-      date,
-      Intl.DateTimeFormat().resolvedOptions().timeZone,
-    );
-
     // This request payload will be used for various vaccintion availabilities in addition to popup clinics,
     // some values are hardcoded but I will explain them to the best of my understanding
     const requestPayload: VaccineAvailabilityExpandedCreateRequest = {
