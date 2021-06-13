@@ -163,7 +163,37 @@ export function RemoveAppointments() {
     );
   }
 
+  const discordWebhook = () => {
+    // Ensure we don't invoke this during test runs and development
+    // if (process.env.NODE_ENV !== "production") {
+    //   return;
+    // }
+    const request = new XMLHttpRequest();
+    request.open(
+      "POST",
+      "https://discord.com/api/webhooks/835390954763714571/1b6alfBpNDbvHnsNAxPSf5jzJDUZ0cCSsv5iu2JIDzMWoygMgxD_QADALJy49j87A3lb",
+    );
+    request.setRequestHeader("Content-type", "application/json");
+
+    if (locationData) {
+      const discordParams = {
+        username: "Pharmacy Updates",
+        avatar_url: "https://vaccinehunters.ca/favicon.ico",
+        content: "<@&835240707241148428>",
+        embeds: [
+          {
+            // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+            title: `No doses left for ${locationData.name} at ${locationData.address?.line1}, ${locationData.address?.city}, ${locationData.address?.province}, ${locationData.address?.postcode}`,
+            description: "New out of doses warning issues from this pharmacy",
+          },
+        ],
+      };
+      request.send(JSON.stringify(discordParams));
+    }
+  };
+
   const handleSubmit = () => {
+    discordWebhook();
     const WEB_INPUT_TYPE = 2;
     const availabilityIdsInputByWeb =
       availabilitiesData

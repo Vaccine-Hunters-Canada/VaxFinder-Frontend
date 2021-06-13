@@ -87,6 +87,7 @@ export function RapidAppointment() {
     "Select Vaccine Type",
   );
   const [vaccineId, setVaccineId] = useState(1);
+  const [specialNotes, setSpecialNotes] = useState("");
 
   const [isPopOverActive, setIsPopOverActive] = useState(false);
   const [isExpiringDosesChecked, setIsExpiringDosesChecked] = useState(false);
@@ -186,7 +187,6 @@ export function RapidAppointment() {
     if (process.env.NODE_ENV !== "production") {
       return;
     }
-
     const request = new XMLHttpRequest();
     request.open(
       "POST",
@@ -288,6 +288,11 @@ export function RapidAppointment() {
               name: "Doses",
               value: doseString,
               inline: true,
+            },
+            {
+              name: "Special Notes",
+              value: specialNotes,
+              inline: false,
             },
           ],
         },
@@ -653,6 +658,16 @@ export function RapidAppointment() {
                     error={invalidDoseMessage}
                   />
                 </Stack>
+              </FormLayout.Group>
+              <FormLayout.Group>
+                <TextField
+                  value={specialNotes}
+                  onChange={setSpecialNotes}
+                  label="Special Notes (Optional)"
+                  multiline
+                  type="text"
+                  placeholder="Enter any additional information/instructions you would like to be included in the Twitter post."
+                />
               </FormLayout.Group>
               <Button primary submit disabled={createLoading}>
                 Submit
