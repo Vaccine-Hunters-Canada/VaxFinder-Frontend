@@ -247,7 +247,7 @@ export function RapidAppointment() {
     const discordParams = {
       username: "Pharmacy Updates",
       avatar_url: "https://vaccinehunters.ca/favicon.ico",
-      text: "@pharmacy",
+      content: "@pharmacy",
       embeds: [
         {
           title: `New Availability for ${name} at ${address}, ${city}, ${province}, ${postalCode}`,
