@@ -24,10 +24,12 @@
     "popupwarning": "Esta es una clínica de vacunación emergente",
     "popupwarningmessage": "Por favor visite el sitio web para confirmar que usted es elegible para esta ubicación.",
     "postalcodetext": "Usaremos este código postal para encontrar las citas disponibles más cercanas.",
+    "privacypolicy": "Política de privacidad",
     "quantity": "Cantidad",
     "seconddose": "segunda dosis",
     "show": "Mostrar",
     "submit": "Enviar",
+    "termsofservice": "Términos de servicio",
     "visitwebsite": "Visitar sitio",
     "walkin": "Entrar"
 }

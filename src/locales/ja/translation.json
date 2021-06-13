@@ -22,10 +22,12 @@
     "login": "ログイン",
     "noappointments": "{{postalCode}}近くに予約できるワクチンはありません。しばらくしてからもう一度お試しください。",
     "postalcodetext": "この郵便番号は近くのワクチン接種可能な薬局を探すために使われます。",
+    "privacypolicy": "個人情報保護方針",
     "quantity": "量",
     "seconddose": "第二の用量",
     "show": "表示する",
     "submit": "検索",
+    "termsofservice": "利用規約",
     "visitwebsite": "ウェブサイトにアクセス",
     "walkin": "ウォークイン"
 }
