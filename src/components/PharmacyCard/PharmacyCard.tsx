@@ -172,8 +172,9 @@ export function PharmacyCard(props: PharmacyProps) {
   };
 
   const badgeMarkup = () => {
-    const returnTags: JSX.Element[] = [];
+    let returnTags: JSX.Element[] = [];
     Object.keys(props.vaccineAvailabilities).forEach((availability) => {
+      returnTags = [];
       const tags = props.vaccineAvailabilities[availability].tags.split(",");
       tags.forEach((tag) => {
         if (tag === "Walk In") {

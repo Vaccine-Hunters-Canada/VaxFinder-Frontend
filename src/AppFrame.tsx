@@ -1,7 +1,12 @@
 import React, { useCallback, useContext, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { Frame, Layout, Navigation, Page, TopBar } from "@shopify/polaris";
-import { HomeMajor, LockMajor } from "@shopify/polaris-icons";
+import {
+  HomeMajor,
+  LockMajor,
+  CircleInformationMajor,
+  ViewMajor,
+} from "@shopify/polaris-icons";
 import { Routes } from "./Routes";
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";
@@ -203,6 +208,23 @@ export function AppFrame() {
               ]}
             />
           )}
+
+          <Navigation.Section
+            separator
+            items={[
+              {
+                url: "/tos",
+                label: t("termsofservice"),
+                icon: CircleInformationMajor,
+              },
+              {
+                url: "/privacypolicy",
+                label: t("privacypolicy"),
+                icon: ViewMajor,
+              },
+            ]}
+          />
+
           {/* Hide language bar when logged in because admin section is English only */}
           {userService.checkIsAuthenticated() ? (
             ""
