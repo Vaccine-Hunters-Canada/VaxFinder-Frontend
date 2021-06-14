@@ -176,27 +176,29 @@ export function RemoveAppointments() {
     request.setRequestHeader("Content-type", "application/json");
 
     if (locationData) {
+      const tagsCommaSeparatedString: string[] = [];
+
+      if (locationData.address?.line1) {
+        tagsCommaSeparatedString.push(locationData.address?.line1);
+      }
+      if (locationData.address?.city) {
+        tagsCommaSeparatedString.push(locationData.address?.city);
+      }
+      if (locationData.address?.province) {
+        tagsCommaSeparatedString.push(locationData.address?.province);
+      }
+      if (locationData.address?.postcode) {
+        tagsCommaSeparatedString.push(locationData.address?.postcode);
+      }
       const discordParams = {
         username: "Pharmacy Updates",
         avatar_url: "https://vaccinehunters.ca/favicon.ico",
         content: "<@&835240707241148428>",
         embeds: [
           {
-            title: `No doses left for ${locationData.name} at ${
-              locationData.address?.line1
-                ? `${locationData.address?.line1},`
-                : ""
-            }, ${
-              locationData.address?.city ? `${locationData.address?.city},` : ""
-            }, ${
-              locationData.address?.province
-                ? `${locationData.address?.province},`
-                : ""
-            }, ${
-              locationData.address?.postcode
-                ? `${locationData.address?.postcode},`
-                : ""
-            }`,
+            title: `No doses left for ${
+              locationData.name
+            } at ${tagsCommaSeparatedString.join(", ")}`,
             description:
               "This pharmacy has reported that they no longer have any doses",
           },
