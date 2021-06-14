@@ -104,7 +104,9 @@ export function PharmacyCard(props: PharmacyProps) {
   const Map = () => (
     <Iframe
       // the key is hardcoded for now, but there's no rate limit or usage limit for embedding
-      url={`https://www.google.com/maps/embed/v1/place?q=${props.address}&key=AIzaSyCJF0WPrXAbLIePWWFbS7rRxdCBaY8pjAs`}
+      url={`https://www.google.com/maps/embed/v1/place?q=${encodeURIComponent(
+        props.address,
+      )}&key=AIzaSyCJF0WPrXAbLIePWWFbS7rRxdCBaY8pjAs`}
       width="100%"
       height="350px"
       position="relative"
