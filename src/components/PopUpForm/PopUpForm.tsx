@@ -201,11 +201,14 @@ export function PopUpForm() {
       tagsCommaSeparatedString.push(vaccineTypeString);
     }
 
+    const dateToSend = new Date(date);
+    dateToSend.setHours(dateToSend.getHours() + 4);
+
     // This request payload will be used for various vaccintion availabilities in addition to popup clinics,
     // some values are hardcoded but I will explain them to the best of my understanding
     const requestPayload: VaccineAvailabilityExpandedCreateRequest = {
       active: 1, // boolean indicating if popup is active
-      date: getFormattedZonedDateTime(new Date(date)),
+      date: getFormattedZonedDateTime(new Date(dateToSend)),
       inputType: 1, // represents how availability data was recorded - not used at time of writing
       name,
       numberAvailable: numAvailable ? Number(numAvailable) : 1,
