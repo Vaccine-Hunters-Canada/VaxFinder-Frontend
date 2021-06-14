@@ -198,7 +198,7 @@ export function RemoveAppointments() {
           {
             title: `No doses left for ${
               locationData.name
-            } at ${tagsCommaSeparatedString.join(", ")}`,
+            } at ${tagsCommaSeparatedString.filter((val) => !!val).join(", ")}`,
             description:
               "This pharmacy has reported that they no longer have any doses",
           },
