@@ -182,8 +182,21 @@ export function RemoveAppointments() {
         content: "<@&835240707241148428>",
         embeds: [
           {
-            // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-            title: `No doses left for ${locationData.name} at ${locationData.address?.line1}, ${locationData.address?.city}, ${locationData.address?.province}, ${locationData.address?.postcode}`,
+            title: `No doses left for ${locationData.name} at ${
+              locationData.address?.line1
+                ? `${locationData.address?.line1},`
+                : ""
+            }, ${
+              locationData.address?.city ? `${locationData.address?.city},` : ""
+            }, ${
+              locationData.address?.province
+                ? `${locationData.address?.province},`
+                : ""
+            }, ${
+              locationData.address?.postcode
+                ? `${locationData.address?.postcode},`
+                : ""
+            }`,
             description:
               "This pharmacy has reported that they no longer have any doses",
           },
