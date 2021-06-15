@@ -23,10 +23,10 @@ import {
 
 import { postalCodeIsValid } from "../../utils";
 import { usePrevious } from "../../hooks/usePrevious";
-import { startOfDay } from "date-fns";
+import { subHours, format, startOfDay } from "date-fns";
 import { getValidUrl } from "../../utils/getValidUrl";
 import { useTranslation } from "react-i18next";
-import { getFormattedZonedDateTime } from "../../utils/getFormattedZonedDateTime";
+import { getTimezoneOffset } from "date-fns-tz";
 
 export function RapidAppointment() {
   const { t } = useTranslation();
@@ -343,9 +343,22 @@ export function RapidAppointment() {
       tagsCommaSeparatedString.push(vaccineTypeString);
     }
 
+    const tzOffset =
+      getTimezoneOffset(Intl.DateTimeFormat().resolvedOptions().timeZone) /
+      1000 /
+      60 /
+      60;
+
+    // This is a temporary hack while the backend figures out how to manage timezones properly
+    // at which point we will localize properly
+    const dateToSend = `${format(
+      subHours(startOfDay(new Date()), tzOffset),
+      "yyyy-MM-dd'T'00:00:00-00:00:00",
+    )}`;
+
     const requestPayload: VaccineAvailabilityExpandedCreateRequest = {
       active: 1, // boolean indicating if location is active
-      date: getFormattedZonedDateTime(startOfDay(new Date())),
+      date: dateToSend,
       inputType: 2, // represents how availability data was recorded
       name,
       numberAvailable: numAvailable ? Number(numAvailable) : 1,
