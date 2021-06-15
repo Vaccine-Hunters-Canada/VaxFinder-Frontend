@@ -3,6 +3,9 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import { App } from "./App";
 import "./i18n";
+import ReactGA from "react-ga";
+
+ReactGA.initialize("G-QLGRWXKP52");
 
 let promise: Promise<void> = Promise.resolve();
 
