@@ -256,7 +256,7 @@ export function RapidAppointment() {
           fields: [
             {
               name: "Phone Number",
-              value: `${phoneNumber}`,
+              value: phoneNumber === "" ? "Not Reported" : phoneNumber,
               inline: true,
             },
             {
