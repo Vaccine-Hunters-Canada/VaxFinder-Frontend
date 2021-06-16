@@ -14,7 +14,7 @@ import {
 } from "@shopify/polaris";
 import React, { useEffect, useState } from "react";
 import queryString from "query-string";
-import { Redirect, useLocation } from "react-router-dom";
+import { Redirect, useHistory, useLocation } from "react-router-dom";
 import {
   useRetrieveLocationByExternalKeyApiV1LocationsExternalExternalKeyGet,
   useCreateVaccineAvailabilityExpandedKeyApiV1VaccineAvailabilityLocationsKeyExternalKeyPost,
@@ -32,6 +32,7 @@ export function RapidAppointment() {
   const { t } = useTranslation();
   const { search } = useLocation();
   const params = queryString.parse(search);
+  const history = useHistory();
 
   const key = Array.isArray(params.externalKey)
     ? params.externalKey[0]
@@ -116,6 +117,16 @@ export function RapidAppointment() {
       setShouldShowExpandedForm(false);
     }
   }, [locationData, previousData]);
+
+  useEffect(() => {
+    if (isCreateRequestSuccessful) {
+      const queryParams = new URLSearchParams();
+      queryParams.append("externalKey", key!);
+      queryParams.append("organizationId", organizationId!);
+      queryParams.append("saveSuccess", "true");
+      history.push(`/admin/pharmacistLanding?${queryParams.toString()}`);
+    }
+  }, [history, isCreateRequestSuccessful, key, organizationId, search]);
 
   const validateForm = () => {
     let isValid = true;
@@ -473,11 +484,6 @@ export function RapidAppointment() {
           </Banner>
         ) : undefined}
 
-        {isCreateRequestSuccessful ? (
-          <Banner title="Success" status="success">
-            Your record has been saved.
-          </Banner>
-        ) : undefined}
         <Card.Section>
           <Form onSubmit={handleSubmit}>
             <FormLayout>

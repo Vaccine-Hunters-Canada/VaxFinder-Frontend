@@ -2,7 +2,7 @@ import userEvent from "@testing-library/user-event";
 import { rest } from "msw";
 import React from "react";
 import { server } from "../../mocks/server";
-import { render, screen } from "../../testUtils";
+import { render, screen, waitFor } from "../../testUtils";
 import { RapidAppointment } from "./RapidAppointment";
 
 jest.mock("react-router-dom", () => ({
@@ -103,7 +103,7 @@ describe("Rapid appointment form", () => {
   });
 
   test("Form should show success message if form values are submitted", async () => {
-    render(<RapidAppointment />);
+    const { history } = render(<RapidAppointment />);
 
     // Required booking type
     userEvent.click(await screen.findByText(/call ahead/i));
@@ -119,8 +119,11 @@ describe("Rapid appointment form", () => {
     });
     userEvent.click(button);
 
-    expect(
-      await screen.findByText(/your record has been saved/i),
-    ).toBeInTheDocument();
+    await waitFor(() => {
+      expect(history.location.pathname).toBe("/admin/pharmacistLanding");
+      expect(history.location.search).toBe(
+        "?externalKey=100-K2T0E5-1&organizationId=1&saveSuccess=true",
+      );
+    });
   });
 });
