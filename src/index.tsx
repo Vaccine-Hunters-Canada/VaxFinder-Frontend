@@ -5,7 +5,9 @@ import { App } from "./App";
 import "./i18n";
 import ReactGA from "react-ga";
 
-ReactGA.initialize("G-QLGRWXKP52");
+if (process.env.NODE_ENV === "production") {
+  ReactGA.initialize("G-R5MC35JKT7");
+}
 
 let promise: Promise<void> = Promise.resolve();
 
