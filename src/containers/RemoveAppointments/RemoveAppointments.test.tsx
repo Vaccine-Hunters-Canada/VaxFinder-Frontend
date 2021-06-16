@@ -92,7 +92,7 @@ describe("Remove appointments", () => {
       ),
     );
 
-    const { history } = render(<RemoveAppointments />);
+    render(<RemoveAppointments />);
     const button = await screen.findByRole("button", { name: /remove/i });
     userEvent.click(button);
 
