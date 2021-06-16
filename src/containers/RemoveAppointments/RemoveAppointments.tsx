@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import queryString from "query-string";
-import { Redirect, useLocation } from "react-router-dom";
+import { Redirect, useLocation, useHistory } from "react-router-dom";
 import {
   useListVaccineAvailabilityLocationApiV1VaccineAvailabilityLocationGet,
   useRetrieveLocationByExternalKeyApiV1LocationsExternalExternalKeyGet,
@@ -25,10 +25,15 @@ export function RemoveAppointments() {
   const { t } = useTranslation();
   const { search } = useLocation();
   const params = queryString.parse(search);
+  const history = useHistory();
 
   const key = Array.isArray(params.externalKey)
     ? params.externalKey[0]
     : params.externalKey;
+
+  const organizationId = Array.isArray(params.organizationId)
+    ? params.organizationId[0]
+    : params.organizationId;
 
   const {
     data: locationData,
@@ -127,6 +132,16 @@ export function RemoveAppointments() {
     put,
   ]);
 
+  useEffect(() => {
+    if (isUpdateSuccessful) {
+      const queryParams = new URLSearchParams();
+      queryParams.append("externalKey", key!);
+      queryParams.append("organizationId", organizationId!);
+      queryParams.append("saveSuccess", "true");
+      history.push(`/admin/pharmacistLanding?${queryParams.toString()}`);
+    }
+  }, [history, isUpdateSuccessful, key, organizationId, search]);
+
   if (!params.externalKey) {
     // Where should we redirect to??
     return <Redirect to="/" />;
@@ -220,16 +235,13 @@ export function RemoveAppointments() {
       const [first, ...rest] = availabilityIdsInputByWeb;
       setAvailabilityIdToUpdate(first);
       setAvailabilityIdsToUpdate(rest);
+    } else {
+      setIsUpdateSuccessful(true);
     }
   };
 
   return (
     <Card>
-      {isUpdateSuccessful ? (
-        <Banner title="Success" status="success">
-          Successfully removed appointments
-        </Banner>
-      ) : undefined}
       <Card.Section>
         <p>Remove appointments</p>
 
