@@ -92,12 +92,9 @@ describe("Remove appointments", () => {
       ),
     );
 
-    render(<RemoveAppointments />);
+    const { history } = render(<RemoveAppointments />);
     const button = await screen.findByRole("button", { name: /remove/i });
     userEvent.click(button);
-    expect(
-      await screen.findByText(/successfully removed appointments/i),
-    ).toBeInTheDocument();
 
     const NUMBER_OF_AVAILABILITIES_TO_UPDATE = 3;
     await waitFor(() => {

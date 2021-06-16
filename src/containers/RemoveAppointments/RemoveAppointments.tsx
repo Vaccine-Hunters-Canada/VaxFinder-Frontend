@@ -220,16 +220,17 @@ export function RemoveAppointments() {
       const [first, ...rest] = availabilityIdsInputByWeb;
       setAvailabilityIdToUpdate(first);
       setAvailabilityIdsToUpdate(rest);
+    } else {
+      setIsUpdateSuccessful(true);
     }
   };
 
+  if (isUpdateSuccessful) {
+    return <Redirect to="/admin/pharmacistLanding" />;
+  }
+
   return (
     <Card>
-      {isUpdateSuccessful ? (
-        <Banner title="Success" status="success">
-          Successfully removed appointments
-        </Banner>
-      ) : undefined}
       <Card.Section>
         <p>Remove appointments</p>
 
