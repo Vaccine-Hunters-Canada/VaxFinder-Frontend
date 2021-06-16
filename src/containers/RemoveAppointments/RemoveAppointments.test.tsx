@@ -78,7 +78,7 @@ describe("Remove appointments", () => {
 
   // We have 4 availabilties in our mock data, but only 3 are inputted via the web and are therefore
   // subject to being updated so their vaccines can be removed
-  test("should ensure the 3 availabilities are updated to remove vaccine numbers", async () => {
+  test("should  ensure the 3 availabilities are updated to remove vaccine numbers", async () => {
     const handler: ResponseResolver = async (req, res, ctx) => {
       return res(ctx.status(200));
     };
@@ -92,12 +92,16 @@ describe("Remove appointments", () => {
       ),
     );
 
-    render(<RemoveAppointments />);
+    const { history } = render(<RemoveAppointments />);
     const button = await screen.findByRole("button", { name: /remove/i });
     userEvent.click(button);
 
     const NUMBER_OF_AVAILABILITIES_TO_UPDATE = 3;
     await waitFor(() => {
+      expect(history.location.pathname).toBe("/admin/pharmacistLanding");
+      expect(history.location.search).toBe(
+        "?externalKey=100-K2T0E5-1&organizationId=1&saveSuccess=true",
+      );
       expect(mockHandler).toHaveBeenCalledTimes(
         NUMBER_OF_AVAILABILITIES_TO_UPDATE,
       );
