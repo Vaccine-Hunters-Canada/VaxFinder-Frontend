@@ -287,22 +287,25 @@ export function RapidAppointment() {
             },
             {
               name: "Reasoning",
-              value: reasoningString,
+              value: reasoningString === "" ? "Not Reported" : reasoningString,
               inline: true,
             },
             {
               name: "Booking Method",
-              value: bookingMethodsString,
+              value:
+                bookingMethodsString === ""
+                  ? "Not Reported"
+                  : bookingMethodsString,
               inline: true,
             },
             {
               name: "Doses",
-              value: doseString,
+              value: doseString === "" ? "Not Reported" : doseString,
               inline: true,
             },
             {
               name: "Special Notes",
-              value: specialNotes,
+              value: specialNotes === "" ? "Not Reported" : specialNotes,
               inline: false,
             },
           ],
