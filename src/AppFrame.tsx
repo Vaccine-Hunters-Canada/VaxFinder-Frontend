@@ -14,6 +14,7 @@ import { ItemProps } from "@shopify/polaris/types/latest/src/components/Navigati
 import { Twitter } from "./components/Twitter";
 import { userService } from "./services/userService";
 import { AppContext } from "./contexts/AppContext";
+import { usePageViews } from "./hooks/usePageViews";
 
 const languages = [
   {
@@ -147,6 +148,7 @@ export function AppFrame() {
     [],
   );
 
+  usePageViews();
   const history = useHistory();
 
   // If logged in, force English

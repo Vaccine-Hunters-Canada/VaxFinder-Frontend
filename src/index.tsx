@@ -3,6 +3,12 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import { App } from "./App";
 import "./i18n";
+import ReactGA from "react-ga";
+
+// GA-related code could be managed via env vars if we want to go that route
+if (process.env.NODE_ENV === "production") {
+  ReactGA.initialize("G-R5MC35JKT7");
+}
 
 let promise: Promise<void> = Promise.resolve();
 
