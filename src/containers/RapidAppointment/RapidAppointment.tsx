@@ -14,7 +14,7 @@ import {
 } from "@shopify/polaris";
 import React, { useEffect, useState } from "react";
 import queryString from "query-string";
-import { Redirect, useLocation } from "react-router-dom";
+import { Redirect, useHistory, useLocation } from "react-router-dom";
 import {
   useRetrieveLocationByExternalKeyApiV1LocationsExternalExternalKeyGet,
   useCreateVaccineAvailabilityExpandedKeyApiV1VaccineAvailabilityLocationsKeyExternalKeyPost,
@@ -23,15 +23,16 @@ import {
 
 import { postalCodeIsValid } from "../../utils";
 import { usePrevious } from "../../hooks/usePrevious";
-import { startOfDay } from "date-fns";
+import { subHours, format, startOfDay } from "date-fns";
 import { getValidUrl } from "../../utils/getValidUrl";
 import { useTranslation } from "react-i18next";
-import { getFormattedZonedDateTime } from "../../utils/getFormattedZonedDateTime";
+import { getTimezoneOffset } from "date-fns-tz";
 
 export function RapidAppointment() {
   const { t } = useTranslation();
   const { search } = useLocation();
   const params = queryString.parse(search);
+  const history = useHistory();
 
   const key = Array.isArray(params.externalKey)
     ? params.externalKey[0]
@@ -116,6 +117,16 @@ export function RapidAppointment() {
       setShouldShowExpandedForm(false);
     }
   }, [locationData, previousData]);
+
+  useEffect(() => {
+    if (isCreateRequestSuccessful) {
+      const queryParams = new URLSearchParams();
+      queryParams.append("externalKey", key!);
+      queryParams.append("organizationId", organizationId!);
+      queryParams.append("saveSuccess", "true");
+      history.push(`/admin/pharmacistLanding?${queryParams.toString()}`);
+    }
+  }, [history, isCreateRequestSuccessful, key, organizationId, search]);
 
   const validateForm = () => {
     let isValid = true;
@@ -276,22 +287,25 @@ export function RapidAppointment() {
             },
             {
               name: "Reasoning",
-              value: reasoningString,
+              value: reasoningString === "" ? "Not Reported" : reasoningString,
               inline: true,
             },
             {
               name: "Booking Method",
-              value: bookingMethodsString,
+              value:
+                bookingMethodsString === ""
+                  ? "Not Reported"
+                  : bookingMethodsString,
               inline: true,
             },
             {
               name: "Doses",
-              value: doseString,
+              value: doseString === "" ? "Not Reported" : doseString,
               inline: true,
             },
             {
               name: "Special Notes",
-              value: specialNotes,
+              value: specialNotes === "" ? "Not Reported" : specialNotes,
               inline: false,
             },
           ],
@@ -343,9 +357,22 @@ export function RapidAppointment() {
       tagsCommaSeparatedString.push(vaccineTypeString);
     }
 
+    const tzOffset =
+      getTimezoneOffset(Intl.DateTimeFormat().resolvedOptions().timeZone) /
+      1000 /
+      60 /
+      60;
+
+    // This is a temporary hack while the backend figures out how to manage timezones properly
+    // at which point we will localize properly
+    const dateToSend = `${format(
+      subHours(startOfDay(new Date()), tzOffset),
+      "yyyy-MM-dd'T'00:00:00-00:00:00",
+    )}`;
+
     const requestPayload: VaccineAvailabilityExpandedCreateRequest = {
       active: 1, // boolean indicating if location is active
-      date: getFormattedZonedDateTime(startOfDay(new Date())),
+      date: dateToSend,
       inputType: 2, // represents how availability data was recorded
       name,
       numberAvailable: numAvailable ? Number(numAvailable) : 1,
@@ -460,11 +487,6 @@ export function RapidAppointment() {
           </Banner>
         ) : undefined}
 
-        {isCreateRequestSuccessful ? (
-          <Banner title="Success" status="success">
-            Your record has been saved.
-          </Banner>
-        ) : undefined}
         <Card.Section>
           <Form onSubmit={handleSubmit}>
             <FormLayout>

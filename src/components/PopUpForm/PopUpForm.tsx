@@ -20,8 +20,8 @@ import {
 } from "../../apiClient";
 import { useTranslation } from "react-i18next";
 import { getValidUrl } from "../../utils/getValidUrl";
-import { getFormattedZonedDateTime } from "../../utils/getFormattedZonedDateTime";
-import { startOfDay, parseISO } from "date-fns";
+import { subHours, format } from "date-fns";
+import { getTimezoneOffset } from "date-fns-tz";
 
 /**
  * Form used to record popup clinic details
@@ -202,13 +202,24 @@ export function PopUpForm() {
       tagsCommaSeparatedString.push(vaccineTypeString);
     }
 
-    const dateToSend = startOfDay(parseISO(date));
+    const tzOffset =
+      getTimezoneOffset(Intl.DateTimeFormat().resolvedOptions().timeZone) /
+      1000 /
+      60 /
+      60;
+
+    // This is a temporary hack while the backend figures out how to manage timezones properly
+    // at which point we will localize properly
+    const dateToSend = `${format(
+      subHours(new Date(date), tzOffset),
+      "yyyy-MM-dd'T'00:00:00-00:00:00",
+    )}`;
 
     // This request payload will be used for various vaccintion availabilities in addition to popup clinics,
     // some values are hardcoded but I will explain them to the best of my understanding
     const requestPayload: VaccineAvailabilityExpandedCreateRequest = {
       active: 1, // boolean indicating if popup is active
-      date: getFormattedZonedDateTime(dateToSend),
+      date: dateToSend,
       inputType: 1, // represents how availability data was recorded - not used at time of writing
       name,
       numberAvailable: numAvailable ? Number(numAvailable) : 1,
