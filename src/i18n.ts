@@ -8,6 +8,7 @@ import bn from "./locales/bn/translation.json";
 import de from "./locales/de/translation.json";
 import en from "./locales/en/translation.json";
 import es from "./locales/es/translation.json";
+import fa from "./locales/fa/translation.json";
 import fr from "./locales/fr/translation.json";
 import he from "./locales/he/translation.json";
 import hr from "./locales/hr/translation.json";
@@ -35,6 +36,7 @@ export const i18nconfig: InitOptions = {
     de: { translation: de }, // German
     en: { translation: en }, // English
     es: { translation: es }, // Spanish
+    fa: { translation: fa }, // Persian/Farsi
     fr: { translation: fr }, // French
     he: { translation: he }, // Hebrew
     hr: { translation: hr }, // Croatian
