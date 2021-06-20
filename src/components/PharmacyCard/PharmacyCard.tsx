@@ -7,6 +7,7 @@ import {
   DataTable,
   Button,
   Badge,
+  DescriptionList,
 } from "@shopify/polaris";
 import { DomainsMajor, LocationMajor } from "@shopify/polaris-icons";
 import Iframe from "react-iframe";
@@ -263,14 +264,18 @@ export function PharmacyCard(props: PharmacyProps) {
         <TextContainer>
           <Stack spacing="extraTight">{badgeMarkup()}</Stack>
           {availabilityMarkup()}
-          <Card.Section title={t("details")}>
-            <Card.Subsection>{props.address}</Card.Subsection>
-            <Card.Subsection>
-              <Stack>
-                <Stack.Item>{props.phone}</Stack.Item>
-              </Stack>
-            </Card.Subsection>
-          </Card.Section>
+          <DescriptionList
+            items={[
+              {
+                term: t("address"),
+                description: props.address,
+              },
+              {
+                term: t("phone"),
+                description: props.phone || "-",
+              },
+            ]}
+          />
           {/* {appointmentsAvailableMarkup()} */}
           {bannerMarkup()}
         </TextContainer>
