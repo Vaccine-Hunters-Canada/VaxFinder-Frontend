@@ -261,7 +261,7 @@ export function PharmacyCard(props: PharmacyProps) {
     >
       <div data-testid="pharmacy-card">
         <TextContainer>
-          <Stack>{badgeMarkup()}</Stack>
+          <Stack spacing="extraTight">{badgeMarkup()}</Stack>
           <Card.Section fullWidth>{availabilityMarkup()}</Card.Section>
           <Card.Section title={t("details")}>
             <Card.Subsection>{props.address}</Card.Subsection>
