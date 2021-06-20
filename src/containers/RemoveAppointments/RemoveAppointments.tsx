@@ -9,6 +9,7 @@ import {
 import { Banner, Button, Card, Spinner } from "@shopify/polaris";
 import { useTranslation } from "react-i18next";
 import { usePrevious } from "../../hooks/usePrevious";
+import { getFormattedZonedDateTime } from "../../utils/getFormattedZonedDateTime";
 
 export function RemoveAppointments() {
   // A collection of ids for availabilities to be updated one at a time
@@ -119,7 +120,7 @@ export function RemoveAppointments() {
 
       put({
         ...availaibilityToUpdate,
-        date: availaibilityToUpdate.date,
+        date: getFormattedZonedDateTime(new Date(availaibilityToUpdate.date)),
         numberAvailable: 0,
         numberTotal: 0,
       }).catch((err) => console.error(err));
