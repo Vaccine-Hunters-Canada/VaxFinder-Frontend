@@ -15,7 +15,7 @@ describe("Rapid appointment form", () => {
     jest.clearAllMocks();
   });
   test("Should not show location-related controls if location details are successfully retrieved from api", () => {
-    // A valid location will be serve to the form via MSW
+    // A valid location will be served to the form via MSW
     render(<RapidAppointment />);
 
     expect(
@@ -47,19 +47,6 @@ describe("Rapid appointment form", () => {
         name: /enter postal code/i,
       }),
     ).not.toBeInTheDocument();
-  });
-  test("Short form should show validation errors if form values are invalid", async () => {
-    render(<RapidAppointment />);
-
-    const button = await screen.findByRole("button", {
-      name: /submit/i,
-    });
-    userEvent.click(button);
-
-    const bookingErrors = await screen.findAllByText(
-      /at least one booking method must be checked/i,
-    );
-    expect(bookingErrors.length).toBe(4);
   });
 
   test("Long form should show validation errors if form values are invalid", async () => {
