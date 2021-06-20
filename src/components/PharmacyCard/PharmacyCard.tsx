@@ -262,7 +262,7 @@ export function PharmacyCard(props: PharmacyProps) {
       <div data-testid="pharmacy-card">
         <TextContainer>
           <Stack spacing="extraTight">{badgeMarkup()}</Stack>
-          <Card.Section fullWidth>{availabilityMarkup()}</Card.Section>
+          {availabilityMarkup()}
           <Card.Section title={t("details")}>
             <Card.Subsection>{props.address}</Card.Subsection>
             <Card.Subsection>
@@ -272,7 +272,7 @@ export function PharmacyCard(props: PharmacyProps) {
             </Card.Subsection>
           </Card.Section>
           {/* {appointmentsAvailableMarkup()} */}
-          <Card.Section fullWidth>{bannerMarkup()}</Card.Section>
+          {bannerMarkup()}
         </TextContainer>
         {shouldShowMap ? <Map /> : null}
       </div>
