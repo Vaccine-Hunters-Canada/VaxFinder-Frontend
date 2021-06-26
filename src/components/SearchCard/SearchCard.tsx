@@ -1,5 +1,12 @@
-import { Form, FormLayout, TextField, Button, Card } from "@shopify/polaris";
-import React, { useState } from "react";
+import {
+  Form,
+  FormLayout,
+  TextField,
+  Button,
+  Card,
+  RangeSlider,
+} from "@shopify/polaris";
+import React, { useState, useCallback } from "react";
 import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { postalCodeIsValid, postalCodeToBrowserFormat } from "../../utils";
@@ -18,6 +25,13 @@ export function SearchCard() {
     }
   };
 
+  const [rangeValue, setRangeValue] = useState(32);
+
+  const handleRangeSliderChange = useCallback(
+    (value) => setRangeValue(value),
+    [],
+  );
+
   const invalidPostalCodeMessage = shouldShowInvalidPostal
     ? t("invalidpostal")
     : undefined;
@@ -34,6 +48,12 @@ export function SearchCard() {
                 label={t("enterpostalcode")}
                 helpText={<span>{t("postalcodetext")}</span>}
                 error={invalidPostalCodeMessage}
+              />
+              <RangeSlider
+                label="Choose distance"
+                value={rangeValue}
+                onChange={handleRangeSliderChange}
+                output
               />
               <Button primary submit>
                 {t("submit")}
