@@ -16,7 +16,9 @@
   ],
   "overrides": [
     {
-      "files": ["*.tsx"],
+      "files": [
+        "*.tsx"
+      ],
       "extends": [
         "plugin:@typescript-eslint/recommended-requiring-type-checking"
       ]
@@ -49,7 +51,9 @@
     "react/jsx-filename-extension": [
       1,
       {
-        "extensions": [".tsx"]
+        "extensions": [
+          ".tsx"
+        ]
       }
     ],
     "react/jsx-curly-newline": "off",
@@ -108,13 +112,19 @@
     "@typescript-eslint/prefer-function-type": "error",
     "@typescript-eslint/prefer-namespace-keyword": "error",
     "@typescript-eslint/recommended-requiring-type-checking": "off",
-    "@typescript-eslint/semi": ["error", "always"],
+    "@typescript-eslint/semi": [
+      "error",
+      "always"
+    ],
     "@typescript-eslint/triple-slash-reference": "error",
     "@typescript-eslint/typedef": "off",
     "@typescript-eslint/type-annotation-spacing": "error",
     "@typescript-eslint/unified-signatures": "error",
     "arrow-body-style": "off",
-    "arrow-parens": ["off", "as-needed"],
+    "arrow-parens": [
+      "off",
+      "as-needed"
+    ],
     "camelcase": "off",
     "comma-dangle": "off",
     "complexity": "off",
@@ -122,7 +132,10 @@
     "curly": "off",
     "dot-notation": "warn",
     "eol-last": "off",
-    "eqeqeq": ["error", "smart"],
+    "eqeqeq": [
+      "error",
+      "smart"
+    ],
     "id-match": "error",
     "import/no-default-export": "warn",
     "import/no-extraneous-dependencies": [
@@ -147,7 +160,10 @@
         "depth": 5
       }
     ],
-    "linebreak-style": ["error", "unix"],
+    "linebreak-style": [
+      "error",
+      "unix"
+    ],
     "max-classes-per-file": "off",
     "max-len": "off",
     "new-parens": "error",
@@ -217,14 +233,23 @@
     "no-unused-labels": "error",
     "no-var": "error",
     "object-shorthand": "off",
-    "one-var": ["error", "never"],
+    "one-var": [
+      "error",
+      "never"
+    ],
     "prefer-arrow/prefer-arrow-functions": "off",
     "prefer-const": "error",
     "quote-props": "off",
-    "quotes": ["error", "double"],
+    "quotes": [
+      "error",
+      "double"
+    ],
     "radix": "error",
     "space-before-function-paren": "off",
-    "space-in-parens": ["off", "never"],
+    "space-in-parens": [
+      "off",
+      "never"
+    ],
     "spaced-comment": "error",
     "use-isnan": "error",
     "valid-typeof": "off"
@@ -232,7 +257,10 @@
   "settings": {
     "import/resolver": {
       "node": {
-        "moduleDirectory": ["node_modules", "./"]
+        "moduleDirectory": [
+          "node_modules",
+          "./"
+        ]
       }
     }
   }
