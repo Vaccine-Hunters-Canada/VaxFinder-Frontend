@@ -199,7 +199,7 @@ export function RapidAppointment() {
     const request = new XMLHttpRequest();
     request.open(
       "POST",
-      "https://discord.com/api/webhooks/835229690070433903/lbOt5si9Mudz4I1tBF8gdj69HbD9t_WoE-FTWNpiN-X5dzOWezzUuGMLPAAKbyZzS-_U",
+      "https://discord.com/api/webhooks/858188462783201342/8HhiTj-fVmxyhm9ARCG58G8AdcV1C_VAD0zLNEJL2tpT9uxTZdN0PJ281k3hK1N7H927",
     );
     request.setRequestHeader("Content-type", "application/json");
 

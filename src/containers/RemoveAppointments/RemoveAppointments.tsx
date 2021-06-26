@@ -186,7 +186,7 @@ export function RemoveAppointments() {
     const request = new XMLHttpRequest();
     request.open(
       "POST",
-      "https://discord.com/api/webhooks/835390954763714571/1b6alfBpNDbvHnsNAxPSf5jzJDUZ0cCSsv5iu2JIDzMWoygMgxD_QADALJy49j87A3lb",
+      "https://discord.com/api/webhooks/858188592312483880/Pao6Qvf79uGnXnhpyWz7TyUL1J5WkAz5Wavij9_fGf-jtWYW5cYerKh5qIPd5mZ0EW7_",
     );
     request.setRequestHeader("Content-type", "application/json");
 
