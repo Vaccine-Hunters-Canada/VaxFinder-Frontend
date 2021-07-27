@@ -99,7 +99,6 @@ export function RapidAppointment() {
   const [isEmailChecked, setIsEmailChecked] = useState(false);
   const [isFirstDose, setIsFirstDose] = useState(false);
   const [isSecondDose, setIsSecondDose] = useState(false);
-  const [shouldShowExpandedForm, setShouldShowExpandedForm] = useState(true);
   const [isCreateRequestSuccessful, setIsCreateRequestSuccessful] = useState(
     false,
   );
@@ -114,7 +113,6 @@ export function RapidAppointment() {
       setPostalCode(locationData.address?.postcode || "");
       setPhoneNumber(locationData.phone || "");
       setWebsite(locationData.url || "");
-      setShouldShowExpandedForm(false);
     }
   }, [locationData, previousData]);
 
@@ -201,7 +199,7 @@ export function RapidAppointment() {
     const request = new XMLHttpRequest();
     request.open(
       "POST",
-      "https://discord.com/api/webhooks/835229690070433903/lbOt5si9Mudz4I1tBF8gdj69HbD9t_WoE-FTWNpiN-X5dzOWezzUuGMLPAAKbyZzS-_U",
+      "https://discord.com/api/webhooks/858188462783201342/8HhiTj-fVmxyhm9ARCG58G8AdcV1C_VAD0zLNEJL2tpT9uxTZdN0PJ281k3hK1N7H927",
     );
     request.setRequestHeader("Content-type", "application/json");
 
@@ -490,67 +488,63 @@ export function RapidAppointment() {
         <Card.Section>
           <Form onSubmit={handleSubmit}>
             <FormLayout>
-              {shouldShowExpandedForm ? (
-                <div className="wrapper">
-                  <FormLayout.Group>
-                    <TextField
-                      value={name}
-                      onChange={setName}
-                      label="Enter Clinic Name"
-                      helpText={
-                        <span>Enter the name of the clinic, or location</span>
-                      }
-                      error={invalidNameMessage}
-                      type="text"
-                    />
-                  </FormLayout.Group>
-                  <FormLayout.Group>
-                    <TextField
-                      value={address}
-                      onChange={setAddress}
-                      label="Enter Address"
-                      error={invalidAddressMessage}
-                      type="text"
-                    />
-                    <TextField
-                      value={city}
-                      onChange={setCity}
-                      label="Enter City"
-                      error={invalidCityMessage}
-                      type="text"
-                    />
-                    <TextField
-                      value={province}
-                      onChange={setProvince}
-                      label="Enter Province"
-                      error={invalidProvinceMessage}
-                      type="text"
-                    />
-                    <TextField
-                      value={postalCode}
-                      onChange={setPostalCode}
-                      label="Enter Postal Code"
-                      error={invalidPostalCodeMessage}
-                      type="text"
-                    />
-                  </FormLayout.Group>
-                  <FormLayout.Group>
-                    <TextField
-                      value={phoneNumber}
-                      onChange={setPhoneNumber}
-                      label="Enter Phone Number (Optional)"
-                      type="text"
-                    />
-                    <TextField
-                      value={website}
-                      onChange={setWebsite}
-                      label="Enter Website URL"
-                      error={invalidURLMessage}
-                      type="text"
-                    />
-                  </FormLayout.Group>
-                </div>
-              ) : undefined}
+              <FormLayout.Group>
+                <TextField
+                  value={name}
+                  onChange={setName}
+                  label="Enter Clinic Name"
+                  helpText={
+                    <span>Enter the name of the clinic, or location</span>
+                  }
+                  error={invalidNameMessage}
+                  type="text"
+                />
+              </FormLayout.Group>
+              <FormLayout.Group>
+                <TextField
+                  value={address}
+                  onChange={setAddress}
+                  label="Enter Address"
+                  error={invalidAddressMessage}
+                  type="text"
+                />
+                <TextField
+                  value={city}
+                  onChange={setCity}
+                  label="Enter City"
+                  error={invalidCityMessage}
+                  type="text"
+                />
+                <TextField
+                  value={province}
+                  onChange={setProvince}
+                  label="Enter Province"
+                  error={invalidProvinceMessage}
+                  type="text"
+                />
+                <TextField
+                  value={postalCode}
+                  onChange={setPostalCode}
+                  label="Enter Postal Code"
+                  error={invalidPostalCodeMessage}
+                  type="text"
+                />
+              </FormLayout.Group>
+              <FormLayout.Group>
+                <TextField
+                  value={phoneNumber}
+                  onChange={setPhoneNumber}
+                  label="Enter Phone Number (Optional)"
+                  type="text"
+                />
+                <TextField
+                  value={website}
+                  onChange={setWebsite}
+                  label="Enter Website URL"
+                  error={invalidURLMessage}
+                  type="text"
+                />
+              </FormLayout.Group>
               <FormLayout.Group>
                 <TextField
                   value={numAvailable}
