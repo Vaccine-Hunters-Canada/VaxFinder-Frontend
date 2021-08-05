@@ -511,6 +511,12 @@ export function RapidAppointment() {
             media accounts about vaccine availability at pharmacies for doses
             that are expiring within 12 hours.
           </strong>
+          <br />
+          <br />
+          <strong>
+            As of AUGUST 23, VHC will transition to only sharing vaccine
+            availability at pharmacies through the FYI tool.
+          </strong>
         </Banner>
         <Banner title="Submission Warning" status="warning">
           Once you hit submit, this record will be immediately added to the live
