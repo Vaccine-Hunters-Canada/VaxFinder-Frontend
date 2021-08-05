@@ -6,10 +6,4 @@ export const theme = {
       background: "#b41c2c",
     },
   },
-  logo: {
-    width: 400,
-    topBarSource: image,
-    url: "/",
-    accessibilityLabel: "Find Your Immunization App",
-  },
 };
