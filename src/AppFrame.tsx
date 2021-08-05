@@ -1,6 +1,15 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useCallback, useContext, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
-import { Frame, Layout, Navigation, Page, TopBar } from "@shopify/polaris";
+import {
+  FooterHelp,
+  Frame,
+  Layout,
+  Link,
+  Navigation,
+  Page,
+  TopBar,
+} from "@shopify/polaris";
 import {
   HomeMajor,
   LockMajor,
@@ -250,16 +259,15 @@ export function AppFrame() {
         <Layout>
           <Layout.Section>
             <Routes />
+            <FooterHelp>
+              Get more resources{" "}
+              <Link external url="https://vaccinehunters.ca/diy">
+                on our DIY pages
+              </Link>
+              .
+            </FooterHelp>
           </Layout.Section>
           <Layout.Section secondary>
-            <iframe
-              title="Discord Link"
-              src="https://discord.com/widget?id=822486436837326908&amp;theme=dark"
-              width="100%"
-              height="400"
-              frameBorder="0"
-              sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
-            />
             <Twitter />
           </Layout.Section>
         </Layout>
