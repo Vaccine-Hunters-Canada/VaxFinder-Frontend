@@ -1,5 +1,3 @@
-import image from "./FYILogo.png";
-
 export const theme = {
   colors: {
     topBar: {
