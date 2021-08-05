@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { postalCodeIsValid, postalCodeToBrowserFormat } from "../../utils";
+import image from "../../FYILogo2.png";
 
 export function SearchCard() {
   const { t } = useTranslation();
@@ -24,11 +25,7 @@ export function SearchCard() {
 
   return (
     <section aria-label="search" style={{ marginBottom: "2rem" }}>
-      <img
-        src="https://media.discordapp.net/attachments/872854966426038282/872884136539467776/Find_Your_Immunization_1500x125.png"
-        alt="FYI Logo"
-        width="100%"
-      />
+      <img src={image} alt="FYI Logo" width="100%" />
       <Card>
         <Card.Section>
           <Form onSubmit={handleSubmit}>
