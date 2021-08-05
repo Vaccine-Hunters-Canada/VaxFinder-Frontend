@@ -75,6 +75,7 @@ export function RapidAppointment() {
     false,
   );
   const [shouldShowInvalidDoses, setShouldShowInvalidDoses] = useState(false);
+  const [shouldShowInvalidNotes, setShouldShowInvalidNotes] = useState(false);
 
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
@@ -88,7 +89,9 @@ export function RapidAppointment() {
     "Select Vaccine Type",
   );
   const [vaccineId, setVaccineId] = useState(1);
-  const [specialNotes, setSpecialNotes] = useState("");
+  const [specialNotes, setSpecialNotes] = useState(
+    "Build your tweet:\n---------\n[City]\n[Vaccine Type]\nDose 1: [Dose 1 Requirements]\nDose 2: Moderna 28+ days ago, Pfizer 21+ days ago, AZ 8+ weeks ago\n[Store Name & Address]\n[How to book (i.e. Call xyz, visit www.xyz.com, walk in)]\n[Any other notes]\n-------\nInclude any other notes for VHC staff below:\n",
+  );
 
   const [isPopOverActive, setIsPopOverActive] = useState(false);
   const [isExpiringDosesChecked, setIsExpiringDosesChecked] = useState(false);
@@ -168,6 +171,13 @@ export function RapidAppointment() {
       isValid = false;
     } else {
       setShouldShowInvalidURL(false);
+    }
+
+    if (!specialNotes) {
+      setShouldShowInvalidNotes(true);
+      isValid = false;
+    } else {
+      setShouldShowInvalidNotes(false);
     }
 
     if (
@@ -448,6 +458,10 @@ export function RapidAppointment() {
     ? "At least one dose must be checked"
     : undefined;
 
+  const invalidNotesMessage = shouldShowInvalidNotes
+    ? "You must include notes"
+    : undefined;
+
   const activator = (
     <Button onClick={() => setIsPopOverActive(!isPopOverActive)} disclosure>
       {vaccineTypeString}
@@ -473,6 +487,37 @@ export function RapidAppointment() {
   return (
     <section aria-label="pop-up" style={{ marginBottom: "2rem" }}>
       <Card>
+        <Banner title="NEW: 24 Hour Notice" status="info">
+          <strong>IMPORTANT UPDATE: </strong>Please see the following media
+          release regarding the future of VHC{" "}
+          <a href="https://vaccinehunters.ca/pivot">by clicking here</a>. Please
+          continue to submit vaccine availability according to the guidelines
+          outlined below so that it will be added to the VHC FYI tool, where we
+          will be directing Canadians to search for local vaccine availability.
+          <br />
+          <br />
+          <strong>NOTICE: </strong>
+          Due to the high number of pharmacy submissions received by VHC, we ask
+          that pharmacies submit vaccine availability only once per 24 hour
+          period per location. Exceptions will be made for doses expiring within
+          the next 12 hours and/or notable changes to the booking method (e.g.,
+          original submission included “book online,” new submission includes
+          “now accepting walk-ins”). Please note that duplicate submissions will
+          not be posted.
+          <br />
+          <br />
+          <strong>
+            As of AUGUST 10, VHC will transition to only posting to our social
+            media accounts about vaccine availability at pharmacies for doses
+            that are expiring within 12 hours.
+          </strong>
+          <br />
+          <br />
+          <strong>
+            As of AUGUST 23, VHC will transition to only sharing vaccine
+            availability at pharmacies through the FYI tool.
+          </strong>
+        </Banner>
         <Banner title="Submission Warning" status="warning">
           Once you hit submit, this record will be immediately added to the live
           website.
@@ -679,10 +724,11 @@ export function RapidAppointment() {
                 <TextField
                   value={specialNotes}
                   onChange={setSpecialNotes}
-                  label="Special Notes (Optional)"
+                  label="Notes and Tweet. Replace everything in between brackets."
                   multiline
                   type="text"
                   placeholder="Enter any additional information/instructions you would like to be included in the Twitter post."
+                  error={invalidNotesMessage}
                 />
               </FormLayout.Group>
               <Button primary submit disabled={createLoading}>
