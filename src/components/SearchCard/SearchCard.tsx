@@ -25,7 +25,9 @@ export function SearchCard() {
 
   return (
     <section aria-label="search" style={{ marginBottom: "2rem" }}>
-      <img src={image} alt="FYI Logo" width="100%" />
+      <a href="/">
+        <img src={image} alt="FYI Logo" width="100%" />
+      </a>
       <Card>
         <Card.Section>
           <Form onSubmit={handleSubmit}>
