@@ -7,7 +7,7 @@ export const theme = {
     },
   },
   logo: {
-    width: 300,
+    width: 400,
     topBarSource: image,
     url: "/",
     accessibilityLabel: "Find Your Immunization App",
