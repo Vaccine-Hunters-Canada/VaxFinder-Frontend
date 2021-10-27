@@ -7,8 +7,14 @@ import {
   DataTable,
   Button,
   Badge,
+  Icon,
 } from "@shopify/polaris";
-import { DomainsMajor, LocationMajor } from "@shopify/polaris-icons";
+import {
+  DomainsMajor,
+  LocationMajor,
+  LocationsMinor,
+  PhoneMajor,
+} from "@shopify/polaris-icons";
 import Iframe from "react-iframe";
 import { VaccineAvailabilityRequirementsResponse } from "../../apiClient";
 import { useTranslation } from "react-i18next";
@@ -268,8 +274,12 @@ export function PharmacyCard(props: PharmacyProps) {
           <Stack spacing="extraTight">{badgeMarkup()}</Stack>
           {availabilityMarkup()}
           <Card.Section title={t("details")}>
-            <Card.Subsection>{props.address}</Card.Subsection>
             <Stack>
+              <Icon source={LocationsMinor} color="base" />
+              <Card.Subsection>{props.address}</Card.Subsection>
+            </Stack>
+            <Stack>
+              <Icon source={PhoneMajor} color="base" />
               <Stack.Item>{props.phone}</Stack.Item>
             </Stack>
           </Card.Section>
