@@ -87,6 +87,8 @@ describe("Rapid appointment form", () => {
       /at least one booking method must be checked/i,
     );
     expect(bookingErrors.length).toBe(4);
+    const ageErrors = await screen.findAllByText(/one age group/i);
+    expect(ageErrors.length).toBe(2);
   });
 
   test("Form should show success message if form values are submitted", async () => {
@@ -100,6 +102,9 @@ describe("Rapid appointment form", () => {
 
     // Required dose category
     userEvent.click(screen.getByText(/1st dose/i));
+
+    // Required age category
+    userEvent.click(await screen.findByText(/5-11/i));
 
     const button = await screen.findByRole("button", {
       name: /submit/i,
