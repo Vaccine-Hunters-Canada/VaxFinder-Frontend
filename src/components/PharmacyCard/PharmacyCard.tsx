@@ -280,7 +280,9 @@ export function PharmacyCard(props: PharmacyProps) {
             </Stack>
             <Stack>
               <Icon source={PhoneMajor} color="base" />
-              <Stack.Item>{props.phone}</Stack.Item>
+              <Stack.Item>
+                {props.phone ? props.phone : "Unknown Phone Number"}
+              </Stack.Item>
             </Stack>
           </Card.Section>
           {/* {appointmentsAvailableMarkup()} */}
