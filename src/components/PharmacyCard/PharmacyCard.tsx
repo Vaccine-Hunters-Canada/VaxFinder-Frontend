@@ -185,6 +185,20 @@ export function PharmacyCard(props: PharmacyProps) {
       returnTags = [];
       const tags = props.vaccineAvailabilities[availability].tags.split(",");
       tags.forEach((tag) => {
+        if (tag === "5-11 Year Olds") {
+          returnTags.push(
+            <Badge key={tag} status="critical">
+              5-11 Year Olds
+            </Badge>,
+          );
+        }
+        if (tag === "12+ Year Olds") {
+          returnTags.push(
+            <Badge key={tag} status="critical">
+              12+ Year Olds
+            </Badge>,
+          );
+        }
         if (tag === "Walk In") {
           returnTags.push(
             <Badge key={tag} status="info">
