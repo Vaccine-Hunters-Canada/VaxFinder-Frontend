@@ -213,6 +213,10 @@ export function PharmacyCard(props: PharmacyProps) {
         if (tag === "2nd Dose") {
           returnTags.push(<Badge key={tag}>{t("seconddose")}</Badge>);
         }
+        // Will need to update some of the i18n translations for third dose, only have english and french right now
+        if (tag === "3rd Dose") {
+          returnTags.push(<Badge key={tag}>{t("thirddose")}</Badge>);
+        }
         if (tag === "Pfizer") {
           returnTags.push(
             <Badge key={tag} status="warning">
