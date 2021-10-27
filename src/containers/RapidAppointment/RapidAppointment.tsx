@@ -512,15 +512,7 @@ export function RapidAppointment() {
   return (
     <section aria-label="pop-up" style={{ marginBottom: "2rem" }}>
       <Card>
-        <Banner title="NEW: 24 Hour Notice" status="info">
-          <strong>IMPORTANT UPDATE: </strong>Please see the following media
-          release regarding the future of VHC{" "}
-          <a href="https://vaccinehunters.ca/pivot">by clicking here</a>. Please
-          continue to submit vaccine availability according to the guidelines
-          outlined below so that it will be added to the VHC FYI tool, where we
-          will be directing Canadians to search for local vaccine availability.
-          <br />
-          <br />
+        <Banner title="24 Hour Notice" status="info">
           <strong>NOTICE: </strong>
           Due to the high number of pharmacy submissions received by VHC, we ask
           that pharmacies submit vaccine availability only once per 24 hour
@@ -529,19 +521,6 @@ export function RapidAppointment() {
           original submission included “book online,” new submission includes
           “now accepting walk-ins”). Please note that duplicate submissions will
           not be posted.
-          <br />
-          <br />
-          <strong>
-            As of AUGUST 10, VHC will transition to only posting to our social
-            media accounts about vaccine availability at pharmacies for doses
-            that are expiring within 12 hours.
-          </strong>
-          <br />
-          <br />
-          <strong>
-            As of AUGUST 23, VHC will transition to only sharing vaccine
-            availability at pharmacies through the FYI tool.
-          </strong>
         </Banner>
         <Banner title="Submission Warning" status="warning">
           Once you hit submit, this record will be immediately added to the live
