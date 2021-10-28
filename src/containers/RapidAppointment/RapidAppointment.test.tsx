@@ -87,7 +87,9 @@ describe("Rapid appointment form", () => {
       /at least one booking method must be checked/i,
     );
     expect(bookingErrors.length).toBe(4);
-    const ageErrors = await screen.findAllByText(/one age group/i);
+    const ageErrors = await screen.findAllByText(
+      /at least one age group must be checked/i,
+    );
     expect(ageErrors.length).toBe(2);
   });
 
