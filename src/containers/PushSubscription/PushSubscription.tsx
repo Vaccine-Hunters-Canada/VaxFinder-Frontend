@@ -139,7 +139,7 @@ export function PushSubscription() {
   };
 
   const handleUnsubscribe = () => {
-    const { endpoint } = subscriptionRef.current!;
+    // const { endpoint } = subscriptionRef.current!;
     subscriptionRef
       .current!.unsubscribe()
       .then(() => setIsSubscribing(true))
