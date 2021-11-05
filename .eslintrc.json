@@ -30,6 +30,7 @@
     "@typescript-eslint"
   ],
   "parser": "@typescript-eslint/parser",
+  "ignorePatterns": "/public/**/*",
   "parserOptions": {
     "project": "tsconfig.json"
   },

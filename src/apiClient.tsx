@@ -2973,3 +2973,89 @@ export const useLoginApiV1SecurityLoginPost = (
     SecurityResponseBase,
     void
   >("POST", "/api/v1/security/login", props);
+
+export interface GetApiV1WebPushPublicKeyResponse {
+  key: string;
+}
+
+export type GetApiV1WebPushPublicKeyProps = Omit<
+  GetProps<GetApiV1WebPushPublicKeyResponse, unknown, void, void>,
+  "path"
+>;
+
+/**
+ * Your GET endpoint
+ */
+export const GetApiV1WebPushPublicKey = (
+  props: GetApiV1WebPushPublicKeyProps,
+) => (
+  <Get<GetApiV1WebPushPublicKeyResponse, unknown, void, void>
+    path="/api/v1/webPush/publicKey"
+    {...props}
+  />
+);
+
+export type UseGetApiV1WebPushPublicKeyProps = Omit<
+  UseGetProps<GetApiV1WebPushPublicKeyResponse, unknown, void, void>,
+  "path"
+>;
+
+/**
+ * Your GET endpoint
+ */
+export const useGetApiV1WebPushPublicKey = (
+  props: UseGetApiV1WebPushPublicKeyProps,
+) =>
+  useGet<GetApiV1WebPushPublicKeyResponse, unknown, void, void>(
+    "/api/v1/webPush/publicKey",
+    props,
+  );
+
+export interface PostApiV1WebPushSubscriptionRequestBody {
+  endpoint: string;
+  auth: string;
+  p256dh: string;
+  created: string;
+  postalCode: string;
+}
+
+export type PostApiV1WebPushSubscriptionProps = Omit<
+  MutateProps<
+    void,
+    unknown,
+    void,
+    PostApiV1WebPushSubscriptionRequestBody,
+    void
+  >,
+  "path" | "verb"
+>;
+
+export const PostApiV1WebPushSubscription = (
+  props: PostApiV1WebPushSubscriptionProps,
+) => (
+  <Mutate<void, unknown, void, PostApiV1WebPushSubscriptionRequestBody, void>
+    verb="POST"
+    path="/api/v1/webPush/subscription"
+    {...props}
+  />
+);
+
+export type UsePostApiV1WebPushSubscriptionProps = Omit<
+  UseMutateProps<
+    void,
+    unknown,
+    void,
+    PostApiV1WebPushSubscriptionRequestBody,
+    void
+  >,
+  "path" | "verb"
+>;
+
+export const usePostApiV1WebPushSubscription = (
+  props: UsePostApiV1WebPushSubscriptionProps,
+) =>
+  useMutate<void, unknown, void, PostApiV1WebPushSubscriptionRequestBody, void>(
+    "POST",
+    "/api/v1/webPush/subscription",
+    props,
+  );

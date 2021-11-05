@@ -8,6 +8,7 @@ import {
   CircleInformationMajor,
   ViewMajor,
   NoteMajor,
+  NotificationMajor,
 } from "@shopify/polaris-icons";
 import { Routes } from "./Routes";
 import { useTranslation } from "react-i18next";
@@ -244,6 +245,11 @@ export function AppFrame() {
                 url: "/privacypolicy",
                 label: t("privacypolicy"),
                 icon: ViewMajor,
+              },
+              {
+                url: "/pushsubscribe",
+                label: t("pushnotifications"),
+                icon: NotificationMajor,
               },
             ]}
           />

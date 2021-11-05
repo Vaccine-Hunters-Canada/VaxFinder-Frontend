@@ -1,1 +1,3640 @@
-{"openapi":"3.0.2","info":{"title":"💉🔍 VaxFinder","description":"RESTful APIs for VaxFinder.","version":"1.0.0"},"paths":{"/api/v1/vaccine-locations":{"get":{"tags":["Vaccine Locations"],"summary":"List Vaccine Locations","description":"**Retrieves the list of vaccine availabilities within the vicinity of a\n`postal_code` and after the `min_date`.**","operationId":"list_vaccine_locations_api_v1_vaccine_locations_get","parameters":[{"description":"**Search for vaccine availabilities after a certain date and time (UTC) in the format YYYY-MM-DD**. The default value is the current date (UTC).<br/><br/>Valid example(s): *2021-05-30*","required":false,"schema":{"title":"Minimum Date","type":"string","description":"**Search for vaccine availabilities after a certain date and time (UTC) in the format YYYY-MM-DD**. The default value is the current date (UTC).<br/><br/>Valid example(s): *2021-05-30*","format":"date","default":"2021-06-06"},"name":"min_date","in":"query"},{"description":"**Search for vaccine availabilities within the vicinity of a postal code. (First 3 characters ONLY)**<br/><br/>Valid example(s): *K1A; M5V;* ","required":true,"schema":{"title":"Postal Code","maxLength":3,"minLength":3,"type":"string","description":"**Search for vaccine availabilities within the vicinity of a postal code. (First 3 characters ONLY)**<br/><br/>Valid example(s): *K1A; M5V;* "},"name":"postal_code","in":"query"},{"description":"**Include Vaccine Availabilities with no remaining vaccines**<br/><br/>Valid example(s): *true; false;* ","required":false,"schema":{"title":"Include Empty","type":"boolean","description":"**Include Vaccine Availabilities with no remaining vaccines**<br/><br/>Valid example(s): *true; false;* ","default":false},"name":"include_empty","in":"query"}],"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"title":"Response List Vaccine Locations Api V1 Vaccine Locations Get","type":"array","items":{"$ref":"#/components/schemas/VaccineLocationExpandedResponse"}}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}}},"/api/v1/vaccine-availability":{"get":{"tags":["Vaccine Availability"],"summary":"List Vaccine Availability","description":"**Retrieves the list of vaccine availabilities within the vicinity of a\n`postal_code` and after the `min_date`.**","operationId":"list_vaccine_availability_api_v1_vaccine_availability_get","parameters":[{"description":"**Search for vaccine availabilities after a certain date and time (UTC) in the format YYYY-MM-DD**. The default value is the current date (UTC).<br/><br/>Valid example(s): *2021-05-30*","required":false,"schema":{"title":"Minimum Date","type":"string","description":"**Search for vaccine availabilities after a certain date and time (UTC) in the format YYYY-MM-DD**. The default value is the current date (UTC).<br/><br/>Valid example(s): *2021-05-30*","format":"date","default":"2021-06-06"},"name":"min_date","in":"query"},{"description":"**Search for vaccine availabilities within the vicinity of a postal code. (First 3 characters ONLY)**<br/><br/>Valid example(s): *K1A; M5V;* ","required":true,"schema":{"title":"Postal Code","maxLength":3,"minLength":3,"type":"string","description":"**Search for vaccine availabilities within the vicinity of a postal code. (First 3 characters ONLY)**<br/><br/>Valid example(s): *K1A; M5V;* "},"name":"postal_code","in":"query"}],"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"title":"Response List Vaccine Availability Api V1 Vaccine Availability Get","type":"array","items":{"$ref":"#/components/schemas/VaccineAvailabilityExpandedResponse"}}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}},"post":{"tags":["Vaccine Availability"],"summary":"Create Vaccine Availability","description":"**Creates a new vaccine availability with the entity enclosed in the\nrequest body.** On success, the new vaccine availability is returned in the\nbody of the response.","operationId":"create_vaccine_availability_api_v1_vaccine_availability_post","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/VaccineAvailabilityCreateRequest"}}},"required":true},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"$ref":"#/components/schemas/VaccineAvailabilityResponse"}}}},"401":{"description":"Invalid credentials."},"403":{"description":"Invalid permissions or credentials."},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}},"security":[{"APIKeyHeader":[]}]}},"/api/v1/vaccine-availability/location/":{"get":{"tags":["Vaccine Availability"],"summary":"List Vaccine Availability Location","description":"**Retrieves the list of vaccine availabilities of a\n`locationid` and after the `min_date`.**","operationId":"list_vaccine_availability_location_api_v1_vaccine_availability_location__get","parameters":[{"description":"**Search for vaccine availabilities after a certain date and time (UTC) in the format YYYY-MM-DD**. The default value is the current date (UTC).<br/><br/>Valid example(s): *2021-05-30*","required":false,"schema":{"title":"Minimum Date","type":"string","description":"**Search for vaccine availabilities after a certain date and time (UTC) in the format YYYY-MM-DD**. The default value is the current date (UTC).<br/><br/>Valid example(s): *2021-05-30*","format":"date","default":"2021-06-06"},"name":"min_date","in":"query"},{"description":"**Location searching for**","required":true,"schema":{"title":"Location ID","type":"integer","description":"**Location searching for**"},"name":"locationID","in":"query"}],"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"title":"Response List Vaccine Availability Location Api V1 Vaccine Availability Location  Get","type":"array","items":{"$ref":"#/components/schemas/VaccineAvailabilityResponse"}}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}}},"/api/v1/vaccine-availability/{vaccine_availability_id}":{"get":{"tags":["Vaccine Availability"],"summary":"Retrieve Vaccine Availability By Id","description":"**Retrieves a vaccine availability with the id from the\n`vaccine_availability_id` path parameter.**","operationId":"retrieve_vaccine_availability_by_id_api_v1_vaccine_availability__vaccine_availability_id__get","parameters":[{"required":true,"schema":{"title":"Vaccine Availability Id","type":"string","format":"uuid"},"name":"vaccine_availability_id","in":"path"}],"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"$ref":"#/components/schemas/VaccineAvailabilityExpandedResponse"}}}},"404":{"description":"The vaccine availability with the specified id could not be found."},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}},"put":{"tags":["Vaccine Availability"],"summary":"Update Vaccine Availability","description":"**Updates a vaccine availability with the id from the\n`vaccine_availability_id` path parameter with the entity enclosed in the\nrequest body.** On success, the updated vaccine availability is returned in\nthe body of the response.","operationId":"update_vaccine_availability_api_v1_vaccine_availability__vaccine_availability_id__put","parameters":[{"required":true,"schema":{"title":"Vaccine Availability Id","type":"string","format":"uuid"},"name":"vaccine_availability_id","in":"path"}],"requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/VaccineAvailabilityUpdateRequest"}}},"required":true},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"$ref":"#/components/schemas/VaccineAvailabilityResponse"}}}},"401":{"description":"Invalid credentials."},"403":{"description":"Invalid permissions or credentials."},"404":{"description":"The vaccine availability with the specified id could not be found."},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}},"security":[{"APIKeyHeader":[]}]},"delete":{"tags":["Vaccine Availability"],"summary":"Delete Vaccine Availability By Id","description":"**Deletes a vaccine availability with the id from the\n`vaccine_availability_id` path parameter.**","operationId":"delete_vaccine_availability_by_id_api_v1_vaccine_availability__vaccine_availability_id__delete","parameters":[{"required":true,"schema":{"title":"Vaccine Availability Id","type":"string","format":"uuid"},"name":"vaccine_availability_id","in":"path"}],"responses":{"204":{"description":"The vaccine availability with the specified id has been successfully deleted."},"401":{"description":"Invalid credentials."},"403":{"description":"Invalid permissions or credentials."},"404":{"description":"The vaccine availability with the specified id could not be found."},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}},"security":[{"APIKeyHeader":[]}]}},"/api/v1/vaccine-availability/locations/key/{external_key}":{"post":{"tags":["Vaccine Availability"],"summary":"Create Vaccine Availability Expanded Key","description":"**Creates a new vaccine availability with the entity enclosed in the\nrequest body.** On success, the new vaccine availability is returned in the\nbody of the response.","operationId":"create_vaccine_availability_expanded_key_api_v1_vaccine_availability_locations_key__external_key__post","parameters":[{"required":true,"schema":{"title":"External Key","type":"string"},"name":"external_key","in":"path"}],"requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/VaccineAvailabilityExpandedCreateRequest"}}},"required":true},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"$ref":"#/components/schemas/VaccineAvailabilityResponse"}}}},"401":{"description":"Invalid credentials."},"403":{"description":"Invalid permissions or credentials."},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}},"security":[{"APIKeyHeader":[]}]}},"/api/v1/vaccine-availability/locations/id/{location_id}":{"post":{"tags":["Vaccine Availability"],"summary":"Create Vaccine Availability Expanded","description":"**Creates a new vaccine availability with the entity enclosed in the\nrequest body.** On success, the new vaccine availability is returned in the\nbody of the response.","operationId":"create_vaccine_availability_expanded_api_v1_vaccine_availability_locations_id__location_id__post","parameters":[{"required":true,"schema":{"title":"Location Id","type":"integer"},"name":"location_id","in":"path"}],"requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/VaccineAvailabilityExpandedCreateRequest"}}},"required":true},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"$ref":"#/components/schemas/VaccineAvailabilityResponse"}}}},"401":{"description":"Invalid credentials."},"403":{"description":"Invalid permissions or credentials."},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}},"security":[{"APIKeyHeader":[]}]}},"/api/v1/vaccine-availability/{vaccine_availability_id}/timeslots":{"get":{"tags":["Vaccine Availability"],"summary":"List Timeslots For Vaccine Availability By Id","description":"**Retrieves the list of timeslots for a vaccine availability. This\nvaccine availability has an ID of `vaccine_availability_id` from the\npath.**","operationId":"list_timeslots_for_vaccine_availability_by_id_api_v1_vaccine_availability__vaccine_availability_id__timeslots_get","parameters":[{"description":"Timeslots for a vaccine availability with this id.","required":true,"schema":{"title":"Vaccine Availability Id","type":"string","description":"Timeslots for a vaccine availability with this id.","format":"uuid"},"name":"vaccine_availability_id","in":"path"}],"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"title":"Response List Timeslots For Vaccine Availability By Id Api V1 Vaccine Availability  Vaccine Availability Id  Timeslots Get","type":"array","items":{"$ref":"#/components/schemas/VaccineAvailabilityTimeslotResponse"}}}}},"404":{"description":"The vaccine availability with the specified id could not be found."},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}},"post":{"tags":["Vaccine Availability"],"summary":"Create Timeslot For Vaccine Availability By Id","description":"**Creates a new timeslot for a vaccine availability with the entity\nenclosed in the request body. This vaccine availability has an ID of\n`vaccine_availability_id` from the path.** On success, the new timeslot is\nreturned in the body of the response.","operationId":"create_timeslot_for_vaccine_availability_by_id_api_v1_vaccine_availability__vaccine_availability_id__timeslots_post","parameters":[{"description":"Timeslot for a vaccine availability with this id.","required":true,"schema":{"title":"Vaccine Availability Id","type":"string","description":"Timeslot for a vaccine availability with this id.","format":"uuid"},"name":"vaccine_availability_id","in":"path"}],"requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/VaccineAvailabilityTimeslotCreateRequest"}}},"required":true},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"$ref":"#/components/schemas/VaccineAvailabilityTimeslotResponse"}}}},"401":{"description":"Invalid credentials."},"403":{"description":"Invalid permissions or credentials."},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}},"security":[{"APIKeyHeader":[]}]}},"/api/v1/vaccine-availability/{vaccine_availability_id}/timeslots/{timeslot_id}":{"put":{"tags":["Vaccine Availability"],"summary":"Update Timeslot For Vaccine Availability By Id","description":"**Updates a timeslot with the id from the `timeslot_id` path parameter\nwith the entity enclosed in the request body. The timeslot must be\nfor a vaccine availability that has an ID of `vaccine_availability_id`\nfrom the path.** On success, the updated timeslot is returned in the body\nof the response.","operationId":"update_timeslot_for_vaccine_availability_by_id_api_v1_vaccine_availability__vaccine_availability_id__timeslots__timeslot_id__put","parameters":[{"required":true,"schema":{"title":"Timeslot Id","type":"string","format":"uuid"},"name":"timeslot_id","in":"path"},{"description":"Timeslot for a vaccine availability with this id.","required":true,"schema":{"title":"Vaccine Availability Id","type":"string","description":"Timeslot for a vaccine availability with this id.","format":"uuid"},"name":"vaccine_availability_id","in":"path"}],"requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/VaccineAvailabilityTimeslotUpdateRequest"}}},"required":true},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"$ref":"#/components/schemas/VaccineAvailabilityTimeslotResponse"}}}},"401":{"description":"Invalid credentials."},"403":{"description":"Invalid permissions or credentials."},"404":{"description":"The vaccine availability with the id from the `vaccine_availability_id` path parameter or the timeslot with the id from the `timeslot_id` path parameter could not be found."},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}},"security":[{"APIKeyHeader":[]}]},"delete":{"tags":["Vaccine Availability"],"summary":"Delete Timeslot For Vaccine Availability By Id","description":"**Deletes a timeslot with the id from the\n`timeslot_id` path parameter.**","operationId":"delete_timeslot_for_vaccine_availability_by_id_api_v1_vaccine_availability__vaccine_availability_id__timeslots__timeslot_id__delete","parameters":[{"required":true,"schema":{"title":"Timeslot Id","type":"string","format":"uuid"},"name":"timeslot_id","in":"path"},{"description":"Timeslot for a vaccine availability with this id.","required":true,"schema":{"title":"Vaccine Availability Id","type":"string","description":"Timeslot for a vaccine availability with this id.","format":"uuid"},"name":"vaccine_availability_id","in":"path"}],"responses":{"204":{"description":"The timeslot with the specified id has been successfully deleted."},"401":{"description":"Invalid credentials."},"403":{"description":"Invalid permissions or credentials."},"404":{"description":"The timeslot with the specified id could not be found."},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}},"security":[{"APIKeyHeader":[]}]}},"/api/v1/vaccine-availability/{vaccine_availability_id}/requirements":{"get":{"tags":["Vaccine Availability"],"summary":"List Requirements For Vaccine Availability By Id","description":"**Retrieves the list of requirements for a vaccine availability. This\nvaccine availability has an ID of `vaccine_availability_id` from the\npath.**","operationId":"list_requirements_for_vaccine_availability_by_id_api_v1_vaccine_availability__vaccine_availability_id__requirements_get","parameters":[{"description":"Requirements for a vaccine availability with this id.","required":true,"schema":{"title":"Vaccine Availability Id","type":"string","description":"Requirements for a vaccine availability with this id.","format":"uuid"},"name":"vaccine_availability_id","in":"path"}],"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"title":"Response List Requirements For Vaccine Availability By Id Api V1 Vaccine Availability  Vaccine Availability Id  Requirements Get","type":"array","items":{"$ref":"#/components/schemas/VaccineAvailabilityRequirementsResponse"}}}}},"404":{"description":"The vaccine availability with the specified id could not be found."},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}},"post":{"tags":["Vaccine Availability"],"summary":"Create Requirement For Vaccine Availability By Id","description":"**Creates a new requirements for a vaccine availability with the entity\nenclosed in the request body. This vaccine availability has an ID of\n`vaccine_availability_id` from the path.** On success, the new timeslot is\nreturned in the body of the response.","operationId":"create_requirement_for_vaccine_availability_by_id_api_v1_vaccine_availability__vaccine_availability_id__requirements_post","parameters":[{"description":"Requirement for a vaccine availability with this id.","required":true,"schema":{"title":"Vaccine Availability Id","type":"string","description":"Requirement for a vaccine availability with this id.","format":"uuid"},"name":"vaccine_availability_id","in":"path"}],"requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/VaccineAvailabilityRequirementCreateRequest"}}},"required":true},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"$ref":"#/components/schemas/VaccineAvailabilityRequirementsResponse"}}}},"401":{"description":"Invalid credentials."},"403":{"description":"Invalid permissions or credentials."},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}},"security":[{"APIKeyHeader":[]}]}},"/api/v1/vaccine-availability/{vaccine_availability_id}/requirements/{requirement_id}":{"put":{"tags":["Vaccine Availability"],"summary":"Update Requirement For Vaccine Availability By Id","description":"**Updates a requirement with the id from the `requirement_id` path\nparameter with the entity enclosed in the request body. The requirement\nmust be for a vaccine availability that has an ID of\n`vaccine_availability_id` from the path.** On success, the updated\nrequirement is returned in the body of the response.","operationId":"update_requirement_for_vaccine_availability_by_id_api_v1_vaccine_availability__vaccine_availability_id__requirements__requirement_id__put","parameters":[{"required":true,"schema":{"title":"Requirement Id","type":"string","format":"uuid"},"name":"requirement_id","in":"path"},{"description":"Requirement for a vaccine availability with this id.","required":true,"schema":{"title":"Vaccine Availability Id","type":"string","description":"Requirement for a vaccine availability with this id.","format":"uuid"},"name":"vaccine_availability_id","in":"path"}],"requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/VaccineAvailabilityRequirementUpdateRequest"}}},"required":true},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"$ref":"#/components/schemas/VaccineAvailabilityRequirementsResponse"}}}},"401":{"description":"Invalid credentials."},"403":{"description":"Invalid permissions or credentials."},"404":{"description":"The vaccine availability with the id from the `vaccine_availability_id` path parameter or the requirement with the id from the `requirement_id` path parameter could not be found."},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}},"security":[{"APIKeyHeader":[]}]},"delete":{"tags":["Vaccine Availability"],"summary":"Delete Requirement For Vaccine Availability By Id","description":"**Deletes a requirement with the id from the\n`timeslot_id` path parameter.**","operationId":"delete_requirement_for_vaccine_availability_by_id_api_v1_vaccine_availability__vaccine_availability_id__requirements__requirement_id__delete","parameters":[{"required":true,"schema":{"title":"Requirement Id","type":"string","format":"uuid"},"name":"requirement_id","in":"path"},{"description":"Requirement for a vaccine availability with this id.","required":true,"schema":{"title":"Vaccine Availability Id","type":"string","description":"Requirement for a vaccine availability with this id.","format":"uuid"},"name":"vaccine_availability_id","in":"path"}],"responses":{"204":{"description":"The requirement with the specified id has been successfully deleted."},"401":{"description":"Invalid credentials."},"403":{"description":"Invalid permissions or credentials."},"404":{"description":"The requirement with the specified id could not be found."},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}},"security":[{"APIKeyHeader":[]}]}},"/api/v1/locations":{"get":{"tags":["Locations"],"summary":"List Locations","description":"**Retrieves the list of locations.**","operationId":"list_locations_api_v1_locations_get","responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"title":"Response List Locations Api V1 Locations Get","type":"array","items":{"$ref":"#/components/schemas/LocationExpandedResponse"}}}}}}},"post":{"tags":["Locations"],"summary":"Create Location","description":"**Creates a new location with the entity enclosed in the request body.** On\nsuccess, the new location is returned in the body of the response.","operationId":"create_location_api_v1_locations_post","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/LocationCreateRequest"}}},"required":true},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"$ref":"#/components/schemas/LocationResponse"}}}},"401":{"description":"Invalid credentials."},"403":{"description":"Invalid permissions or credentials."},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}},"security":[{"APIKeyHeader":[]}]}},"/api/v1/locations/{location_id}":{"get":{"tags":["Locations"],"summary":"Retrieve Location By Id","description":"**Retrieves a location with the id from the `location_id` path\nparameter.**","operationId":"retrieve_location_by_id_api_v1_locations__location_id__get","parameters":[{"required":true,"schema":{"title":"Location Id","type":"integer"},"name":"location_id","in":"path"}],"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"$ref":"#/components/schemas/LocationExpandedResponse"}}}},"404":{"description":"The location with the specified id could not be found."},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}},"put":{"tags":["Locations"],"summary":"Update Location","description":"**Updates a location with the id from the `location_id` path parameter\nwith the entity enclosed in the request body.** On success, the updated\nlocation is returned in the body of the response.","operationId":"update_location_api_v1_locations__location_id__put","parameters":[{"required":true,"schema":{"title":"Location Id","type":"integer"},"name":"location_id","in":"path"}],"requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/LocationUpdateRequest"}}},"required":true},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"$ref":"#/components/schemas/LocationResponse"}}}},"401":{"description":"Invalid credentials."},"403":{"description":"Invalid permissions or credentials."},"404":{"description":"The location with the specified id could not be found."},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}},"security":[{"APIKeyHeader":[]}]},"delete":{"tags":["Locations"],"summary":"Delete Location By Id","description":"**Deletes a location with the id from the `location_id` path parameter.**","operationId":"delete_location_by_id_api_v1_locations__location_id__delete","parameters":[{"required":true,"schema":{"title":"Location Id","type":"integer"},"name":"location_id","in":"path"}],"responses":{"204":{"description":"The location with the specified id has been successfully deleted."},"401":{"description":"Invalid credentials."},"403":{"description":"Invalid permissions or credentials."},"404":{"description":"The location with the specified id could not be found."},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}},"security":[{"APIKeyHeader":[]}]}},"/api/v1/locations/organization/{organization_id}":{"get":{"tags":["Locations"],"summary":"Retrieve Locations By Organization","description":"**Retrieves a location with the id from the `organization_id` path\nparameter.**","operationId":"retrieve_locations_by_organization_api_v1_locations_organization__organization_id__get","parameters":[{"required":true,"schema":{"title":"Organization Id","type":"integer"},"name":"organization_id","in":"path"}],"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"title":"Response Retrieve Locations By Organization Api V1 Locations Organization  Organization Id  Get","type":"array","items":{"$ref":"#/components/schemas/LocationExpandedResponse"}}}}},"404":{"description":"The location with the specified id could not be found."},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}}},"/api/v1/locations/external/{external_key}":{"get":{"tags":["Locations"],"summary":"Retrieve Location By External Key","description":"**Retrieves a location with the external key from the path\nparameter.**","operationId":"retrieve_location_by_external_key_api_v1_locations_external__external_key__get","parameters":[{"required":true,"schema":{"title":"External Key","type":"string"},"name":"external_key","in":"path"}],"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"$ref":"#/components/schemas/LocationExpandedResponse"}}}},"404":{"description":"The location with the specified id could not be found."},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}}},"/api/v1/locations/expanded":{"post":{"tags":["Locations"],"summary":"Create Location Expanded","description":"**Creates a new location with the entity enclosed in the request body.** On\nsuccess, the new location is returned in the body of the response.","operationId":"create_location_expanded_api_v1_locations_expanded_post","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/LocationCreateRequestExpanded"}}},"required":true},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"title":"Response Create Location Expanded Api V1 Locations Expanded Post","type":"integer"}}}},"401":{"description":"Invalid credentials."},"403":{"description":"Invalid permissions or credentials."},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}},"security":[{"APIKeyHeader":[]}]}},"/api/v1/organizations":{"get":{"tags":["Organizations"],"summary":"List Organizations","description":"**Retrieves the list of organizations.**","operationId":"list_organizations_api_v1_organizations_get","responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"title":"Response List Organizations Api V1 Organizations Get","type":"array","items":{"$ref":"#/components/schemas/OrganizationResponse"}}}}}}},"post":{"tags":["Organizations"],"summary":"Create Organization","description":"**Creates a new organization with the entity enclosed in the request\nbody.** On success, the new organization is returned in the body of the\nresponse.","operationId":"create_organization_api_v1_organizations_post","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/OrganizationCreateRequest"}}},"required":true},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"$ref":"#/components/schemas/OrganizationResponse"}}}},"401":{"description":"Invalid credentials."},"403":{"description":"Invalid permissions or credentials."},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}},"security":[{"APIKeyHeader":[]}]}},"/api/v1/organizations/{organization_id}":{"get":{"tags":["Organizations"],"summary":"Retrieve Organization By Id","description":"**Retrieves an organization with the id from the `organization_id` path\nparameter.**","operationId":"retrieve_organization_by_id_api_v1_organizations__organization_id__get","parameters":[{"required":true,"schema":{"title":"Organization Id","type":"integer"},"name":"organization_id","in":"path"}],"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"$ref":"#/components/schemas/OrganizationResponse"}}}},"404":{"description":"The organization with the specified id could not be found."},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}},"put":{"tags":["Organizations"],"summary":"Update Organization","description":"**Updates an organization with the id from the `organization_id` path\nparameter with the entity enclosed in the request body.** On success,\nthe updated organization is returned in the body of the response.","operationId":"update_organization_api_v1_organizations__organization_id__put","parameters":[{"required":true,"schema":{"title":"Organization Id","type":"integer"},"name":"organization_id","in":"path"}],"requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/OrganizationUpdateRequest"}}},"required":true},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"$ref":"#/components/schemas/OrganizationResponse"}}}},"401":{"description":"Invalid credentials."},"403":{"description":"Invalid permissions or credentials."},"404":{"description":"The organization with the specified id could not be found."},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}},"security":[{"APIKeyHeader":[]}]},"delete":{"tags":["Organizations"],"summary":"Delete Organization By Id","description":"**Deletes an organization with the id from the `organization_id` path\nparameter.**","operationId":"delete_organization_by_id_api_v1_organizations__organization_id__delete","parameters":[{"required":true,"schema":{"title":"Organization Id","type":"integer"},"name":"organization_id","in":"path"}],"responses":{"204":{"description":"The organization with the specified id has been successfully deleted."},"401":{"description":"Invalid credentials."},"403":{"description":"Invalid permissions or credentials."},"404":{"description":"The organization with the specified id could not be found."},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}},"security":[{"APIKeyHeader":[]}]}},"/api/v1/addresses":{"get":{"tags":["Addresses"],"summary":"List Addresses","description":"**Retrieves the list of addresses.**","operationId":"list_addresses_api_v1_addresses_get","responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"title":"Response List Addresses Api V1 Addresses Get","type":"array","items":{"$ref":"#/components/schemas/AddressResponse"}}}}}}},"post":{"tags":["Addresses"],"summary":"Create Address","description":"**Creates a new address with the entity enclosed in the request body.** On\nsuccess, the new address is returned in the body of the response.","operationId":"create_address_api_v1_addresses_post","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/AddressCreateRequest"}}},"required":true},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"$ref":"#/components/schemas/AddressResponse"}}}},"401":{"description":"Invalid credentials."},"403":{"description":"Invalid permissions or credentials."},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}},"security":[{"APIKeyHeader":[]}]}},"/api/v1/addresses/{address_id}":{"get":{"tags":["Addresses"],"summary":"Retrieve Address By Id","description":"**Retrieves an address with the id from the `address_id` path parameter.**","operationId":"retrieve_address_by_id_api_v1_addresses__address_id__get","parameters":[{"required":true,"schema":{"title":"Address Id","type":"integer"},"name":"address_id","in":"path"}],"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"$ref":"#/components/schemas/AddressResponse"}}}},"404":{"description":"The address with the specified id could not be found."},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}},"put":{"tags":["Addresses"],"summary":"Update Address","description":"**Updates an address with the id from the `address_id` path parameter with\nthe entity enclosed in the request body.** On success, the updated address\nis returned in the body of the response.","operationId":"update_address_api_v1_addresses__address_id__put","parameters":[{"required":true,"schema":{"title":"Address Id","type":"integer"},"name":"address_id","in":"path"}],"requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/AddressUpdateRequest"}}},"required":true},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"$ref":"#/components/schemas/AddressResponse"}}}},"401":{"description":"Invalid credentials."},"403":{"description":"Invalid permissions or credentials."},"404":{"description":"The location with the specified id could not be found."},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}},"security":[{"APIKeyHeader":[]}]},"delete":{"tags":["Addresses"],"summary":"Delete Address By Id","description":"**Deletes an address with the id from the `address_id` path parameter.**","operationId":"delete_address_by_id_api_v1_addresses__address_id__delete","parameters":[{"required":true,"schema":{"title":"Address Id","type":"integer"},"name":"address_id","in":"path"}],"responses":{"204":{"description":"The address with the specified id has been successfully deleted."},"401":{"description":"Invalid credentials."},"403":{"description":"Invalid permissions or credentials."},"404":{"description":"The address with the specified id could not be found."},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}},"security":[{"APIKeyHeader":[]}]}},"/api/v1/requirements":{"get":{"tags":["Requirements"],"summary":"List Requirements","description":"**Retrieves the list of requirements.**","operationId":"list_requirements_api_v1_requirements_get","responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"title":"Response List Requirements Api V1 Requirements Get","type":"array","items":{"$ref":"#/components/schemas/RequirementResponse"}}}}}}},"post":{"tags":["Requirements"],"summary":"Create Requirement","description":"**Creates a new requirement with the entity enclosed in the request\nbody.** On success, the new requirement is returned in the body of the\nresponse.","operationId":"create_requirement_api_v1_requirements_post","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/RequirementsCreateRequest"}}},"required":true},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"$ref":"#/components/schemas/RequirementResponse"}}}},"401":{"description":"Invalid credentials."},"403":{"description":"Invalid permissions or credentials."},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}},"security":[{"APIKeyHeader":[]}]}},"/api/v1/requirements/{requirement_id}":{"get":{"tags":["Requirements"],"summary":"Retrieve Requirement By Id","description":"**Retrieves a requirement with the id from the `requirement_id` path\nparameter.**","operationId":"retrieve_requirement_by_id_api_v1_requirements__requirement_id__get","parameters":[{"required":true,"schema":{"title":"Requirement Id","type":"integer"},"name":"requirement_id","in":"path"}],"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"$ref":"#/components/schemas/RequirementResponse"}}}},"404":{"description":"The requirement with the specified id could not be found."},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}},"put":{"tags":["Requirements"],"summary":"Update Requirement","description":"**Updates a requirement with the id from the `requirement_id` path\nparameter with the entity enclosed in the request body.** On success,\nthe updated requirement is returned in the body of the response.","operationId":"update_requirement_api_v1_requirements__requirement_id__put","parameters":[{"required":true,"schema":{"title":"Requirement Id","type":"integer"},"name":"requirement_id","in":"path"}],"requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/RequirementsUpdateRequest"}}},"required":true},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"$ref":"#/components/schemas/RequirementResponse"}}}},"401":{"description":"Invalid credentials."},"403":{"description":"Invalid permissions or credentials."},"404":{"description":"The location with the specified id could not be found."},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}},"security":[{"APIKeyHeader":[]}]},"delete":{"tags":["Requirements"],"summary":"Delete Requirement By Id","description":"**Deletes a requirement with the id from the `requirement_id` path\nparameter.**","operationId":"delete_requirement_by_id_api_v1_requirements__requirement_id__delete","parameters":[{"required":true,"schema":{"title":"Requirement Id","type":"integer"},"name":"requirement_id","in":"path"}],"responses":{"204":{"description":"The requirement with the specified id has been successfully deleted."},"401":{"description":"Invalid credentials."},"403":{"description":"Invalid permissions or credentials."},"404":{"description":"The requirement with the specified id could not be found."},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}},"security":[{"APIKeyHeader":[]}]}},"/api/v1/security/login":{"post":{"tags":["Security"],"summary":"Login","description":"**Creates a new vaccine availability with the entity enclosed in the\nrequest body.** On success, the new vaccine availability is returned in the\nbody of the response.","operationId":"login_api_v1_security_login_post","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/SecurityResponseBase"}}},"required":true},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"$ref":"#/components/schemas/SecurityLoginResponse"}}}},"401":{"description":"Invalid credentials."},"403":{"description":"Invalid permissions or credentials."},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}}}},"components":{"schemas":{"AddressCreateRequest":{"title":"AddressCreateRequest","required":["province","postcode"],"type":"object","properties":{"line1":{"title":"Line1","type":"string"},"line2":{"title":"Line2","type":"string"},"city":{"title":"City","type":"string"},"province":{"title":"Province","type":"string"},"postcode":{"title":"Postcode","maxLength":6,"minLength":6,"type":"string"},"latitude":{"title":"Latitude","type":"number"},"longitude":{"title":"Longitude","type":"number"}}},"AddressResponse":{"title":"AddressResponse","required":["province","postcode","id","createdAt"],"type":"object","properties":{"line1":{"title":"Line1","type":"string"},"line2":{"title":"Line2","type":"string"},"city":{"title":"City","type":"string"},"province":{"title":"Province","type":"string"},"postcode":{"title":"Postcode","maxLength":6,"minLength":6,"type":"string"},"id":{"title":"Id","type":"integer"},"createdAt":{"title":"Createdat","type":"string","format":"date-time"}}},"AddressUpdateRequest":{"title":"AddressUpdateRequest","required":["province","postcode","id"],"type":"object","properties":{"line1":{"title":"Line1","type":"string"},"line2":{"title":"Line2","type":"string"},"city":{"title":"City","type":"string"},"province":{"title":"Province","type":"string"},"postcode":{"title":"Postcode","maxLength":6,"minLength":6,"type":"string"},"id":{"title":"Id","type":"integer"},"latitude":{"title":"Latitude","type":"number"},"longitude":{"title":"Longitude","type":"number"}}},"HTTPValidationError":{"title":"HTTPValidationError","type":"object","properties":{"detail":{"title":"Detail","type":"array","items":{"$ref":"#/components/schemas/ValidationError"}}}},"InputTypeEnum":{"title":"InputTypeEnum","enum":[1,2,3],"type":"integer","description":"An enumeration."},"LocationCreateRequest":{"title":"LocationCreateRequest","required":["name","active"],"type":"object","properties":{"name":{"title":"Name","type":"string"},"phone":{"title":"Phone","type":"string"},"notes":{"title":"Notes","type":"string"},"active":{"title":"Active","type":"integer"},"postcode":{"title":"Postcode","type":"string"},"url":{"title":"Url","maxLength":2083,"minLength":1,"type":"string","format":"uri"},"tags":{"title":"Tags","type":"string"},"externalKey":{"title":"Externalkey","type":"string"},"organization":{"title":"Organization","type":"integer"},"address":{"title":"Address","type":"integer"}}},"LocationCreateRequestExpanded":{"title":"LocationCreateRequestExpanded","required":["name","active","postcode","province"],"type":"object","properties":{"name":{"title":"Name","type":"string"},"phone":{"title":"Phone","type":"string"},"notes":{"title":"Notes","type":"string"},"active":{"title":"Active","type":"integer"},"postcode":{"title":"Postcode","maxLength":6,"minLength":6,"type":"string"},"url":{"title":"Url","maxLength":2083,"minLength":1,"type":"string","format":"uri"},"tags":{"title":"Tags","type":"string"},"externalKey":{"title":"Externalkey","type":"string"},"organization":{"title":"Organization","type":"integer"},"line1":{"title":"Line1","type":"string"},"line2":{"title":"Line2","type":"string"},"city":{"title":"City","type":"string"},"province":{"title":"Province","type":"string"}}},"LocationExpandedResponse":{"title":"LocationExpandedResponse","required":["name","active","id","createdAt"],"type":"object","properties":{"name":{"title":"Name","type":"string"},"phone":{"title":"Phone","type":"string"},"notes":{"title":"Notes","type":"string"},"active":{"title":"Active","type":"integer"},"postcode":{"title":"Postcode","type":"string"},"url":{"title":"Url","maxLength":2083,"minLength":1,"type":"string","format":"uri"},"tags":{"title":"Tags","type":"string"},"externalKey":{"title":"Externalkey","type":"string"},"id":{"title":"Id","minimum":0.0,"type":"integer"},"organization":{"$ref":"#/components/schemas/OrganizationResponse"},"address":{"$ref":"#/components/schemas/AddressResponse"},"createdAt":{"title":"Createdat","type":"string","format":"date-time"}}},"LocationResponse":{"title":"LocationResponse","required":["name","active","id","createdAt"],"type":"object","properties":{"name":{"title":"Name","type":"string"},"phone":{"title":"Phone","type":"string"},"notes":{"title":"Notes","type":"string"},"active":{"title":"Active","type":"integer"},"postcode":{"title":"Postcode","type":"string"},"url":{"title":"Url","maxLength":2083,"minLength":1,"type":"string","format":"uri"},"tags":{"title":"Tags","type":"string"},"externalKey":{"title":"Externalkey","type":"string"},"id":{"title":"Id","minimum":0.0,"type":"integer"},"organization":{"title":"Organization","type":"integer"},"address":{"title":"Address","type":"integer"},"createdAt":{"title":"Createdat","type":"string","format":"date-time"}}},"LocationUpdateRequest":{"title":"LocationUpdateRequest","required":["name","active","id"],"type":"object","properties":{"name":{"title":"Name","type":"string"},"phone":{"title":"Phone","type":"string"},"notes":{"title":"Notes","type":"string"},"active":{"title":"Active","type":"integer"},"postcode":{"title":"Postcode","type":"string"},"url":{"title":"Url","maxLength":2083,"minLength":1,"type":"string","format":"uri"},"tags":{"title":"Tags","type":"string"},"externalKey":{"title":"Externalkey","type":"string"},"id":{"title":"Id","minimum":0.0,"type":"integer"},"address":{"title":"Address","type":"integer"},"organization":{"title":"Organization","type":"integer"}}},"OrganizationCreateRequest":{"title":"OrganizationCreateRequest","required":["shortName"],"type":"object","properties":{"fullName":{"title":"Fullname","type":"string"},"shortName":{"title":"Shortname","type":"string"},"description":{"title":"Description","type":"string"},"url":{"title":"Url","maxLength":2083,"minLength":1,"type":"string","format":"uri"}}},"OrganizationResponse":{"title":"OrganizationResponse","required":["shortName","id","createdAt"],"type":"object","properties":{"fullName":{"title":"Fullname","type":"string"},"shortName":{"title":"Shortname","type":"string"},"description":{"title":"Description","type":"string"},"url":{"title":"Url","maxLength":2083,"minLength":1,"type":"string","format":"uri"},"id":{"title":"Id","type":"integer"},"createdAt":{"title":"Createdat","type":"string","format":"date-time"}}},"OrganizationUpdateRequest":{"title":"OrganizationUpdateRequest","required":["shortName"],"type":"object","properties":{"fullName":{"title":"Fullname","type":"string"},"shortName":{"title":"Shortname","type":"string"},"description":{"title":"Description","type":"string"},"url":{"title":"Url","maxLength":2083,"minLength":1,"type":"string","format":"uri"}}},"RequirementResponse":{"title":"RequirementResponse","required":["name","description","id","createdAt"],"type":"object","properties":{"name":{"title":"Name","type":"string"},"description":{"title":"Description","type":"string"},"id":{"title":"Id","type":"integer"},"createdAt":{"title":"Createdat","type":"string","format":"date-time"}}},"RequirementsCreateRequest":{"title":"RequirementsCreateRequest","required":["name","description"],"type":"object","properties":{"name":{"title":"Name","type":"string"},"description":{"title":"Description","type":"string"}}},"RequirementsUpdateRequest":{"title":"RequirementsUpdateRequest","required":["name","description","id"],"type":"object","properties":{"name":{"title":"Name","type":"string"},"description":{"title":"Description","type":"string"},"id":{"title":"Id","type":"integer"}}},"SecurityLoginResponse":{"title":"SecurityLoginResponse","required":["result"],"type":"object","properties":{"result":{"title":"Result","type":"integer"},"key":{"title":"Key","type":"string","format":"uuid"}}},"SecurityResponseBase":{"title":"SecurityResponseBase","required":["name","password"],"type":"object","properties":{"name":{"title":"Name","type":"string"},"password":{"title":"Password","type":"string"}}},"VaccineAvailabilityCreateRequest":{"title":"VaccineAvailabilityCreateRequest","required":["numberAvailable","inputType","location","date"],"type":"object","properties":{"numberAvailable":{"title":"Numberavailable","minimum":0.0,"type":"integer"},"numberTotal":{"title":"Numbertotal","minimum":0.0,"type":"integer"},"vaccine":{"title":"Vaccine","minimum":0.0,"type":"integer"},"inputType":{"$ref":"#/components/schemas/InputTypeEnum"},"tags":{"title":"Tags","type":"string"},"location":{"title":"Location","minimum":0.0,"type":"integer"},"date":{"title":"Date","type":"string","format":"date-time"}}},"VaccineAvailabilityExpandedCreateRequest":{"title":"VaccineAvailabilityExpandedCreateRequest","required":["numberAvailable","inputType","province","postcode","name","active","date"],"type":"object","properties":{"numberAvailable":{"title":"Numberavailable","minimum":0.0,"type":"integer"},"numberTotal":{"title":"Numbertotal","minimum":0.0,"type":"integer"},"vaccine":{"title":"Vaccine","minimum":0.0,"type":"integer"},"inputType":{"$ref":"#/components/schemas/InputTypeEnum"},"tags":{"title":"Tags","type":"string"},"locationID":{"title":"Locationid","type":"integer"},"organization":{"title":"Organization","type":"integer"},"line1":{"title":"Line1","type":"string"},"line2":{"title":"Line2","type":"string"},"city":{"title":"City","type":"string"},"province":{"title":"Province","type":"string"},"postcode":{"title":"Postcode","maxLength":6,"minLength":6,"type":"string"},"name":{"title":"Name","type":"string"},"phone":{"title":"Phone","type":"string"},"notes":{"title":"Notes","type":"string"},"active":{"title":"Active","type":"integer"},"url":{"title":"Url","maxLength":2083,"minLength":1,"type":"string","format":"uri"},"tagsL":{"title":"Tagsl","type":"string"},"tagsA":{"title":"Tagsa","type":"string"},"externalKey":{"title":"Externalkey","type":"string"},"date":{"title":"Date","type":"string","format":"date-time"}}},"VaccineAvailabilityExpandedResponse":{"title":"VaccineAvailabilityExpandedResponse","required":["numberAvailable","inputType","id","location","createdAt","timeslots","requirements","date"],"type":"object","properties":{"numberAvailable":{"title":"Numberavailable","minimum":0.0,"type":"integer"},"numberTotal":{"title":"Numbertotal","minimum":0.0,"type":"integer"},"vaccine":{"title":"Vaccine","minimum":0.0,"type":"integer"},"inputType":{"$ref":"#/components/schemas/InputTypeEnum"},"tags":{"title":"Tags","type":"string"},"id":{"title":"Id","type":"string","format":"uuid"},"location":{"$ref":"#/components/schemas/LocationExpandedResponse"},"createdAt":{"title":"Createdat","type":"string","format":"date-time"},"timeslots":{"title":"Timeslots","type":"array","items":{"$ref":"#/components/schemas/VaccineAvailabilityTimeslotResponse"}},"requirements":{"title":"Requirements","type":"array","items":{"$ref":"#/components/schemas/VaccineAvailabilityRequirementsResponse"}},"date":{"title":"Date","type":"string","format":"date-time"}}},"VaccineAvailabilityRequirementCreateRequest":{"title":"VaccineAvailabilityRequirementCreateRequest","required":["requirement"],"type":"object","properties":{"requirement":{"title":"Requirement","minimum":0.0,"type":"integer"}}},"VaccineAvailabilityRequirementUpdateRequest":{"title":"VaccineAvailabilityRequirementUpdateRequest","required":["active","requirement"],"type":"object","properties":{"active":{"title":"Active","type":"boolean"},"requirement":{"title":"Requirement","minimum":0.0,"type":"integer"}}},"VaccineAvailabilityRequirementsResponse":{"title":"VaccineAvailabilityRequirementsResponse","required":["id","vaccineAvailability","requirement","active","name","description","createdAt"],"type":"object","properties":{"id":{"title":"Id","type":"string","format":"uuid"},"vaccineAvailability":{"title":"Vaccineavailability","type":"string","format":"uuid"},"requirement":{"title":"Requirement","type":"integer"},"active":{"title":"Active","type":"boolean"},"name":{"title":"Name","type":"string"},"description":{"title":"Description","type":"string"},"createdAt":{"title":"Createdat","type":"string","format":"date-time"}}},"VaccineAvailabilityResponse":{"title":"VaccineAvailabilityResponse","required":["numberAvailable","inputType","id","location","createdAt","date"],"type":"object","properties":{"numberAvailable":{"title":"Numberavailable","minimum":0.0,"type":"integer"},"numberTotal":{"title":"Numbertotal","minimum":0.0,"type":"integer"},"vaccine":{"title":"Vaccine","minimum":0.0,"type":"integer"},"inputType":{"$ref":"#/components/schemas/InputTypeEnum"},"tags":{"title":"Tags","type":"string"},"id":{"title":"Id","type":"string","format":"uuid"},"location":{"title":"Location","minimum":0.0,"type":"integer"},"createdAt":{"title":"Createdat","type":"string","format":"date-time"},"date":{"title":"Date","type":"string","format":"date-time"}}},"VaccineAvailabilityTimeslotCreateRequest":{"title":"VaccineAvailabilityTimeslotCreateRequest","required":["time"],"type":"object","properties":{"time":{"title":"Time","type":"string","format":"date-time"}}},"VaccineAvailabilityTimeslotRequirementExpandedResponse":{"title":"VaccineAvailabilityTimeslotRequirementExpandedResponse","required":["numberAvailable","inputType","id","location","createdAt","date","timeslots","requirements"],"type":"object","properties":{"numberAvailable":{"title":"Numberavailable","minimum":0.0,"type":"integer"},"numberTotal":{"title":"Numbertotal","minimum":0.0,"type":"integer"},"vaccine":{"title":"Vaccine","minimum":0.0,"type":"integer"},"inputType":{"$ref":"#/components/schemas/InputTypeEnum"},"tags":{"title":"Tags","type":"string"},"id":{"title":"Id","type":"string","format":"uuid"},"location":{"title":"Location","minimum":0.0,"type":"integer"},"createdAt":{"title":"Createdat","type":"string","format":"date-time"},"date":{"title":"Date","type":"string","format":"date-time"},"timeslots":{"title":"Timeslots","type":"array","items":{"$ref":"#/components/schemas/VaccineAvailabilityTimeslotResponse"}},"requirements":{"title":"Requirements","type":"array","items":{"$ref":"#/components/schemas/VaccineAvailabilityRequirementsResponse"}}}},"VaccineAvailabilityTimeslotResponse":{"title":"VaccineAvailabilityTimeslotResponse","required":["id","vaccineAvailability","time","createdAt"],"type":"object","properties":{"id":{"title":"Id","type":"string","format":"uuid"},"vaccineAvailability":{"title":"Vaccineavailability","type":"string","format":"uuid"},"time":{"title":"Time","type":"string","format":"date-time"},"takenAt":{"title":"Takenat","type":"string","format":"date-time"},"createdAt":{"title":"Createdat","type":"string","format":"date-time"}}},"VaccineAvailabilityTimeslotUpdateRequest":{"title":"VaccineAvailabilityTimeslotUpdateRequest","required":["time"],"type":"object","properties":{"time":{"title":"Time","type":"string","format":"date-time"},"takenAt":{"title":"Takenat","type":"string","format":"date-time"}}},"VaccineAvailabilityUpdateRequest":{"title":"VaccineAvailabilityUpdateRequest","required":["numberAvailable","inputType","location","date"],"type":"object","properties":{"numberAvailable":{"title":"Numberavailable","minimum":0.0,"type":"integer"},"numberTotal":{"title":"Numbertotal","minimum":0.0,"type":"integer"},"vaccine":{"title":"Vaccine","minimum":0.0,"type":"integer"},"inputType":{"$ref":"#/components/schemas/InputTypeEnum"},"tags":{"title":"Tags","type":"string"},"location":{"title":"Location","minimum":0.0,"type":"integer"},"date":{"title":"Date","type":"string","format":"date-time"}}},"VaccineLocationExpandedResponse":{"title":"VaccineLocationExpandedResponse","required":["name","active","id","createdAt","vaccineAvailabilities"],"type":"object","properties":{"name":{"title":"Name","type":"string"},"phone":{"title":"Phone","type":"string"},"notes":{"title":"Notes","type":"string"},"active":{"title":"Active","type":"integer"},"postcode":{"title":"Postcode","type":"string"},"url":{"title":"Url","maxLength":2083,"minLength":1,"type":"string","format":"uri"},"tags":{"title":"Tags","type":"string"},"externalKey":{"title":"Externalkey","type":"string"},"id":{"title":"Id","minimum":0.0,"type":"integer"},"organization":{"$ref":"#/components/schemas/OrganizationResponse"},"address":{"$ref":"#/components/schemas/AddressResponse"},"createdAt":{"title":"Createdat","type":"string","format":"date-time"},"vaccineAvailabilities":{"title":"Vaccineavailabilities","type":"array","items":{"$ref":"#/components/schemas/VaccineAvailabilityTimeslotRequirementExpandedResponse"}}}},"ValidationError":{"title":"ValidationError","required":["loc","msg","type"],"type":"object","properties":{"loc":{"title":"Location","type":"array","items":{"type":"string"}},"msg":{"title":"Message","type":"string"},"type":{"title":"Error Type","type":"string"}}}},"securitySchemes":{"APIKeyHeader":{"type":"apiKey","in":"header","name":"Authorization"}}},"tags":[{"name":"Vaccine Locations","description":"Operations about vaccine availability grouped by location."},{"name":"Vaccine Availability","description":"Operations about vaccine availability. _Vaccine availability should include a certain date and location._"},{"name":"Locations","description":"Operations about locations. _Each location should correspond to a place where vaccine shots are administered._"},{"name":"Addresses","description":"Operations about addresses. _A location has a one-to-one relationship with an address._"},{"name":"Organizations","description":"Operations about organizations. _Each organization is responsible for administering vaccines._"},{"name":"Requirements","description":"Operations about eligibility requirements. _An eligibility requirement must be met in order for one to receive a vaccine._"},{"name":"Security","description":"Basic authentication"}]}
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "💉🔍 VaxFinder",
+    "description": "RESTful APIs for VaxFinder.",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/v1/vaccine-locations": {
+      "get": {
+        "tags": [
+          "Vaccine Locations"
+        ],
+        "summary": "List Vaccine Locations",
+        "description": "**Retrieves the list of vaccine availabilities within the vicinity of a\n`postal_code` and after the `min_date`.**",
+        "operationId": "list_vaccine_locations_api_v1_vaccine_locations_get",
+        "parameters": [
+          {
+            "description": "**Search for vaccine availabilities after a certain date and time (UTC) in the format YYYY-MM-DD**. The default value is the current date (UTC).<br/><br/>Valid example(s): *2021-05-30*",
+            "required": false,
+            "schema": {
+              "title": "Minimum Date",
+              "type": "string",
+              "description": "**Search for vaccine availabilities after a certain date and time (UTC) in the format YYYY-MM-DD**. The default value is the current date (UTC).<br/><br/>Valid example(s): *2021-05-30*",
+              "format": "date"
+            },
+            "name": "min_date",
+            "in": "query"
+          },
+          {
+            "description": "**Search for vaccine availabilities within the vicinity of a postal code. (First 3 characters ONLY)**<br/><br/>Valid example(s): *K1A; M5V;* ",
+            "required": true,
+            "schema": {
+              "title": "Postal Code",
+              "maxLength": 3,
+              "minLength": 3,
+              "type": "string",
+              "description": "**Search for vaccine availabilities within the vicinity of a postal code. (First 3 characters ONLY)**<br/><br/>Valid example(s): *K1A; M5V;* "
+            },
+            "name": "postal_code",
+            "in": "query"
+          },
+          {
+            "description": "**Include Vaccine Availabilities with no remaining vaccines**<br/><br/>Valid example(s): *true; false;* ",
+            "required": false,
+            "schema": {
+              "title": "Include Empty",
+              "type": "boolean",
+              "description": "**Include Vaccine Availabilities with no remaining vaccines**<br/><br/>Valid example(s): *true; false;* ",
+              "default": false
+            },
+            "name": "include_empty",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response List Vaccine Locations Api V1 Vaccine Locations Get",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/VaccineLocationExpandedResponse"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/vaccine-availability": {
+      "get": {
+        "tags": [
+          "Vaccine Availability"
+        ],
+        "summary": "List Vaccine Availability",
+        "description": "**Retrieves the list of vaccine availabilities within the vicinity of a\n`postal_code` and after the `min_date`.**",
+        "operationId": "list_vaccine_availability_api_v1_vaccine_availability_get",
+        "parameters": [
+          {
+            "description": "**Search for vaccine availabilities after a certain date and time (UTC) in the format YYYY-MM-DD**. The default value is the current date (UTC).<br/><br/>Valid example(s): *2021-05-30*",
+            "required": false,
+            "schema": {
+              "title": "Minimum Date",
+              "type": "string",
+              "description": "**Search for vaccine availabilities after a certain date and time (UTC) in the format YYYY-MM-DD**. The default value is the current date (UTC).<br/><br/>Valid example(s): *2021-05-30*",
+              "format": "date",
+              "default": "2021-09-20"
+            },
+            "name": "min_date",
+            "in": "query"
+          },
+          {
+            "description": "**Search for vaccine availabilities within the vicinity of a postal code. (First 3 characters ONLY)**<br/><br/>Valid example(s): *K1A; M5V;* ",
+            "required": true,
+            "schema": {
+              "title": "Postal Code",
+              "maxLength": 3,
+              "minLength": 3,
+              "type": "string",
+              "description": "**Search for vaccine availabilities within the vicinity of a postal code. (First 3 characters ONLY)**<br/><br/>Valid example(s): *K1A; M5V;* "
+            },
+            "name": "postal_code",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response List Vaccine Availability Api V1 Vaccine Availability Get",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/VaccineAvailabilityExpandedResponse"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Vaccine Availability"
+        ],
+        "summary": "Create Vaccine Availability",
+        "description": "**Creates a new vaccine availability with the entity enclosed in the\nrequest body.** On success, the new vaccine availability is returned in the\nbody of the response.",
+        "operationId": "create_vaccine_availability_api_v1_vaccine_availability_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VaccineAvailabilityCreateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VaccineAvailabilityResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid credentials."
+          },
+          "403": {
+            "description": "Invalid permissions or credentials."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/api/v1/vaccine-availability/location/": {
+      "get": {
+        "tags": [
+          "Vaccine Availability"
+        ],
+        "summary": "List Vaccine Availability Location",
+        "description": "**Retrieves the list of vaccine availabilities of a\n`locationid` and after the `min_date`.**",
+        "operationId": "list_vaccine_availability_location_api_v1_vaccine_availability_location__get",
+        "parameters": [
+          {
+            "description": "**Search for vaccine availabilities after a certain date and time (UTC) in the format YYYY-MM-DD**. The default value is the current date (UTC).<br/><br/>Valid example(s): *2021-05-30*",
+            "required": false,
+            "schema": {
+              "title": "Minimum Date",
+              "type": "string",
+              "description": "**Search for vaccine availabilities after a certain date and time (UTC) in the format YYYY-MM-DD**. The default value is the current date (UTC).<br/><br/>Valid example(s): *2021-05-30*",
+              "format": "date",
+              "default": "2021-09-20"
+            },
+            "name": "min_date",
+            "in": "query"
+          },
+          {
+            "description": "**Location searching for**",
+            "required": true,
+            "schema": {
+              "title": "Location ID",
+              "type": "integer",
+              "description": "**Location searching for**"
+            },
+            "name": "locationID",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response List Vaccine Availability Location Api V1 Vaccine Availability Location  Get",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/VaccineAvailabilityResponse"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/vaccine-availability/{vaccine_availability_id}": {
+      "get": {
+        "tags": [
+          "Vaccine Availability"
+        ],
+        "summary": "Retrieve Vaccine Availability By Id",
+        "description": "**Retrieves a vaccine availability with the id from the\n`vaccine_availability_id` path parameter.**",
+        "operationId": "retrieve_vaccine_availability_by_id_api_v1_vaccine_availability__vaccine_availability_id__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Vaccine Availability Id",
+              "type": "string",
+              "format": "uuid"
+            },
+            "name": "vaccine_availability_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VaccineAvailabilityExpandedResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The vaccine availability with the specified id could not be found."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Vaccine Availability"
+        ],
+        "summary": "Update Vaccine Availability",
+        "description": "**Updates a vaccine availability with the id from the\n`vaccine_availability_id` path parameter with the entity enclosed in the\nrequest body.** On success, the updated vaccine availability is returned in\nthe body of the response.",
+        "operationId": "update_vaccine_availability_api_v1_vaccine_availability__vaccine_availability_id__put",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Vaccine Availability Id",
+              "type": "string",
+              "format": "uuid"
+            },
+            "name": "vaccine_availability_id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VaccineAvailabilityUpdateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VaccineAvailabilityResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid credentials."
+          },
+          "403": {
+            "description": "Invalid permissions or credentials."
+          },
+          "404": {
+            "description": "The vaccine availability with the specified id could not be found."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Vaccine Availability"
+        ],
+        "summary": "Delete Vaccine Availability By Id",
+        "description": "**Deletes a vaccine availability with the id from the\n`vaccine_availability_id` path parameter.**",
+        "operationId": "delete_vaccine_availability_by_id_api_v1_vaccine_availability__vaccine_availability_id__delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Vaccine Availability Id",
+              "type": "string",
+              "format": "uuid"
+            },
+            "name": "vaccine_availability_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "The vaccine availability with the specified id has been successfully deleted."
+          },
+          "401": {
+            "description": "Invalid credentials."
+          },
+          "403": {
+            "description": "Invalid permissions or credentials."
+          },
+          "404": {
+            "description": "The vaccine availability with the specified id could not be found."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/api/v1/vaccine-availability/locations/key/{external_key}": {
+      "post": {
+        "tags": [
+          "Vaccine Availability"
+        ],
+        "summary": "Create Vaccine Availability Expanded Key",
+        "description": "**Creates a new vaccine availability with the entity enclosed in the\nrequest body.** On success, the new vaccine availability is returned in the\nbody of the response.",
+        "operationId": "create_vaccine_availability_expanded_key_api_v1_vaccine_availability_locations_key__external_key__post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "External Key",
+              "type": "string"
+            },
+            "name": "external_key",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VaccineAvailabilityExpandedCreateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VaccineAvailabilityResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid credentials."
+          },
+          "403": {
+            "description": "Invalid permissions or credentials."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/api/v1/vaccine-availability/locations/id/{location_id}": {
+      "post": {
+        "tags": [
+          "Vaccine Availability"
+        ],
+        "summary": "Create Vaccine Availability Expanded",
+        "description": "**Creates a new vaccine availability with the entity enclosed in the\nrequest body.** On success, the new vaccine availability is returned in the\nbody of the response.",
+        "operationId": "create_vaccine_availability_expanded_api_v1_vaccine_availability_locations_id__location_id__post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Location Id",
+              "type": "integer"
+            },
+            "name": "location_id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VaccineAvailabilityExpandedCreateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VaccineAvailabilityResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid credentials."
+          },
+          "403": {
+            "description": "Invalid permissions or credentials."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/api/v1/vaccine-availability/{vaccine_availability_id}/timeslots": {
+      "get": {
+        "tags": [
+          "Vaccine Availability"
+        ],
+        "summary": "List Timeslots For Vaccine Availability By Id",
+        "description": "**Retrieves the list of timeslots for a vaccine availability. This\nvaccine availability has an ID of `vaccine_availability_id` from the\npath.**",
+        "operationId": "list_timeslots_for_vaccine_availability_by_id_api_v1_vaccine_availability__vaccine_availability_id__timeslots_get",
+        "parameters": [
+          {
+            "description": "Timeslots for a vaccine availability with this id.",
+            "required": true,
+            "schema": {
+              "title": "Vaccine Availability Id",
+              "type": "string",
+              "description": "Timeslots for a vaccine availability with this id.",
+              "format": "uuid"
+            },
+            "name": "vaccine_availability_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response List Timeslots For Vaccine Availability By Id Api V1 Vaccine Availability  Vaccine Availability Id  Timeslots Get",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/VaccineAvailabilityTimeslotResponse"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The vaccine availability with the specified id could not be found."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Vaccine Availability"
+        ],
+        "summary": "Create Timeslot For Vaccine Availability By Id",
+        "description": "**Creates a new timeslot for a vaccine availability with the entity\nenclosed in the request body. This vaccine availability has an ID of\n`vaccine_availability_id` from the path.** On success, the new timeslot is\nreturned in the body of the response.",
+        "operationId": "create_timeslot_for_vaccine_availability_by_id_api_v1_vaccine_availability__vaccine_availability_id__timeslots_post",
+        "parameters": [
+          {
+            "description": "Timeslot for a vaccine availability with this id.",
+            "required": true,
+            "schema": {
+              "title": "Vaccine Availability Id",
+              "type": "string",
+              "description": "Timeslot for a vaccine availability with this id.",
+              "format": "uuid"
+            },
+            "name": "vaccine_availability_id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VaccineAvailabilityTimeslotCreateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VaccineAvailabilityTimeslotResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid credentials."
+          },
+          "403": {
+            "description": "Invalid permissions or credentials."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/api/v1/vaccine-availability/{vaccine_availability_id}/timeslots/{timeslot_id}": {
+      "put": {
+        "tags": [
+          "Vaccine Availability"
+        ],
+        "summary": "Update Timeslot For Vaccine Availability By Id",
+        "description": "**Updates a timeslot with the id from the `timeslot_id` path parameter\nwith the entity enclosed in the request body. The timeslot must be\nfor a vaccine availability that has an ID of `vaccine_availability_id`\nfrom the path.** On success, the updated timeslot is returned in the body\nof the response.",
+        "operationId": "update_timeslot_for_vaccine_availability_by_id_api_v1_vaccine_availability__vaccine_availability_id__timeslots__timeslot_id__put",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Timeslot Id",
+              "type": "string",
+              "format": "uuid"
+            },
+            "name": "timeslot_id",
+            "in": "path"
+          },
+          {
+            "description": "Timeslot for a vaccine availability with this id.",
+            "required": true,
+            "schema": {
+              "title": "Vaccine Availability Id",
+              "type": "string",
+              "description": "Timeslot for a vaccine availability with this id.",
+              "format": "uuid"
+            },
+            "name": "vaccine_availability_id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VaccineAvailabilityTimeslotUpdateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VaccineAvailabilityTimeslotResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid credentials."
+          },
+          "403": {
+            "description": "Invalid permissions or credentials."
+          },
+          "404": {
+            "description": "The vaccine availability with the id from the `vaccine_availability_id` path parameter or the timeslot with the id from the `timeslot_id` path parameter could not be found."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Vaccine Availability"
+        ],
+        "summary": "Delete Timeslot For Vaccine Availability By Id",
+        "description": "**Deletes a timeslot with the id from the\n`timeslot_id` path parameter.**",
+        "operationId": "delete_timeslot_for_vaccine_availability_by_id_api_v1_vaccine_availability__vaccine_availability_id__timeslots__timeslot_id__delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Timeslot Id",
+              "type": "string",
+              "format": "uuid"
+            },
+            "name": "timeslot_id",
+            "in": "path"
+          },
+          {
+            "description": "Timeslot for a vaccine availability with this id.",
+            "required": true,
+            "schema": {
+              "title": "Vaccine Availability Id",
+              "type": "string",
+              "description": "Timeslot for a vaccine availability with this id.",
+              "format": "uuid"
+            },
+            "name": "vaccine_availability_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "The timeslot with the specified id has been successfully deleted."
+          },
+          "401": {
+            "description": "Invalid credentials."
+          },
+          "403": {
+            "description": "Invalid permissions or credentials."
+          },
+          "404": {
+            "description": "The timeslot with the specified id could not be found."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/api/v1/vaccine-availability/{vaccine_availability_id}/requirements": {
+      "get": {
+        "tags": [
+          "Vaccine Availability"
+        ],
+        "summary": "List Requirements For Vaccine Availability By Id",
+        "description": "**Retrieves the list of requirements for a vaccine availability. This\nvaccine availability has an ID of `vaccine_availability_id` from the\npath.**",
+        "operationId": "list_requirements_for_vaccine_availability_by_id_api_v1_vaccine_availability__vaccine_availability_id__requirements_get",
+        "parameters": [
+          {
+            "description": "Requirements for a vaccine availability with this id.",
+            "required": true,
+            "schema": {
+              "title": "Vaccine Availability Id",
+              "type": "string",
+              "description": "Requirements for a vaccine availability with this id.",
+              "format": "uuid"
+            },
+            "name": "vaccine_availability_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response List Requirements For Vaccine Availability By Id Api V1 Vaccine Availability  Vaccine Availability Id  Requirements Get",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/VaccineAvailabilityRequirementsResponse"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The vaccine availability with the specified id could not be found."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Vaccine Availability"
+        ],
+        "summary": "Create Requirement For Vaccine Availability By Id",
+        "description": "**Creates a new requirements for a vaccine availability with the entity\nenclosed in the request body. This vaccine availability has an ID of\n`vaccine_availability_id` from the path.** On success, the new timeslot is\nreturned in the body of the response.",
+        "operationId": "create_requirement_for_vaccine_availability_by_id_api_v1_vaccine_availability__vaccine_availability_id__requirements_post",
+        "parameters": [
+          {
+            "description": "Requirement for a vaccine availability with this id.",
+            "required": true,
+            "schema": {
+              "title": "Vaccine Availability Id",
+              "type": "string",
+              "description": "Requirement for a vaccine availability with this id.",
+              "format": "uuid"
+            },
+            "name": "vaccine_availability_id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VaccineAvailabilityRequirementCreateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VaccineAvailabilityRequirementsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid credentials."
+          },
+          "403": {
+            "description": "Invalid permissions or credentials."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/api/v1/vaccine-availability/{vaccine_availability_id}/requirements/{requirement_id}": {
+      "put": {
+        "tags": [
+          "Vaccine Availability"
+        ],
+        "summary": "Update Requirement For Vaccine Availability By Id",
+        "description": "**Updates a requirement with the id from the `requirement_id` path\nparameter with the entity enclosed in the request body. The requirement\nmust be for a vaccine availability that has an ID of\n`vaccine_availability_id` from the path.** On success, the updated\nrequirement is returned in the body of the response.",
+        "operationId": "update_requirement_for_vaccine_availability_by_id_api_v1_vaccine_availability__vaccine_availability_id__requirements__requirement_id__put",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Requirement Id",
+              "type": "string",
+              "format": "uuid"
+            },
+            "name": "requirement_id",
+            "in": "path"
+          },
+          {
+            "description": "Requirement for a vaccine availability with this id.",
+            "required": true,
+            "schema": {
+              "title": "Vaccine Availability Id",
+              "type": "string",
+              "description": "Requirement for a vaccine availability with this id.",
+              "format": "uuid"
+            },
+            "name": "vaccine_availability_id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VaccineAvailabilityRequirementUpdateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VaccineAvailabilityRequirementsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid credentials."
+          },
+          "403": {
+            "description": "Invalid permissions or credentials."
+          },
+          "404": {
+            "description": "The vaccine availability with the id from the `vaccine_availability_id` path parameter or the requirement with the id from the `requirement_id` path parameter could not be found."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Vaccine Availability"
+        ],
+        "summary": "Delete Requirement For Vaccine Availability By Id",
+        "description": "**Deletes a requirement with the id from the\n`timeslot_id` path parameter.**",
+        "operationId": "delete_requirement_for_vaccine_availability_by_id_api_v1_vaccine_availability__vaccine_availability_id__requirements__requirement_id__delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Requirement Id",
+              "type": "string",
+              "format": "uuid"
+            },
+            "name": "requirement_id",
+            "in": "path"
+          },
+          {
+            "description": "Requirement for a vaccine availability with this id.",
+            "required": true,
+            "schema": {
+              "title": "Vaccine Availability Id",
+              "type": "string",
+              "description": "Requirement for a vaccine availability with this id.",
+              "format": "uuid"
+            },
+            "name": "vaccine_availability_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "The requirement with the specified id has been successfully deleted."
+          },
+          "401": {
+            "description": "Invalid credentials."
+          },
+          "403": {
+            "description": "Invalid permissions or credentials."
+          },
+          "404": {
+            "description": "The requirement with the specified id could not be found."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/api/v1/locations": {
+      "get": {
+        "tags": [
+          "Locations"
+        ],
+        "summary": "List Locations",
+        "description": "**Retrieves the list of locations.**",
+        "operationId": "list_locations_api_v1_locations_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response List Locations Api V1 Locations Get",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LocationExpandedResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Locations"
+        ],
+        "summary": "Create Location",
+        "description": "**Creates a new location with the entity enclosed in the request body.** On\nsuccess, the new location is returned in the body of the response.",
+        "operationId": "create_location_api_v1_locations_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LocationCreateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LocationResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid credentials."
+          },
+          "403": {
+            "description": "Invalid permissions or credentials."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/api/v1/locations/{location_id}": {
+      "get": {
+        "tags": [
+          "Locations"
+        ],
+        "summary": "Retrieve Location By Id",
+        "description": "**Retrieves a location with the id from the `location_id` path\nparameter.**",
+        "operationId": "retrieve_location_by_id_api_v1_locations__location_id__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Location Id",
+              "type": "integer"
+            },
+            "name": "location_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LocationExpandedResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The location with the specified id could not be found."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Locations"
+        ],
+        "summary": "Update Location",
+        "description": "**Updates a location with the id from the `location_id` path parameter\nwith the entity enclosed in the request body.** On success, the updated\nlocation is returned in the body of the response.",
+        "operationId": "update_location_api_v1_locations__location_id__put",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Location Id",
+              "type": "integer"
+            },
+            "name": "location_id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LocationUpdateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LocationResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid credentials."
+          },
+          "403": {
+            "description": "Invalid permissions or credentials."
+          },
+          "404": {
+            "description": "The location with the specified id could not be found."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Locations"
+        ],
+        "summary": "Delete Location By Id",
+        "description": "**Deletes a location with the id from the `location_id` path parameter.**",
+        "operationId": "delete_location_by_id_api_v1_locations__location_id__delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Location Id",
+              "type": "integer"
+            },
+            "name": "location_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "The location with the specified id has been successfully deleted."
+          },
+          "401": {
+            "description": "Invalid credentials."
+          },
+          "403": {
+            "description": "Invalid permissions or credentials."
+          },
+          "404": {
+            "description": "The location with the specified id could not be found."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/api/v1/locations/organization/{organization_id}": {
+      "get": {
+        "tags": [
+          "Locations"
+        ],
+        "summary": "Retrieve Locations By Organization",
+        "description": "**Retrieves a location with the id from the `organization_id` path\nparameter.**",
+        "operationId": "retrieve_locations_by_organization_api_v1_locations_organization__organization_id__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Organization Id",
+              "type": "integer"
+            },
+            "name": "organization_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Retrieve Locations By Organization Api V1 Locations Organization  Organization Id  Get",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LocationExpandedResponse"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The location with the specified id could not be found."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/locations/external/{external_key}": {
+      "get": {
+        "tags": [
+          "Locations"
+        ],
+        "summary": "Retrieve Location By External Key",
+        "description": "**Retrieves a location with the external key from the path\nparameter.**",
+        "operationId": "retrieve_location_by_external_key_api_v1_locations_external__external_key__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "External Key",
+              "type": "string"
+            },
+            "name": "external_key",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LocationExpandedResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The location with the specified id could not be found."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/locations/expanded": {
+      "post": {
+        "tags": [
+          "Locations"
+        ],
+        "summary": "Create Location Expanded",
+        "description": "**Creates a new location with the entity enclosed in the request body.** On\nsuccess, the new location is returned in the body of the response.",
+        "operationId": "create_location_expanded_api_v1_locations_expanded_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LocationCreateRequestExpanded"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Create Location Expanded Api V1 Locations Expanded Post",
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid credentials."
+          },
+          "403": {
+            "description": "Invalid permissions or credentials."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/api/v1/organizations": {
+      "get": {
+        "tags": [
+          "Organizations"
+        ],
+        "summary": "List Organizations",
+        "description": "**Retrieves the list of organizations.**",
+        "operationId": "list_organizations_api_v1_organizations_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response List Organizations Api V1 Organizations Get",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrganizationResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Organizations"
+        ],
+        "summary": "Create Organization",
+        "description": "**Creates a new organization with the entity enclosed in the request\nbody.** On success, the new organization is returned in the body of the\nresponse.",
+        "operationId": "create_organization_api_v1_organizations_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganizationCreateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganizationResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid credentials."
+          },
+          "403": {
+            "description": "Invalid permissions or credentials."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/api/v1/organizations/{organization_id}": {
+      "get": {
+        "tags": [
+          "Organizations"
+        ],
+        "summary": "Retrieve Organization By Id",
+        "description": "**Retrieves an organization with the id from the `organization_id` path\nparameter.**",
+        "operationId": "retrieve_organization_by_id_api_v1_organizations__organization_id__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Organization Id",
+              "type": "integer"
+            },
+            "name": "organization_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganizationResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The organization with the specified id could not be found."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Organizations"
+        ],
+        "summary": "Update Organization",
+        "description": "**Updates an organization with the id from the `organization_id` path\nparameter with the entity enclosed in the request body.** On success,\nthe updated organization is returned in the body of the response.",
+        "operationId": "update_organization_api_v1_organizations__organization_id__put",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Organization Id",
+              "type": "integer"
+            },
+            "name": "organization_id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganizationUpdateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganizationResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid credentials."
+          },
+          "403": {
+            "description": "Invalid permissions or credentials."
+          },
+          "404": {
+            "description": "The organization with the specified id could not be found."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Organizations"
+        ],
+        "summary": "Delete Organization By Id",
+        "description": "**Deletes an organization with the id from the `organization_id` path\nparameter.**",
+        "operationId": "delete_organization_by_id_api_v1_organizations__organization_id__delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Organization Id",
+              "type": "integer"
+            },
+            "name": "organization_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "The organization with the specified id has been successfully deleted."
+          },
+          "401": {
+            "description": "Invalid credentials."
+          },
+          "403": {
+            "description": "Invalid permissions or credentials."
+          },
+          "404": {
+            "description": "The organization with the specified id could not be found."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/api/v1/addresses": {
+      "get": {
+        "tags": [
+          "Addresses"
+        ],
+        "summary": "List Addresses",
+        "description": "**Retrieves the list of addresses.**",
+        "operationId": "list_addresses_api_v1_addresses_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response List Addresses Api V1 Addresses Get",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AddressResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Addresses"
+        ],
+        "summary": "Create Address",
+        "description": "**Creates a new address with the entity enclosed in the request body.** On\nsuccess, the new address is returned in the body of the response.",
+        "operationId": "create_address_api_v1_addresses_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddressCreateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddressResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid credentials."
+          },
+          "403": {
+            "description": "Invalid permissions or credentials."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/api/v1/addresses/{address_id}": {
+      "get": {
+        "tags": [
+          "Addresses"
+        ],
+        "summary": "Retrieve Address By Id",
+        "description": "**Retrieves an address with the id from the `address_id` path parameter.**",
+        "operationId": "retrieve_address_by_id_api_v1_addresses__address_id__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Address Id",
+              "type": "integer"
+            },
+            "name": "address_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddressResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The address with the specified id could not be found."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Addresses"
+        ],
+        "summary": "Update Address",
+        "description": "**Updates an address with the id from the `address_id` path parameter with\nthe entity enclosed in the request body.** On success, the updated address\nis returned in the body of the response.",
+        "operationId": "update_address_api_v1_addresses__address_id__put",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Address Id",
+              "type": "integer"
+            },
+            "name": "address_id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddressUpdateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddressResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid credentials."
+          },
+          "403": {
+            "description": "Invalid permissions or credentials."
+          },
+          "404": {
+            "description": "The location with the specified id could not be found."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Addresses"
+        ],
+        "summary": "Delete Address By Id",
+        "description": "**Deletes an address with the id from the `address_id` path parameter.**",
+        "operationId": "delete_address_by_id_api_v1_addresses__address_id__delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Address Id",
+              "type": "integer"
+            },
+            "name": "address_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "The address with the specified id has been successfully deleted."
+          },
+          "401": {
+            "description": "Invalid credentials."
+          },
+          "403": {
+            "description": "Invalid permissions or credentials."
+          },
+          "404": {
+            "description": "The address with the specified id could not be found."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/api/v1/requirements": {
+      "get": {
+        "tags": [
+          "Requirements"
+        ],
+        "summary": "List Requirements",
+        "description": "**Retrieves the list of requirements.**",
+        "operationId": "list_requirements_api_v1_requirements_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response List Requirements Api V1 Requirements Get",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RequirementResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Requirements"
+        ],
+        "summary": "Create Requirement",
+        "description": "**Creates a new requirement with the entity enclosed in the request\nbody.** On success, the new requirement is returned in the body of the\nresponse.",
+        "operationId": "create_requirement_api_v1_requirements_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequirementsCreateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequirementResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid credentials."
+          },
+          "403": {
+            "description": "Invalid permissions or credentials."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/api/v1/requirements/{requirement_id}": {
+      "get": {
+        "tags": [
+          "Requirements"
+        ],
+        "summary": "Retrieve Requirement By Id",
+        "description": "**Retrieves a requirement with the id from the `requirement_id` path\nparameter.**",
+        "operationId": "retrieve_requirement_by_id_api_v1_requirements__requirement_id__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Requirement Id",
+              "type": "integer"
+            },
+            "name": "requirement_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequirementResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The requirement with the specified id could not be found."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Requirements"
+        ],
+        "summary": "Update Requirement",
+        "description": "**Updates a requirement with the id from the `requirement_id` path\nparameter with the entity enclosed in the request body.** On success,\nthe updated requirement is returned in the body of the response.",
+        "operationId": "update_requirement_api_v1_requirements__requirement_id__put",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Requirement Id",
+              "type": "integer"
+            },
+            "name": "requirement_id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequirementsUpdateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequirementResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid credentials."
+          },
+          "403": {
+            "description": "Invalid permissions or credentials."
+          },
+          "404": {
+            "description": "The location with the specified id could not be found."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Requirements"
+        ],
+        "summary": "Delete Requirement By Id",
+        "description": "**Deletes a requirement with the id from the `requirement_id` path\nparameter.**",
+        "operationId": "delete_requirement_by_id_api_v1_requirements__requirement_id__delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Requirement Id",
+              "type": "integer"
+            },
+            "name": "requirement_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "The requirement with the specified id has been successfully deleted."
+          },
+          "401": {
+            "description": "Invalid credentials."
+          },
+          "403": {
+            "description": "Invalid permissions or credentials."
+          },
+          "404": {
+            "description": "The requirement with the specified id could not be found."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/api/v1/security/login": {
+      "post": {
+        "tags": [
+          "Security"
+        ],
+        "summary": "Login",
+        "description": "**Creates a new vaccine availability with the entity enclosed in the\nrequest body.** On success, the new vaccine availability is returned in the\nbody of the response.",
+        "operationId": "login_api_v1_security_login_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SecurityResponseBase"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SecurityLoginResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid credentials."
+          },
+          "403": {
+            "description": "Invalid permissions or credentials."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/webPush/publicKey": {
+      "get": {
+        "summary": "Your GET endpoint",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "key": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "key"
+                  ]
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {}
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-api-v1-webPush-publicKey"
+      }
+    },
+    "/api/v1/webPush/subscription": {
+      "post": {
+        "summary": "",
+        "operationId": "post-api-v1-webPush-subscription",
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "endpoint": {
+                    "type": "string"
+                  },
+                  "auth": {
+                    "type": "string"
+                  },
+                  "p256dh": {
+                    "type": "string"
+                  },
+                  "created": {
+                    "type": "string"
+                  },
+                  "postalCode": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "endpoint",
+                  "auth",
+                  "p256dh",
+                  "created",
+                  "postalCode"
+                ]
+              },
+              "examples": {
+                "example-1": {
+                  "value": {
+                    "endpoint": "https://fcm.googleapis.com/fcm/send/e80...",
+                    "Auth": "WvNRICp2yY...",
+                    "p256dh": "BAaA63izO...",
+                    "created": "2021-11-04T00:00:00",
+                    "postalCode": "H0H0H0\""
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AddressCreateRequest": {
+        "title": "AddressCreateRequest",
+        "required": [
+          "province",
+          "postcode"
+        ],
+        "type": "object",
+        "properties": {
+          "line1": {
+            "title": "Line1",
+            "type": "string"
+          },
+          "line2": {
+            "title": "Line2",
+            "type": "string"
+          },
+          "city": {
+            "title": "City",
+            "type": "string"
+          },
+          "province": {
+            "title": "Province",
+            "type": "string"
+          },
+          "postcode": {
+            "title": "Postcode",
+            "maxLength": 6,
+            "minLength": 6,
+            "type": "string"
+          },
+          "latitude": {
+            "title": "Latitude",
+            "type": "number"
+          },
+          "longitude": {
+            "title": "Longitude",
+            "type": "number"
+          }
+        }
+      },
+      "AddressResponse": {
+        "title": "AddressResponse",
+        "required": [
+          "province",
+          "postcode",
+          "id",
+          "createdAt"
+        ],
+        "type": "object",
+        "properties": {
+          "line1": {
+            "title": "Line1",
+            "type": "string"
+          },
+          "line2": {
+            "title": "Line2",
+            "type": "string"
+          },
+          "city": {
+            "title": "City",
+            "type": "string"
+          },
+          "province": {
+            "title": "Province",
+            "type": "string"
+          },
+          "postcode": {
+            "title": "Postcode",
+            "maxLength": 6,
+            "minLength": 6,
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "createdAt": {
+            "title": "Createdat",
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "AddressUpdateRequest": {
+        "title": "AddressUpdateRequest",
+        "required": [
+          "province",
+          "postcode",
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "line1": {
+            "title": "Line1",
+            "type": "string"
+          },
+          "line2": {
+            "title": "Line2",
+            "type": "string"
+          },
+          "city": {
+            "title": "City",
+            "type": "string"
+          },
+          "province": {
+            "title": "Province",
+            "type": "string"
+          },
+          "postcode": {
+            "title": "Postcode",
+            "maxLength": 6,
+            "minLength": 6,
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "latitude": {
+            "title": "Latitude",
+            "type": "number"
+          },
+          "longitude": {
+            "title": "Longitude",
+            "type": "number"
+          }
+        }
+      },
+      "HTTPValidationError": {
+        "title": "HTTPValidationError",
+        "type": "object",
+        "properties": {
+          "detail": {
+            "title": "Detail",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            }
+          }
+        }
+      },
+      "InputTypeEnum": {
+        "title": "InputTypeEnum",
+        "enum": [
+          1,
+          2,
+          3
+        ],
+        "type": "integer",
+        "description": "An enumeration."
+      },
+      "LocationCreateRequest": {
+        "title": "LocationCreateRequest",
+        "required": [
+          "name",
+          "active"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "phone": {
+            "title": "Phone",
+            "type": "string"
+          },
+          "notes": {
+            "title": "Notes",
+            "type": "string"
+          },
+          "active": {
+            "title": "Active",
+            "type": "integer"
+          },
+          "postcode": {
+            "title": "Postcode",
+            "type": "string"
+          },
+          "url": {
+            "title": "Url",
+            "maxLength": 2083,
+            "minLength": 1,
+            "type": "string",
+            "format": "uri"
+          },
+          "tags": {
+            "title": "Tags",
+            "type": "string"
+          },
+          "externalKey": {
+            "title": "Externalkey",
+            "type": "string"
+          },
+          "organization": {
+            "title": "Organization",
+            "type": "integer"
+          },
+          "address": {
+            "title": "Address",
+            "type": "integer"
+          }
+        }
+      },
+      "LocationCreateRequestExpanded": {
+        "title": "LocationCreateRequestExpanded",
+        "required": [
+          "name",
+          "active",
+          "postcode",
+          "province"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "phone": {
+            "title": "Phone",
+            "type": "string"
+          },
+          "notes": {
+            "title": "Notes",
+            "type": "string"
+          },
+          "active": {
+            "title": "Active",
+            "type": "integer"
+          },
+          "postcode": {
+            "title": "Postcode",
+            "maxLength": 6,
+            "minLength": 6,
+            "type": "string"
+          },
+          "url": {
+            "title": "Url",
+            "maxLength": 2083,
+            "minLength": 1,
+            "type": "string",
+            "format": "uri"
+          },
+          "tags": {
+            "title": "Tags",
+            "type": "string"
+          },
+          "externalKey": {
+            "title": "Externalkey",
+            "type": "string"
+          },
+          "organization": {
+            "title": "Organization",
+            "type": "integer"
+          },
+          "line1": {
+            "title": "Line1",
+            "type": "string"
+          },
+          "line2": {
+            "title": "Line2",
+            "type": "string"
+          },
+          "city": {
+            "title": "City",
+            "type": "string"
+          },
+          "province": {
+            "title": "Province",
+            "type": "string"
+          }
+        }
+      },
+      "LocationExpandedResponse": {
+        "title": "LocationExpandedResponse",
+        "required": [
+          "name",
+          "active",
+          "id",
+          "createdAt"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "phone": {
+            "title": "Phone",
+            "type": "string"
+          },
+          "notes": {
+            "title": "Notes",
+            "type": "string"
+          },
+          "active": {
+            "title": "Active",
+            "type": "integer"
+          },
+          "postcode": {
+            "title": "Postcode",
+            "type": "string"
+          },
+          "url": {
+            "title": "Url",
+            "maxLength": 2083,
+            "minLength": 1,
+            "type": "string",
+            "format": "uri"
+          },
+          "tags": {
+            "title": "Tags",
+            "type": "string"
+          },
+          "externalKey": {
+            "title": "Externalkey",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "organization": {
+            "$ref": "#/components/schemas/OrganizationResponse"
+          },
+          "address": {
+            "$ref": "#/components/schemas/AddressResponse"
+          },
+          "createdAt": {
+            "title": "Createdat",
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "LocationResponse": {
+        "title": "LocationResponse",
+        "required": [
+          "name",
+          "active",
+          "id",
+          "createdAt"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "phone": {
+            "title": "Phone",
+            "type": "string"
+          },
+          "notes": {
+            "title": "Notes",
+            "type": "string"
+          },
+          "active": {
+            "title": "Active",
+            "type": "integer"
+          },
+          "postcode": {
+            "title": "Postcode",
+            "type": "string"
+          },
+          "url": {
+            "title": "Url",
+            "maxLength": 2083,
+            "minLength": 1,
+            "type": "string",
+            "format": "uri"
+          },
+          "tags": {
+            "title": "Tags",
+            "type": "string"
+          },
+          "externalKey": {
+            "title": "Externalkey",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "organization": {
+            "title": "Organization",
+            "type": "integer"
+          },
+          "address": {
+            "title": "Address",
+            "type": "integer"
+          },
+          "createdAt": {
+            "title": "Createdat",
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "LocationUpdateRequest": {
+        "title": "LocationUpdateRequest",
+        "required": [
+          "name",
+          "active",
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "phone": {
+            "title": "Phone",
+            "type": "string"
+          },
+          "notes": {
+            "title": "Notes",
+            "type": "string"
+          },
+          "active": {
+            "title": "Active",
+            "type": "integer"
+          },
+          "postcode": {
+            "title": "Postcode",
+            "type": "string"
+          },
+          "url": {
+            "title": "Url",
+            "maxLength": 2083,
+            "minLength": 1,
+            "type": "string",
+            "format": "uri"
+          },
+          "tags": {
+            "title": "Tags",
+            "type": "string"
+          },
+          "externalKey": {
+            "title": "Externalkey",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "address": {
+            "title": "Address",
+            "type": "integer"
+          },
+          "organization": {
+            "title": "Organization",
+            "type": "integer"
+          }
+        }
+      },
+      "OrganizationCreateRequest": {
+        "title": "OrganizationCreateRequest",
+        "required": [
+          "shortName"
+        ],
+        "type": "object",
+        "properties": {
+          "fullName": {
+            "title": "Fullname",
+            "type": "string"
+          },
+          "shortName": {
+            "title": "Shortname",
+            "type": "string"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "url": {
+            "title": "Url",
+            "maxLength": 2083,
+            "minLength": 1,
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      },
+      "OrganizationResponse": {
+        "title": "OrganizationResponse",
+        "required": [
+          "shortName",
+          "id",
+          "createdAt"
+        ],
+        "type": "object",
+        "properties": {
+          "fullName": {
+            "title": "Fullname",
+            "type": "string"
+          },
+          "shortName": {
+            "title": "Shortname",
+            "type": "string"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "url": {
+            "title": "Url",
+            "maxLength": 2083,
+            "minLength": 1,
+            "type": "string",
+            "format": "uri"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "createdAt": {
+            "title": "Createdat",
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "OrganizationUpdateRequest": {
+        "title": "OrganizationUpdateRequest",
+        "required": [
+          "shortName"
+        ],
+        "type": "object",
+        "properties": {
+          "fullName": {
+            "title": "Fullname",
+            "type": "string"
+          },
+          "shortName": {
+            "title": "Shortname",
+            "type": "string"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "url": {
+            "title": "Url",
+            "maxLength": 2083,
+            "minLength": 1,
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      },
+      "RequirementResponse": {
+        "title": "RequirementResponse",
+        "required": [
+          "name",
+          "description",
+          "id",
+          "createdAt"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "createdAt": {
+            "title": "Createdat",
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "RequirementsCreateRequest": {
+        "title": "RequirementsCreateRequest",
+        "required": [
+          "name",
+          "description"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          }
+        }
+      },
+      "RequirementsUpdateRequest": {
+        "title": "RequirementsUpdateRequest",
+        "required": [
+          "name",
+          "description",
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          }
+        }
+      },
+      "SecurityLoginResponse": {
+        "title": "SecurityLoginResponse",
+        "required": [
+          "result"
+        ],
+        "type": "object",
+        "properties": {
+          "result": {
+            "title": "Result",
+            "type": "integer"
+          },
+          "key": {
+            "title": "Key",
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "SecurityResponseBase": {
+        "title": "SecurityResponseBase",
+        "required": [
+          "name",
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "password": {
+            "title": "Password",
+            "type": "string"
+          }
+        }
+      },
+      "VaccineAvailabilityCreateRequest": {
+        "title": "VaccineAvailabilityCreateRequest",
+        "required": [
+          "numberAvailable",
+          "inputType",
+          "location",
+          "date"
+        ],
+        "type": "object",
+        "properties": {
+          "numberAvailable": {
+            "title": "Numberavailable",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "numberTotal": {
+            "title": "Numbertotal",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "vaccine": {
+            "title": "Vaccine",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "inputType": {
+            "$ref": "#/components/schemas/InputTypeEnum"
+          },
+          "tags": {
+            "title": "Tags",
+            "type": "string"
+          },
+          "location": {
+            "title": "Location",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "date": {
+            "title": "Date",
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "VaccineAvailabilityExpandedCreateRequest": {
+        "title": "VaccineAvailabilityExpandedCreateRequest",
+        "required": [
+          "numberAvailable",
+          "inputType",
+          "province",
+          "postcode",
+          "name",
+          "active",
+          "date"
+        ],
+        "type": "object",
+        "properties": {
+          "numberAvailable": {
+            "title": "Numberavailable",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "numberTotal": {
+            "title": "Numbertotal",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "vaccine": {
+            "title": "Vaccine",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "inputType": {
+            "$ref": "#/components/schemas/InputTypeEnum"
+          },
+          "tags": {
+            "title": "Tags",
+            "type": "string"
+          },
+          "locationID": {
+            "title": "Locationid",
+            "type": "integer"
+          },
+          "organization": {
+            "title": "Organization",
+            "type": "integer"
+          },
+          "line1": {
+            "title": "Line1",
+            "type": "string"
+          },
+          "line2": {
+            "title": "Line2",
+            "type": "string"
+          },
+          "city": {
+            "title": "City",
+            "type": "string"
+          },
+          "province": {
+            "title": "Province",
+            "type": "string"
+          },
+          "postcode": {
+            "title": "Postcode",
+            "maxLength": 6,
+            "minLength": 6,
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "phone": {
+            "title": "Phone",
+            "type": "string"
+          },
+          "notes": {
+            "title": "Notes",
+            "type": "string"
+          },
+          "active": {
+            "title": "Active",
+            "type": "integer"
+          },
+          "url": {
+            "title": "Url",
+            "maxLength": 2083,
+            "minLength": 1,
+            "type": "string",
+            "format": "uri"
+          },
+          "tagsL": {
+            "title": "Tagsl",
+            "type": "string"
+          },
+          "tagsA": {
+            "title": "Tagsa",
+            "type": "string"
+          },
+          "externalKey": {
+            "title": "Externalkey",
+            "type": "string"
+          },
+          "date": {
+            "title": "Date",
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "VaccineAvailabilityExpandedResponse": {
+        "title": "VaccineAvailabilityExpandedResponse",
+        "required": [
+          "numberAvailable",
+          "inputType",
+          "id",
+          "location",
+          "createdAt",
+          "timeslots",
+          "requirements",
+          "date"
+        ],
+        "type": "object",
+        "properties": {
+          "numberAvailable": {
+            "title": "Numberavailable",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "numberTotal": {
+            "title": "Numbertotal",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "vaccine": {
+            "title": "Vaccine",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "inputType": {
+            "$ref": "#/components/schemas/InputTypeEnum"
+          },
+          "tags": {
+            "title": "Tags",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string",
+            "format": "uuid"
+          },
+          "location": {
+            "$ref": "#/components/schemas/LocationExpandedResponse"
+          },
+          "createdAt": {
+            "title": "Createdat",
+            "type": "string",
+            "format": "date-time"
+          },
+          "timeslots": {
+            "title": "Timeslots",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/VaccineAvailabilityTimeslotResponse"
+            }
+          },
+          "requirements": {
+            "title": "Requirements",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/VaccineAvailabilityRequirementsResponse"
+            }
+          },
+          "date": {
+            "title": "Date",
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "VaccineAvailabilityRequirementCreateRequest": {
+        "title": "VaccineAvailabilityRequirementCreateRequest",
+        "required": [
+          "requirement"
+        ],
+        "type": "object",
+        "properties": {
+          "requirement": {
+            "title": "Requirement",
+            "minimum": 0,
+            "type": "integer"
+          }
+        }
+      },
+      "VaccineAvailabilityRequirementUpdateRequest": {
+        "title": "VaccineAvailabilityRequirementUpdateRequest",
+        "required": [
+          "active",
+          "requirement"
+        ],
+        "type": "object",
+        "properties": {
+          "active": {
+            "title": "Active",
+            "type": "boolean"
+          },
+          "requirement": {
+            "title": "Requirement",
+            "minimum": 0,
+            "type": "integer"
+          }
+        }
+      },
+      "VaccineAvailabilityRequirementsResponse": {
+        "title": "VaccineAvailabilityRequirementsResponse",
+        "required": [
+          "id",
+          "vaccineAvailability",
+          "requirement",
+          "active",
+          "name",
+          "description",
+          "createdAt"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string",
+            "format": "uuid"
+          },
+          "vaccineAvailability": {
+            "title": "Vaccineavailability",
+            "type": "string",
+            "format": "uuid"
+          },
+          "requirement": {
+            "title": "Requirement",
+            "type": "integer"
+          },
+          "active": {
+            "title": "Active",
+            "type": "boolean"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "createdAt": {
+            "title": "Createdat",
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "VaccineAvailabilityResponse": {
+        "title": "VaccineAvailabilityResponse",
+        "required": [
+          "numberAvailable",
+          "inputType",
+          "id",
+          "location",
+          "createdAt",
+          "date"
+        ],
+        "type": "object",
+        "properties": {
+          "numberAvailable": {
+            "title": "Numberavailable",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "numberTotal": {
+            "title": "Numbertotal",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "vaccine": {
+            "title": "Vaccine",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "inputType": {
+            "$ref": "#/components/schemas/InputTypeEnum"
+          },
+          "tags": {
+            "title": "Tags",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string",
+            "format": "uuid"
+          },
+          "location": {
+            "title": "Location",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "createdAt": {
+            "title": "Createdat",
+            "type": "string",
+            "format": "date-time"
+          },
+          "date": {
+            "title": "Date",
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "VaccineAvailabilityTimeslotCreateRequest": {
+        "title": "VaccineAvailabilityTimeslotCreateRequest",
+        "required": [
+          "time"
+        ],
+        "type": "object",
+        "properties": {
+          "time": {
+            "title": "Time",
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "VaccineAvailabilityTimeslotRequirementExpandedResponse": {
+        "title": "VaccineAvailabilityTimeslotRequirementExpandedResponse",
+        "required": [
+          "numberAvailable",
+          "inputType",
+          "id",
+          "location",
+          "createdAt",
+          "date",
+          "timeslots",
+          "requirements"
+        ],
+        "type": "object",
+        "properties": {
+          "numberAvailable": {
+            "title": "Numberavailable",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "numberTotal": {
+            "title": "Numbertotal",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "vaccine": {
+            "title": "Vaccine",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "inputType": {
+            "$ref": "#/components/schemas/InputTypeEnum"
+          },
+          "tags": {
+            "title": "Tags",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string",
+            "format": "uuid"
+          },
+          "location": {
+            "title": "Location",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "createdAt": {
+            "title": "Createdat",
+            "type": "string",
+            "format": "date-time"
+          },
+          "date": {
+            "title": "Date",
+            "type": "string",
+            "format": "date-time"
+          },
+          "timeslots": {
+            "title": "Timeslots",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/VaccineAvailabilityTimeslotResponse"
+            }
+          },
+          "requirements": {
+            "title": "Requirements",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/VaccineAvailabilityRequirementsResponse"
+            }
+          }
+        }
+      },
+      "VaccineAvailabilityTimeslotResponse": {
+        "title": "VaccineAvailabilityTimeslotResponse",
+        "required": [
+          "id",
+          "vaccineAvailability",
+          "time",
+          "createdAt"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string",
+            "format": "uuid"
+          },
+          "vaccineAvailability": {
+            "title": "Vaccineavailability",
+            "type": "string",
+            "format": "uuid"
+          },
+          "time": {
+            "title": "Time",
+            "type": "string",
+            "format": "date-time"
+          },
+          "takenAt": {
+            "title": "Takenat",
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdAt": {
+            "title": "Createdat",
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "VaccineAvailabilityTimeslotUpdateRequest": {
+        "title": "VaccineAvailabilityTimeslotUpdateRequest",
+        "required": [
+          "time"
+        ],
+        "type": "object",
+        "properties": {
+          "time": {
+            "title": "Time",
+            "type": "string",
+            "format": "date-time"
+          },
+          "takenAt": {
+            "title": "Takenat",
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "VaccineAvailabilityUpdateRequest": {
+        "title": "VaccineAvailabilityUpdateRequest",
+        "required": [
+          "numberAvailable",
+          "inputType",
+          "location",
+          "date"
+        ],
+        "type": "object",
+        "properties": {
+          "numberAvailable": {
+            "title": "Numberavailable",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "numberTotal": {
+            "title": "Numbertotal",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "vaccine": {
+            "title": "Vaccine",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "inputType": {
+            "$ref": "#/components/schemas/InputTypeEnum"
+          },
+          "tags": {
+            "title": "Tags",
+            "type": "string"
+          },
+          "location": {
+            "title": "Location",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "date": {
+            "title": "Date",
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "VaccineLocationExpandedResponse": {
+        "title": "VaccineLocationExpandedResponse",
+        "required": [
+          "name",
+          "active",
+          "id",
+          "createdAt",
+          "vaccineAvailabilities"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "phone": {
+            "title": "Phone",
+            "type": "string"
+          },
+          "notes": {
+            "title": "Notes",
+            "type": "string"
+          },
+          "active": {
+            "title": "Active",
+            "type": "integer"
+          },
+          "postcode": {
+            "title": "Postcode",
+            "type": "string"
+          },
+          "url": {
+            "title": "Url",
+            "maxLength": 2083,
+            "minLength": 1,
+            "type": "string",
+            "format": "uri"
+          },
+          "tags": {
+            "title": "Tags",
+            "type": "string"
+          },
+          "externalKey": {
+            "title": "Externalkey",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "organization": {
+            "$ref": "#/components/schemas/OrganizationResponse"
+          },
+          "address": {
+            "$ref": "#/components/schemas/AddressResponse"
+          },
+          "createdAt": {
+            "title": "Createdat",
+            "type": "string",
+            "format": "date-time"
+          },
+          "vaccineAvailabilities": {
+            "title": "Vaccineavailabilities",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/VaccineAvailabilityTimeslotRequirementExpandedResponse"
+            }
+          }
+        }
+      },
+      "ValidationError": {
+        "title": "ValidationError",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "loc": {
+            "title": "Location",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "APIKeyHeader": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Vaccine Locations",
+      "description": "Operations about vaccine availability grouped by location."
+    },
+    {
+      "name": "Vaccine Availability",
+      "description": "Operations about vaccine availability. _Vaccine availability should include a certain date and location._"
+    },
+    {
+      "name": "Locations",
+      "description": "Operations about locations. _Each location should correspond to a place where vaccine shots are administered._"
+    },
+    {
+      "name": "Addresses",
+      "description": "Operations about addresses. _A location has a one-to-one relationship with an address._"
+    },
+    {
+      "name": "Organizations",
+      "description": "Operations about organizations. _Each organization is responsible for administering vaccines._"
+    },
+    {
+      "name": "Requirements",
+      "description": "Operations about eligibility requirements. _An eligibility requirement must be met in order for one to receive a vaccine._"
+    },
+    {
+      "name": "Security",
+      "description": "Basic authentication"
+    }
+  ]
+}
