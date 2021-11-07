@@ -10,11 +10,12 @@ import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Redirect } from "react-router-dom";
 import {
-  useGetApiV1WebPushPublicKey,
-  usePostApiV1WebPushSubscription,
+  useRetrievePublicKeyApiV1WebPushPublicKeyGet,
+  useCreateSubscriptionApiV1WebPushSubscriptionPost,
+  useDeleteSubscriptionByEndpointApiV1WebPushSubscriptionEndpointDelete,
 } from "../../apiClient";
 import { serviceWorkerRegistrar } from "../../serviceWorkerRegistration";
-import { postalCodeIsValid } from "../../utils";
+import { postalCodeIsValid, checkIsWebPushSupported } from "../../utils";
 
 // This function is needed because Chrome doesn't accept a base64 encoded string
 // as value for applicationServerKey in pushManager.subscribe yet
@@ -67,16 +68,20 @@ export function PushSubscription() {
     loading: publicKeyLoading,
     data: publicKeyData,
     error: publicKeyError,
-  } = useGetApiV1WebPushPublicKey({});
+  } = useRetrievePublicKeyApiV1WebPushPublicKeyGet({});
 
   const {
     loading: subscriptionLoading,
     error: subscriptionError,
     mutate: postSubscription,
-  } = usePostApiV1WebPushSubscription({});
+  } = useCreateSubscriptionApiV1WebPushSubscriptionPost({});
+
+  const {
+    mutate: deleteSubscription,
+  } = useDeleteSubscriptionByEndpointApiV1WebPushSubscriptionEndpointDelete({});
 
   // If browser doesn't support notification and push, bounce user to root
-  if (!("Notification" in window) || !("PushManager" in window)) {
+  if (!checkIsWebPushSupported()) {
     return <Redirect to="/" />;
   }
 
@@ -111,13 +116,11 @@ export function PushSubscription() {
     }
 
     const convertedVapidKey = urlBase64ToUint8Array(publicKeyData.key);
-    // const convertedVapidKey = urlBase64ToUint8Array(
-    //   "BINtQFAiY8vFuf9wo5751h0a_UCiVt4sibTv2yXD03oOsb8BZFKCKiMYGrWGrjtF-lLlMeH2NgU6n-Ap1hAhC08",
-    // );
     const sub = await registrationRef.current!.pushManager.subscribe({
       userVisibleOnly: true,
       applicationServerKey: convertedVapidKey,
     });
+    subscriptionRef.current = sub;
 
     const auth = sub.toJSON().keys?.auth;
     const p256dh = sub.toJSON().keys?.p256dh;
@@ -131,7 +134,6 @@ export function PushSubscription() {
       endpoint: sub.endpoint,
       auth,
       p256dh,
-      created: new Date().toISOString(),
       postalCode,
     })
       .then(() => setIsSubscribing(false))
@@ -139,7 +141,9 @@ export function PushSubscription() {
   };
 
   const handleUnsubscribe = () => {
-    // const { endpoint } = subscriptionRef.current!;
+    const { endpoint } = subscriptionRef.current!;
+    deleteSubscription(endpoint).catch((err) => console.error(err));
+
     subscriptionRef
       .current!.unsubscribe()
       .then(() => setIsSubscribing(true))

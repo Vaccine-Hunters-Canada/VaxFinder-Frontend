@@ -18,6 +18,7 @@ import { Twitter } from "./components/Twitter";
 import { userService } from "./services/userService";
 import { AppContext } from "./contexts/AppContext";
 import { usePageViews } from "./hooks/usePageViews";
+import { checkIsWebPushSupported } from "./utils";
 
 const languages = [
   {
@@ -246,12 +247,17 @@ export function AppFrame() {
                 label: t("privacypolicy"),
                 icon: ViewMajor,
               },
-              {
-                url: "/pushsubscribe",
-                label: t("pushnotifications"),
-                icon: NotificationMajor,
-              },
-            ]}
+            ].concat(
+              checkIsWebPushSupported()
+                ? [
+                    {
+                      url: "/pushsubscribe",
+                      label: t("pushnotifications"),
+                      icon: NotificationMajor,
+                    },
+                  ]
+                : [],
+            )}
           />
 
           {/* Hide language bar when logged in because admin section is English only */}

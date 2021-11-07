@@ -1,11 +1,11 @@
 import { rest } from "msw";
-import { GetApiV1WebPushPublicKeyResponse } from "../../apiClient";
+import { KeyResponse } from "../../apiClient";
 
 export const webPushHandlers = [
   rest.get(
-    `${process.env.REACT_APP_API_URL}/api/v1/webPush/publicKey/`,
+    `${process.env.REACT_APP_API_URL}/api/v1/webPush/public-key`,
     async (req, res, ctx) => {
-      const response: GetApiV1WebPushPublicKeyResponse = {
+      const response: KeyResponse = {
         key:
           "BINtQFAiY8vFuf9wo5751h0a_UCiVt4sibTv2yXD03oOsb8BZFKCKiMYGrWGrjtF-lLlMeH2NgU6n-Ap1hAhC08",
       };
@@ -15,8 +15,11 @@ export const webPushHandlers = [
 
   rest.post(
     `${process.env.REACT_APP_API_URL}/api/v1/webPush/subscription`,
-    async (req, res, ctx) => {
-      return res(ctx.status(201));
-    },
+    async (req, res, ctx) => res(ctx.status(201)),
+  ),
+
+  rest.post(
+    `${process.env.REACT_APP_API_URL}/api/v1/webPush/subscription`,
+    async (req, res, ctx) => res(ctx.status(204)),
   ),
 ];
