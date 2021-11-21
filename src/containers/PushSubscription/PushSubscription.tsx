@@ -85,16 +85,16 @@ export function PushSubscription() {
     return <Redirect to="/" />;
   }
 
-  if (publicKeyLoading || !publicKeyData?.key) {
-    return <></>;
-  }
-
   if (publicKeyError || subscriptionError || isError) {
     return (
       <Banner title="Error" status="critical">
         {t("anerrorhasoccurred")}
       </Banner>
     );
+  }
+
+  if (publicKeyLoading || !publicKeyData?.key) {
+    return <></>;
   }
 
   const validateForm = () => {
@@ -110,7 +110,7 @@ export function PushSubscription() {
     return isValid;
   };
 
-  const handleSubscribe = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubscribe = async () => {
     if (!validateForm()) {
       return;
     }
@@ -157,8 +157,8 @@ export function PushSubscription() {
   // Show subscription form or unsubscription form
   return isSubscribing ? (
     <Card>
-      <Banner title="Subscribe for push notifications" status="info">
-        Sign up to be notified when vaccines become available in your area.
+      <Banner title={t("subscribepush")} status="info">
+        {t("signuptobenotified")}
       </Banner>
       <Card.Section>
         <Form onSubmit={handleSubscribe}>
@@ -176,7 +176,7 @@ export function PushSubscription() {
               />
             </FormLayout.Group>
             <Button primary submit disabled={subscriptionLoading}>
-              Subscribe
+              {t("subscribe")}
             </Button>
           </FormLayout>
         </Form>
@@ -185,14 +185,13 @@ export function PushSubscription() {
   ) : (
     <Card>
       <Banner title="Unsubscribe from push notifications" status="info">
-        You are presently subscribed to push notifications. Click the button
-        below to stop receiving messages.
+        {t("youarepresently")}
       </Banner>
       <Card.Section>
         <Form onSubmit={handleUnsubscribe}>
           <FormLayout>
             <Button primary submit disabled={subscriptionLoading}>
-              Unsubscribe
+              {t("unsubscribe")}
             </Button>
           </FormLayout>
         </Form>
