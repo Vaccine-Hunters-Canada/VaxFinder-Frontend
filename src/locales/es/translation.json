@@ -31,5 +31,11 @@
     "submit": "Enviar",
     "termsofservice": "Términos de servicio",
     "visitwebsite": "Visitar sitio",
-    "walkin": "Entrar"
+    "walkin": "Entrar",
+    "subscribepush": "Suscríbete para recibir notificaciones push",
+    "subscribepushdetails":"Regístrate para ser notificado cuando las vacunas estén disponibles en tu área",  
+    "unsubscribepush":"Cancela tu suscripción a las notificaciones push.",
+    "unsubscribepushdetails":"Actualmente estas suscrito para recibir notificaciones push. Haz clic en el botón para detener este servicio.",
+    "pushnotifications":"Notificaciones Push",
+    "unknownphonenumber":"Número de Teléfono Desconocido"
 }

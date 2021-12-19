@@ -32,5 +32,11 @@
     "submit": "הגש טופס",
     "termsofservice": "תנאי השירות",
     "visitwebsite": "כניסה לאתר",
-    "walkin": "ללכת ב"
+    "walkin": "ללכת ב",
+    "subscribepush": "הירשמו לקבלת הודעות",
+    "subscribepushdetails":"הירשמו לקבלת הודעה כשחיסון יימצא באזור שלך.",  
+    "unsubscribepush":"ביטול קבלת הודעות",
+    "unsubscribepushdetails":"כרגע אתה מנוי לקבלת הודעות. לחץ על הכפתור למטה להפסקת קבלת הודעות.",
+    "pushnotifications":"בחירת סוגי הודעות",
+    "unknownphonenumber":"מספר טלפון לא ידוע "
 }

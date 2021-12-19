@@ -29,5 +29,11 @@
     "submit": "Invia",
     "termsofservice": "Termini di servizio",
     "visitwebsite": "Visita il sito web",
-    "walkin": "Entrare"
+    "walkin": "Entrare",
+    "subscribepush": "Iscriviti per ricevere notifiche dirette",
+    "subscribepushdetails":"Iscriviti per ricevere notifiche quando i vaccini saranno disponibili nella tua regione",  
+    "unsubscribepush":"Cancellarsi dalle notifiche dirette",
+    "unsubscribepushdetails":"Al momento sei iscritto alle notifiche dirette. Fare clic sul pulsante in basso per annullare le notifiche.",
+    "pushnotifications":"Notifiche dirette",
+    "unknownphonenumber":"Numero di telefono sconosciuto"
 }

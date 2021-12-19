@@ -39,6 +39,8 @@
   "seconddose": "Second Dose",
   "show": "Show",
   "submit": "Submit",
+  "subscribepush": "Subscribe for push notifications",
+  "subscribepushdetails":"Sign up to be notified when vaccines become available in your area",
   "termsofservice": "Terms Of Service",
   "visitwebsite": "Visit Website",
   "walkin": "Walk-in",
@@ -49,9 +51,13 @@
   "phone": "Phone",
   "postalcode": "Postal Code",
   "province": "Province",
+  "pushnotifications":"Push Notifications",
   "storeinfo": "Store Info",
   "streetname": "Street Name",
   "thirddose": "Third Dose",
+  "unsubscribepush":"Unsubscribe from push notifications",
+  "unsubscribepushdetails":"You are presently subscribed to push notifications. Click the button below to stop receiving messages.",
+  "unknownphonenumber":"Unknown Phone Number",
   "username": "Username",
   "websiteurl": "Website URL"
 }

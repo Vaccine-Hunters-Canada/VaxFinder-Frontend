@@ -29,5 +29,11 @@
     "submit": "Trimite",
     "termsofservice": "Termenii serviciului",
     "visitwebsite": "Vizitati site-ul",
-    "walkin": "Intra"
+    "walkin": "Intra",
+    "subscribepush": "Înscrie-te pentru notificările push",
+    "subscribepushdetails":"Înscrie-te să fii anunțat când vaccinurile o să fie disponibile în zona ta",  
+    "unsubscribepush":"Anuleaza inscrierea la notificările push",
+    "unsubscribepushdetails":"Ești înscris acum la notificările push. Apasă butonul de jos să nu mai primești mesaje",
+    "pushnotifications":"Notificări push",
+    "unknownphonenumber":"Număr de telefon necunoscut"
 }

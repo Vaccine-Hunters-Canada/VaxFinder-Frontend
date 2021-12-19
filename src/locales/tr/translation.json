@@ -34,5 +34,11 @@
     "submit": "Gönder",
     "termsofservice": "Kullanım Şartları",
     "visitwebsite": "Sayfaya git",
-    "walkin": "İçine girilebilen"
+    "walkin": "İçine girilebilen",
+    "subscribepush": "Bildirim almak için abone ol",
+    "subscribepushdetails":"Bana yakın aşı bulunduğunda bildirim almak için kaydol",  
+    "unsubscribepush":"Bildirim aboneliğinden çık",
+    "unsubscribepushdetails":"Anında bildirim almak için aboneliğiniz bulunmaktadır. Bildirimleri durdurmak için aşağıdaki butona tıklayınız.",
+    "pushnotifications":"Anında bildirim",
+    "unknownphonenumber":"Telefon numarası bilinmiyor"
 }
