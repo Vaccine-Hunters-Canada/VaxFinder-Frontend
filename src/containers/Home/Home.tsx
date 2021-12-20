@@ -2,27 +2,24 @@ import { Card } from "@shopify/polaris";
 import { DomainsMajor } from "@shopify/polaris-icons";
 import React from "react";
 import { SearchCard } from "../../components/SearchCard";
+import { useTranslation } from "react-i18next";
 
 export function Home() {
+  const { t } = useTranslation();
   return (
     <>
       <SearchCard />
       <Card
-        title="Are you a pharmacist?"
+        title={t("areyouapharmacist")}
         primaryFooterAction={{
-          content: "Request To Join",
+          content: t("requesttojoin"),
           icon: DomainsMajor,
           external: true,
           url: "https://vaccinehunters.ca/pharmacy",
         }}
       >
         <Card.Section>
-          <p>
-            You can easily get your pharmacies availabilities posted on this
-            website! Easily post availabilities that you have in under a minute,
-            and quickly fill up availabilties. Click the &quot;Request To
-            Join&quot; button to get access!
-          </p>
+          <p>{t("pharmacydescription")}</p>
         </Card.Section>
       </Card>
     </>

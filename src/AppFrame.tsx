@@ -260,9 +260,9 @@ export function AppFrame() {
           <Layout.Section>
             <Routes />
             <FooterHelp>
-              Get more resources{" "}
+              {t("getmoreresources")}{" "}
               <Link external url="https://vaccinehunters.ca/diy">
-                on our DIY pages
+                {t("onourdiypages")}
               </Link>
               .
             </FooterHelp>
