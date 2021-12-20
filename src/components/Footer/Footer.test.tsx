@@ -3,12 +3,12 @@ import { render } from "../../testUtils";
 import { Footer } from "./Footer";
 
 describe("Footer", () => {
-  test("Should render the default", async () => {
+  test("Should render the default", () => {
     const { getByText } = render(<Footer />);
     expect(getByText(/Get more resources/)).toBeInTheDocument();
     expect(getByText(/on our DIY pages/)).toHaveAttribute(
       "href",
-      "https://vaccinehunters.ca/diy"
+      "https://vaccinehunters.ca/diy",
     );
   });
 
@@ -35,13 +35,13 @@ describe("Footer", () => {
     ],
   ])(
     "Should render the appropriate text and link for postal code",
-    async (postalCode, expectedText, expectedLink) => {
+    (postalCode, expectedText, expectedLink) => {
       const { getByText } = render(<Footer postalCode={postalCode} />);
       expect(getByText(expectedText)).toBeInTheDocument();
       expect(getByText(/on our DIY pages/)).toHaveAttribute(
         "href",
-        expectedLink
+        expectedLink,
       );
-    }
+    },
   );
 });
