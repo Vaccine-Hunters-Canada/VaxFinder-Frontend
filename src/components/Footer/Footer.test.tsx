@@ -23,6 +23,16 @@ describe("Footer", () => {
       /Get more Ontario resources/,
       "https://vaccinehunters.ca/ontario",
     ],
+    [
+      "X0A0X0",
+      /Get more Nunavut resources/,
+      "https://vaccinehunters.ca/nunavut",
+    ],
+    [
+      "X0X0X0",
+      /Get more Northwest Territories resources/,
+      "https://vaccinehunters.ca/northwestterritories",
+    ],
   ])(
     "Should render the appropriate text and link for postal code",
     async (postalCode, expectedText, expectedLink) => {
