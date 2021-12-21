@@ -33,5 +33,11 @@
     "submit": "Ipasa",
     "termsofservice": "Mga Tuntunin ng Serbisyo",
     "visitwebsite": "Bisitahin ang website",
-    "walkin": "Maglakad-in"
+    "walkin": "Maglakad-in",
+    "subscribepush": "Mag-subscribe sa push notification.",
+    "subscribepushdetails":"Mag-subscribe para maipa-alam kung mayroong bakuna sa inyong lugar.",  
+    "unsubscribepush":"Mag-unsubscribe sa push notification.",
+    "unsubscribepushdetails":"Ikaw ay kasalukuyang naka-subscribe sa push notification. I-click ang button para mahinto ang pagtanggap ng mga mensahe.",
+    "pushnotifications":"Push Notifications",
+    "unknownphonenumber":"Hindi kilalang numero"
 }

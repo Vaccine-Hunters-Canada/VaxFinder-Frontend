@@ -35,5 +35,11 @@
     "termsofservice": "Conditions d'utilisation",
     "thirddose": "Troisième Dose",
     "visitwebsite": "Visitez le site Web",
-    "walkin": "Sans rendez-vous"
+    "walkin": "Sans rendez-vous",
+    "subscribepush": "Inscrivez-vous afin de recevoir les notifications instantanées",
+    "subscribepushdetails":"Inscrivez-vous afin d'être notifié une fois que les vaccins seront disponibles dans votre région.",  
+    "unsubscribepush":"Désinscrivez-vous des notifications instantanées.",
+    "unsubscribepushdetails":"Vous êtes maintenant inscrit aux notifications instantanées. Pour désactiver ces alertes, cliquez sur le bouton ci-dessous.",
+    "pushnotifications":"Notifications Instantanées",
+    "unknownphonenumber":"Numéro de téléphone inconnu"
 }

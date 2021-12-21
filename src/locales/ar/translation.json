@@ -33,5 +33,11 @@
     "submit": "إرسال",
     "termsofservice": "شروط الخدمة",
     "visitwebsite": "زيارة الموقع",
-    "walkin": "لا حاجة لتحديد موعد"
+    "walkin": "لا حاجة لتحديد موعد",
+    "subscribepush": "اشترك لتحصل على الإ شعارات",
+    "subscribepushdetails":"سجل ليتم ابلاغك عن توفر التطعيم في منطقتك",  
+    "unsubscribepush":"إلغاء اشتراك الحصول على الإ شعارات",
+    "unsubscribepushdetails":"انت الان مشترك بتبليغ الإشعارات. اذا اردت الغلاء استلام الإشعارات اظغط الزر ادناه لايقاف استلام الرسائل .",
+    "pushnotifications":"اخبارالإ شعارات",
+    "unknownphonenumber":"رقم غير معرف"
 }

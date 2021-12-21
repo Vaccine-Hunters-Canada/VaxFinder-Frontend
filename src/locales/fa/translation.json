@@ -34,5 +34,11 @@
     "submit": "ارسال",
     "termsofservice": "مفاد قرارداد ارائه خدمات",
     "visitwebsite": "بازدید از وبسایت",
-    "walkin": "بدون قرار قبلی"
+    "walkin": "بدون قرار قبلی",
+    "subscribepush": "ثبت نام برای اطلاع رسانی",
+    "subscribepushdetails":"برای اطلاعات در مورد موجودیت واکسیناسیون در منطقه ی خود، ثبت نام کنید.",  
+    "unsubscribepush":"تایید برای لغو اطلاع رسانی",
+    "unsubscribepushdetails":"اکنون شما مشترک اطلاع رسانی هستید. برای لغو اطلاع رسانی دکمه ی زیر را فشار دهید.",
+    "pushnotifications":"اطلاع رسانی",
+    "unknownphonenumber":"شماره ی تلفنیِ ناشناس"
 }

@@ -34,5 +34,11 @@
     "submit": "提交",
     "termsofservice": "服務條款",
     "visitwebsite": "訪問網頁",
-    "walkin": "步入"
+    "walkin": "步入",
+    "subscribepush": "訂閱推送通知",
+    "subscribepushdetails":"登記收取當您所在地區有疫苗供應時的通知",  
+    "unsubscribepush":"取消訂閱推送通知",
+    "unsubscribepushdetails":"您目前已訂閱推送通知。按下按鈕以便停止接收消息。",
+    "pushnotifications":"推送通知",
+    "unknownphonenumber":"不明電話號碼"
 }

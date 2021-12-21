@@ -34,5 +34,11 @@
     "submit": "Prihvati",
     "termsofservice": "Uslovi korišćenja",
     "visitwebsite": "Posetite veb stranicu",
-    "walkin": "Walk-in klinika"
+    "walkin": "Walk-in klinika",
+    "subscribepush": "Претплатите се на обавештења",
+    "subscribepushdetails":"Пријавите се да бисте били обавештени када вакцине буду доступне у вашем крају",  
+    "unsubscribepush":"Откажите претплату на обавештења",
+    "unsubscribepushdetails":"Тренутно сте претплаћени на обавештења. Притисните на доње дугме да престанете да примате обавештења.",
+    "pushnotifications":"Претплата на обавештења",
+    "unknownphonenumber":"Непознати број телефона"
 }
