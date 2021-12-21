@@ -1,15 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useCallback, useContext, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
-import {
-  FooterHelp,
-  Frame,
-  Layout,
-  Link,
-  Navigation,
-  Page,
-  TopBar,
-} from "@shopify/polaris";
+import { Frame, Layout, Navigation, Page, TopBar } from "@shopify/polaris";
 import {
   HomeMajor,
   LockMajor,
@@ -259,13 +251,6 @@ export function AppFrame() {
         <Layout>
           <Layout.Section>
             <Routes />
-            <FooterHelp>
-              Get more resources{" "}
-              <Link external url="https://vaccinehunters.ca/diy">
-                on our DIY pages
-              </Link>
-              .
-            </FooterHelp>
           </Layout.Section>
           <Layout.Section secondary>
             <Twitter />
