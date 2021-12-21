@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
-import { FooterHelp, Link } from "@shopify/polaris";
+import { DisplayText, FooterHelp, Link } from "@shopify/polaris";
 
 interface LocationData {
   url: string;
@@ -109,11 +109,13 @@ export function Footer({ postalCode }: Props) {
   const location = getLocation(postalCode);
   return (
     <FooterHelp>
-      Get more {location.name} resources{" "}
-      <Link external url={location.url}>
-        on our DIY pages
-      </Link>
-      .
+      <DisplayText size="small">
+        Get more {location.name} resources{" "}
+        <Link external url={location.url}>
+          on our DIY pages
+        </Link>
+        .
+      </DisplayText>
     </FooterHelp>
   );
 }
