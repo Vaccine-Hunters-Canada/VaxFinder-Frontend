@@ -1,4 +1,7 @@
 {
+    "12plusyearolds": "12+ lat",
+    "5to11yearolds": "5-11 lat",
+    "address": "Adres",
     "appointmentsavailable": "Dostępne terminy",
     "appointmentsnotavailable": "Niedostępne terminy",
     "asof": "od {{date, MMM d, y}}",
@@ -11,7 +14,7 @@
     "eligibility": "Ważne:",
     "eligibilitymessage": "Sprawdź czy kwalifikujesz się do otrzymania szczepionki, w tym celu zapoznaj się z wytycznymi lokalnych placówek zdrowia dotyczących szczepień.",
     "email": "E-mail",
-    "enterpostalcode": "Wpisz kod pocztowy:",
+    "enterpostalcode": "Wpisz kod pocztowy",
     "firstdose": "pierwsza dawka",
     "hide": "Ukryj",
     "home": "Strona Główna",
@@ -21,6 +24,7 @@
     "loadmap": "Pokaż mapę",
     "login": "Zaloguj sie",
     "noappointments": "W pobliżu kodu pocztowego {{postalCode}} nie znaleziono wolnych terminów. Spróbuj ponownie później.",
+    "phone": "Telefon",
     "postalcodetext": "Użyjemy tego kodu, aby znaleźć najbliższe punkty szczepień z dostępnymi terminami.",
     "privacypolicy": "Polityka prywatności",
     "quantity": "Ilość",
@@ -29,5 +33,6 @@
     "submit": "Prześlij",
     "termsofservice": "Warunki usługi",
     "visitwebsite": "Odwiedź stronę",
-    "walkin": "Wejść"
+    "walkin": "Wejść",
+    "websiteurl": "Adres URL witryny"
 }

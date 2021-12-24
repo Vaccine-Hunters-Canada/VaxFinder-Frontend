@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import { DisplayText, FooterHelp, Link } from "@shopify/polaris";
+import { useTranslation } from "react-i18next";
 
 interface LocationData {
   url: string;
@@ -106,15 +107,16 @@ interface Props {
 }
 
 export function Footer({ postalCode }: Props) {
+  const { t } = useTranslation();
   const location = getLocation(postalCode);
   return (
     <FooterHelp>
       <DisplayText size="small">
-        Get more {location.name} resources{" "}
-        <Link external url={location.url}>
-          on our DIY pages
-        </Link>
-        .
+        {t("getmoreresources", { location: location.name })}{" "}
+      <Link external url={location.url}>
+        {t("onourdiypages")}
+      </Link>
+      .
       </DisplayText>
     </FooterHelp>
   );

@@ -188,14 +188,14 @@ export function PharmacyCard(props: PharmacyProps) {
         if (tag === "5-11 Year Olds") {
           returnTags.push(
             <Badge key={tag} status="critical">
-              5-11 Year Olds
+              {t("5to11yearolds")}
             </Badge>,
           );
         }
         if (tag === "12+ Year Olds") {
           returnTags.push(
             <Badge key={tag} status="critical">
-              12+ Year Olds
+              {t("12plusyearolds")}
             </Badge>,
           );
         }
@@ -233,7 +233,6 @@ export function PharmacyCard(props: PharmacyProps) {
         if (tag === "2nd Dose") {
           returnTags.push(<Badge key={tag}>{t("seconddose")}</Badge>);
         }
-        // Will need to update some of the i18n translations for third dose, only have english and french right now
         if (tag === "3rd Dose") {
           returnTags.push(<Badge key={tag}>{t("thirddose")}</Badge>);
         }
@@ -299,7 +298,7 @@ export function PharmacyCard(props: PharmacyProps) {
               </Stack.Item>
             </Stack>
           </Card.Section>
-          {/* {appointmentsAvailableMarkup()} */}
+          {t("unknownphonenumber")}
           {bannerMarkup()}
         </TextContainer>
         {shouldShowMap ? <Map /> : null}

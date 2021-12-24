@@ -1,4 +1,7 @@
 {
+    "12plusyearolds": "12 godina",
+    "5to11yearolds": "5-11 godina",
+    "address": "Adresa",
     "appointmentsavailable": "Slobodni termini",
     "appointmentsnotavailable": "Nema raspoloživih termina",
     "asof": "Ažurirano {{date, d MMM y}}",
@@ -24,6 +27,7 @@
     "loadmap": "Učitajte kartu",
     "login": "Prijaviti se",
     "noappointments": "Nisu pronađeni termini u blizini {{postalCode}}. Molimo pokušajte ponovo kasnije.",
+    "phone": "Telefon",
     "popupwarning": "Ovo je pop-up klinika",
     "popupwarningmessage": "Posjetite web stranicu kako biste potvrdili ispunjavate li uvjete za ovu lokaciju.",
     "postalcodetext": "Upotrijebit ćemo ovaj poštanski broj za pronalaženje najbližih dostupnih cjepiva.",
@@ -34,5 +38,6 @@
     "submit": "Prihvati",
     "termsofservice": "Uvjeti pružanja usluge",
     "visitwebsite": "Posjetite web stranicu",
-    "walkin": "Walk-in klinika"
+    "walkin": "Walk-in klinika",
+    "websiteurl": "URL web-lokacije"
 }
