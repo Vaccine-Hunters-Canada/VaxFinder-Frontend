@@ -7,6 +7,7 @@ import {
   LockMajor,
   CircleInformationMajor,
   ViewMajor,
+  NoteMajor,
 } from "@shopify/polaris-icons";
 import { Routes } from "./Routes";
 import { useTranslation } from "react-i18next";
@@ -186,6 +187,17 @@ export function AppFrame() {
               },
             ]}
           />
+
+          <Navigation.Section
+            separator
+            items={[
+              {
+                url: "/vaccineinfo",
+                label: t("vaccineinfo"),
+                icon: CircleInformationMajor,
+              },
+            ]}
+          />
           {userService.checkIsAuthenticated() ? (
             <Navigation.Section
               separator
@@ -222,7 +234,7 @@ export function AppFrame() {
               {
                 url: "/tos",
                 label: t("termsofservice"),
-                icon: CircleInformationMajor,
+                icon: NoteMajor,
               },
               {
                 url: "/privacypolicy",
