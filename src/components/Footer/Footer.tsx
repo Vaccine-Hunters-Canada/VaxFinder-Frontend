@@ -113,10 +113,10 @@ export function Footer({ postalCode }: Props) {
     <FooterHelp>
       <DisplayText size="small">
         {t("getmoreresources", { location: location.name })}{" "}
-      <Link external url={location.url}>
-        {t("onourdiypages")}
-      </Link>
-      .
+        <Link external url={location.url}>
+          {t("onourdiypages")}
+        </Link>
+        .
       </DisplayText>
     </FooterHelp>
   );
