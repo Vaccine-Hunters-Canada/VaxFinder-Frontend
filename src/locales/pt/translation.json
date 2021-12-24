@@ -1,7 +1,10 @@
 {
+    "12plusyearolds": "12+ anos de idade",
+    "5to11yearolds": "5-11 anos de idade",
+    "address": "Endereço",
     "appointmentsavailable": "Agendamentos disponíveis",
     "appointmentsnotavailable": "Agendamentos indisponíveis",
-    "asof": "A parti de {{date, MMM d, y}}",
+    "asof": "A partir de {{date, MMM d, y}}",
     "callahead": "Ligue com antecedência, ligue antecipadamente",
     "cancellationwarning": "Cancelamento",
     "couldnotloadpharmacydata": "Não foi possível carregar os dados da farmácia, tente novamente mais tarde",
@@ -21,6 +24,7 @@
     "loadmap": "Carregar mapa",
     "login": "Conecte-se",
     "noappointments": "Nenhum agendamento foi encontrado perto de {{postalCode}}. Por favor, tente novamente mais tarde.",
+    "phone": "Telefone",
     "postalcodetext": "Usaremos este código postal para encontrar as vacinas disponíveis mais próximas.",
     "privacypolicy": "Política de Privacidade",
     "quantity": "Quantidade",
@@ -29,5 +33,6 @@
     "submit": "Enviar",
     "termsofservice": "Termos de serviço",
     "visitwebsite": "Visite o site",
-    "walkin": "Walk-in"
+    "walkin": "Walk-in",
+    "websiteurl": "URL do site"
 }

@@ -1,4 +1,7 @@
 {
+    "12plusyearolds": "Hơn 12 tuổi",
+    "5to11yearolds": "5-11 tuổi",
+    "address": "Địa chỉ nhà",
     "appointmentsavailable": "Còn lượt hẹn",
     "appointmentsnotavailable": "Hết lượt lẹn",
     "asof": "vào ngày {{date, MMM d y}}",
@@ -24,6 +27,9 @@
     "loadmap": "Tải bản đồ",
     "login": "Đăng nhập",
     "noappointments": "Không tìm thấy điểm chủng ngừa nào còn nhận tiêm ở gần {{mã bưu điện}}. Vui lòng thử lại sau",
+    "phone": "Số điện thoại",
+    "popupwarning": "Đây là một điểm chủng ngừa lưu động",
+    "popupwarningmessage": "Vui lòng truy cập trang mạng để xem bạn có đủ điều kiện tiêm vắc-xin ở dịa điểm này không",
     "postalcodetext": "Chúng tôi sẽ sử dụng mã bưu điện này để tìm những chỗ có nhận tiêm vắc-xin gần nơi bạn ở nhất",
     "privacypolicy": "Chính sách bảo mật",
     "quantity": "Số lượng",
@@ -32,5 +38,6 @@
     "submit": "Gửi",
     "termsofservice": "Điều khoản dịch vụ",
     "visitwebsite": "Truy cập trang mạng",
-    "walkin": "Không cần hẹn trước"
+    "walkin": "Không cần hẹn trước",
+    "websiteurl": "URL trang web"
 }

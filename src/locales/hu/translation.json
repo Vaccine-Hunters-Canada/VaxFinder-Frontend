@@ -1,4 +1,7 @@
 {
+    "12plusyearolds": "12+ éves",
+    "5to11yearolds": "5-11 évesek",
+    "address": "Cím",
     "appointmentsavailable": "Idöpontok állnak rendelkezésre",
     "appointmentsnotavailable": "Idöpontok nem állnak rendelkezésre",
     "asof": "ettöl a dátumtól kezdve {{date, MMM d, y}}",
@@ -24,13 +27,17 @@
     "loadmap": "Térkép betöltése",
     "login": "Belépés",
     "noappointments": "Nem található idopont ennek az irányítószámnak {{postalCode}} közelében. Kérem, próbálkozzon újra később.",
+    "phone": "Telefon",
+    "popupwarning": "Aceasta este o clinica temporara",
+    "popupwarningmessage": "Va rugam sa vizitati website sa verificati daca aveti dreptul sa vaccinati la aceasta locatie",
     "postalcodetext": "Ezt az irányítószámot használjuk a legközelebbi oltóanyagok megtalálásához.",
     "privacypolicy": "Adatvédelmi irányelvek",
     "quantity": "Mennyiség",
-    "seconddose": "A doua doză",
+    "seconddose": "második dózis",
     "show": "Mutasd meg idöpontokat",
     "submit": "Beküldés",
     "termsofservice": "Szolgáltatás feltételei",
     "visitwebsite": "Látogasson el a weboldalra",
-    "walkin": "Besétál"
+    "walkin": "Besétál",
+    "websiteurl": "Weboldal URL"
 }
