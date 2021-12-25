@@ -19,7 +19,7 @@ export function Routes() {
         <Route exact path="/search/:postalCode" component={Search} />
         <Route exact path="/login" component={Login} />
         <PrivateRoute path="/admin" render={() => <AdminRoutes />} />
-        <Redirect exact from="*" to="/" />
+        <Redirect to="/" />
       </Switch>
     </React.Suspense>
   );
