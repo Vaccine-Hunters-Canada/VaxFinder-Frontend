@@ -294,11 +294,10 @@ export function PharmacyCard(props: PharmacyProps) {
             <Stack>
               <Icon source={PhoneMajor} color="base" />
               <Stack.Item>
-                {props.phone ? props.phone : "Unknown Phone Number"}
+                {props.phone ? props.phone : t("unknownphonenumber")}
               </Stack.Item>
             </Stack>
           </Card.Section>
-          {t("unknownphonenumber")}
           {bannerMarkup()}
         </TextContainer>
         {shouldShowMap ? <Map /> : null}
