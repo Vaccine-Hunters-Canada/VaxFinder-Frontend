@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 
 interface LocationData {
   url: string;
-  name: string;
+  resourcekey: string;
 }
 
 /** Given a postal code, fetch the appropriate location in Canada
@@ -21,84 +21,84 @@ function getLocation(postalCode: string | undefined): LocationData {
   if (postalDistrict === "T") {
     return {
       url: `${rootUrl}/alberta`,
-      name: "Alberta",
+      resourcekey: "province_ab",
     };
   }
   if (postalDistrict === "V") {
     return {
       url: `${rootUrl}/britishcolumbia`,
-      name: "British Columbia",
+      resourcekey: "province_bc",
     };
   }
   if (postalDistrict === "R") {
     return {
       url: `${rootUrl}/manitoba`,
-      name: "Manitoba",
+      resourcekey: "province_mb",
     };
   }
   if (postalDistrict === "E") {
     return {
       url: `${rootUrl}/newbrunswick`,
-      name: "New Brunswick",
+      resourcekey: "province_nb",
     };
   }
   if (postalDistrict === "A") {
     return {
       url: `${rootUrl}/newfoundlandandlabrador`,
-      name: "Newfoundland and Labrador",
+      resourcekey: "province_nl",
     };
   }
   if (postalDistrict === "B") {
     return {
       url: `${rootUrl}/novascotia`,
-      name: "Nova Scotia",
+      resourcekey: "province_ns",
     };
   }
   if (["X0A", "X0B", "X0C"].includes(forwardSortationArea)) {
     return {
       url: `${rootUrl}/nunavut`,
-      name: "Nunavut",
+      resourcekey: "province_nu",
     };
   }
   if (postalDistrict === "X") {
     return {
       url: `${rootUrl}/northwestterritories`,
-      name: "Northwest Territories",
+      resourcekey: "province_nt",
     };
   }
   if (["K", "L", "M", "N"].includes(postalDistrict)) {
     return {
       url: `${rootUrl}/ontario`,
-      name: "Ontario",
+      resourcekey: "province_on",
     };
   }
   if (postalDistrict === "C") {
     return {
       url: `${rootUrl}/princeedwardisland`,
-      name: "Prince Edward Island",
+      resourcekey: "province_pe",
     };
   }
   if (["J", "G", "H"].includes(postalDistrict)) {
     return {
       url: `${rootUrl}/quebec`,
-      name: "Quebec",
+      resourcekey: "province_qc",
     };
   }
   if (postalDistrict === "S") {
     return {
       url: `${rootUrl}/saskatchewan`,
-      name: "Saskatchewan",
+      resourcekey: "province_sk",
     };
   }
   if (postalDistrict === "Y") {
     return {
       url: `${rootUrl}/yukon`,
-      name: "Yukon",
+      resourcekey: "province_yt",
     };
   }
   return {
     url: `${rootUrl}/diy`,
-    name: "",
+    resourcekey: "",
   };
 }
 
@@ -109,10 +109,18 @@ interface Props {
 export function Footer({ postalCode }: Props) {
   const { t } = useTranslation();
   const location = getLocation(postalCode);
+  let getmoreresourcestext;
+  if (location.resourcekey === "") {
+    getmoreresourcestext = t("getmoreresources");
+  } else {
+    getmoreresourcestext = t("getmoreresourceslocation", {
+      location: t(location.resourcekey, { context: "le" }),
+    });
+  }
   return (
     <FooterHelp>
       <DisplayText size="small">
-        {t("getmoreresources", { location: location.name })}{" "}
+        {getmoreresourcestext}{" "}
         <Link external url={location.url}>
           {t("onourdiypages")}
         </Link>
