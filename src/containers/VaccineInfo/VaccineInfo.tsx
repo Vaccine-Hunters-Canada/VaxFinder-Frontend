@@ -25,6 +25,7 @@ export function VaccineInfo() {
           primaryAction={{
             content: "Learn more",
             url: "https://www.youtube.com/watch?v=Y51ZgZCS8J0",
+            external: true,
           }}
           description="This video explains the vaccine development process and how it is possible to achieve a COVID-19 vaccine, with significant domestic and international collaboration, in a much shorter period of time."
         >
@@ -42,6 +43,7 @@ export function VaccineInfo() {
           primaryAction={{
             content: "Learn more",
             url: "https://www.youtube.com/watch?v=WOvvyqJ-vwo",
+            external: true,
           }}
           description="mRNA vaccines have to potential to end the COVID19 pandemic. How do they work? Are they safe? And how could they've been developed so quickly?"
         >
@@ -59,6 +61,7 @@ export function VaccineInfo() {
           primaryAction={{
             content: t("visitwebsite"),
             url: "https://thisisourshot.ca/",
+            external: true,
           }}
           description="Provides a broad array of vaccine information like information on
             health and saftey, information for before, during and after your
@@ -82,6 +85,7 @@ export function VaccineInfo() {
             content: t("visitwebsite"),
             url:
               "https://www.missinformed.ca/covid-19vaccine-common-questions-misconceptions",
+            external: true,
           }}
           description="missInformed is a very well trusted non-profit designed to provide
             health education and to promote informed advocacy through
@@ -104,8 +108,9 @@ export function VaccineInfo() {
           primaryAction={{
             content: t("visitwebsite"),
             url: "https://covid19resources.ca/",
+            external: true,
           }}
-          description="Virtual Q&A sessions and workshops to answer your questions about
+          description="Virtual Q&amp;A sessions and workshops to answer your questions about
             COVID-19 vaccines."
         >
           <img
