@@ -38,6 +38,7 @@
     "login": "Login",
     "logintoadminportal": "Login to VHC Admin Portal",
     "logout": "Log out",
+    "manageavailabilities": "Manage availabilities",
     "noappointments": "No appointments were found near {{postalCode}}. Please try again later.",
     "nopharmacies": "No nearby pharmacies were found near {{postalCode}}. Please try again later.",
     "onourdiypages": "on our DIY pages",

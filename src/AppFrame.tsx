@@ -7,6 +7,7 @@ import {
   LockMajor,
   CircleInformationMajor,
   ViewMajor,
+  NoteMajor,
 } from "@shopify/polaris-icons";
 import { Routes } from "./Routes";
 import { useTranslation } from "react-i18next";
@@ -189,6 +190,11 @@ export function AppFrame() {
             <Navigation.Section
               separator
               items={[
+                {
+                  label: t("manageavailabilities"),
+                  url: "/admin/externalKey",
+                  icon: NoteMajor,
+                },
                 {
                   label: t("logout"),
                   onClick: () => {
