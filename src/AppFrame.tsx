@@ -119,7 +119,6 @@ function getLanguageBarItemProps(): ItemProps[] {
       i18next.language === language.langCode ||
       i18next.language?.substring(0, 2) === language.langCode;
     return {
-      url: "/",
       label: language.label,
       onClick: () => {
         i18next
@@ -202,6 +201,11 @@ export function AppFrame() {
             <Navigation.Section
               separator
               items={[
+                {
+                  label: t("manageavailabilities"),
+                  url: "/admin/externalKey",
+                  icon: NoteMajor,
+                },
                 {
                   label: t("logout"),
                   onClick: () => {
