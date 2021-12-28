@@ -11,7 +11,7 @@ describe("Home", () => {
       name: /please enter your postal code/i,
     });
     userEvent.type(input, "K2T0E5");
-    expect(input.value).toBe("K2T0E5");
+    expect((input as HTMLInputElement).value).toBe("K2T0E5");
 
     const submit = screen.getByRole("button", { name: /Submit/i });
     userEvent.click(submit);
@@ -26,7 +26,7 @@ describe("Home", () => {
       name: /please enter your postal code/i,
     });
     userEvent.type(input, "78701");
-    expect(input.value).toBe("78701");
+    expect((input as HTMLInputElement).value).toBe("78701");
 
     const submit = screen.getByRole("button", { name: /Submit/i });
     userEvent.click(submit);
