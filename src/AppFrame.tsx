@@ -7,6 +7,7 @@ import {
   LockMajor,
   CircleInformationMajor,
   ViewMajor,
+  NoteMajor,
 } from "@shopify/polaris-icons";
 import { Routes } from "./Routes";
 import { useTranslation } from "react-i18next";
@@ -118,7 +119,6 @@ function getLanguageBarItemProps(): ItemProps[] {
       i18next.language === language.langCode ||
       i18next.language?.substring(0, 2) === language.langCode;
     return {
-      url: "/",
       label: language.label,
       onClick: () => {
         i18next
@@ -186,10 +186,26 @@ export function AppFrame() {
               },
             ]}
           />
+
+          <Navigation.Section
+            separator
+            items={[
+              {
+                url: "/vaccineinfo",
+                label: t("vaccineinfo"),
+                icon: CircleInformationMajor,
+              },
+            ]}
+          />
           {userService.checkIsAuthenticated() ? (
             <Navigation.Section
               separator
               items={[
+                {
+                  label: t("manageavailabilities"),
+                  url: "/admin/externalKey",
+                  icon: NoteMajor,
+                },
                 {
                   label: t("logout"),
                   onClick: () => {
@@ -222,7 +238,7 @@ export function AppFrame() {
               {
                 url: "/tos",
                 label: t("termsofservice"),
-                icon: CircleInformationMajor,
+                icon: NoteMajor,
               },
               {
                 url: "/privacypolicy",
