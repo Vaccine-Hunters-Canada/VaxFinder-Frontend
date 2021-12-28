@@ -301,7 +301,7 @@ export function PopUpForm() {
     ? "At least one dose must be checked"
     : undefined;
   const activator = (
-    <Button onClick={() => setIsPopOverActive(!isPopOverActive)} disclosure>
+    <Button onClick={() => setIsPopOverActive((active) => !active)} disclosure>
       {vaccineTypeString}
     </Button>
   );
@@ -406,7 +406,7 @@ export function PopUpForm() {
                     <Popover
                       active={isPopOverActive}
                       activator={activator}
-                      onClose={() => setIsPopOverActive(!isPopOverActive)}
+                      onClose={() => setIsPopOverActive((active) => !active)}
                     >
                       <ActionList
                         items={[
@@ -454,33 +454,29 @@ export function PopUpForm() {
                   <Checkbox
                     label="Walk-Ins"
                     checked={isWalkInChecked}
-                    onChange={() => {
-                      setIsWalkInChecked(!isWalkInChecked);
-                    }}
+                    onChange={() => setIsWalkInChecked((checked) => !checked)}
                     error={invalidBookingMessage}
                   />
                   <Checkbox
                     label="Email"
                     checked={isEmailChecked}
-                    onChange={() => {
-                      setIsEmailChecked(!isEmailChecked);
-                    }}
+                    onChange={() => setIsEmailChecked((checked) => !checked)}
                     error={invalidBookingMessage}
                   />
                   <Checkbox
                     label="Call Ahead"
                     checked={isCallAheadChecked}
-                    onChange={() => {
-                      setIsCallAheadChecked(!isCallAheadChecked);
-                    }}
+                    onChange={() =>
+                      setIsCallAheadChecked((checked) => !checked)
+                    }
                     error={invalidBookingMessage}
                   />
                   <Checkbox
                     label="Visit Website"
                     checked={isVisitWebsiteChecked}
-                    onChange={() => {
-                      setIsVisitWebsiteChecked(!isVisitWebsiteChecked);
-                    }}
+                    onChange={() =>
+                      setIsVisitWebsiteChecked((checked) => !checked)
+                    }
                     error={invalidBookingMessage}
                   />
                 </Stack>
@@ -489,17 +485,13 @@ export function PopUpForm() {
                   <Checkbox
                     label="1st Dose"
                     checked={isFirstDose}
-                    onChange={() => {
-                      setIsFirstDose(!isFirstDose);
-                    }}
+                    onChange={() => setIsFirstDose((checked) => !checked)}
                     error={invalidDoseMessage}
                   />
                   <Checkbox
                     label="2nd Dose"
                     checked={isSecondDose}
-                    onChange={() => {
-                      setIsSecondDose(!isSecondDose);
-                    }}
+                    onChange={() => setIsSecondDose((checked) => !checked)}
                     error={invalidDoseMessage}
                   />
                 </Stack>
