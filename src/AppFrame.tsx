@@ -197,7 +197,17 @@ export function AppFrame() {
                 label: t("vaccineinfo"),
                 icon: CircleInformationMajor,
               },
-            ]}
+            ].concat(
+              checkIsWebPushSupported()
+                ? [
+                    {
+                      url: "/pushsubscribe",
+                      label: t("pushnotifications"),
+                      icon: NotificationMajor,
+                    },
+                  ]
+                : [],
+            )}
           />
           {userService.checkIsAuthenticated() ? (
             <Navigation.Section
@@ -247,17 +257,7 @@ export function AppFrame() {
                 label: t("privacypolicy"),
                 icon: ViewMajor,
               },
-            ].concat(
-              checkIsWebPushSupported()
-                ? [
-                    {
-                      url: "/pushsubscribe",
-                      label: t("pushnotifications"),
-                      icon: NotificationMajor,
-                    },
-                  ]
-                : [],
-            )}
+            ]}
           />
 
           {/* Hide language bar when logged in because admin section is English only */}

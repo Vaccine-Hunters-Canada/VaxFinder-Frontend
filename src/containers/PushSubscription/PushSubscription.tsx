@@ -168,7 +168,7 @@ export function PushSubscription() {
                 value={postalCode}
                 onChange={setPostalCode}
                 label={t("enterpostalcode")}
-                helpText={<span>{t("postalcodetext")}</span>}
+                helpText={<span>{t("subscribepostalcodetext")}</span>}
                 error={
                   shouldShowInvalidPostalCode ? invaldPostalMessage : undefined
                 }
