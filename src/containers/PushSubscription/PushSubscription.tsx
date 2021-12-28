@@ -134,7 +134,7 @@ export function PushSubscription() {
       endpoint: sub.endpoint,
       auth,
       p256dh,
-      postalCode,
+      postalCode: postalCode.replace(/[\W]/gi, ""),
     })
       .then(() => setIsSubscribing(false))
       .catch((err) => console.error(err));
