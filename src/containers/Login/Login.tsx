@@ -91,6 +91,7 @@ export function Login() {
                 onChange={setPharmacyPassword}
                 placeholder={t("enterpassword")}
                 label={t("password")}
+                autoComplete="false"
               />
               <Button primary submit disabled={loading || !pharmacyPassword}>
                 {t("login")}
@@ -117,6 +118,7 @@ export function Login() {
                 onChange={setName}
                 placeholder={t("enterusername")}
                 label={t("username")}
+                autoComplete="false"
               />
               <TextField
                 type="password"
@@ -124,6 +126,7 @@ export function Login() {
                 onChange={setPassword}
                 placeholder={t("enterpassword")}
                 label={t("password")}
+                autoComplete="false"
               />
               <Button primary submit disabled={loading || !name || !password}>
                 {t("login")}

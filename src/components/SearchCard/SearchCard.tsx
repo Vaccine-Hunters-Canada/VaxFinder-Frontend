@@ -38,6 +38,7 @@ export function SearchCard() {
                 label={t("enterpostalcode")}
                 helpText={<span>{t("postalcodetext")}</span>}
                 error={invalidPostalCodeMessage}
+                autoComplete="false"
               />
               <Button primary submit>
                 {t("submit")}

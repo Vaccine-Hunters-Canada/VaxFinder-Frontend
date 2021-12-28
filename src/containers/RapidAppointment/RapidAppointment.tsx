@@ -572,6 +572,7 @@ export function RapidAppointment() {
                   }
                   error={invalidNameMessage}
                   type="text"
+                  autoComplete="false"
                 />
               </FormLayout.Group>
               <FormLayout.Group>
@@ -581,6 +582,7 @@ export function RapidAppointment() {
                   label="Enter Address"
                   error={invalidAddressMessage}
                   type="text"
+                  autoComplete="false"
                 />
                 <TextField
                   value={city}
@@ -588,6 +590,7 @@ export function RapidAppointment() {
                   label="Enter City"
                   error={invalidCityMessage}
                   type="text"
+                  autoComplete="false"
                 />
                 <TextField
                   value={province}
@@ -595,6 +598,7 @@ export function RapidAppointment() {
                   label="Enter Province"
                   error={invalidProvinceMessage}
                   type="text"
+                  autoComplete="false"
                 />
                 <TextField
                   value={postalCode}
@@ -602,6 +606,7 @@ export function RapidAppointment() {
                   label="Enter Postal Code"
                   error={invalidPostalCodeMessage}
                   type="text"
+                  autoComplete="false"
                 />
               </FormLayout.Group>
               <FormLayout.Group>
@@ -610,6 +615,7 @@ export function RapidAppointment() {
                   onChange={setPhoneNumber}
                   label="Enter Phone Number (Optional)"
                   type="text"
+                  autoComplete="false"
                 />
                 <TextField
                   value={website}
@@ -617,6 +623,7 @@ export function RapidAppointment() {
                   label="Enter Website URL"
                   error={invalidURLMessage}
                   type="text"
+                  autoComplete="false"
                 />
               </FormLayout.Group>
               <FormLayout.Group>
@@ -625,6 +632,7 @@ export function RapidAppointment() {
                   onChange={setNumAvailable}
                   label="Enter Number Available (Optional)"
                   type="number"
+                  autoComplete="false"
                 />
                 <Stack distribution="fill">
                   <Stack.Item>
@@ -785,6 +793,7 @@ export function RapidAppointment() {
                   type="text"
                   placeholder="Enter any additional information/instructions you would like to be included in the Twitter post."
                   error={invalidNotesMessage}
+                  autoComplete="false"
                 />
               </FormLayout.Group>
               <Button primary submit disabled={createLoading}>

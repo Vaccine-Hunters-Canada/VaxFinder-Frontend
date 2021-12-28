@@ -12,7 +12,7 @@ import {
 import { Routes } from "./Routes";
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";
-import { ItemProps } from "@shopify/polaris/types/latest/src/components/Navigation/components";
+import { ItemProps } from "@shopify/polaris/build/ts/latest/src/components/Navigation/components/Item";
 import { Twitter } from "./components/Twitter";
 import { userService } from "./services/userService";
 import { AppContext } from "./contexts/AppContext";

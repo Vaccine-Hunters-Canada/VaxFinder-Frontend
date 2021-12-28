@@ -338,6 +338,7 @@ export function PopUpForm() {
                   }
                   error={invalidNameMessage}
                   type="text"
+                  autoComplete="false"
                 />
                 <TextField
                   value={date}
@@ -346,6 +347,7 @@ export function PopUpForm() {
                   helpText={<span>Ex: 2021-06-18</span>}
                   error={invalidDateMessage}
                   type="date"
+                  autoComplete="false"
                 />
               </FormLayout.Group>
               <FormLayout.Group>
@@ -355,6 +357,7 @@ export function PopUpForm() {
                   label="Enter Address"
                   error={invalidAddressMessage}
                   type="text"
+                  autoComplete="false"
                 />
                 <TextField
                   value={city}
@@ -362,6 +365,7 @@ export function PopUpForm() {
                   label="Enter City"
                   error={invalidCityMessage}
                   type="text"
+                  autoComplete="false"
                 />
                 <TextField
                   value={province}
@@ -369,6 +373,7 @@ export function PopUpForm() {
                   label="Enter Province"
                   error={invalidProvinceMessage}
                   type="text"
+                  autoComplete="false"
                 />
                 <TextField
                   value={postalCode}
@@ -376,6 +381,7 @@ export function PopUpForm() {
                   label="Enter Postal Code"
                   error={invalidPostalCodeMessage}
                   type="text"
+                  autoComplete="false"
                 />
               </FormLayout.Group>
               <FormLayout.Group>
@@ -384,6 +390,7 @@ export function PopUpForm() {
                   onChange={setPhoneNumber}
                   label="Enter Phone Number (Optional)"
                   type="text"
+                  autoComplete="false"
                 />
                 <TextField
                   value={website}
@@ -391,6 +398,7 @@ export function PopUpForm() {
                   label="Enter Website URL"
                   error={invalidURLMessage}
                   type="text"
+                  autoComplete="false"
                 />
               </FormLayout.Group>
               <FormLayout.Group>
@@ -399,6 +407,7 @@ export function PopUpForm() {
                   onChange={setNumAvailable}
                   label="Enter Number Available (Optional)"
                   type="number"
+                  autoComplete="false"
                 />
                 <Stack distribution="fill">
                   <Stack.Item>

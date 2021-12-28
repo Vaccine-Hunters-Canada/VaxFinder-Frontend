@@ -178,6 +178,7 @@ export function ExternalKeyInput() {
                   }
                   error={invalidPostalCodeMessage}
                   type="text"
+                  autoComplete="false"
                 />
                 <TextField
                   value={streetNumber}
@@ -185,6 +186,7 @@ export function ExternalKeyInput() {
                   label="Enter your street number."
                   error={invalidStreetNumber}
                   type="number"
+                  autoComplete="false"
                 />
                 <Stack>
                   <Stack.Item>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "@shopify/polaris/styles.css";
+import "@shopify/polaris/build/esm/styles.css";
 import { AppProvider } from "@shopify/polaris";
 import { theme } from "./theme";
 import enTranslations from "@shopify/polaris/locales/en.json";

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@shopify/polaris": "^4.27.0",
+    "@shopify/polaris": "^7.5.0",
     "@shopify/polaris-icons": "^4.5.0",
     "date-fns": "^2.22.1",
     "date-fns-tz": "^1.1.4",
