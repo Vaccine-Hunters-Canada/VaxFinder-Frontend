@@ -650,30 +650,26 @@ export function RapidAppointment() {
                   <Checkbox
                     label="Moderna"
                     checked={isModernaChecked}
-                    onChange={() => {
-                      setIsModernaChecked(!isModernaChecked);
-                    }}
+                    onChange={() => setIsModernaChecked((checked) => !checked)}
                   />
                   <Checkbox
                     label="Pfizer"
                     checked={isPfizerChecked}
-                    onChange={() => {
-                      setIsPfizerChecked(!isPfizerChecked);
-                    }}
+                    onChange={() => setIsPfizerChecked((checked) => !checked)}
                   />
                   <Checkbox
                     label="AstraZeneca"
                     checked={isAstraZenecaChecked}
-                    onChange={() => {
-                      setIsAstraZenecaChecked(!isAstraZenecaChecked);
-                    }}
+                    onChange={() =>
+                      setIsAstraZenecaChecked((checked) => !checked)
+                    }
                   />
                   <Checkbox
                     label="Not Sure"
                     checked={isUnknownVaccineChecked}
-                    onChange={() => {
-                      setIsUnknownVaccineChecked(!isUnknownVaccineChecked);
-                    }}
+                    onChange={() =>
+                      setIsUnknownVaccineChecked((checked) => !checked)
+                    }
                   />
                 </Stack>
                 <Stack vertical>
@@ -681,33 +677,29 @@ export function RapidAppointment() {
                   <Checkbox
                     label="Walk-Ins"
                     checked={isWalkInChecked}
-                    onChange={() => {
-                      setIsWalkInChecked(!isWalkInChecked);
-                    }}
+                    onChange={() => setIsWalkInChecked((checked) => !checked)}
                     error={invalidBookingMessage}
                   />
                   <Checkbox
                     label="Email"
                     checked={isEmailChecked}
-                    onChange={() => {
-                      setIsEmailChecked(!isEmailChecked);
-                    }}
+                    onChange={() => setIsEmailChecked((checked) => !checked)}
                     error={invalidBookingMessage}
                   />
                   <Checkbox
                     label="Call Ahead"
                     checked={isCallAheadChecked}
-                    onChange={() => {
-                      setIsCallAheadChecked(!isCallAheadChecked);
-                    }}
+                    onChange={() =>
+                      setIsCallAheadChecked((checked) => !checked)
+                    }
                     error={invalidBookingMessage}
                   />
                   <Checkbox
                     label="Visit Website"
                     checked={isVisitWebsiteChecked}
-                    onChange={() => {
-                      setIsVisitWebsiteChecked(!isVisitWebsiteChecked);
-                    }}
+                    onChange={() =>
+                      setIsVisitWebsiteChecked((checked) => !checked)
+                    }
                     error={invalidBookingMessage}
                   />
                 </Stack>
@@ -718,16 +710,16 @@ export function RapidAppointment() {
                   <Checkbox
                     label="Cancellations"
                     checked={isCancellationsChecked}
-                    onChange={() => {
-                      setIsCancellationsChecked(!isCancellationsChecked);
-                    }}
+                    onChange={() =>
+                      setIsCancellationsChecked((checked) => !checked)
+                    }
                   />
                   <Checkbox
                     label="Expiring Doses"
                     checked={isExpiringDosesChecked}
-                    onChange={() => {
-                      setIsExpiringDosesChecked(!isExpiringDosesChecked);
-                    }}
+                    onChange={() =>
+                      setIsExpiringDosesChecked((checked) => !checked)
+                    }
                   />
                 </Stack>
                 <Stack vertical>
@@ -735,25 +727,19 @@ export function RapidAppointment() {
                   <Checkbox
                     label="1st Dose"
                     checked={isFirstDose}
-                    onChange={() => {
-                      setIsFirstDose(!isFirstDose);
-                    }}
+                    onChange={() => setIsFirstDose((checked) => !checked)}
                     error={invalidDoseMessage}
                   />
                   <Checkbox
                     label="2nd Dose"
                     checked={isSecondDose}
-                    onChange={() => {
-                      setIsSecondDose(!isSecondDose);
-                    }}
+                    onChange={() => setIsSecondDose((checked) => !checked)}
                     error={invalidDoseMessage}
                   />
                   <Checkbox
                     label="3rd Dose"
                     checked={isThirdDose}
-                    onChange={() => {
-                      setIsThirdDose(!isThirdDose);
-                    }}
+                    onChange={() => setIsThirdDose((checked) => !checked)}
                     error={invalidDoseMessage}
                   />
                 </Stack>
@@ -762,17 +748,13 @@ export function RapidAppointment() {
                   <Checkbox
                     label="5-11 Year Old"
                     checked={isChildrenDoses}
-                    onChange={() => {
-                      setIsChildrenDoses(!isChildrenDoses);
-                    }}
+                    onChange={() => setIsChildrenDoses((checked) => !checked)}
                     error={invalidAgeMessage}
                   />
                   <Checkbox
                     label="12+ Year Old"
                     checked={isAdultDoses}
-                    onChange={() => {
-                      setIsAdultDoses(!isAdultDoses);
-                    }}
+                    onChange={() => setIsAdultDoses((checked) => !checked)}
                     error={invalidAgeMessage}
                   />
                 </Stack>
