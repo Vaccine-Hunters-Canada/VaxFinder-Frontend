@@ -102,7 +102,7 @@ export function ExternalKeyInput() {
     : undefined;
 
   const activator = (
-    <Button onClick={() => setIsPopOverActive(!isPopOverActive)} disclosure>
+    <Button onClick={() => setIsPopOverActive((active) => !active)} disclosure>
       {organizationName}
     </Button>
   );
@@ -192,7 +192,7 @@ export function ExternalKeyInput() {
                     <Popover
                       active={isPopOverActive}
                       activator={activator}
-                      onClose={() => setIsPopOverActive(!isPopOverActive)}
+                      onClose={() => setIsPopOverActive((active) => !active)}
                     >
                       <ActionList items={organizationListMarkup()} />
                     </Popover>
