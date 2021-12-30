@@ -6,7 +6,7 @@ import {
   Stack,
   DataTable,
   Button,
-  Badge,
+  // Badge,
   Icon,
 } from "@shopify/polaris";
 import {
@@ -18,6 +18,7 @@ import {
 import Iframe from "react-iframe";
 import { VaccineAvailabilityRequirementsResponse } from "../../apiClient";
 import { useTranslation } from "react-i18next";
+import { PharmacyBadge } from "./PharmacyBadge";
 
 interface RequirementsWithAvailabilityInterface
   extends VaccineAvailabilityRequirementsResponse {
@@ -30,6 +31,7 @@ interface VaccineAvailabilitiesByDateAndRequirementsInterface {
     totalAvailable: number;
     requirements: RequirementsWithAvailabilityInterface[];
     tags: string;
+    timeslots: string[] | undefined;
   };
 }
 
@@ -51,6 +53,7 @@ export function PharmacyCard(props: PharmacyProps) {
   const { t, i18n } = useTranslation();
   const [shouldShowMap, setShouldShowMap] = useState(false);
   const [shouldShowSlots, setShouldShowSlots] = useState(false);
+  // const shouldShowSlots = true;
 
   const availabilityMarkup = () => {
     if (props.booking) {
@@ -121,6 +124,21 @@ export function PharmacyCard(props: PharmacyProps) {
     />
   );
 
+  const printtimeslots = (timeslots: string[] | undefined) => {
+    if (timeslots !== undefined) {
+      return timeslots
+        .map((x) => {
+          // Convert timeslots to user's local time zone
+          return new Date(x).toLocaleTimeString(i18n.language, {
+            hour: "numeric",
+            minute: "numeric",
+          });
+        })
+        .join(", ");
+    }
+    return "";
+  };
+
   const dataTableRows = Object.keys(props.vaccineAvailabilities).map((date) => {
     return [
       new Date(date).toLocaleDateString(i18n.language, {
@@ -129,6 +147,7 @@ export function PharmacyCard(props: PharmacyProps) {
         day: "numeric",
       }),
       props.vaccineAvailabilities[date].totalAvailable,
+      printtimeslots(props.vaccineAvailabilities[date].timeslots),
     ];
   });
 
@@ -154,12 +173,11 @@ export function PharmacyCard(props: PharmacyProps) {
   const dataTableMarkup = shouldShowSlots ? (
     <DataTable
       columnContentTypes={["text", "numeric"]}
-      headings={[t("date"), t("quantity")]}
+      headings={[t("date"), t("quantity"), "Timeslots"]}
       rows={dataTableRows}
     />
   ) : undefined;
 
-  /* eslint-disable  @typescript-eslint/no-unused-vars */
   const appointmentsAvailableMarkup = () => {
     if (Object.keys(props.vaccineAvailabilities).length > 0) {
       return (
@@ -179,88 +197,10 @@ export function PharmacyCard(props: PharmacyProps) {
     return undefined;
   };
 
-  const badgeMarkup = () => {
-    let returnTags: JSX.Element[] = [];
-    Object.keys(props.vaccineAvailabilities).forEach((availability) => {
-      returnTags = [];
-      const tags = props.vaccineAvailabilities[availability].tags.split(",");
-      tags.forEach((tag) => {
-        if (tag === "5-11 Year Olds") {
-          returnTags.push(
-            <Badge key={tag} status="critical">
-              {t("5to11yearolds")}
-            </Badge>,
-          );
-        }
-        if (tag === "12+ Year Olds") {
-          returnTags.push(
-            <Badge key={tag} status="critical">
-              {t("12plusyearolds")}
-            </Badge>,
-          );
-        }
-        if (tag === "Walk In") {
-          returnTags.push(
-            <Badge key={tag} status="info">
-              {t("walkin")}
-            </Badge>,
-          );
-        }
-        if (tag === "Call Ahead") {
-          returnTags.push(
-            <Badge key={tag} status="info">
-              {t("callahead")}
-            </Badge>,
-          );
-        }
-        if (tag === "Visit Website") {
-          returnTags.push(
-            <Badge key={tag} status="info">
-              {t("visitwebsite")}
-            </Badge>,
-          );
-        }
-        if (tag === "Email") {
-          returnTags.push(
-            <Badge key={tag} status="info">
-              {t("email")}
-            </Badge>,
-          );
-        }
-        if (tag === "1st Dose") {
-          returnTags.push(<Badge key={tag}>{t("firstdose")}</Badge>);
-        }
-        if (tag === "2nd Dose") {
-          returnTags.push(<Badge key={tag}>{t("seconddose")}</Badge>);
-        }
-        if (tag === "3rd Dose") {
-          returnTags.push(<Badge key={tag}>{t("thirddose")}</Badge>);
-        }
-        if (tag === "Pfizer") {
-          returnTags.push(
-            <Badge key={tag} status="warning">
-              Pfizer
-            </Badge>,
-          );
-        }
-        if (tag === "Moderna") {
-          returnTags.push(
-            <Badge key={tag} status="warning">
-              Moderna
-            </Badge>,
-          );
-        }
-        if (tag === "AstraZeneca") {
-          returnTags.push(
-            <Badge key={tag} status="warning">
-              AstraZeneca
-            </Badge>,
-          );
-        }
-      });
-    });
-    return returnTags;
-  };
+  let tagging = "";
+  Object.keys(props.vaccineAvailabilities).forEach((availability) => {
+    tagging = props.vaccineAvailabilities[availability].tags;
+  });
 
   return (
     <Card
@@ -284,8 +224,11 @@ export function PharmacyCard(props: PharmacyProps) {
     >
       <div data-testid="pharmacy-card">
         <TextContainer>
-          <Stack spacing="extraTight">{badgeMarkup()}</Stack>
+          <Stack spacing="extraTight">
+            <PharmacyBadge tags={tagging} />
+          </Stack>
           {availabilityMarkup()}
+          {appointmentsAvailableMarkup()}
           <Card.Section title={t("details")}>
             <Stack>
               <Icon source={LocationsMinor} color="base" />

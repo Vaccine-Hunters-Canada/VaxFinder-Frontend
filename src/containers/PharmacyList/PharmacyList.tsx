@@ -152,6 +152,7 @@ export function PharmacyList(props: Props) {
             totalAvailable: 0,
             requirements: [],
             tags: availability.tags || "",
+            timeslots: undefined,
           };
         }
         vaccineAvailabilitiesByDateAndRequirements[
@@ -159,12 +160,18 @@ export function PharmacyList(props: Props) {
         ].totalAvailable += availability.numberAvailable;
         vaccineAvailabilitiesByDateAndRequirements[
           availability.date
+        ].timeslots =
+          availability.timeslots.length > 0
+            ? availability.timeslots.map((timeslot) => timeslot.time)
+            : undefined;
+        vaccineAvailabilitiesByDateAndRequirements[
+          availability.date
         ].requirements.push({
           ...availability.requirements[0],
           numberAvailable: availability.numberAvailable,
           tags: availability.tags,
         });
-        // console.log(vaccineAvailabilitiesByDateAndRequirements);
+
         lastUpdated =
           availability.createdAt > lastUpdated
             ? availability.createdAt

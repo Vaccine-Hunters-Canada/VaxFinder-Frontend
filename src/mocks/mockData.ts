@@ -1,4 +1,6 @@
-const vaccineLocationOneAvailability = {
+import { VaccineLocationExpandedResponse } from "../apiClient";
+
+const vaccineLocationOneAvailability: VaccineLocationExpandedResponse = {
   name: "Regent Park 40 Oaks",
   phone: "1 888 385 1910",
   notes: undefined,
@@ -37,7 +39,22 @@ const vaccineLocationOneAvailability = {
       location: 1,
       createdAt: "2021-05-06T00:00:03.120000",
       date: "2021-05-08T04:00:00+00:00",
-      timeslots: [],
+      timeslots: [
+        {
+          id: "33505d96-028c-431e-8061-2d25e7964201",
+          vaccineAvailability: "dce1a460-2868-407d-8b74-04808cf1d55d",
+          takenAt: "",
+          time: "2021-05-08T12:00:00+00:00",
+          createdAt: "2021-05-06T00:00:03.120000",
+        },
+        {
+          id: "33505d96-028c-431e-8061-2d25e7964201",
+          vaccineAvailability: "dce1a460-2868-407d-8b74-04808cf1d55d",
+          takenAt: "",
+          time: "2021-05-08T13:00:00+00:00",
+          createdAt: "2021-05-06T00:00:03.120000",
+        },
+      ],
       requirements: [
         {
           id: "b0e80a42-7b7a-4259-a66e-f6c5664d66a7",
