@@ -31,6 +31,7 @@
         "build:production": "env-cmd -f .env.production react-scripts build",
         "test": "react-scripts test --silent",
         "test:verbose": "react-scripts test",
+        "test:coverage": "react-scripts test --watchAll=false --coverage",
         "eject": "react-scripts eject",
         "lint": "eslint --max-warnings 0 --ext .tsx,.ts ./src",
         "lint:fix": "eslint --fix --ext .tsx,.ts,.js,.jsx ./src",
