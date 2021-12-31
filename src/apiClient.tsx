@@ -53,6 +53,10 @@ export interface HTTPValidationError {
  */
 export type InputTypeEnum = number;
 
+export interface KeyResponse {
+  key: string;
+}
+
 export interface LocationCreateRequest {
   name: string;
   phone?: string;
@@ -177,6 +181,13 @@ export interface SecurityResponseBase {
   password: string;
 }
 
+export interface SubscriptionCreateRequest {
+  endpoint: string;
+  auth: string;
+  p256dh: string;
+  postalCode: string;
+}
+
 export interface VaccineAvailabilityCreateRequest {
   numberAvailable: number;
   numberTotal?: number;
@@ -209,6 +220,19 @@ export interface VaccineAvailabilityExpandedCreateRequest {
   tagsA?: string;
   externalKey?: string;
   date: string;
+}
+
+export interface VaccineAvailabilityExpandedCreateResponse {
+  numberAvailable: number;
+  numberTotal?: number;
+  vaccine?: number;
+  inputType: InputTypeEnum;
+  tags?: string;
+  id: string;
+  location: number;
+  createdAt: string;
+  date: string;
+  responseCode: number;
 }
 
 export interface VaccineAvailabilityExpandedResponse {
@@ -782,7 +806,7 @@ export interface CreateVaccineAvailabilityExpandedKeyApiV1VaccineAvailabilityLoc
 
 export type CreateVaccineAvailabilityExpandedKeyApiV1VaccineAvailabilityLocationsKeyExternalKeyPostProps = Omit<
   MutateProps<
-    VaccineAvailabilityResponse,
+    VaccineAvailabilityExpandedCreateResponse,
     void | HTTPValidationError,
     void,
     VaccineAvailabilityExpandedCreateRequest,
@@ -804,7 +828,7 @@ export const CreateVaccineAvailabilityExpandedKeyApiV1VaccineAvailabilityLocatio
   ...props
 }: CreateVaccineAvailabilityExpandedKeyApiV1VaccineAvailabilityLocationsKeyExternalKeyPostProps) => (
   <Mutate<
-    VaccineAvailabilityResponse,
+    VaccineAvailabilityExpandedCreateResponse,
     void | HTTPValidationError,
     void,
     VaccineAvailabilityExpandedCreateRequest,
@@ -818,7 +842,7 @@ export const CreateVaccineAvailabilityExpandedKeyApiV1VaccineAvailabilityLocatio
 
 export type UseCreateVaccineAvailabilityExpandedKeyApiV1VaccineAvailabilityLocationsKeyExternalKeyPostProps = Omit<
   UseMutateProps<
-    VaccineAvailabilityResponse,
+    VaccineAvailabilityExpandedCreateResponse,
     void | HTTPValidationError,
     void,
     VaccineAvailabilityExpandedCreateRequest,
@@ -840,7 +864,7 @@ export const useCreateVaccineAvailabilityExpandedKeyApiV1VaccineAvailabilityLoca
   ...props
 }: UseCreateVaccineAvailabilityExpandedKeyApiV1VaccineAvailabilityLocationsKeyExternalKeyPostProps) =>
   useMutate<
-    VaccineAvailabilityResponse,
+    VaccineAvailabilityExpandedCreateResponse,
     void | HTTPValidationError,
     void,
     VaccineAvailabilityExpandedCreateRequest,
@@ -860,7 +884,7 @@ export interface CreateVaccineAvailabilityExpandedApiV1VaccineAvailabilityLocati
 
 export type CreateVaccineAvailabilityExpandedApiV1VaccineAvailabilityLocationsIdLocationIdPostProps = Omit<
   MutateProps<
-    VaccineAvailabilityResponse,
+    VaccineAvailabilityExpandedCreateResponse,
     void | HTTPValidationError,
     void,
     VaccineAvailabilityExpandedCreateRequest,
@@ -882,7 +906,7 @@ export const CreateVaccineAvailabilityExpandedApiV1VaccineAvailabilityLocationsI
   ...props
 }: CreateVaccineAvailabilityExpandedApiV1VaccineAvailabilityLocationsIdLocationIdPostProps) => (
   <Mutate<
-    VaccineAvailabilityResponse,
+    VaccineAvailabilityExpandedCreateResponse,
     void | HTTPValidationError,
     void,
     VaccineAvailabilityExpandedCreateRequest,
@@ -896,7 +920,7 @@ export const CreateVaccineAvailabilityExpandedApiV1VaccineAvailabilityLocationsI
 
 export type UseCreateVaccineAvailabilityExpandedApiV1VaccineAvailabilityLocationsIdLocationIdPostProps = Omit<
   UseMutateProps<
-    VaccineAvailabilityResponse,
+    VaccineAvailabilityExpandedCreateResponse,
     void | HTTPValidationError,
     void,
     VaccineAvailabilityExpandedCreateRequest,
@@ -918,7 +942,7 @@ export const useCreateVaccineAvailabilityExpandedApiV1VaccineAvailabilityLocatio
   ...props
 }: UseCreateVaccineAvailabilityExpandedApiV1VaccineAvailabilityLocationsIdLocationIdPostProps) =>
   useMutate<
-    VaccineAvailabilityResponse,
+    VaccineAvailabilityExpandedCreateResponse,
     void | HTTPValidationError,
     void,
     VaccineAvailabilityExpandedCreateRequest,
@@ -2973,3 +2997,139 @@ export const useLoginApiV1SecurityLoginPost = (
     SecurityResponseBase,
     void
   >("POST", "/api/v1/security/login", props);
+
+export type RetrievePublicKeyApiV1WebPushPublicKeyGetProps = Omit<
+  GetProps<KeyResponse, unknown, void, void>,
+  "path"
+>;
+
+/**
+ * Retrieve Publickey
+ *
+ * **Retrieves the public key**
+ */
+export const RetrievePublicKeyApiV1WebPushPublicKeyGet = (
+  props: RetrievePublicKeyApiV1WebPushPublicKeyGetProps,
+) => (
+  <Get<KeyResponse, unknown, void, void>
+    path="/api/v1/webPush/public-key"
+    {...props}
+  />
+);
+
+export type UseRetrievePublicKeyApiV1WebPushPublicKeyGetProps = Omit<
+  UseGetProps<KeyResponse, unknown, void, void>,
+  "path"
+>;
+
+/**
+ * Retrieve Publickey
+ *
+ * **Retrieves the public key**
+ */
+export const useRetrievePublicKeyApiV1WebPushPublicKeyGet = (
+  props: UseRetrievePublicKeyApiV1WebPushPublicKeyGetProps,
+) =>
+  useGet<KeyResponse, unknown, void, void>("/api/v1/webPush/public-key", props);
+
+export type CreateSubscriptionApiV1WebPushSubscriptionPostResponse = void;
+
+export type CreateSubscriptionApiV1WebPushSubscriptionPostProps = Omit<
+  MutateProps<
+    CreateSubscriptionApiV1WebPushSubscriptionPostResponse,
+    HTTPValidationError,
+    void,
+    SubscriptionCreateRequest,
+    void
+  >,
+  "path" | "verb"
+>;
+
+/**
+ * Create Subscription
+ *
+ * **Subscribes the user to push notifications for their postal code.
+ */
+export const CreateSubscriptionApiV1WebPushSubscriptionPost = (
+  props: CreateSubscriptionApiV1WebPushSubscriptionPostProps,
+) => (
+  <Mutate<
+    CreateSubscriptionApiV1WebPushSubscriptionPostResponse,
+    HTTPValidationError,
+    void,
+    SubscriptionCreateRequest,
+    void
+  >
+    verb="POST"
+    path="/api/v1/webPush/subscription"
+    {...props}
+  />
+);
+
+export type UseCreateSubscriptionApiV1WebPushSubscriptionPostProps = Omit<
+  UseMutateProps<
+    CreateSubscriptionApiV1WebPushSubscriptionPostResponse,
+    HTTPValidationError,
+    void,
+    SubscriptionCreateRequest,
+    void
+  >,
+  "path" | "verb"
+>;
+
+/**
+ * Create Subscription
+ *
+ * **Subscribes the user to push notifications for their postal code.
+ */
+export const useCreateSubscriptionApiV1WebPushSubscriptionPost = (
+  props: UseCreateSubscriptionApiV1WebPushSubscriptionPostProps,
+) =>
+  useMutate<
+    CreateSubscriptionApiV1WebPushSubscriptionPostResponse,
+    HTTPValidationError,
+    void,
+    SubscriptionCreateRequest,
+    void
+  >("POST", "/api/v1/webPush/subscription", props);
+
+export type DeleteSubscriptionByEndpointApiV1WebPushSubscriptionEndpointDeleteProps = Omit<
+  MutateProps<void, void | HTTPValidationError, void, string, void>,
+  "path" | "verb"
+>;
+
+/**
+ * Delete Subscription By Endpoint
+ *
+ * **Deletes a subscrtiption with supplied endpoint
+ * parameter.**
+ */
+export const DeleteSubscriptionByEndpointApiV1WebPushSubscriptionEndpointDelete = (
+  props: DeleteSubscriptionByEndpointApiV1WebPushSubscriptionEndpointDeleteProps,
+) => (
+  <Mutate<void, void | HTTPValidationError, void, string, void>
+    verb="DELETE"
+    path="/api/v1/webPush/subscription"
+    {...props}
+  />
+);
+
+export type UseDeleteSubscriptionByEndpointApiV1WebPushSubscriptionEndpointDeleteProps = Omit<
+  UseMutateProps<void, void | HTTPValidationError, void, string, void>,
+  "path" | "verb"
+>;
+
+/**
+ * Delete Subscription By Endpoint
+ *
+ * **Deletes a subscrtiption with supplied endpoint
+ * parameter.**
+ */
+export const useDeleteSubscriptionByEndpointApiV1WebPushSubscriptionEndpointDelete = (
+  props: UseDeleteSubscriptionByEndpointApiV1WebPushSubscriptionEndpointDeleteProps,
+) =>
+  useMutate<void, void | HTTPValidationError, void, string, void>(
+    "DELETE",
+    "/api/v1/webPush/subscription",
+    { ...props },
+  );
