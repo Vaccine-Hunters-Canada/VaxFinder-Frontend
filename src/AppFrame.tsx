@@ -8,6 +8,7 @@ import {
   CircleInformationMajor,
   ViewMajor,
   NoteMajor,
+  NotificationMajor,
 } from "@shopify/polaris-icons";
 import { Routes } from "./Routes";
 import { useTranslation } from "react-i18next";
@@ -17,6 +18,7 @@ import { Twitter } from "./components/Twitter";
 import { userService } from "./services/userService";
 import { AppContext } from "./contexts/AppContext";
 import { usePageViews } from "./hooks/usePageViews";
+import { checkIsWebPushSupported } from "./utils";
 
 const languages = [
   {
@@ -195,7 +197,17 @@ export function AppFrame() {
                 label: t("vaccineinfo"),
                 icon: CircleInformationMajor,
               },
-            ]}
+            ].concat(
+              checkIsWebPushSupported()
+                ? [
+                    {
+                      url: "/pushsubscribe",
+                      label: t("pushnotifications"),
+                      icon: NotificationMajor,
+                    },
+                  ]
+                : [],
+            )}
           />
           {userService.checkIsAuthenticated() ? (
             <Navigation.Section
