@@ -44,7 +44,7 @@ export function VaccineInfo() {
           </MediaCard>
           <MediaCard
             portrait
-            title="À Ton Tour Agir"
+            title="À ton tour d'agir"
             primaryAction={{
               content: t("visitwebsite"),
               url: "https://thisisourshot.ca/fr/",
@@ -53,7 +53,7 @@ export function VaccineInfo() {
             description="Fournit un large éventail d'informations sur les vaccins, telles que des informations sur la santé et la sécurité, des informations avant, pendant et après votre vaccination et des assemblées publiques en direct animées par des experts."
           >
             <img
-              alt="Logo À Ton Tour Agir"
+              alt="Logo À ton tour d'agir"
               width="100%"
               height="100%"
               style={{
