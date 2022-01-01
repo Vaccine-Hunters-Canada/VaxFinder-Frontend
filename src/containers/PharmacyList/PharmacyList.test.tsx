@@ -7,6 +7,7 @@ import { render, screen, within } from "../../testUtils";
 import { PharmacyList } from "./PharmacyList";
 import { vaccineLocationResponses } from "../../mocks/mockData";
 import { postalCodeToHumanFormat } from "../../utils/postalCode";
+import userEvent from "@testing-library/user-event";
 
 describe("PharmacyList", () => {
   test("Should show all returned pharmacy locations", async () => {
@@ -78,5 +79,15 @@ describe("PharmacyList", () => {
     await screen.findByText(
       /could not load pharmacy data, please try again later/i,
     );
+  });
+
+  test("Should show eligibility banner and dismiss it", async () => {
+    render(<PharmacyList postalCode="k2s 1s9" />);
+    await screen.findByText(/Eligibility/);
+    const dismiss = await screen.findByLabelText(/Dismiss notification/);
+    userEvent.click(dismiss);
+    expect(
+      screen.queryByLabelText(/Dismiss notification/),
+    ).not.toBeInTheDocument();
   });
 });

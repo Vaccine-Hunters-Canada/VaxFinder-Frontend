@@ -164,7 +164,7 @@ export function PharmacyList(props: Props) {
           numberAvailable: availability.numberAvailable,
           tags: availability.tags,
         });
-        // console.log(vaccineAvailabilitiesByDateAndRequirements);
+
         lastUpdated =
           availability.createdAt > lastUpdated
             ? availability.createdAt
