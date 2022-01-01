@@ -8,7 +8,89 @@ import { useTranslation } from "react-i18next";
 import React from "react";
 
 export function VaccineInfo() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language?.substring(0, 2);
+  if (lang === "fr") {
+    // French
+    return (
+      <Layout>
+        <Layout.Section>
+          <DisplayText size="extraLarge">
+            Informations sur les vaccins
+          </DisplayText>
+          <DisplayText size="small">
+            Nous avons rassemblé ces ressources pour vous permettre
+            d&apos;obtenir plus d&apos;informations sur les vaccins.
+          </DisplayText>
+        </Layout.Section>
+        <Layout.Section>
+          <MediaCard
+            portrait
+            title="COVID-19 : Comment les vaccins sont créés"
+            primaryAction={{
+              content: "Apprendre plus",
+              url: "https://www.youtube.com/watch?v=vFmwE5emlmI",
+              external: true,
+            }}
+            description="Cette vidéo explique le processus de mise au point des vaccins et comment une collaboration active à l’échelle nationale et internationale permet d'accélérer considérablement la création d'un vaccin contre la COVID 19."
+          >
+            <VideoThumbnail
+              videoLength={204}
+              thumbnailUrl="https://img.youtube.com/vi/vFmwE5emlmI/0.jpg"
+              onClick={() => {
+                window.open("https://www.youtube.com/watch?v=vFmwE5emlmI");
+              }}
+            />
+          </MediaCard>
+          <MediaCard
+            portrait
+            title="À ton tour d'agir"
+            primaryAction={{
+              content: t("visitwebsite"),
+              url: "https://thisisourshot.ca/fr/",
+              external: true,
+            }}
+            description="Fournit un large éventail d'informations sur les vaccins, telles que des informations sur la santé et la sécurité, des informations avant, pendant et après votre vaccination et des assemblées publiques en direct animées par des experts."
+          >
+            <img
+              alt="Logo À ton tour d'agir"
+              width="100%"
+              height="100%"
+              style={{
+                objectFit: "cover",
+                objectPosition: "center",
+                backgroundColor: "black",
+              }}
+              src="https://thisisourshot.ca/wp-content/uploads/2021/06/ThisIsOurShot_TogetherAgain-Stacked-FR-1.png"
+            />
+          </MediaCard>
+          <MediaCard
+            portrait
+            title="COVID-19 Resources Canada"
+            primaryAction={{
+              content: t("visitwebsite"),
+              url: "https://covid19resources.ca/?lang=fr",
+              external: true,
+            }}
+            description="Séances virtuelles de questions-réponses et ateliers pour répondre à vos questions sur
+            les vaccins contre le COVID-19."
+          >
+            <img
+              alt="Logo COVID19 Resource Canada"
+              width="100%"
+              height="100%"
+              style={{
+                objectFit: "cover",
+                objectPosition: "center",
+              }}
+              src="https://scienceupfirst.com/wp-content/uploads/2021/06/1_COVIDResourcesLogo.png"
+            />
+          </MediaCard>
+        </Layout.Section>
+      </Layout>
+    );
+  }
+  // English or unknown language
   return (
     <Layout>
       <Layout.Section>
@@ -104,7 +186,7 @@ export function VaccineInfo() {
         </MediaCard>
         <MediaCard
           portrait
-          title="COVID-19 Resource Canada"
+          title="COVID-19 Resources Canada"
           primaryAction={{
             content: t("visitwebsite"),
             url: "https://covid19resources.ca/",
