@@ -4,6 +4,6 @@
         "exclude": ["/*.{png,jpg,gif,ico}", "/static/*"]
     },
     "globalHeaders": {
-        "content-security-policy": "img-src 'self' 'unsafe-inline' data: https:; script-src *.twimg.com *.twitter.com *.google-analytics.com 'self' 'unsafe-inline'; style-src *.twimg.com *.twitter.com 'self' 'unsafe-inline'; default-src *.twitter.com 'self'; connect-src discord.ca api.vaccinehunters.ca vax-availability-api-staging.azurewebsites.net 'self';"
+        "content-security-policy": "img-src 'self' 'unsafe-inline' data: https:; script-src *.twimg.com *.twitter.com *.google-analytics.com *.google.com 'self' 'unsafe-inline'; style-src *.twimg.com *.twitter.com 'self' 'unsafe-inline'; default-src *.twitter.com 'self'; connect-src discord.ca api.vaccinehunters.ca vax-availability-api-staging.azurewebsites.net *.google.com 'self';"
     }
 }
